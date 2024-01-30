@@ -1,6 +1,7 @@
-# HLAtools
+# HLAtools: Functions and Datasets for Enhanced Human Leukocyte Antigen Informatics
+=========
+# Version 0.0.0
 
-The HLAtools R Package: Functions and Datasets for Enhanced Human Leukocyte Antigen Informatics
 
 The Human Leukocyte Antigen (HLA) region is the most polymorphic section of the human genome, with almost 37,000 allelic variants identified across 46 loci. The key roles played by the class I and class II HLA genes in stem-cell therapy and transplantation, HLA and disease association research, evolutionary biology, and population genetics results in constant discovery of new allele variants. These data are curated and maintained by the IPD-IMGT/HLA Database, and made available on the ANHIG/IMGTHLA GitHub repository as static text files, which are updated every three months. Standardized use of the data in this key resource can be challenging. To address this, we have developed HLAtools, an R package that automates the consumption of IMGT-IMGT/HLA resources, and renders them computable.   
 
