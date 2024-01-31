@@ -1,0 +1,40 @@
+## v1.0.0 6 November 2023
+
+####################
+##checkgDNAStart
+#'Identify HLA gDNA alignments for which the first feature boundary is not identified as position +1.
+#'
+#'Checks the position of the first feature boundary (the 5' UTR - Exon 1 boundary in expressed genes) in each gDNA alignment, and identifies those alignments in which that position is not 1.
+#'
+#'This function reviews the gDNA atlases in the HLAatlas object and returns a data frame of the first feature boundary position for each locus. For expressed genes and some pseudogenes, this is the position of the start of Exon 1.
+#'
+#'@return A one-row data frame with one column for each locus with a gDNA alignment.
+#'
+#'@param verbose A logical indicating if loci with first feature boundary positions that are not 1 should be reported in the console (verbose = TRUE).
+#'
+#'@examples gDNAStartPositions <- checkgDNAstart()
+#'
+#'@export
+#'
+#'@note For internal HLAtools use.
+#'
+checkgDNAstart <- function(verbose=TRUE){
+
+  gLen <- length(HLAtools.data::HLAatlas$gen)
+  findings <- matrix(rep(1,gLen),ncol=gLen)
+  colnames(findings) <- names(HLAtools.data::HLAatlas$gen)
+
+tic <- 0
+for (i in 1:gLen){
+
+  if(HLAtools.data::HLAatlas$gen[[i]][1,1] != 1) {
+
+   if(verbose) {cat(paste("The protein start position for the ",names(HLAtools.data::HLAatlas$gen)[i]," locus is ",HLAtools.data::HLAatlas$gen[[i]][1,1],".","\n",sep=""))}
+    findings[i] <- as.numeric(HLAtools.data::HLAatlas$gen[[i]][1,1])
+  tic <- tic + 1
+  }
+
+  if(tic != 0 && verbose) {paste("All loci start with position 1.")}
+  }
+as.data.frame(findings)
+}
