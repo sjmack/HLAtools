@@ -1,6 +1,0 @@
-<<<<<<< HEAD
-This is a test.
-=======
-This is a test.2
-Something is wrong.
->>>>>>> 392e62d076f03ab63e8c85d0e9694811c484b6b2
