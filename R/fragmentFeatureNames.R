@@ -1,4 +1,4 @@
-##Fragment Feature Names v3.5 January 25, 2024
+##Fragment Feature Names v3.6 January 21, 2024
 
 ################
 ##FragmentFeatureNames (ffN)
@@ -33,6 +33,10 @@
 #'@note Features and their annotations have been identified manually, and this function is for internal HLAtools use.
 
 ffN <- function(version){ #Fragment Feature Names
+  
+  if(version != "Latest"){ #
+    if(!validateVersion(version)){stop(paste(version," is not a valid IPD-IMGT/HLA Database release version."))}
+  }else{ version <- getLatestVersion()}
 
   if(paste("X",gsub("\\.","",as.character(version)),sep="") %in% colnames(alleleListHistory$AlleleListHistory)) {
 
