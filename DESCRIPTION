@@ -3,7 +3,7 @@ Type: Package
 Title: The Open-Source Informatic Ttoolkit for HLA Immunogenomic Research
 Version: 0.5.0.9000
 Authors@R: 
-    person("Livia", "Tran", , "livia.tran@ucsf.edu", role = c("aut"))
+    person("Livia", "Tran", , "livia.tran@ucsf.edu", role = c("aut","cre"))
     person("Ryan", "Nickens", , "rynickens@gmail.com", role = c("aut", "cre"))
     person("Leamon", "Crooms", , "lcroomsiv@arizona.edu", role = c("aut"))
     person("Derek", "Pappas", , "djpappas75@gmail.com", role = "aut"
