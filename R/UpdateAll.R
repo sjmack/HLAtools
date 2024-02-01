@@ -23,9 +23,10 @@ updateAll <-function(version = getLatestVersion()){
 
 IMGTHLAGeneTypes <- buildIMGTHLAGeneTypes() # this function takes no version argument.
 HLAgazeteer <- buildGazeteer(version)
+alleleListHistory <- updateAlleleListHistory()
+fragmentFeatureNames <- ffN(version)
 HLAatlas <- atlasFull(version)
 HLAalignments <- alignmentFull(version)
-alleleListHistory <- updateAlleleListHistory(version)
-fragmentFeatureNames <- ffN(version)
+
 
 }
