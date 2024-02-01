@@ -1,10 +1,10 @@
-### Alignment Full v1.1.0 22 January 2024
+### Alignment Full v1.2.0 1 February 2024
 
 ################
 ##alignmentFull
 #'Build a complete set protein, coding nucleotide and genomic nucleotide alignments for all IPD-IMGT/HLA Loci.
 #'
-#'Applies BAAND() to build a set of alignments for all loci supported in the ANHIG/IMGTHLA GitHub repository.
+#'Applies buildAlignments() to build a set of alignments for all loci supported in the ANHIG/IMGTHLA GitHub repository.
 #'
 #'@param version The version of the ANHIG/IMGTHLA Github repository to build alignments from. The default value, "Latest", generates alignments for the most recent IPD-IMGT/HLA Database release.
 #'
@@ -36,13 +36,13 @@ alignmentFull <- function(version = "Latest") {
 
   #filling nested lists with alignments
   for(i in 1:length(NL1)){
-    cList[i] <- BAAND(as.character(NL1[i]), "cDNA", version = version)[[1]][1]
+    cList[i] <- buildAlignments(as.character(NL1[i]), "cDNA", version = version)[[1]][1]
   }
   for(i in 1:length(NL2)){
-    gList[i] <- BAAND(as.character(NL2[i]), "gDNA", version = version)[[1]][1]
+    gList[i] <- buildAlignments(as.character(NL2[i]), "gDNA", version = version)[[1]][1]
   }
   for(i in 1:length(NL3)){
-    protList[i] <- BAAND(as.character(NL3[i]), "AA", version = version)[[1]][1]
+    protList[i] <- buildAlignments(as.character(NL3[i]), "AA", version = version)[[1]][1]
   }
   #naming inside of nested lists
   names(cList) <- NL1
@@ -54,7 +54,6 @@ alignmentFull <- function(version = "Latest") {
                  secondList <- cList,
                  thirdlist <- gList,
                  versionString <- version)
-               # versionString <- ifelse(version == "Latest",getLatestVersion(),version))
 #naming nested lists
 
   names(AllAlignment) <- c("prot","nuc","gen","version")

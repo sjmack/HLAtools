@@ -1,4 +1,4 @@
-#BAAND v0.5.0 18JAN2024 - LT/SM
+#BuildAlignments v1.1.0 1FEB2024 - LT/SM
 
 #library(stringr)
 #library(BIGDAWG)
@@ -6,10 +6,10 @@
 #library(tibble)
 
 ################
-##BAAND
-#'BAAND - Build Amino Acid & Nucleotide Dataframes
+##BuildAlignments
+#'Build Amino Acid, cDNA and gDNA Alignments
 #'
-#'Returns a list of sublists of HLA alignments, and version information.
+#'Returns a list of data frames of amino-acid, cDNA and gDNA alignments, and version information.
 #'
 #'@param loci A vector of HLA gene names (ex. "DRB1", c("A","C")).
 #'@param source A vector of alignment types. The allowed values are "AA", "cDNA", and "gDNA". If 'source' is "AA", both amino acid and codon alignments are generated. If source is 'cDNA' or 'gDNA', a single cDNA or gDNA nucleotide alignment is generated. Up to four alignments will be returned for a locus, as determined by its ability to be transcribed or translated.
@@ -25,10 +25,15 @@
 #'@export
 #'
 #'@examples
-#'BAAND(loci = "DRB1", source = "AA")
-#'BAAND(loci = "DRB1", source = c("AA", "cDNA"))
+#'buildAlignments(loci = "DRB1", source = "AA")
+#'buildAlignments(loci = "DRB1", source = c("AA", "cDNA"))
 #'
-BAAND<-function(loci, source, version = "Latest"){
+buildAlignments<-function(loci, source, version = "Latest"){
+  
+  if(version != "Latest"){ #
+    if(!validateVersion(version)){stop(paste(version," is not a valid IPD-IMGT/HLA Database release version."))}
+  }else{ version <- getLatestVersion()}
+  
   #checks if input locus is present in version 3.38.0 HLA loci
   #skip name checks for DRB1/3/4/5, as they are a part of the DRB alignment
   for(j in 1:length(loci)){
