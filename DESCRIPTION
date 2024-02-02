@@ -5,9 +5,10 @@ Version: 0.5.0.9000
 Authors@R: 
     person("Livia", "Tran", , "livia.tran@ucsf.edu", role = c("aut","cre"))
     person("Ryan", "Nickens", , "rynickens@gmail.com", role = c("aut", "cre"))
-    person("Leamon", "Crooms", , "lcroomsiv@arizona.edu", role = c("aut"))
-    person("Derek", "Pappas", , "djpappas75@gmail.com", role = "aut"
-    person("Josh", "Bredeweg", , role = c("ctb"))
+    person("Leamon", "Crooms", , "lcroomsiv@arizona.edu", role = "aut")
+    person("Derek", "Pappas", , "djpappas75@gmail.com", role = "aut")
+    person("Vinh", "Luu", , "vinhluu864@berkeley.edu", role = "ctb")
+    person("Josh", "Bredeweg", , role = "ctb")
     person("Steven", "Mack", , "Steven.Mack@ucsf.edu", role = c("aut", "cre"), 
            comment = c(ORCID = "0000-0001-9820-9547"))
 Maintainer: Dr. Steven Mack <Steven.Mack@ucsf.edu>
@@ -16,3 +17,6 @@ License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
+Depends: 
+    R (>= 2.10)
+LazyData: true

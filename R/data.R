@@ -8,7 +8,11 @@
 #' @docType data
 #' @name alleleListHistory
 #' @usage data(alleleListHistory)
-#' @format A large list of 2 elements that identifyi the table of allele names for each IPD-IMGT/HLA reference Database release and the source release
+#' @format A large list of 2 elements that identify the table of allele names for each IPD-IMGT/HLA reference Database release and the source release
+#' \itemize(
+#'    \item(Version: the Date and IPD-IMGT HLA Release version under which the alleleListHistory object was made)
+#'    \item(AlleleListHistory: a dataframe version of the alleleListHistory.txt file)
+#' )
 #' @source https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/Allelelist_history.txt
 "alleleListHistory"
 
@@ -20,7 +24,7 @@
 #' @docType data
 #' @name fragmentFeatureNames
 #' @usage data(fragmentFeatureNames)
-#' @format A list of 15 elements that identify gene features for each locus and annotate non-standard features
+#' @format A list of 15 elements that identify the gene features for each locus wih a genomic alignment and annotate non-standard features
 #' @source https://hla.alleles.org/genes/index.html
 #' @source https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments
 "fragmentFeatureNames"
@@ -56,14 +60,14 @@
 ##HLAgazeteer
 #'Identifies HLA loci that have amino acid, cDNA, or gDNA alignments.
 #'
-#'A list object of vectors that identify loci with amino acid (HLAgazeteer$prot), cDNA (HLAgazeteer$nuc), and gDNA alignments (HLAgazeteer$gen), as well as pseudogenes (HLAgazeteer$pseudo), and gene fragments (HLAgazeteer$frag).
+#'A list object of vectors that identify loci with amino acid (HLAgazeteer$prot), cDNA (HLAgazeteer$nuc), gDNA alignments (HLAgazeteer$gen), pseudogenes (HLAgazeteer$pseudo), gene fragments (HLAgazeteer$frag), as well as pseudogenes and gene fragments for which no cDNA ($noNuc) and gDNA ($noGen) alignments are available).
 #'This object is built by the buildGazeteer() function in the HLAtools package.
 #'
 #' @note Pseudogenes and gene fragments derived from the IMGTHLAGeneTypes object.
 #' @docType data
 #' @name HLAgazeteer
 #' @usage data(HLAgazeteer)
-#' @format A list object containing 5 vectors
+#' @format A list object containing 9 character vectors
 #' @source https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments
 #' @source HLAtools::IMGTHLAGeneTypes
 "HLAgazeteer"

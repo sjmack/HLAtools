@@ -1,4 +1,4 @@
-#updateAlleleListHistory v1.0.0 JAN252024
+#updateAlleleListHistory v1.2.0 2FEB2024
 
 ################
 ##updateAlleleListHistory
@@ -6,7 +6,7 @@
 #'
 #'Consumes the ANHIG/IMGTHLA GitHub repository's allelelisthistory.txt file to create the AlleleListHistory object.
 #'
-#'@return A list object containing two data frames. AlleleListHistory$Version identifies the date and version of AlleleListHistory$AlleleListHistory. AlleleListHistory$AlleleListHistory relates each IPD-IMGT/HLA Database Accession ID (HLA_ID) to the corresponding HLA allele name in each release version since 1.05.0.
+#'@return A list object containing two data frames. alleleListHistory$Version identifies the date and version of alleleListHistory$AlleleListHistory. alleleListHistory$AlleleListHistory relates each IPD-IMGT/HLA Database Accession ID (HLA_ID) to the corresponding HLA allele name in each release version since 1.05.0.
 #'
 #'@importFrom utils read.table
 #'
