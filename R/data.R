@@ -9,10 +9,10 @@
 #' @name alleleListHistory
 #' @usage data(alleleListHistory)
 #' @format A large list of 2 elements that identify the table of allele names for each IPD-IMGT/HLA reference Database release and the source release
-#' \itemize(
+#' \itemize{
 #'    \item(Version: the Date and IPD-IMGT HLA Release version under which the alleleListHistory object was made)
 #'    \item(AlleleListHistory: a dataframe version of the alleleListHistory.txt file)
-#' )
+#' }
 #' @source https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/Allelelist_history.txt
 "alleleListHistory"
 
