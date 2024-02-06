@@ -1,4 +1,4 @@
-##AminoAcidSequenceSearch v1.0.0 5FEB24
+##AminoAcidSequenceSearch v1.1.0 6FEB24
 
 ##########
 ##AAalign
@@ -155,20 +155,20 @@ AAsearch <- function(allelename,positions,prefix=TRUE,sep="~"){
   allele <- substr(allelename,split+1,nchar(allelename))
 
   # assess allelename validity
-  if(!locus %in% names(HLAtools.data::HLAalignments$protAlignments) || length(split) != 1) {stop(allelename," is not a valid HLA allele name.")}
+  if(!locus %in% names(HLAtools.data::HLAalignments$prot) || length(split) != 1) {stop(allelename," is not a valid HLA allele name.")}
 
   # exclude aa positions that do not exist for a locus
-  checkpos <- positions[positions %in% colnames(HLAtools.data::HLAalignments$protAlignments[[locus]]) == TRUE]
+  checkpos <- positions[positions %in% colnames(HLAtools.data::HLAalignments$prot[[locus]]) == TRUE]
   posdiff <- length(positions)-length(checkpos)
   if(posdiff != 0) {message("There ", ifelse(posdiff==1,"is ","are "), xfun::numbers_to_words(posdiff), " listed position",ifelse(posdiff==1,"","s")," (",paste(positions[!positions %in% checkpos],collapse=","), ") ", ifelse(posdiff==1,"that does","that do")," not exist at the ", locus, " locus.",sep="")}
   if(length(checkpos) == 0) {return(message("There are no valid positions."))}
   positions <- unique(checkpos)
 
   # assess existence of allele names; check two-field column for 2-field truncates
-  if(!allele %in% HLAtools.data::HLAalignments$protAlignments[[locus]]$allele) {
+  if(!allele %in% HLAtools.data::HLAalignments$prot[[locus]]$allele) {
     message(allelename," is not a known full-length allele name.")
     if(sum(charToRaw(allelename) == charToRaw(":")) == 1) {message("Checking 2-field allele names.")
-      if(allelename %in% HLAtools.data::HLAalignments$protAlignments[[locus]]$trimmed_allele) {
+      if(allelename %in% HLAtools.data::HLAalignments$prot[[locus]]$trimmed_allele) {
         trimmed <- TRUE
       } else {message(allelename," is not a known 2-field allele name.")
         return(cat(""))}
@@ -176,8 +176,8 @@ AAsearch <- function(allelename,positions,prefix=TRUE,sep="~"){
   }
 
   # numeric sort of aa positions
-  if(any(posSort(positions,locus) != positions)) {
-    positions <- posSort(positions,locus)
+  if(any(posSort(positions,"prot",locus) != positions)) {
+    positions <- posSort(positions,"prot", locus)
     message("Sorting positions to reflect sequence order.",if(prefix==FALSE){" Setting 'prefix=TRUE' for clarity."})
     prefix=TRUE
     positions <- as.numeric(positions)
@@ -213,10 +213,10 @@ singleAAsearch <- function(locus, allele, position, prefix=TRUE,trimmed=FALSE){
   if(trimmed == TRUE && numFields(allele) > 2) {return(warning("Two-field allele names are required when 'searchfield = trimmed_allele'."))}
   ## End -- SJM
   if(trimmed == TRUE) {
-    aa_seq <- HLAtools.data::HLAalignments$protAlignments[[locus]][HLAtools.data::HLAalignments$protAlignments[[locus]]$trimmed_allele %in% paste(locus,allele,sep="*"),colnames(HLAtools.data::HLAalignments$protAlignments[[locus]]) %in% as.character(position)][1]
+    aa_seq <- HLAtools.data::HLAalignments$prot[[locus]][HLAtools.data::HLAalignments$prot[[locus]]$trimmed_allele %in% paste(locus,allele,sep="*"),colnames(HLAtools.data::HLAalignments$prot[[locus]]) %in% as.character(position)][1]
   }
   else {
-    aa_seq <- HLAtools.data::HLAalignments$protAlignments[[locus]][HLAtools.data::HLAalignments$protAlignments[[locus]]$allele_name %in% paste(locus,allele,sep="*"),colnames(HLAtools.data::HLAalignments$protAlignments[[locus]]) %in% as.character(position)]
+    aa_seq <- HLAtools.data::HLAalignments$prot[[locus]][HLAtools.data::HLAalignments$prot[[locus]]$allele_name %in% paste(locus,allele,sep="*"),colnames(HLAtools.data::HLAalignments$prot[[locus]]) %in% as.character(position)]
     ## Catching 'character(0)' results -- SJM
     if(identical(aa_seq, character(0))) {return(warning(paste("No value was found for ", allele,". This may not be a full allele name. Please redo your search using trimmed=TRUE.",sep="")))}
     ## End -- SJM
@@ -257,8 +257,8 @@ multipleAAsearch <- function(locus, allele, positions, prefix=TRUE,sep="~", trim
   motif <- ""
 
   if(trimmed==TRUE) {
-    fullname <- HLAtools.data::HLAalignments$protAlignments[[locus]][HLAtools.data::HLAalignments$protAlignments[[locus]]$trimmed_allele %in% paste(locus,allele,sep="*"),4][1]
-    message("Returning sequence for ",fullname,", the first of ", nrow(HLAtools.data::HLAalignments$protAlignments[[locus]][HLAtools.data::HLAalignments$protAlignments[[locus]]$trimmed_allele %in% paste(locus,allele,sep="*"),])," ",paste(locus,allele,sep="*")," alleles.",sep="")
+    fullname <- HLAtools.data::HLAalignments$prot[[locus]][HLAtools.data::HLAalignments$prot[[locus]]$trimmed_allele %in% paste(locus,allele,sep="*"),4][1]
+    message("Returning sequence for ",fullname,", the first of ", nrow(HLAtools.data::HLAalignments$prot[[locus]][HLAtools.data::HLAalignments$prot[[locus]]$trimmed_allele %in% paste(locus,allele,sep="*"),])," ",paste(locus,allele,sep="*")," alleles.",sep="")
   }
 
   for(i in 1:length(positions)) {

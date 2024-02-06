@@ -1,4 +1,4 @@
-##gDNASequenceSearch v1.0.0 5FEB24
+##gDNASequenceSearch v1.1.0 6FEB24
 
 ################
 ##gDNAsearch
@@ -37,13 +37,13 @@ gDNAsearch <- function(allelename,positions,prefix=TRUE,sep="~"){
   allele <- substr(allelename,split+1,nchar(allelename))
 
   # assess allelename validity(makes sure allele is named in data source)
-  if(!locus %in% names(HLAtools.data::HLAalignments$gDNAAlignments) || length(split) != 1) {
+  if(!locus %in% names(HLAtools.data::HLAalignments$gen) || length(split) != 1) {
     #if it is not, return message
     stop(allelename," is not a valid HLA allele name.")
   }
 
   # exclude aa positions that do not exist for a locus
-  checkpos <- positions[positions %in% colnames(HLAtools.data::HLAalignments$gDNAAlignments[[locus]]) == TRUE]
+  checkpos <- positions[positions %in% colnames(HLAtools.data::HLAalignments$gen[[locus]]) == TRUE]
   posdiff <- length(positions)-length(checkpos)
   #if there is a difference between input positions and checked positions, do this
   if(posdiff != 0) {
@@ -56,10 +56,10 @@ gDNAsearch <- function(allelename,positions,prefix=TRUE,sep="~"){
   positions <- unique(checkpos)
 
   # assess existence of allele names; check two-field column for 2-field truncates
-  if(!allele %in% HLAtools.data::HLAalignments$gDNAAlignments[[locus]]$allele) {
+  if(!allele %in% HLAtools.data::HLAalignments$gen[[locus]]$allele) {
     message(allelename," is not a known full-length allele name.")
     if(sum(charToRaw(allelename) == charToRaw(":")) == 1) {message("Checking 2-field allele names.")
-      if(allelename %in% HLAtools.data::HLAalignments$gDNAAlignments[[locus]]$trimmed_allele) {
+      if(allelename %in% HLAtools.data::HLAalignments$gen[[locus]]$trimmed_allele) {
         trimmed <- TRUE
       }
       else {message(allelename," is not a known 2-field allele name.")
@@ -72,8 +72,8 @@ gDNAsearch <- function(allelename,positions,prefix=TRUE,sep="~"){
   }
 
   # numeric sort of nucleotide positions
-  if(any(posSort(positions,locus) != positions)) {
-    positions <- posSort(positions,locus)
+  if(any(posSort(positions,"gen",locus) != positions)) {
+    positions <- posSort(positions,"gen",locus)
     message("Sorting positions to reflect sequence order.",if(prefix==FALSE){" Setting 'prefix=TRUE' for clarity."})
     prefix=TRUE
     positions <- as.numeric(positions)
@@ -87,7 +87,7 @@ gDNAsearch <- function(allelename,positions,prefix=TRUE,sep="~"){
 #'
 #'Generates a character string of the genomic (gDNA) nucleotide sequence at the specified position for the specified HLA allele name.
 #'
-#'@param locus An HLA locus in the HLAalignments$gDNAalignments object in the HLAtools.data package.
+#'@param locus An HLA locus in the HLAalignments$gen object in the HLAtools.data package.
 #'@param allele The name of an allele at 'locus'.
 #'@param position A numeric value identifying a single nucleotide position. If more than one position is specified, results will be generated for the first position.
 #'@param prefix A logical that indicates if the position number should be included in the result.
@@ -114,7 +114,7 @@ unigDNAsearch <- function(locus, allele, position, prefix=TRUE,trimmed=FALSE){
   #if input says search trimmed allele...
   #finding 1 nucleotide at specified position
   if(trimmed == TRUE) {
-    gDNA_seq <- HLAtools.data::HLAalignments$gDNAAlignments[[locus]][HLAtools.data::HLAalignments$gDNAAlignments[[locus]]$trimmed_allele %in% paste(locus,allele,sep="*"),colnames(HLAtools.data::HLAalignments$gDNAAlignments[[locus]]) %in% as.character(position)]
+    gDNA_seq <- HLAtools.data::HLAalignments$gen[[locus]][HLAtools.data::HLAalignments$gen[[locus]]$trimmed_allele %in% paste(locus,allele,sep="*"),colnames(HLAtools.data::HLAalignments$gen[[locus]]) %in% as.character(position)]
   ## trimmed_allele result validations -- SJM
     gDNA_seq <- unique(gDNA_seq)
     if(length(gDNA_seq) > 1) {return(warning(paste("There are ",length(gDNA_seq)," nucleotide variants for position ", position, " for the two-field allele name ", paste(locus,allele,sep="*"),". Please redo this search using 'trimmed=FALSE'.", sep="")))}
@@ -124,7 +124,7 @@ unigDNAsearch <- function(locus, allele, position, prefix=TRUE,trimmed=FALSE){
     numsec <- paste0(position, sec) #if input says allele_name...  #finding 1 nucleotide at specified position
     }
     else {
-    gDNA_seq <- HLAtools.data::HLAalignments$gDNAAlignments[[locus]][HLAtools.data::HLAalignments$gDNAAlignments[[locus]]$allele_name %in% paste(locus,allele,sep="*"),colnames(HLAtools.data::HLAalignments$gDNAAlignments[[locus]]) %in% as.character(position)]
+    gDNA_seq <- HLAtools.data::HLAalignments$gen[[locus]][HLAtools.data::HLAalignments$gen[[locus]]$allele_name %in% paste(locus,allele,sep="*"),colnames(HLAtools.data::HLAalignments$gen[[locus]]) %in% as.character(position)]
    ## Catching 'character(0)' results -- SJM
     if(identical(gDNA_seq, character(0))) {return(warning(paste("No value was found for ", allele,". This may not be a full allele name. Please redo your search using 'trimmed=TRUE'.",sep="")))}
           ## End -- SJM
@@ -141,7 +141,7 @@ unigDNAsearch <- function(locus, allele, position, prefix=TRUE,trimmed=FALSE){
 #'
 #'Generates a character string of genomic (gDNA) nucleotide sequences at the specified positions for the specified HLA allele name.
 #'
-#'@param locus An HLA locus in the HLAalignments$gDNAalignments object in the HLAtools.data package.
+#'@param locus An HLA locus in the HLAalignments$gen object in the HLAtools.data package.
 #'@param allele The name of an allele at 'locus'.
 #'@param positions A set of consecutive (e.g., 1:10) or non consecutive (e.g., c(1,3,34,344)) nucleotide positions in the 'locus' alignment.
 #'@param prefix A logical that indicates if the position number(s) should be included in the result.
@@ -167,9 +167,9 @@ multigDNAsearch <- function(locus, allele, positions, prefix=TRUE,sep="~",trimme
     motif <- paste(motif,unigDNAsearch(locus,allele,positions[i],prefix,trimmed=trimmed),sep=sep)
   }
   if(trimmed == TRUE) {
-    fullname <- HLAtools.data::HLAalignments$gDNAAlignments[[locus]][HLAtools.data::HLAalignments$gDNAAlignments[[locus]]$trimmed_allele %in% paste(locus,allele,sep="*"),4][1]
+    fullname <- HLAtools.data::HLAalignments$gen[[locus]][HLAtools.data::HLAalignments$gen[[locus]]$trimmed_allele %in% paste(locus,allele,sep="*"),4][1]
    # print(fullname) # SJM I Turned This Off
-    message("Returning sequence for ",fullname,", the first of ", nrow(HLAtools.data::HLAalignments$gDNAAlignments[[locus]][HLAtools.data::HLAalignments$gDNAAlignments[[locus]]$trimmed_allele %in% paste(locus,allele,sep="*"),])," ",paste(locus,allele,sep="*")," alleles.",sep="")}
+    message("Returning sequence for ",fullname,", the first of ", nrow(HLAtools.data::HLAalignments$gen[[locus]][HLAtools.data::HLAalignments$gen[[locus]]$trimmed_allele %in% paste(locus,allele,sep="*"),])," ",paste(locus,allele,sep="*")," alleles.",sep="")}
   #separates letters w "~"
   substr(motif,nchar(sep)+1,nchar(motif))
 
@@ -317,3 +317,4 @@ multigDNAalign <- function(alleles,positions){
   }
   align
 }
+

@@ -1,4 +1,4 @@
-##cDNASequenceSearch v1.0.0 5FEBG23
+##cDNASequenceSearch v1.1.0 6FEBG23
 
 ################
 ##cDNAsearch
@@ -36,13 +36,13 @@ cDNAsearch <- function(allelename,positions,prefix=TRUE,sep="~"){
   allele <- substr(allelename,split+1,nchar(allelename))
 
   # assess allelename validity(makes sure allele is named in data source)
-  if(!locus %in% names(HLAtools.data::HLAalignments$cDNAAlignments) || length(split) != 1) {
+  if(!locus %in% names(HLAtools.data::HLAalignments$nuc) || length(split) != 1) {
     #if it is not, return message
     stop(allelename," is not a valid HLA allele name.")
   }
 
   # exclude aa positions that do not exist for a locus
-  checkpos <- positions[positions %in% colnames(HLAtools.data::HLAalignments$cDNAAlignments[[locus]]) == TRUE]
+  checkpos <- positions[positions %in% colnames(HLAtools.data::HLAalignments$nuc[[locus]]) == TRUE]
   posdiff <- length(positions)-length(checkpos)
   #if there is a difference between input positions and checked positions, do this
   if(posdiff != 0) {
@@ -55,10 +55,10 @@ cDNAsearch <- function(allelename,positions,prefix=TRUE,sep="~"){
   positions <- unique(checkpos)
 
   # assess existence of allele names; check two-field column for 2-field truncates
-  if(!allele %in% HLAtools.data::HLAalignments$cDNAAlignments[[locus]]$allele) {
+  if(!allele %in% HLAtools.data::HLAalignments$nuc[[locus]]$allele) {
     message(allelename," is not a known full-length allele name.")
     if(sum(charToRaw(allelename) == charToRaw(":")) == 1) {message("Checking 2-field allele names.")
-      if(allelename %in% HLAtools.data::HLAalignments$cDNAAlignments[[locus]]$trimmed_allele) {
+      if(allelename %in% HLAtools.data::HLAalignments$nuc[[locus]]$trimmed_allele) {
         trimmed <- TRUE
       }
       else {message(allelename," is not a known 2-field allele name.")
@@ -71,8 +71,8 @@ cDNAsearch <- function(allelename,positions,prefix=TRUE,sep="~"){
   }
 
   # numeric sort of nucleotide positions
-  if(any(posSort(positions,locus) != positions)) {
-    positions <- posSort(positions,locus)
+  if(any(posSort(positions,"nuc",locus) != positions)) {
+    positions <- posSort(positions,"nuc",locus)
     message("Sorting positions to reflect sequence order.",if(prefix==FALSE){" Setting 'prefix=TRUE' for clarity."})
     prefix=TRUE
     positions <- as.numeric(positions)
@@ -111,7 +111,7 @@ unicDNAsearch <- function(locus, allele, position, prefix=TRUE, trimmed=FALSE){
   #if input says trimmed=true...
   #finding 3 nucleotides at specified position
   if(trimmed == TRUE) {
-    cDNA_seq <- HLAtools.data::HLAalignments$cDNAAlignments[[locus]][HLAtools.data::HLAalignments$cDNAAlignments[[locus]]$trimmed_allele %in% paste(locus,allele,sep="*"),colnames(HLAtools.data::HLAalignments$cDNAAlignments[[locus]]) %in% as.character(position)]
+    cDNA_seq <- HLAtools.data::HLAalignments$nuc[[locus]][HLAtools.data::HLAalignments$nuc[[locus]]$trimmed_allele %in% paste(locus,allele,sep="*"),colnames(HLAtools.data::HLAalignments$nuc[[locus]]) %in% as.character(position)]
     for(i in 1:length(cDNA_seq)) {
       sec <- paste0(sec,cDNA_seq[[i]])
     }
@@ -123,7 +123,7 @@ unicDNAsearch <- function(locus, allele, position, prefix=TRUE, trimmed=FALSE){
   #if input says allele_name...
   #finding 3 nucleotides at specified position
   else {
-    cDNA_seq <- HLAtools.data::HLAalignments$cDNAAlignments[[locus]][HLAtools.data::HLAalignments$cDNAAlignments[[locus]]$allele_name %in% paste(locus,allele,sep="*"),colnames(HLAtools.data::HLAalignments$cDNAAlignments[[locus]]) %in% as.character(position)]
+    cDNA_seq <- HLAtools.data::HLAalignments$nuc[[locus]][HLAtools.data::HLAalignments$nuc[[locus]]$allele_name %in% paste(locus,allele,sep="*"),colnames(HLAtools.data::HLAalignments$nuc[[locus]]) %in% as.character(position)]
     #if no codon is found at the position
     if(nrow(cDNA_seq) == 0) {
       return(warning(paste("No value was found for ", allele,". This may not be a full allele name. Please redo your search using trimmed=TRUE.",sep="")))
@@ -164,10 +164,10 @@ multicDNAsearch <- function(locus, allele, positions, prefix=TRUE,sep="~",trimme
 
   motif <- ""
   if(trimmed == TRUE) {
-    fullname <- HLAtools.data::HLAalignments$cDNAAlignments[[locus]][HLAtools.data::HLAalignments$cDNAAlignments[[locus]]$trimmed_allele %in% paste(locus,allele,sep="*"),4][1]
+    fullname <- HLAtools.data::HLAalignments$nuc[[locus]][HLAtools.data::HLAalignments$nuc[[locus]]$trimmed_allele %in% paste(locus,allele,sep="*"),4][1]
     #print(fullname)
-    message("Returning sequence for ",fullname,", the first of ", nrow(HLAtools.data::HLAalignments$cDNAAlignments[[locus]][HLAtools.data::HLAalignments$cDNAAlignments[[locus]]$trimmed_allele %in% paste(locus,allele,sep="*"),])," ",paste(locus,allele,sep="*")," alleles.",sep="")
-    #x <- nrow(HLAtools.data::HLAalignments$cDNAAlignments[[locus]][HLAtools.data::HLAalignments$cDNAAlignments[[locus]]$trimmed_allele %in% paste(locus,allele,sep="*"),])
+    message("Returning sequence for ",fullname,", the first of ", nrow(HLAtools.data::HLAalignments$nuc[[locus]][HLAtools.data::HLAalignments$nuc[[locus]]$trimmed_allele %in% paste(locus,allele,sep="*"),])," ",paste(locus,allele,sep="*")," alleles.",sep="")
+    #x <- nrow(HLAtools.data::HLAalignments$nuc[[locus]][HLAtools.data::HLAalignments$nuc[[locus]]$trimmed_allele %in% paste(locus,allele,sep="*"),])
     #if (x > 1) {
       #return(warning(paste("There are ", x, " ", paste(locus,allele,sep="*")," alleles, please redo this search using a full-length allele name", sep="")))
     #}
