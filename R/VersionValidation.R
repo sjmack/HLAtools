@@ -19,9 +19,9 @@
 #'@note
 #'For internal HLAtools use.
 checkVersion <- function(version){
-if(version == "Latest") { version <- getLatestVersion()}
+  if(version == "Latest") { version <- getLatestVersion()}
 
-paste("X",gsub(".","",version,fixed=TRUE),sep="") %in% colnames(HLAtools::alleleListHistory$AlleleListHistory)
+  paste("X",gsub(".","",version,fixed=TRUE),sep="") %in% colnames(HLAtools::alleleListHistory$AlleleListHistory)
 
 }
 

@@ -1,4 +1,4 @@
-## UpdateAll v01.1.0 31 January 2024
+## UpdateAll v01.1.1 5 February 2024
 
 ################
 ##updateAll
@@ -21,12 +21,11 @@ updateAll <-function(version = getLatestVersion()){
 
   #build new local objects
 
-IMGTHLAGeneTypes <- buildIMGTHLAGeneTypes() # this function takes no version argument.
-HLAgazeteer <- buildGazeteer(version)
-alleleListHistory <- updateAlleleListHistory()
-fragmentFeatureNames <- ffN(version)
-HLAatlas <- atlasFull(version)
-HLAalignments <- alignmentFull(version)
-
+  IMGTHLAGeneTypes <- buildIMGTHLAGeneTypes() # this function takes no version argument.
+  HLAgazeteer <- buildGazeteer(version)
+  alleleListHistory <- updateAlleleListHistory()
+  fragmentFeatureNames <- ffN(version)
+  HLAatlas <- atlasFull(version)
+  HLAalignments <- alignmentFull(version)
 
 }
