@@ -1,4 +1,4 @@
-##cDNASequenceSearch v0.1 21AUG23
+##cDNASequenceSearch v1.0.0 5FEBG23
 
 ################
 ##cDNAsearch
@@ -78,26 +78,6 @@ cDNAsearch <- function(allelename,positions,prefix=TRUE,sep="~"){
     positions <- as.numeric(positions)
   }
   return(multicDNAsearch(locus=locus,allele=allele,positions=positions,prefix=prefix,sep=sep,trimmed=trimmed))
-}
-
-################
-##numFields
-#'Identifies the number of fields in a colon-delimited HLA allele name.
-#'
-#'Returns the number of fields in a colon-delimited HLA allele name. A value of 1 is returned for digit-delimited HLA allele names.
-#'
-#'@param allele A colon-delimited HLA allele name.
-#'
-#'@return The number of fields in the allele name.
-#'
-#'@export
-#'
-#'@examples
-#'numFields("HLA-A*01:01")
-#'numFields("DRB1*04:03:01")
-#'numFields("13:02:01:01")
-numFields <- function(allele) {
-  length(strsplit(allele,":",fixed=TRUE)[[1]])
 }
 
 ################
@@ -341,25 +321,4 @@ multicDNAalign <- function(alleles,positions){
 
   }
   align
-}
-
-################
-##posSort
-#'Numerical sort for sequence alignment positions that contain indels.
-#'
-#'Sorts sequence alignment positions that contain indels in numerical order; e.g., three indels following position X are are identified as X.1, X.2 and X.3.
-#'
-#'@param posVec A vector of nucleotide positions.
-#'@param locus A locus in HLAalignments$cDNAAlignments.
-#'
-#'@return A correctly sorted sequence.
-#'
-#'@export
-#'
-#'@examples
-#'posSort(c(2,4,3,1,5), "DRB1")
-posSort <- function(posVec,locus){
-  tab <- as.data.frame(cbind(match(posVec,names(HLAtools.data::HLAalignments$cDNAAlignments[[locus]])),posVec))
-  tab <- tab[order(tab$V1),]
-  tab$posVec
 }

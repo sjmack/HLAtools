@@ -1,4 +1,4 @@
-##gDNASequenceSearch v0.1.1 18AUG23
+##gDNASequenceSearch v1.0.0 5FEB24
 
 ################
 ##gDNAsearch
@@ -316,45 +316,4 @@ multigDNAalign <- function(alleles,positions){
 
   }
   align
-}
-
-################
-##posSort
-#'Numerical sort for sequence alignment positions that contain indels.
-#'
-#'Sorts sequence alignment positions that contain indels in numerical order; e.g., three indels following position X are are identified as X.1, X.2 and X.3.
-#'
-#'@param posVec a vector of nucleotide positions
-#'@param locus a locus in HLAalignments$gDNAAlignments
-#'
-#'@return correctly sorted sequence
-#'
-#'@export
-#'
-#'@examples
-#'posSort(c(2,4,3,1,5), "DRB1")
-posSort <- function(posVec,locus){
-  tab <- as.data.frame(cbind(match(posVec,names(HLAtools.data::HLAalignments$gDNAAlignments[[locus]])),posVec))
-  tab <- tab[order(tab$V1),]
-  tab$posVec
-}
-
-################
-##numFields
-#'Identifies the number of fields in a colon-delimited HLA allele name.
-#'
-#'Returns the number of fields in a colon-delimited HLA allele name. A value of 1 is returned for digit-delimited HLA allele names.
-#'
-#'@param allele A colon-delimited HLA allele name.
-#'
-#'@return The number of fields in the allele name.
-#'
-#'@export
-#'
-#'@examples
-#'numFields("HLA-A*01:01")
-#'numFields("DRB1*04:03:01")
-#'numFields("13:02:01:01")
-numFields <- function(allele) {
-  length(strsplit(allele,":",fixed=TRUE)[[1]])
 }

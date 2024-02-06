@@ -1,4 +1,4 @@
-##AminoAcidSequenceSearch v0.5 21AUG23
+##AminoAcidSequenceSearch v1.0.0 5FEB24
 
 ##########
 ##AAalign
@@ -186,26 +186,6 @@ AAsearch <- function(allelename,positions,prefix=TRUE,sep="~"){
   return(multipleAAsearch(locus=locus,allele=allele,positions=positions,prefix=prefix,sep=sep,trimmed=trimmed))
 }
 
-################
-##numFields
-#'Identifies the number of fields in a colon-delimited HLA allele name.
-#'
-#'Returns the number of fields in a colon-delimited HLA allele name. A value of 1 is returned for digit-delimited HLA allele names.
-#'
-#'@param allele A colon-delimited HLA allele name.
-#'
-#'@return The number of fields in the allele name.
-#'
-#'@export
-#'
-#'@examples
-#'numFields("HLA-A*01:01")
-#'numFields("DRB1*04:03:01")
-#'numFields("13:02:01:01")
-numFields <- function(allele) {
-  length(strsplit(allele,":",fixed=TRUE)[[1]])
-}
-
 ###########
 ##singleAAsearch
 #'Search HLA amino acid sequences at single specified position for a specified HLA allele
@@ -290,24 +270,3 @@ multipleAAsearch <- function(locus, allele, positions, prefix=TRUE,sep="~", trim
   substr(motif,nchar(sep)+1,nchar(motif))
 }
 
-#########
-##posSort
-#'Correctly sorts a sequence alignment positions that contain indels.
-#'
-#'Correctly sorts a sequence alignment positions that contain indels identified as X.N, eg., Positions L, K, L, N, N.1, N.2 ... N.N, M, M, O, where N.1 - N.N are insertions between positions N and M.
-#'
-#'@param posVec a vector of amino acid positions.
-#'@param locus a locus in HLAalignments$protalignments.
-#'
-#'@return A correctly sorted sequence.
-#'
-#'@export
-#'
-#'@examples
-#'posSort(c(2,4,3,1,5), "DRB1")
-#'
-posSort <- function(posVec,locus){
-    tab <- as.data.frame(cbind(match(posVec,names(HLAtools.data::HLAalignments$protAlignments[[locus]])),posVec))
-    tab <- tab[order(tab$V1),]
-    tab$posVec
-}
