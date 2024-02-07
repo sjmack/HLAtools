@@ -1,4 +1,4 @@
-##Accessory Functions v1.0.0 5FEB24
+##Accessory Functions v2.0.0 5FEB24
 
 ################
 ##posSort v2.0
@@ -44,3 +44,36 @@ posSort <- function(posVec,alignType, locus){
 numFields <- function(allele) {
   length(strsplit(allele,":",fixed=TRUE)[[1]])
 }
+
+#################
+##validateAllele
+#'Determine if an allele name is properly formed and present in HLAtools.data::HLAalignments
+#'
+#'Returns TRUE if an allele name is found in HLAtools.data::HLAalignments in either the 'allele' column of full-length allele names or the 'trimmed_allele' column of two-field allele names. Returns FALSE if the allele name is not properly formed, or if the allele name is not found in HLAtools.data::HLAalignments.
+#'
+#'@param allele A colon-delimited HLA allele name.
+#'
+#'@return A logical identifying if the allele name is present in the alignments (TRUE) or, if it is not in the alignments or is not valid not (FALSE).
+#'
+#'@export
+#'
+#'@examples
+#'validateAllele("A*01:01:01:117")
+#'validateAllele("A*01:01:01")
+#'validateAllele("A*01:01")
+validateAllele <- function(allele,verbose=FALSE) {
+  if(length(strsplit(allele,"*",fixed=TRUE)[[1]]) != 2) {
+    message(paste("No asterisk ('*') is present in ",allele,".",sep=""))
+    return(FALSE)
+    }
+  if(length(strsplit(allele,":",fixed=TRUE)[[1]]) == 1) {
+    message(paste("No colon (':') is present in ",allele,".",sep=""))
+    return(FALSE)
+    }
+  a.split <- strsplit(allele,"*",fixed=TRUE)[[1]]
+  if(validateLocus(a.split[1],"gDNA")){
+      a.split[2] %in% HLAtools.data::HLAalignments$gen[[a.split[1]]]$allele || allele %in% HLAtools.data::HLAalignments$gen[[a.split[1]]]$trimmed_allele
+        } else {stop(message(a.split[1], " is not a valid locus.",sep=" "))}
+  
+}
+
