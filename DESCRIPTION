@@ -1,7 +1,7 @@
 Package: HLAtools
 Type: Package
 Title: The Open-Source Informatic Toolkit for HLA Immunogenomic Research
-Version: 0.6.2.9000
+Version: 0.7.1.9000
 Authors@R: 
     person("Livia", "Tran", , "livia.tran@ucsf.edu", role = c("aut","cre"))
     person("Ryan", "Nickens", , "rynickens@gmail.com", role = c("aut", "cre"))
@@ -13,10 +13,15 @@ Authors@R:
            comment = c(ORCID = "0000-0001-9820-9547"))
 Maintainer: Dr. Steven Mack <Steven.Mack@ucsf.edu>
 Description: A toolkit for the analysis and management of Human Leukocyte Antigen (HLA) gene data. Included functions perform extraction of reference data from the ANHIG/IMGTHLA GitHub repo, Genotype List (GL) String validation, conversions between UNIFORMAT and GL String Code (GLSC) formats, HLA allele and GLSC translation across IPT-IMGT/HLA Database release versions, customized, multi-position sequence searches of HLA nucleotide and peptide alignments, and allele-name trimming across nomenclature epochs. The associated HLAtools.data package includes alignments of amino acid, cDNA, and gDNA sequences for HLA genes..
-License: GPL (>= 3)
 Encoding: UTF-8
+License: GPL-3 LICENSE
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1.9000
+Imports:
+  DescTools, dplyr, stringr, tibble, HLAtools.data, utils, xfun
 Depends: 
     R (>= 2.10)
 LazyData: true
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

@@ -12,7 +12,9 @@
 #'
 #'
 #'@examples
+#'\dontrun{
 #' updateAll()
+#'}
 #'
 #'@note
 #'For internal HLAtools use.

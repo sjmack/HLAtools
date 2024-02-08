@@ -13,12 +13,14 @@
 #'@note Data informing the atlases were downloaded from the ANHIG/IMGTHLA Github repository.
 #'
 #'@examples
+#'\dontrun{
 #' HLAatlas <- atlasFull()
+#'}
 #'
 #'@note
 #'For internal HLAtools use.
 #'@export
-
+#'
 atlasFull <- function(version = "Latest") {
 
   if(version != "Latest"){ #

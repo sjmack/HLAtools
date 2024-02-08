@@ -8,7 +8,10 @@
 #'
 #'@return A data frame of three columns, identifying each gene supported by the IPD-IMGT/HLA Database, along with its molecular characteristics and its status as either a pseudogene or a gene fragment.
 #'
-#'@examples IMGTHLAGeneTypes <- buildIMGTHLAGeneTypes()
+#'@examples
+#'\dontrun{ 
+#'IMGTHLAGeneTypes <- buildIMGTHLAGeneTypes()
+#'}
 #'
 #'@export
 #'

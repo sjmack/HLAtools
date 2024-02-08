@@ -1,4 +1,4 @@
-#BuildAlignments v1.1.0 1FEB2024 - LT/SM
+#BuildAlignments v1.2.0 7FEB2024 - LT/SM
 
 #library(stringr)
 #library(BIGDAWG)
@@ -21,13 +21,15 @@
 #'@importFrom tibble add_column
 #'@importFrom dplyr filter %>%
 #'@importFrom utils head tail capture.output
+#'@importFrom HLAtools fragmentFeatureNames
 #'
 #'@export
 #'
 #'@examples
+#'\dontrun{
 #'buildAlignments(loci = "DRB1", source = "AA")
 #'buildAlignments(loci = "DRB1", source = c("AA", "cDNA"))
-#'
+#'}
 buildAlignments<-function(loci, source, version = "Latest"){
   
   if(version != "Latest"){ #

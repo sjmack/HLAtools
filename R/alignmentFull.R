@@ -12,7 +12,9 @@
 #'
 #'
 #'@examples
+#'\dontrun{
 #' HLAalignments <- alignmentFull()
+#'}
 #'
 #'@note
 #'For internal HLAtools use.

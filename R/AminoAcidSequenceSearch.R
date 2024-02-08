@@ -1,4 +1,4 @@
-##AminoAcidSequenceSearch v1.1.0 6FEB24
+##AminoAcidSequenceSearch v1.3.0 7FEB24
 
 ##########
 ##AAalign
@@ -14,9 +14,10 @@
 #'@export
 #'
 #'@examples
+#'\dontrun{
 #'AAalign(c("DRB1*01:01","DQB1*02:01","DPB1*01:01"),c(1,2,3,7,8,9,13,14,15))
 #'AAalign(c("DQA1*01:01","DQB1*05:01","DPB1*01:01","DPA1*01:03"),list(32:58,33:59,31:57,29:55))
-#'
+#'}
 AAalign <- function(alleles,positions){
   #print(alleles)
   #makes sure no duplicate alleles will be present in table
@@ -48,8 +49,9 @@ AAalign <- function(alleles,positions){
 #'@export
 #'
 #'@examples
+#'\dontrun{
 #'singleAAalign(c("DRB1*01:01","DQB1*02:01","DPB1*01:01"),c(32:58))
-#'
+#'}
 singleAAalign <- function(alleles,positions){
 
   #making an array with correct dimensions
@@ -92,8 +94,9 @@ singleAAalign <- function(alleles,positions){
 #'@export
 #'
 #'@examples
+#'\dontrun{
 #'multipleAAalign(c("DQA1*01:01","DQB1*05:01","DPB1*01:01"),list(32:58,33:59,31:57))
-#'
+#'}
 multipleAAalign <- function(alleles,positions){
   #initial parameter check
   if(length(alleles) != length(positions)) {return(warning("The number of sets of positions must exactly match the number of alleles, please adjust input accordingly."))}
@@ -136,12 +139,16 @@ multipleAAalign <- function(alleles,positions){
 #'
 #'@return A character string containing the corresponding amino acid sequence for each position in 'positions' for 'allelename'. An amino acid sequence is not returned if 'allelename' is not not found in the pertinent alignment. A position will be empty if 'allelename' does not have an amino acid at the specified position.
 #'
+#'@importFrom xfun numbers_to_words
+#'@importFrom HLAtools.data HLAalignments
+#'
 #'@export
 #'
 #'@examples
+#'\dontrun{
 #'AAsearch("DRB1*15:07:01",11:22)
 #'AAsearch("DRB1*15:07",11:22)
-#'
+#'}
 AAsearch <- function(allelename,positions,prefix=TRUE,sep="~"){
 
   trimmed <- FALSE
@@ -202,11 +209,14 @@ AAsearch <- function(allelename,positions,prefix=TRUE,sep="~"){
 #'
 #'@note For internal HLAtools use only.
 #'
+#'@importFrom HLAtools.data HLAalignments
+#'
 #'@export
 #'
 #'@examples
+#'\dontrun{
 #'singleAAsearch("DRB1", "15:07:01", 11)
-#'
+#'}
 singleAAsearch <- function(locus, allele, position, prefix=TRUE,trimmed=FALSE){
   ## Initial parameter validations -- SJM
   if(length(position) > 1) {position <- position[1]; warning("More than one position was specified. Results will be returned for position ",position," only.")}
@@ -241,11 +251,14 @@ singleAAsearch <- function(locus, allele, position, prefix=TRUE,trimmed=FALSE){
 #'
 #'@note For internal HLAtools use only.
 #'
+#'@importFrom HLAtools.data HLAalignments
+#'
 #'@export
 #'
 #'@examples
+#'\dontrun{
 #'multipleAAsearch("DRB1", "15:07:01", 11:22)
-#'
+#'}
 multipleAAsearch <- function(locus, allele, positions, prefix=TRUE,sep="~", trimmed=FALSE){
 
   ## Initial parameter validations -- SJM

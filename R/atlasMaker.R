@@ -1,4 +1,4 @@
-#atlasMaker v1.3.0 25 January 2024
+#atlasMaker v1.4.0 7 February 2024
 
 #library(stringr)
 #library(BIGDAWG)
@@ -33,13 +33,15 @@
 #'@importFrom dplyr filter
 #'@importFrom stringr str_replace str_squish
 #'@importFrom tibble add_column
-#'@importFrom utils capture.output head tail
+#'@importFrom utils capture.output head tail write.table
+#'@importFrom HLAtools fragmentFeatureNames
 #'
 #'@export
 #'
 #'@examples
+#'\dontrun{
 #'atlasMaker(loci = "DRB1", source = "AA")
-#'
+#'}
 atlasMaker<-function(loci, source, version = "Latest"){
 
   if(version != "Latest"){ #

@@ -1,4 +1,4 @@
-#buildGazeteer v01.1.0 25JAN2024
+#buildGazeteer v01.2.0 7FEB2024
 
 ##############
 ##buildGazeteer
@@ -12,16 +12,17 @@
 #'
 #'@importFrom stringr fixed
 #'@importFrom utils read.table
+#'@importFrom HLAtools IMGTHLAGeneTypes
 #'
 #'@note Pseudogenes and gene fragments are defined by the IPD-IMGT/HLA Database at https://hla.alleles.org/genes/index.html, and are described in the HLAtools::IMGTHLAGeneTypes data object.
 #'@note This function requires internet access to function.
 #'
 #'@examples
+#'\dontrun{
 #'HLAgazeteer <- buildGazeteer("3.34.0")
-#'
+#'}
 #'
 #'@export
-
 buildGazeteer <- function(version = getLatestVersion()) {
 
   URL <- "https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments"

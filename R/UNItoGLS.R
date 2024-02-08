@@ -1,4 +1,4 @@
-#UNItoGLS (uniformat to GL string) v0.1.1 11AUG23
+#UNItoGLS (uniformat to GL string) v1.0.0 7FEB2024
 
 #library(stringr)
 
@@ -103,7 +103,7 @@ multiUNItoGLS <- function(UniformatArray, prefix = "HLA-", pre = TRUE) {
 #'
 #'A function that translates strings from UNIFORMAT format to GL String format.
 #'
-#'@param UNIFORMAT A string of HLA allele names and operators in the UNIFORMAT format signifying their relation with one another.
+#'@param uniformat A string of HLA allele names and operators in the UNIFORMAT format signifying their relation with one another.
 #'@param prefix A string of the desired prefix (autoset to "HLA-"), this string should contain a "-" at the end.
 #'@param pre A logical that indicates whether user would like all allele names to contain the prefix of their choice (TRUE), or if the prefix should not be appended to allele names (FALSE).
 #'

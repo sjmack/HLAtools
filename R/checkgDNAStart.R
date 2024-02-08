@@ -1,4 +1,4 @@
-## v1.0.0 6 November 2023
+## v1.1.1 7 February 2024
 
 ####################
 ##checkgDNAStart
@@ -12,13 +12,18 @@
 #'
 #'@param verbose A logical indicating if loci with first feature boundary positions that are not 1 should be reported in the console (verbose = TRUE).
 #'
-#'@examples gDNAStartPositions <- checkgDNAstart()
+#'@examples
+#'\dontrun{
+#'gDNAStartPositions <- checkgDNAstart()
+#'}
+#'
+#'@importFrom HLAtools.data HLAatlas
 #'
 #'@export
 #'
 #'@note For internal HLAtools use.
 #'
-checkgDNAstart <- function(verbose=TRUE){
+checkgDNAstart <- function(verbose=FALSE){
 
   gLen <- length(HLAtools.data::HLAatlas$gen)
   findings <- matrix(rep(1,gLen),ncol=gLen)

@@ -1,4 +1,4 @@
-#GLupdater v0.3.1 23JAN24
+#GLupdater v0.4.0 7FEB24
 
 
 #library('dplyr')
@@ -20,6 +20,7 @@
 #'@export
 #'
 #'@examples
+#'\dontrun{
 #'updateGL("hla#3.36.0#HLA-B*15:35", "3.52.0")
 #'
 #'updateGL("hla#3.45.0#HLA-DPA1*02:01:01:05", "3.52.0")
@@ -29,6 +30,7 @@
 #'updateGL("hla#1.05.0#HLA-DPA1*0106", "3.52.0", expand = TRUE)
 #'updateGL("hla#1.05.0#HLA-DPA1*0106", "2.27.0", expand = TRUE)
 #'updateGL("hla#1.05.0#HLA-DPA1*0106", "3.52.0")
+#'}
 #'@references Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
 #'@references Mack et al. HLA 05 July 2023 https://doi.org/10.1111/tan.15145
 updateGL <- function(GLStringCode, Version, expand = FALSE) {
@@ -55,7 +57,9 @@ updateGL <- function(GLStringCode, Version, expand = FALSE) {
 #'@export
 #'
 #'@examples
-#'\dontrun{multiUpdateGL(GLSC.ex[[2]][1:5], Version = "3.53.0")}
+#'\dontrun{
+#'multiUpdateGL(GLSC.ex[[2]][1:5], Version = "3.53.0")
+#'}
 #'
 #'@references Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
 #'@references Mack et al. HLA 05 July 2023 https://doi.org/10.1111/tan.15145
@@ -100,11 +104,12 @@ multiUpdateGL <- function(GLstringArray, Version, expand = FALSE) {
 #'
 #'@note For internal use only.
 #'
-#'@importFrom stringr fixed str_replace_all
+#'@importFrom stringr fixed str_replace_all HLAtools
 #'
 #'@export
 #'
 #'@examples
+#'\dontrun{
 #'GLupdate("hla#3.1.0#HLA-A*02:01+HLA-A*01:01:01:01", Version = "3.53.0")
 #'GLupdate("hla#3.36.0#HLA-B*15:35", "3.52.0")
 #'
@@ -113,6 +118,7 @@ multiUpdateGL <- function(GLstringArray, Version, expand = FALSE) {
 #'
 #'GLupdate("hla#3.45.0#HLA-A*02:08", "3.52.0")
 #'GLupdate("hla#3.45.0#HLA-A*02:08", "3.52.0", expand = TRUE)
+#'}
 #'
 #'@references Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
 #'@references Mack et al. HLA 05 July 2023 https://doi.org/10.1111/tan.15145
@@ -291,8 +297,9 @@ GLupdate <- function(GLString, Version, expand = FALSE) {
 #'@note For internal use only.
 #'
 #'@examples
+#'\dontrun{
 #'GLV("hla#3.25.0#HLA-B15:35")
-#'
+#'}
 #'@references Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
 #'@references Mack et al. HLA 05 July 2023 https://doi.org/10.1111/tan.15145
 
@@ -336,9 +343,10 @@ GLV <- function(GLString) {
 #'@note For internal use only.
 #'
 #'@examples
+#'\dontrun{
 #'GLV2("3.34.0")
 #'GLV2("3.0.0")
-#'
+#'}
 #'@references Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
 #'@references Mack et al. HLA 05 July 2023 https://doi.org/10.1111/tan.15145
 
@@ -380,9 +388,10 @@ GLV2 <- function(Version) {
 #'@note For internal use only.
 #'
 #'@examples
-#'\dontrun{GLVhelper("2.25")}
-#'
-#'\dontrun{GLVhelper("3.9.0")}
+#'\dontrun{
+#'GLVhelper("2.25")
+#'GLVhelper("3.9.0")
+#'}
 #'
 #'@references Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
 #'@references Mack et al. HLA 05 July 2023 https://doi.org/10.1111/tan.15145

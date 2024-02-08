@@ -13,15 +13,17 @@
 #'@export
 #'
 #'@examples
+#'\dontrun{
 #'checkVersion(version = "3.25.0")
 #'checkVersion(version = "Latest")
+#'}
 #'
 #'@note
 #'For internal HLAtools use.
 checkVersion <- function(version){
   if(version == "Latest") { version <- getLatestVersion()}
 
-  paste("X",gsub(".","",version,fixed=TRUE),sep="") %in% colnames(HLAtools::alleleListHistory$AlleleListHistory)
+  paste("X",gsub(".","",version,fixed=TRUE),sep="") %in% colnames(alleleListHistory$AlleleListHistory)
 
 }
 
@@ -38,8 +40,10 @@ checkVersion <- function(version){
 #'@export
 #'
 #'@examples
+#'\dontrun{
 #'validateVersion(version = "3.31.1")
 #'validateVersion(version = "3.13.0")
+#'}
 #'
 #'@note
 #'For internal HLAtools use.
@@ -66,7 +70,9 @@ validateVersion <- function(version) {
 #'@export
 #'
 #'@examples
+#'\dontrun{
 #'getLatestVersion()
+#'}
 #'
 #'@note
 #'For internal HLAtools use.

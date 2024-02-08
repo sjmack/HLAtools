@@ -1,4 +1,4 @@
-##cDNASequenceSearch v1.1.0 6FEBG23
+##cDNASequenceSearch v1.2.0 7FEBG23
 
 ################
 ##cDNAsearch
@@ -13,12 +13,14 @@
 #'
 #'@return A character string containing the corresponding codon sequence for each position in 'positions' for 'allelename'. A codon sequence is not returned if 'allelename' is not not found in the pertinent alignment. A position will be empty if 'allelename' does not have a codon at the specified position.
 #'
+#'@importFrom xfun numbers_to_words
 #'@export
 #'
 #'@examples
+#'\dontrun{
 #'cDNAsearch("DRB1*15:07:01",11:22)
 #'cDNAsearch("DRB1*15:07",11:22)
-
+#'}
 cDNAsearch <- function(allelename,positions,prefix=TRUE,sep="~"){
 
   trimmed <- FALSE
@@ -99,9 +101,10 @@ cDNAsearch <- function(allelename,positions,prefix=TRUE,sep="~"){
 #'@export
 #'
 #'@examples
+#'\dontrun{
 #'unicDNAsearch("DRB1", "15:07", 57, trimmed=TRUE)
 #'unicDNAsearch("DRB1", "15:07:01", 57)
-
+#'}
 unicDNAsearch <- function(locus, allele, position, prefix=TRUE, trimmed=FALSE){
   sec <- ""
   ## Initial parameter validations -- SJM
@@ -157,8 +160,10 @@ unicDNAsearch <- function(locus, allele, position, prefix=TRUE, trimmed=FALSE){
 #'@export
 #'
 #'@examples
+#'\dontrun{
 #'multicDNAsearch("DRB1", "15:07",c(23:26), trimmed=TRUE)
 #'multicDNAsearch("DRB1", "15:07:01",c(23:26))
+#'}
 
 multicDNAsearch <- function(locus, allele, positions, prefix=TRUE,sep="~",trimmed=FALSE){
 
@@ -195,9 +200,10 @@ multicDNAsearch <- function(locus, allele, positions, prefix=TRUE,sep="~",trimme
 #'@export
 #'
 #'@examples
+#'\dontrun{
 #'cDNAalign(c("DRB1*01:01","DQB1*02:01","DPB1*01:01"),c(1,2,3,7,8,9,13,14,15))
 #'cDNAalign(c("DQA1*01:01:01:01","DQB1*05:01:01:01","DPB1*01:01:01:01"),list(32:58,33:59,31:57))
-
+#'}
 cDNAalign <- function(alleles,positions){
   #makes sure no duplicate alleles will be present in table
   alleles <- unique(alleles)
@@ -227,8 +233,9 @@ cDNAalign <- function(alleles,positions){
 #'@export
 #'
 #'@examples
+#'\dontrun{
 #'unicDNAalign("DQA1*01:01:01:01",c(32:58))
-
+#'}
 unicDNAalign <- function(alleles,positions){
 
   #making an array with correct dimensions
@@ -273,8 +280,9 @@ unicDNAalign <- function(alleles,positions){
 #'@export
 #'
 #'@examples
+#'\dontrun{
 #'multicDNAalign(c("DQA1*01:01:01:01", "DRB1*01:01:01:01"),list(32:58, 33:59))
-
+#'}
 multicDNAalign <- function(alleles,positions){
   #initial parameter check
   if(length(alleles) != length(positions)) {return(warning("The number of sets of positions must exactly match the number of alleles, please adjust input accordingly."))}

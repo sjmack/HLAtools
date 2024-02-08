@@ -1,4 +1,5 @@
-#This function was obtained from Reddit and written by Josh Bredeweg, user jbraids1421.
+### v1.0.1 7FEB2024
+#This function was obtained from Reddit and written by Josh Bredeweg, user jbraids1421. 
 
 ################
 ##countSpaces
@@ -17,7 +18,7 @@
 #'@source https://www.reddit.com/r/rstats/comments/2th8ic/function_to_count_the_number_of_white_spaces/
 #'
 #'@examples
-#'countSpaces("abc def"))
+#'countSpaces("abc def")
 #'
 countSpaces <- function(x){
   counter <- 0

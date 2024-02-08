@@ -1,4 +1,4 @@
-##gDNASequenceSearch v1.1.0 6FEB24
+##gDNASequenceSearch v1.2.0 7FEB24
 
 ################
 ##gDNAsearch
@@ -13,13 +13,18 @@
 #'
 #'@return A character string containing the corresponding nucleotide sequence for each position in 'positions' for 'allelename'. A nucleotide sequence is not returned if 'allelename' is not not found in the pertinent alignment. A position will be empty if 'allelename' does not have a nucleotide at the specified position.
 #'
+#'@importFrom xfun numbers_to_words
+#'@importFrom HLAtools.data HLAalignments
+#'
 #'@export
 #'
 #'@examples
+#'\dontrun{
 #'gDNAsearch("DRB1*15:07:01",11:22)
 #'gDNAsearch("DRB1*15:07:01",11:22,prefix = FALSE,sep="")
 #'gDNAsearch("DRB1*15:07",11:22)
 #'gDNAsearch("DRB1*15:07:01",c(321,321.1,322),prefix = FALSE,sep="")
+#'}
 gDNAsearch <- function(allelename,positions,prefix=TRUE,sep="~"){
 
   trimmed <- FALSE
@@ -97,11 +102,15 @@ gDNAsearch <- function(allelename,positions,prefix=TRUE,sep="~"){
 #'
 #'@note For internal HLAtools use only.
 #'
+#'@importFrom HLAtools.data HLAalignments
+#'
 #'@export
 #'
 #'@examples
+#'\dontrun{
 #'unigDNAsearch("DRB1", "15:07", 57, trimmed=TRUE)
 #'unigDNAsearch("DRB1", "15:07:01", 57)
+#'}
 
 unigDNAsearch <- function(locus, allele, position, prefix=TRUE,trimmed=FALSE){
   sec <- ""
@@ -152,12 +161,15 @@ unigDNAsearch <- function(locus, allele, position, prefix=TRUE,trimmed=FALSE){
 #'
 #'@note For internal HLAtools use only.
 #'
+#'@importFrom HLAtools.data HLAalignments
+#'
 #'@export
 #'
 #'@examples
+#'\dontrun{
 #'multigDNAsearch("DRB1", "15:07",c(23:26), trimmed=TRUE)
 #'multigDNAsearch("DRB1", "15:07:01",c(23:26))
-
+#'}
 multigDNAsearch <- function(locus, allele, positions, prefix=TRUE,sep="~",trimmed=FALSE){
 
   motif <- ""
@@ -190,9 +202,10 @@ multigDNAsearch <- function(locus, allele, positions, prefix=TRUE,sep="~",trimme
 #'@export
 #'
 #'@examples
+#'\dontrun{
 #'gDNAalign(c("DRB1*01:01","DQB1*02:01","DPB1*01:01"),c(1,2,3,7,8,9,13,14,15))
 #'gDNAalign(c("DQA1*01:01:01:01","DQB1*05:01:01:01","DPB1*01:01:01:01"),list(32:58,33:59,31:57))
-
+#'}
 gDNAalign <- function(alleles,positions){
   #makes sure no duplicate alleles will be present in table
   alleles <- unique(alleles)
@@ -222,8 +235,9 @@ gDNAalign <- function(alleles,positions){
 #'@export
 #'
 #'@examples
+#'\dontrun{
 #'unigDNAalign("DQA1*01:01:01:01",c(32:58))
-
+#'}
 unigDNAalign <- function(alleles,positions){
 
   #making an array with correct dimensions
@@ -268,10 +282,11 @@ unigDNAalign <- function(alleles,positions){
 #'@export
 #'
 #'@examples
+#'\dontrun{
 #'multigDNAalign(c("DQA1*01:01:01:01", "DRB1*01:01:01:01"),list(c(25,46,50,78,88), c(26,47,51,79,89)))
 #'multigDNAalign(c("DQA1*01:01:01:01", "DRB1*01:01:01:01"),list(32:58, 33:59))
-#'multigDNAalign(c("DQA1*01:01:01:01", "DQA1*05:01:01:01", "DRB1*01:01:01:01", "DRB1*11:01:02:02"),list(32:58, 32:58, 33:59, 33:59))
-
+#'multigDNAalign(c("DPB1*01:01:01:01","DQB1*05:01:01:01","DRB1*01:01:01:01"),list(32:58,32:58,32:58))
+#'}
 multigDNAalign <- function(alleles,positions){
   #creating an array of correct dimensions
   #as many rows as 2*alleles-1, as many columns as positions

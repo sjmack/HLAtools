@@ -1,4 +1,4 @@
-##Accessory Functions v2.0.0 5FEB24
+##Accessory Functions v2.2.0 7FEB24
 
 ################
 ##posSort v2.0
@@ -12,10 +12,14 @@
 #'
 #'@return A correctly sorted sequence.
 #'
+#'@importFrom HLAtools.data HLAalignments
+#'
 #'@export
 #'
 #'@examples
+#'\dontrun{
 #'posSort(c(2,4,3,1,5), "nuc","DRB1")
+#'}
 posSort <- function(posVec,alignType, locus){
   if(!alignType %in% c("prot","nuc","gen")) {stop(paste(alignType,"is not a valid 'alignType' value. Please chose from 'prot', 'nuc' and 'gen'.\n",sep=" "))}
   if(!locus %in% names(HLAtools.data::HLAalignments[[alignType]])) {stop(paste(locus,"is not included among the",alignType,"alignments.\n",sep=" "))}
@@ -55,13 +59,19 @@ numFields <- function(allele) {
 #'
 #'@return A logical identifying if the allele name is present in the alignments (TRUE) or, if it is not in the alignments or is not valid not (FALSE).
 #'
+#'@importFrom HLAtools.data HLAalignments
+#'
+#'@note Messages will be returned to the console if the allele name is malformed, or the locus is invalid. 
+#'
 #'@export
 #'
 #'@examples
+#'\dontrun{
 #'validateAllele("A*01:01:01:117")
 #'validateAllele("A*01:01:01")
 #'validateAllele("A*01:01")
-validateAllele <- function(allele,verbose=FALSE) {
+#'}
+validateAllele <- function(allele) {
   if(length(strsplit(allele,"*",fixed=TRUE)[[1]]) != 2) {
     message(paste("No asterisk ('*') is present in ",allele,".",sep=""))
     return(FALSE)
