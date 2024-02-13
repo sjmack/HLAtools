@@ -1,7 +1,7 @@
 Package: HLAtools
 Type: Package
 Title: The Open-Source Informatic Toolkit for HLA Immunogenomic Research
-Version: 0.7.1.9000
+Version: 0.7.2.9000
 Authors@R: 
     person("Livia", "Tran", , "livia.tran@ucsf.edu", role = c("aut","cre"))
     person("Ryan", "Nickens", , "rynickens@gmail.com", role = c("aut", "cre"))
@@ -22,6 +22,7 @@ Imports:
 Depends: 
     R (>= 2.10)
 LazyData: true
+LazyDataCompression: xz
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
