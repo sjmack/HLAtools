@@ -1,4 +1,4 @@
-#BuildAlignments v1.2.0 7FEB2024 - LT/SM
+#BuildAlignments v1.3.0 13FEB2024 - LT/SM
 
 #library(stringr)
 #library(BIGDAWG)
@@ -434,7 +434,8 @@ buildAlignments<-function(loci, source, version = "Latest"){
               if(grepl("-", corr_table[[loci[[i]]]][2,][vsplit[[s]][[1]]-1])){
                 corr_table[[loci[[i]]]][2,][vsplit[[s]]]<-paste(corr_table[[loci[[i]]]][2,][vsplit[[s]][[1]]-1], gsub(0, "", seq(1, length(vsplit[[s]]))/10), sep="")
               }
-              else{corr_table[[loci[[i]]]][2,][vsplit[[s]]]<-as.numeric(corr_table[[loci[[i]]]][2,][vsplit[[s]][[1]]-1])+as.numeric(paste(0,".",seq(1, length(vsplit[[s]])),sep = ""))}
+     #         else{corr_table[[loci[[i]]]][2,][vsplit[[s]]]<-as.numeric(corr_table[[loci[[i]]]][2,][vsplit[[s]][[1]]-1])+as.numeric(paste(0,".",seq(1, length(vsplit[[s]])),sep = ""))}
+               else{corr_table[[loci[[i]]]][2,][vsplit[[s]]]<-paste(corr_table[[loci[[i]]]][2,][vsplit[[s]][[1]]-1], paste(".",seq(1,length(vsplit[[s]])),sep=""),sep="")}
             }
           }
 
