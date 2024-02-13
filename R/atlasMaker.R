@@ -34,7 +34,6 @@
 #'@importFrom stringr str_replace str_squish
 #'@importFrom tibble add_column
 #'@importFrom utils capture.output head tail write.table
-#'@importFrom HLAtools fragmentFeatureNames
 #'
 #'@export
 #'
