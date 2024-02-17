@@ -1,4 +1,4 @@
-#BuildAlignments v1.3.0 13FEB2024 - LT/SM
+#BuildAlignments v1.4.0 13FEB2024 - LT/SM
 
 #library(stringr)
 #library(BIGDAWG)
@@ -93,7 +93,7 @@ buildAlignments<-function(loci, source, version = "Latest"){
         type <- "cDNA"
 
         #change delete lines to first and second lines if locus does not have protein sequence ## LT
-        if(loci[[i]] %in% c("DPA2","DPB2","H", "J","K","L","N","S","T","U","V","W","Y")){
+        if(loci[[i]] %in% HLAgazeteer$nuc[!HLAgazeteer$nuc %in% HLAgazeteer$prot]){
           delete_lines<-c(1,2)
         } else{
           delete_lines <- c(1,2,3)
@@ -173,7 +173,7 @@ buildAlignments<-function(loci, source, version = "Latest"){
       }
       else if(source[j]=="cDNA"){
         #these loci do not have protein sequences; set alignment start to 1
-        if(loci[[i]] %in% c("DPA2","DPB2","H", "J","K","L","N","S","T","U","V","W","Y")){
+        if(loci[[i]] %in% HLAgazeteer$nuc[!HLAgazeteer$nuc %in% HLAgazeteer$prot]){
           alignment_start[[loci[i]]] <- 1
         } else{
         #determines the alignment start by finding the second vector in second list and removing "codon"
