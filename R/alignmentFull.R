@@ -1,14 +1,14 @@
-### Alignment Full v1.2.0 1 February 2024
+### Alignment Full v2.0.0 13 February 2024
 
 ################
 ##alignmentFull
-#'Build a complete set protein, coding nucleotide and genomic nucleotide alignments for all IPD-IMGT/HLA Loci.
+#'Build a complete set protein, codon, coding nucleotide and genomic nucleotide alignments for all IPD-IMGT/HLA Loci.
 #'
 #'Applies buildAlignments() to build a set of alignments for all loci supported in the ANHIG/IMGTHLA GitHub repository.
 #'
 #'@param version The version of the ANHIG/IMGTHLA Github repository to build alignments from. The default value, "Latest", generates alignments for the most recent IPD-IMGT/HLA Database release.
 #'
-#'@return A list object containing data frames of protein (prot), coding nucleotide (nuc), and genomic nucleotide (gen) alignments for all genes in the specified IPD-IMGT/HLA Database release, along with the pertinent reference database release.
+#'@return A list object containing data frames of protein (prot), codons (codon), coding nucleotide (nuc), and genomic nucleotide (gen) alignments for all genes in the specified IPD-IMGT/HLA Database release, along with the pertinent reference database release.
 #'
 #'
 #'@examples
@@ -27,7 +27,7 @@ alignmentFull <- function(version = "Latest") {
   }else{ version <- getLatestVersion()}
 
   #list of loci names
-  NL1 <- as.list(HLAgazeteer$nuc) #cDNA
+  NL4 <- NL1 <- as.list(HLAgazeteer$nuc) #cDNA and codon
   NL2 <- as.list(HLAgazeteer$gen) #gDNA
   NL3 <- as.list(HLAgazeteer$prot) #AA
 
@@ -35,10 +35,11 @@ alignmentFull <- function(version = "Latest") {
   cList <- vector(mode='list', length=length(NL1))
   gList <- vector(mode='list', length=length(NL2))
   protList <- vector(mode='list', length=length(NL3))
+  codonList <- vector(mode='list', length=length(NL4))
 
   #filling nested lists with alignments
   for(i in 1:length(NL1)){
-    cList[i] <- buildAlignments(as.character(NL1[i]), "cDNA", version = version)[[1]][1]
+    cList[i] <- buildAlignments(as.character(NL1[i]), "cDNA", version = version)[[1]][2]
   }
   for(i in 1:length(NL2)){
     gList[i] <- buildAlignments(as.character(NL2[i]), "gDNA", version = version)[[1]][1]
@@ -46,19 +47,25 @@ alignmentFull <- function(version = "Latest") {
   for(i in 1:length(NL3)){
     protList[i] <- buildAlignments(as.character(NL3[i]), "AA", version = version)[[1]][1]
   }
+  for(i in 1:length(NL4)){
+    codonList[i] <- buildAlignments(as.character(NL4[i]), "cDNA", version = version)[[1]][1]
+  }
+  
   #naming inside of nested lists
   names(cList) <- NL1
   names(gList) <- NL2
   names(protList) <- NL3
+  names(codonList) <- NL4
 
   #placing nested lists inside of larger list
   AllAlignment<-list(firstList <- protList,
+                 fourthlist <- codonList,
                  secondList <- cList,
                  thirdlist <- gList,
                  versionString <- version)
 #naming nested lists
 
-  names(AllAlignment) <- c("prot","nuc","gen","version")
+  names(AllAlignment) <- c("prot","codon","nuc","gen","version")
 
   AllAlignment
 }

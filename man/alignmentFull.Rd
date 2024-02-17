@@ -2,7 +2,7 @@
 % Please edit documentation in R/alignmentFull.R
 \name{alignmentFull}
 \alias{alignmentFull}
-\title{Build a complete set protein, coding nucleotide and genomic nucleotide alignments for all IPD-IMGT/HLA Loci.}
+\title{Build a complete set protein, codon, coding nucleotide and genomic nucleotide alignments for all IPD-IMGT/HLA Loci.}
 \usage{
 alignmentFull(version = "Latest")
 }
@@ -10,7 +10,7 @@ alignmentFull(version = "Latest")
 \item{version}{The version of the ANHIG/IMGTHLA Github repository to build alignments from. The default value, "Latest", generates alignments for the most recent IPD-IMGT/HLA Database release.}
 }
 \value{
-A list object containing data frames of protein (prot), coding nucleotide (nuc), and genomic nucleotide (gen) alignments for all genes in the specified IPD-IMGT/HLA Database release, along with the pertinent reference database release.
+A list object containing data frames of protein (prot), codons (codon), coding nucleotide (nuc), and genomic nucleotide (gen) alignments for all genes in the specified IPD-IMGT/HLA Database release, along with the pertinent reference database release.
 }
 \description{
 Applies buildAlignments() to build a set of alignments for all loci supported in the ANHIG/IMGTHLA GitHub repository.
