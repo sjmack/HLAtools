@@ -12,7 +12,6 @@
 #'
 #'@importFrom stringr fixed
 #'@importFrom utils read.table
-#'@importFrom HLAtools IMGTHLAGeneTypes
 #'
 #'@note Pseudogenes and gene fragments are defined by the IPD-IMGT/HLA Database at https://hla.alleles.org/genes/index.html, and are described in the HLAtools::IMGTHLAGeneTypes data object.
 #'@note This function requires internet access to function.
