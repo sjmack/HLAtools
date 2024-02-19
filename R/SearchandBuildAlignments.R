@@ -1,4 +1,4 @@
-#### unified alignment search and construction functions v4.0.0 17 February 2024 Ryan Nickens & Steven Mack 
+#### unified alignment search and construction functions v4.1.0 19 February 2024 Ryan Nickens & Steven Mack 
 
 ################
 #AlignmentSearch
@@ -233,7 +233,7 @@ uniSearch <- function(alignType, locus, allele, position, prefix=TRUE, trimmed=F
 #'@examples
 #'\dontrun{
 #'customAlign("codon",c("DRB1*01:01","DQB1*02:01","DPB1*01:01"),c(1,2,3,7,8,9,13,14,15))
-#'customAlign("codon",c("DQA1*01:01:01:01","DQB1*05:01:01:01","DPB1*01:01:01:01"),list(32:58,33:59,31:57))
+#'customAlign("codon",c("DQA1*01:01:01:01","DQB1*05:01:01:01","DPB1*01:01:01:01"),list(1:4,6:9,19:35))
 #'}
 customAlign <- function(alignType,alleles,positions){
   if(!alignType %in% c("codon","nuc","prot","gen")) {stop(paste("Please set 'alignType' to either 'prot' for peptide alignments, 'nuc' for single nucleotide alignments, 'codon' for codon alignments, or 'gen' for genomic alignments."))}
