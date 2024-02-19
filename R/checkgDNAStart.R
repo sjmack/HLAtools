@@ -1,4 +1,4 @@
-## v1.1.1 7 February 2024
+## v1.2.0 18 February 2024
 
 ####################
 ##checkgDNAStart
@@ -18,8 +18,6 @@
 #'}
 #'
 #'@importFrom HLAtools.data HLAatlas
-#'
-#'@export
 #'
 #'@note For internal HLAtools use.
 #'

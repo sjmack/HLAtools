@@ -21,7 +21,6 @@
 #'@importFrom tibble add_column
 #'@importFrom dplyr filter %>%
 #'@importFrom utils head tail capture.output
-#'@importFrom HLAtools fragmentFeatureNames
 #'
 #'@export
 #'

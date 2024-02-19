@@ -104,7 +104,7 @@ multiUpdateGL <- function(GLstringArray, Version, expand = FALSE) {
 #'
 #'@note For internal use only.
 #'
-#'@importFrom stringr fixed str_replace_all HLAtools
+#'@importFrom stringr fixed str_replace_all
 #'
 #'@export
 #'
