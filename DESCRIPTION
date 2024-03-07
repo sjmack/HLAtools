@@ -5,7 +5,7 @@ Version: 0.7.4.9000
 Authors@R: 
     person("Livia", "Tran", , "livia.tran@ucsf.edu", role = c("aut","cre"))
     person("Ryan", "Nickens", , "rynickens@gmail.com", role = c("aut", "cre"))
-    person("Leamon", "Crooms", , "lcroomsiv@arizona.edu", role = "aut")
+    person("Leamon", "Crooms", , "lcroomsiv@gmail.com", role = "aut")
     person("Derek", "Pappas", , "djpappas75@gmail.com", role = "aut")
     person("Vinh", "Luu", , "vinhluu864@berkeley.edu", role = "ctb")
     person("Josh", "Bredeweg", , role = "ctb")
