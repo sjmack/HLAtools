@@ -1,4 +1,4 @@
-##Accessory Functions v2.2.0 7FEB24
+##Accessory Functions v3.1.0 7MAR24
 
 ################
 ##posSort v2.0
@@ -51,17 +51,16 @@ numFields <- function(allele) {
 
 #################
 ##validateAllele
-#'Determine if an allele name is properly formed and present in HLAtools.data::HLAalignments
+#'Determine if an allele name is properly formed and present in HLAalignments
 #'
-#'Returns TRUE if an allele name is found in HLAtools.data::HLAalignments in either the 'allele' column of full-length allele names or the 'trimmed_allele' column of two-field allele names. Returns FALSE if the allele name is not properly formed, or if the allele name is not found in HLAtools.data::HLAalignments.
+#'Returns TRUE if an allele name is found in HLAalignments in either the 'allele_name' column of full-length allele names or the 'trimmed_allele' column of two-field allele names in the pertinent genomic alignment. Returns FALSE if the allele name is not properly formed, or if the allele name is not found in HLAalignments.
 #'
 #'@param allele A colon-delimited HLA allele name.
 #'
 #'@return A logical identifying if the allele name is present in the alignments (TRUE) or, if it is not in the alignments or is not valid not (FALSE).
 #'
-#'@importFrom HLAtools.data HLAalignments
-#'
 #'@note Messages will be returned to the console if the allele name is malformed, or the locus is invalid. 
+#'@note The locus being evaluated must be included in HLAalignments.
 #'
 #'@export
 #'
@@ -72,18 +71,22 @@ numFields <- function(allele) {
 #'validateAllele("A*01:01")
 #'}
 validateAllele <- function(allele) {
-  if(length(strsplit(allele,"*",fixed=TRUE)[[1]]) != 2) {
+  alleleParts <- strsplit(allele,"*",fixed=TRUE)[[1]]
+  if(length(alleleParts) != 2) {
     message(paste("No asterisk ('*') is present in ",allele,".",sep=""))
     return(FALSE)
     }
-  if(length(strsplit(allele,":",fixed=TRUE)[[1]]) == 1) {
+  if(length(strsplit(alleleParts[2],":",fixed=TRUE)[[1]]) == 1) {
     message(paste("No colon (':') is present in ",allele,".",sep=""))
     return(FALSE)
-    }
-  a.split <- strsplit(allele,"*",fixed=TRUE)[[1]]
-  if(validateLocus(a.split[1],"gDNA")){
-      a.split[2] %in% HLAtools.data::HLAalignments$gen[[a.split[1]]]$allele || allele %in% HLAtools.data::HLAalignments$gen[[a.split[1]]]$trimmed_allele
-        } else {stop(message(a.split[1], " is not a valid locus.",sep=" "))}
-  
+  }
+  locus <- alleleParts[1]
+  if(!suppressMessages(validateLocus(alleleParts[1],"gDNA")) && !suppressMessages(validateLocus(alleleParts[1],"cDNA")) && !suppressMessages(validateLocus(alleleParts[1],"prot"))) {
+    message(paste(locus, "is not a valid locus.", sep=" "))
+    return(FALSE)
+  } 
+  if((allele %in% HLAalignments$prot[[locus]]$trimmed_allele) || (allele %in% HLAalignments$nuc[[locus]]$trimmed_allele) || (allele %in% HLAalignments$gen[[locus]]$trimmed_allele) || (allele %in% HLAalignments$prot[[locus]]$allele_name) || (allele %in% HLAalignments$nuc[[locus]]$allele_name) || (allele %in% HLAalignments$gen[[locus]]$allele_name)) {
+    return(TRUE) } else { message(paste(allele, "is not found in version", HLAalignments$version,"alignments.",sep=" "))
+    return(FALSE)
+   }
 }
-
