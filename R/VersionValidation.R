@@ -1,4 +1,4 @@
-### Tools for Validating IPD-IMGT/HLA Release Version Values v2.1.0 23 January 2024
+### Tools for Validating IPD-IMGT/HLA Release Version Values v2.2.0 8 March 2024
 
 ################
 ##CheckVersion
@@ -53,7 +53,7 @@ validateVersion <- function(version) {
     releases <- strsplit(readLines(url("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/Allelelist_history.txt"),n=7,ok=TRUE,skipNul = FALSE)[7],",")[[1]]
     releases <- releases[2:length(releases)]
 
-    gsub(".","",version,fixed=TRUE) %in% releases
+    squashVersion(version) %in% releases
 
   } else {TRUE}
 
