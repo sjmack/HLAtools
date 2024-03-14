@@ -4,7 +4,7 @@
 ##buildGazeteer
 #'Define categories of genes supported by the IPD-IMGT/HLA Database
 #'
-#'Consumes information in the ANHIG/IMGTHLA GitHub repository and at hla.alleles.org/genes to define specific categories of genes supported by the IPD-IMHT/HLA Database, which are represented as elements of the HLAgazeteer object.
+#'Consumes information in the ANHIG/IMGTHLA GitHub repository and at hla.alleles.org/genes to define specific categories of genes supported by the IPD-IMGT/HLA Database, which are represented as elements of the HLAgazeteer object.
 #'Elements: 
 #'  Genes that that do and do not have amino acid ($prot/$noprot), nucleotide ($nuc/$nonuc), and genomic ($gen/$nogen) alignments
 #'  HLA genes ($hla), pseudogenes ($pseudo), gene fragments ($frag)
