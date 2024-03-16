@@ -1,4 +1,4 @@
-##data v1.0.0 23JAN2024
+##data v1.0.0 15MAR2024
 
 ##alleleListHistory
 #'Identifies HLA loci that have amino acid, cDNA, or gDNA alignments.
@@ -98,3 +98,21 @@
 #' @source https://hla-net.eu/wp/wp-content/uploads/example-three-loci.unif_.txt
 #' @references Nunes Tissue Antigens 2007;69(s1):203-205 https://doi.org/10.1111/j.1399-0039.2006.00808.x
 "UNIFORMAT.example"
+
+##HLAatlas
+#'identifies the boundary positions of exons, introns and UTRs in the amino acid, cDNA and gDNA alignments in the HLAalignments data object. 
+#'
+#'A list object of sub-lists of R dataframes (atlases) for each locus with a protein (prot), cDNA (nuc), and gDNA (gen) alignment. Each atlas identifies the position of the exon, intron or UTR boundaries in an alignment.
+#'This object is built by the atlasFull() function in the HLAtools package.
+#' @docType data
+#' @name HLAatlas
+#' @usage data(HLAatlas)
+#' @format A list of 4 elements that include the gene features boundaries in each ANHIG/IMGTHLA sequence alingment. 
+#' \itemize{
+#'    \item(prot: peptide-alignment atlases)
+#'    \item(nuc: cDNA-alignment atlases)
+#'    \item(gen: gDNA-alignment atlases)
+#'    \item(version: The IPD-IMGT/HLA Database release version under which these data were generated)
+#'    }
+#' @source https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments
+"HLAatlas"

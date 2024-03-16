@@ -1,4 +1,4 @@
-##Accessory Functions v3.1.0 7MAR24
+##Accessory Functions v3.2.0 15MAR24
 
 ################
 ##posSort v2.0
@@ -12,8 +12,6 @@
 #'
 #'@return A correctly sorted sequence.
 #'
-#'@importFrom HLAtools.data HLAalignments
-#'
 #'@export
 #'
 #'@examples
@@ -22,9 +20,9 @@
 #'}
 posSort <- function(posVec,alignType, locus){
   if(!alignType %in% c("prot","codon", "nuc","gen")) {stop(paste(alignType,"is not a valid 'alignType' value. Please chose from 'prot', 'codon', nuc' and 'gen'.\n",sep=" "))}
-  if(!locus %in% names(HLAtools.data::HLAalignments[[alignType]])) {stop(paste(locus,"is not included among the",alignType,"alignments.\n",sep=" "))}
+  if(!locus %in% names(HLAalignments[[alignType]])) {stop(paste(locus,"is not included among the",alignType,"alignments.\n",sep=" "))}
   
-  tab <- as.data.frame(cbind(match(posVec,names(HLAtools.data::HLAalignments[[alignType]][[locus]])),posVec))
+  tab <- as.data.frame(cbind(match(posVec,names(HLAalignments[[alignType]][[locus]])),posVec))
   tab <- tab[order(tab$V1),]
   tab$posVec
 }

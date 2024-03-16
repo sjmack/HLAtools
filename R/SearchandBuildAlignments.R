@@ -1,4 +1,4 @@
-#### unified alignment search and construction functions v4.1.0 19 February 2024 Ryan Nickens & Steven Mack 
+#### unified alignment search and construction functions v4.2.0 15 March 2024 Ryan Nickens & Steven Mack 
 
 ################
 #AlignmentSearch
@@ -41,14 +41,12 @@ alignmentSearch <- function(alignType,allelename,positions,prefix=TRUE,sep="~"){
   allele <- substr(allelename,split+1,nchar(allelename))
   
   # assess allelename validity(makes sure allele is named in data source)
-   # if(!locus %in% names(HLAtools.data::HLAalignments$align) || length(split) != 1) {
-    if(!locus %in% names(HLAalignments[[alignType]]) || length(split) != 1) {
+     if(!locus %in% names(HLAalignments[[alignType]]) || length(split) != 1) {
     #if it is not, return message
     stop(allelename," is not a valid HLA allele name.")
   }
   
   # exclude aa positions that do not exist for a locus
-#  checkpos <- positions[positions %in% colnames(HLAtools.data::HLAalignments$align[[locus]]) == TRUE]
   checkpos <- positions[positions %in% colnames(HLAalignments[[alignType]][[locus]]) == TRUE]
   posdiff <- length(positions)-length(checkpos)
   #if there is a difference between input positions and checked positions, do this
@@ -62,11 +60,9 @@ alignmentSearch <- function(alignType,allelename,positions,prefix=TRUE,sep="~"){
   positions <- unique(checkpos)
   
   # assess existence of allele names; check two-field column for 2-field truncates
- # if(!allele %in% HLAtools.data::HLAalignments$nuc[[locus]]$allele) {
     if(!allele %in% HLAalignments[[alignType]][[locus]]$allele) {
     message(allelename," is not a known full-length allele name.")
     if(sum(charToRaw(allelename) == charToRaw(":")) == 1) {message("Checking 2-field allele names.")
- #     if(allelename %in% HLAtools.data::HLAalignments$nuc[[locus]]$trimmed_allele) {
         if(allelename %in% HLAalignments[[alignType]][[locus]]$trimmed_allele) {
           
         trimmed <- TRUE

@@ -1,4 +1,4 @@
-## v1.2.0 18 February 2024
+## v1.2.0 15 March 2024
 
 ####################
 ##checkgDNAStart
@@ -17,23 +17,22 @@
 #'gDNAStartPositions <- checkgDNAstart()
 #'}
 #'
-#'@importFrom HLAtools.data HLAatlas
 #'
 #'@note For internal HLAtools use.
 #'
 checkgDNAstart <- function(verbose=FALSE){
 
-  gLen <- length(HLAtools.data::HLAatlas$gen)
+  gLen <- length(HLAatlas$gen)
   findings <- matrix(rep(1,gLen),ncol=gLen)
-  colnames(findings) <- names(HLAtools.data::HLAatlas$gen)
+  colnames(findings) <- names(HLAatlas$gen)
 
 tic <- 0
 for (i in 1:gLen){
 
-  if(HLAtools.data::HLAatlas$gen[[i]][1,1] != 1) {
+  if(HLAatlas$gen[[i]][1,1] != 1) {
 
-   if(verbose) {cat(paste("The protein start position for the ",names(HLAtools.data::HLAatlas$gen)[i]," locus is ",HLAtools.data::HLAatlas$gen[[i]][1,1],".","\n",sep=""))}
-    findings[i] <- as.numeric(HLAtools.data::HLAatlas$gen[[i]][1,1])
+   if(verbose) {cat(paste("The protein start position for the ",names(HLAatlas$gen)[i]," locus is ",HLAatlas$gen[[i]][1,1],".","\n",sep=""))}
+    findings[i] <- as.numeric(HLAatlas$gen[[i]][1,1])
   tic <- tic + 1
   }
 
