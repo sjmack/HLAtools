@@ -1,4 +1,4 @@
-### Extract IPD-IMGT/HLA Database-Supported Gene Types v1.0.2 5 February 2024
+### Extract IPD-IMGT/HLA Database-Supported Gene Types v2.0.0 17 March 2024
 
 ####################
 ## BuildIMGTHLAGeneTypes
@@ -6,7 +6,7 @@
 #'
 #'This function scrapes information from 'hla.alleles.org/genes/index.html' and generates a data frame identifying each gene. It requires internet access to function. As such, this function always returns data for the current IPD0-IMGT/HLA Database release.
 #'
-#'@return A data frame of three columns, identifying each gene supported by the IPD-IMGT/HLA Database, along with its molecular characteristics and its status as either a pseudogene or a gene fragment.
+#'@return A list objects of two elements -- 'version' and 'GeneTypes'. The 'version' element identifies the date that the source table was generated. The 'GeneTypes' element is a data frame of three columns, identifying each gene supported by the IPD-IMGT/HLA Database, along with its molecular characteristics and its status as either a pseudogene or a gene fragment.
 #'
 #'@examples
 #'\dontrun{ 
@@ -22,6 +22,8 @@ buildIMGTHLAGeneTypes <- function(){
   rawPage <- readLines("https://hla.alleles.org/genes/index.html",-1,warn = FALSE)
   start <- which(rawPage[] == "          <th>Molecular characteristics</th>") +3
   end <- which(rawPage[] == "      </table>") -2
+  dateMade <- rawPage[grep("#BeginDate",rawPage,fixed=TRUE)][1]
+  dateMade <- strsplit(strsplit(dateMade,"-->",fixed = TRUE)[[1]][2],"<!--",fixed=TRUE)[[1]][1]
   rawPage <- rawPage[start:end]
   trs <- which(rawPage[] %in% "        <tr>")
   rawPageTable <- data.frame(rawPage[!1:length(rawPage) %in% c(trs, trs-1)])
@@ -53,6 +55,11 @@ buildIMGTHLAGeneTypes <- function(){
   colnames(PageTable)[3] <- "Pseudogene/Fragment"
 
   PageTable <- as.data.frame(PageTable)
-
-  PageTable
+  
+  typeList <- list(firstList <- dateMade,  
+                  secondList <- PageTable)
+  
+  names(typeList) <- c("version","GeneTypes")
+  
+  typeList
 }

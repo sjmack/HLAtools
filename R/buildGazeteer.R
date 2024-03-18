@@ -1,10 +1,10 @@
-#buildGazeteer v03.0.0 8MAR2024
+#buildGazeteer v03.1.0 17MAR2024
 
 ##############
 ##buildGazeteer
 #'Define categories of genes supported by the IPD-IMGT/HLA Database
 #'
-#'Consumes information in the ANHIG/IMGTHLA GitHub repository and at hla.alleles.org/genes to define specific categories of genes supported by the IPD-IMGT/HLA Database, which are represented as elements of the HLAgazeteer object.
+#'Consumes information in the ANHIG/IMGTHLA GitHub repository and at hla.alleles.org/genes to define specific categories of genes supported by the IPD-IMGT/HLA Database, which are represented as eighteen elements of the HLAgazeteer object.
 #'Elements: 
 #'  Genes that that do and do not have amino acid ($prot/$noprot), nucleotide ($nuc/$nonuc), and genomic ($gen/$nogen) alignments
 #'  HLA genes ($hla), pseudogenes ($pseudo), gene fragments ($frag)
@@ -12,6 +12,8 @@
 #'  Genes in the Class I region ($classireg), Class I HLA genes ($classIhla), Genes in the class II region ($classiireg), and Class II HLA genes ($classiihla)
 #'  Classical HLA genes ($classical) and non-classical exprssed HLA genes ($nonclassical)
 #'  All genes presented in map order ($map)
+#'
+#'The nineteenth element ($version) identifies the IPD-IMGT/HLA Database version used to build the HLAgazeteer.
 #'
 #'@param version A string identifying of the desired IPD-IMGT/HLA Database release version to which the gazeteer should be updated. The default value is most recent IPD-IMGT/HLA Database release version.
 #'
@@ -74,13 +76,13 @@ buildGazeteer <- function(version = getLatestVersion()) {
 
   names(locList) <- c("gen","nuc","prot")
   
-  pseudo <- IMGTHLAGeneTypes$Names[IMGTHLAGeneTypes$`Pseudogene/Fragment` == "Pseudogene"]
+  pseudo <- IMGTHLAGeneTypes$GeneTypes$Names[IMGTHLAGeneTypes$GeneTypes$`Pseudogene/Fragment` == "Pseudogene"]
   pseudo <- sub("HLA-","",pseudo,fixed=TRUE)
 
-  frag <- IMGTHLAGeneTypes$Names[IMGTHLAGeneTypes$`Pseudogene/Fragment` == "Fragment"]
+  frag <- IMGTHLAGeneTypes$GeneTypes$Names[IMGTHLAGeneTypes$GeneTypes$`Pseudogene/Fragment` == "Fragment"]
   frag <- sub("HLA-","",frag,fixed=TRUE)
   
-  hla <-IMGTHLAGeneTypes$Names[grep("HLA-",IMGTHLAGeneTypes$Names,fixed=TRUE)]
+  hla <-IMGTHLAGeneTypes$GeneTypes$Names[grep("HLA-",IMGTHLAGeneTypes$GeneTypes$Names,fixed=TRUE)]
   hla <- sort(sub("HLA-","",hla,fixed=TRUE))
 
   locList$nogen <- sort(c(pseudo[is.element(pseudo,locList$gen) == FALSE],frag[is.element(frag,locList$gen) == FALSE]))
@@ -92,13 +94,13 @@ buildGazeteer <- function(version = getLatestVersion()) {
   
   locList$hla <- hla
   
-  expressed <- IMGTHLAGeneTypes$Names[IMGTHLAGeneTypes$`Pseudogene/Fragment`==""]
+  expressed <- IMGTHLAGeneTypes$GeneTypes$Names[IMGTHLAGeneTypes$GeneTypes$`Pseudogene/Fragment`==""]
   expressed <- expressed[!expressed %in% "HLA-DQB3"]
   locList$expressed <- sub("HLA-","",expressed,fixed=TRUE)
   locList$notexpressed <- locList$hla[!locList$hla %in% locList$expressed]
   
-  classireg <- sort(c(IMGTHLAGeneTypes$Names[grep("Class I",IMGTHLAGeneTypes$`Molecular Characteristics`,fixed=TRUE)],IMGTHLAGeneTypes$Names[grep("class I",IMGTHLAGeneTypes$`Molecular Characteristics`,fixed=TRUE)]))
-  classiireg <- IMGTHLAGeneTypes$Names[!IMGTHLAGeneTypes$Names %in% classireg]
+  classireg <- sort(c(IMGTHLAGeneTypes$GeneTypes$Names[grep("Class I",IMGTHLAGeneTypes$GeneTypes$`Molecular Characteristics`,fixed=TRUE)],IMGTHLAGeneTypes$GeneTypes$Names[grep("class I",IMGTHLAGeneTypes$GeneTypes$`Molecular Characteristics`,fixed=TRUE)]))
+  classiireg <- IMGTHLAGeneTypes$GeneTypes$Names[!IMGTHLAGeneTypes$GeneTypes$Names %in% classireg]
   classihla <- sub("HLA-","",classireg[grep("HLA-",classireg,fixed=TRUE)],fixed = TRUE)
   classiihla <- sub("HLA-","",classiireg[grep("HLA-",classiireg,fixed=TRUE)],fixed = TRUE)
   classireg <- sort(sub("HLA-","",classireg[classireg != c("HLA-Z")],fixed=TRUE)) # HLA-Z is a class I gene fragment in the class II region
@@ -114,5 +116,7 @@ buildGazeteer <- function(version = getLatestVersion()) {
   
   locList$map <- c("HFE","F","MICE","V","P","G","H","T","K","U","A","W","MICD","Y","J","L","N","MICC","E","C","B","S","MICA","X","MICB","DRA","DRB9","DRB3/4/5","DRB8","DRB6/7","DRB2","DRB1","DQA1","DQB1","DQB3","DQA2","DQB2","DOB","TAP2","PSMB8","TAP1","PSMB9","Z","DMB","DMA","DOA","DPA1","DPB1","DPA2","DPB2","DPA3")
 
+  locList$version <- version
+    
   locList
 }
