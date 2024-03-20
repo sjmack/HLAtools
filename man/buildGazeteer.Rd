@@ -3,6 +3,11 @@
 \name{buildGazeteer}
 \alias{buildGazeteer}
 \title{Define categories of genes supported by the IPD-IMGT/HLA Database}
+\source{
+Andersson G. Evolution of the human HLA-DR region. Front. Biosci. 1998 Jul 27:3:d739-45.
+
+Alexandrov et al. HLA-OLI: A new MHC class I pseudogene and HLA-Y are located on a 60 kb indel in the human MHC between HLA-W and HLA-J. HLA 2023 Nov; 102(5):599-606.
+}
 \usage{
 buildGazeteer(version = getLatestVersion())
 }
@@ -39,7 +44,4 @@ This function requires internet access to function.
 HLAgazeteer <- buildGazeteer("3.34.0")
 }
 
-}
-\references{
-Andersson G. Evolution of the human HLA-DR region. Front. Biosci. 1998 Jul 27:3:d739-45.
 }
