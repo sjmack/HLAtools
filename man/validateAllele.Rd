@@ -2,7 +2,7 @@
 % Please edit documentation in R/accessoryFunctions.R
 \name{validateAllele}
 \alias{validateAllele}
-\title{Determine if an allele name is properly formed and present in HLAtools.data::HLAalignments}
+\title{Determine if an allele name is properly formed and present in HLAalignments}
 \usage{
 validateAllele(allele)
 }
@@ -13,10 +13,12 @@ validateAllele(allele)
 A logical identifying if the allele name is present in the alignments (TRUE) or, if it is not in the alignments or is not valid not (FALSE).
 }
 \description{
-Returns TRUE if an allele name is found in HLAtools.data::HLAalignments in either the 'allele' column of full-length allele names or the 'trimmed_allele' column of two-field allele names. Returns FALSE if the allele name is not properly formed, or if the allele name is not found in HLAtools.data::HLAalignments.
+Returns TRUE if an allele name is found in HLAalignments in either the 'allele_name' column of full-length allele names or the 'trimmed_allele' column of two-field allele names in the pertinent genomic alignment. Returns FALSE if the allele name is not properly formed, or if the allele name is not found in HLAalignments.
 }
 \note{
 Messages will be returned to the console if the allele name is malformed, or the locus is invalid.
+
+The locus being evaluated must be included in HLAalignments.
 }
 \examples{
 \dontrun{

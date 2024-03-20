@@ -19,6 +19,6 @@ data(alleleListHistory)
 }
 \description{
 A large list object of two elements. The first element contains Allele List version information. The second element contains all releases of allele lists on the IMGT/HLA database.
-This object is built by the UpdateAlleleListHistory() function in the HLAtools package.
+This object is built by the UpdateAlleleListHistory() function.
 }
 \keyword{datasets}

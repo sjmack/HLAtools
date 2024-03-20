@@ -9,7 +9,7 @@ posSort(posVec, alignType, locus)
 \arguments{
 \item{posVec}{A vector of nucleotide positions}
 
-\item{alignType}{The type of alignment the positions are in. The values 'prot', 'nuc' and 'gen' are valid options.}
+\item{alignType}{The type of alignment the positions are in. The values 'prot', 'codon', 'nuc' and 'gen' are valid options.}
 
 \item{locus}{A locus in the HLAalignments object for the specified alignType.}
 }

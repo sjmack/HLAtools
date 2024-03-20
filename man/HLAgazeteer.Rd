@@ -3,23 +3,47 @@
 \docType{data}
 \name{HLAgazeteer}
 \alias{HLAgazeteer}
-\title{Identifies HLA loci that have amino acid, cDNA, or gDNA alignments.}
+\title{Functional and organizational categories of genes supported by the IPD-IMGT/HLA Database.}
 \format{
-A list object containing 9 character vectors
+A large list of 18 vectors that define specific categories of genes supported by the IPD-IMGT/HLA Database
+\itemize{
+\item(gen: genes with genomic alignments in the IPD/IMGT-HLA GitHub Repository)
+\item(nuc: genes with nucleotide alignments in the IPD/IMGT-HLA GitHub Repository)
+\item(prot: genes with protein alignments in the IPD/IMGT-HLA GitHub Repository)
+\item(nogen: genes with no genomic alignments)
+\item(nonuc: genes with no nucleotide alignments)
+\item(noprot: genes with no protein alignments)
+\item(pseudo: pseudogenes)
+\item(frag: gene fragments)
+\item(hla: HLA genes)
+\item(expressed: genes that are expressed)
+\item(notexpressed: genes that are not expressed)
+\item(classireg: genes found in the HLA class I region)
+\item(classihla: class I HLA genes)
+\item(classiireg: genes found in the HLA class II region)
+\item(classiihla: class II HLA genes)
+\item(classical: classical HLA genes)
+\item(nonclassical: non-classical HLA genes)
+\item(map: all genes organized by 5' to 3' map order on the genomic reference + strand)
+\item(version: IPD-IMGT/HLA Database version used to build the HLAgazeteer)
+}
 }
 \source{
+https://hla.alleles.org/genes
+
 https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments
 
-HLAtools::IMGTHLAGeneTypes
+https://doi.org/10.2741/a317
+
+https://doi.org/10.1111/tan.15180
+
+https://www.ncbi.nlm.nih.gov/nucleotide/NC_000009.12
 }
 \usage{
 data(HLAgazeteer)
 }
 \description{
-A list object of vectors that identify loci with amino acid (HLAgazeteer$prot), cDNA (HLAgazeteer$nuc), gDNA alignments (HLAgazeteer$gen), pseudogenes (HLAgazeteer$pseudo), gene fragments (HLAgazeteer$frag), as well as pseudogenes and gene fragments for which no cDNA ($noNuc) and gDNA ($noGen) alignments are available).
-This object is built by the buildGazeteer() function in the HLAtools package.
-}
-\note{
-Pseudogenes and gene fragments derived from the IMGTHLAGeneTypes object.
+A list object of eighteen vectors that identify genes in the HLA region that share specific commonalities.
+This object is built by the buildGazeteer() function.
 }
 \keyword{datasets}

@@ -5,16 +5,20 @@
 \alias{IMGTHLAGeneTypes}
 \title{Describes the molecular characteristics of the genes curated by the IPD-IMGT/HLA Database, and identifies gene fragments and pseudogenes.}
 \format{
-A data frame of three columns
+A list object of two elements:
+\itemize{
+\item(GeneTypes: a data frame of three columns)
+\item(version: a character string identifying the date that the source file was written)
+}
 }
 \source{
-https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments
+https://hla.alleles.org/genes/index.html
 }
 \usage{
 data(IMGTHLAGeneTypes)
 }
 \description{
-A data frame of three columns identifying each gene supported by the IPD-IMGT/HLA Database, its molecular characteristics, and its status as gene fragment or pseudogene.
+A data frame of three columns identifying each gene supported by the IPD-IMGT/HLA Database, its molecular characteristics, and its status as a gene fragment or pseudogene.
 This object is built by the BuildIMGTHLAGeneTypes() function.
 }
 \keyword{datasets}

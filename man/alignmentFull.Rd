@@ -2,21 +2,25 @@
 % Please edit documentation in R/alignmentFull.R
 \name{alignmentFull}
 \alias{alignmentFull}
-\title{Build a complete set protein, codon, coding nucleotide and genomic nucleotide alignments for all IPD-IMGT/HLA Loci.}
+\title{Build sets of protein, codon, coding nucleotide and genomic nucleotide alignments for specified  Loci.}
 \usage{
-alignmentFull(version = "Latest")
+alignmentFull(loci = "all", alignType = "all", version = "Latest")
 }
 \arguments{
-\item{version}{The version of the ANHIG/IMGTHLA Github repository to build alignments from. The default value, "Latest", generates alignments for the most recent IPD-IMGT/HLA Database release.}
+\item{loci}{A vector of the locus names for which alignments should be built. The default value ("all") generates alignments for all loci.}
+
+\item{alignType}{A vector of alignment types. The allowed values are "all", "prot", "codon", "nuc", and "gen", which specify either all available alignments for a given locus or the respective protein, codon, nucleotide and genomic alignments, as determined by the HLAgazeteer.}
+
+\item{version}{The version of the ANHIG/IMGTHLA Github repository alignments are obtained from. The default value, "Latest", generates alignments for the most recent IPD-IMGT/HLA Database release.}
 }
 \value{
-A list object containing data frames of protein (prot), codons (codon), coding nucleotide (nuc), and genomic nucleotide (gen) alignments for all genes in the specified IPD-IMGT/HLA Database release, along with the pertinent reference database release.
+A list object containing data frames of protein (prot), codons (codon), coding nucleotide (nuc), or genomic nucleotide (gen) alignments, for specified genes in the specified IPD-IMGT/HLA Database release, along with the pertinent reference database release.
 }
 \description{
-Applies buildAlignments() to build a set of alignments for all loci supported in the ANHIG/IMGTHLA GitHub repository.
+Applies buildAlignments() to build a set of alignments for loci supported in the ANHIG/IMGTHLA GitHub repository.
 }
 \note{
-For internal HLAtools use.
+This function requires internet access. Depending on local download speeds, building all available alignments for all loci can take several minutes.
 }
 \examples{
 \dontrun{

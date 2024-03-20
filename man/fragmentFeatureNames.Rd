@@ -17,6 +17,6 @@ data(fragmentFeatureNames)
 }
 \description{
 A list object of 15 elements. Each of the 15 elements corresponds to one of the 15 HLA pseudogenes and gene fragments, and contains two items. The first item identifies the gene features for that locus. The second item contains an annotation detailing information regarding non-standard gene structures.
-This object is built by the ffN() function in the HLAtools package.
+This object is built by the ffN() function.
 }
 \keyword{datasets}

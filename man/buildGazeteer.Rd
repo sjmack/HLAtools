@@ -2,21 +2,35 @@
 % Please edit documentation in R/buildGazeteer.R
 \name{buildGazeteer}
 \alias{buildGazeteer}
-\title{Build lists of genes}
+\title{Define categories of genes supported by the IPD-IMGT/HLA Database}
 \usage{
 buildGazeteer(version = getLatestVersion())
 }
 \arguments{
-\item{version}{A string identifying of the desired IPD-IMGT/HLA Database release version to which the alleles should be updated. The default value is most recent IPD-IMGT/HLA Database release version.}
+\item{version}{A string identifying of the desired IPD-IMGT/HLA Database release version to which the gazeteer should be updated. The default value is most recent IPD-IMGT/HLA Database release version.}
 }
 \value{
-A list object of vectors identifying those loci in the IPD-IMGT/HLA Database for which amino acid (prot), cDNA (nuc), and gDNA (gen) alignments are available. In addition, subsets of these loci identified as pseudogenes (pseudo) and gene fragments (frag) for which nucleotide and genomic alignments are and are not available (the latter denoted as 'noNuc' or 'noGen') are also identified.
+A list object of vectors identifying those loci in the IPD-IMGT/HLA Database for which amino acid (prot), cDNA (nuc), and gDNA (gen) alignments are available. In addition, subsets of these loci identified as pseudogenes (pseudo) and gene fragments (frag) are identified, and genes for which no nucleotide or genomic alignments are available (nonuc and nonen) are also identified.
 }
 \description{
-Queries the ANHIG/IMGTHLA GitHub Repository to identify HLA genes that do and do not have amino acid, cDNA, and genomic (gDNA) alignments.
+Consumes information in the ANHIG/IMGTHLA GitHub repository and at hla.alleles.org/genes to define specific categories of genes supported by the IPD-IMGT/HLA Database, which are represented as eighteen elements of the HLAgazeteer object.
+Elements:
+Genes that that do and do not have amino acid ($prot/$noprot), nucleotide ($nuc/$nonuc), and genomic ($gen/$nogen) alignments
+HLA genes ($hla), pseudogenes ($pseudo), gene fragments ($frag)
+Genes that are expressed ($expressed) or not expressed ($notexpressed)
+Genes in the Class I region ($classireg), Class I HLA genes ($classIhla), Genes in the class II region ($classiireg), and Class II HLA genes ($classiihla)
+Classical HLA genes ($classical) and non-classical exprssed HLA genes ($nonclassical)
+All genes presented in map order ($map)
+}
+\details{
+The nineteenth element ($version) identifies the IPD-IMGT/HLA Database version used to build the HLAgazeteer.
 }
 \note{
-Pseudogenes and gene fragments are defined by the IPD-IMGT/HLA Database at https://hla.alleles.org/genes/index.html, and are described in the HLAtools::IMGTHLAGeneTypes data object.
+These elements are constructed using data compiled from hla.alleles.org/genes/, github.com/ANHIG/IMGTHLA/tree/Latest/alignments, DOI:10.2741/a317, DOI:10.1111/tan.15180, and Human Genome Assembly GRCh38.p14 reference assembly NC_000006.12.
+
+Additional information about these genes can be found in HLAtools::IMGTHLAGeneTypes.
+
+The $map element does not distinguish the order of the DRB3, DRB4 and DRB5 genes (DRB3/4/5) or the DR6 and DR7 (DR6/7) genes, as the individual elements of these gene sets are found on different DRB haplotypes.
 
 This function requires internet access to function.
 }
@@ -25,4 +39,7 @@ This function requires internet access to function.
 HLAgazeteer <- buildGazeteer("3.34.0")
 }
 
+}
+\references{
+Andersson G. Evolution of the human HLA-DR region. Front. Biosci. 1998 Jul 27:3:d739-45.
 }

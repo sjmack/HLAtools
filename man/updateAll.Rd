@@ -2,21 +2,23 @@
 % Please edit documentation in R/UpdateAll.R
 \name{updateAll}
 \alias{updateAll}
-\title{Updates all of the data objects derived from IPD-IMGT/HLA sources.}
+\title{Updates all of the package data objects derived from IPD-IMGT/HLA Database resources.}
 \usage{
-updateAll(version = getLatestVersion())
+updateAll(updateType = "all", version = getLatestVersion())
 }
 \arguments{
-\item{version}{The version of the ANHIG/IMGTHLA Github repository to build alignments from. The default value is to call the getLatestVersion() function to generate alignments for the most recent IPD-IMGT/HLA Database release.}
-}
-\value{
-A list object containing data frames of protein (prot), coding nucleotide (nuc), and genomic nucleotide (gen) alignments for all genes in the specified IPD-IMGT/HLA Database release, along with the pertinent reference database release.
+\item{updateType}{A vector of the data objects to be updated. By default, updateAll() builds all five data objects (data="all"). Alternatively specific data objects can be updated; e.g., data="alleleListHistory" or data=c("alleleListHistory","fragmentFeatureNames").}
+
+\item{version}{The version of the ANHIG/IMGTHLA Github repository to build these objects from. By default, updateAll() calls the getLatestVersion() function to identify the most recent IPD-IMGT/HLA Database release.}
 }
 \description{
-Applies extractGeneTypes(), buildGazeteer(), ffN(), atlasFull() and alignmentsFull() to build a set of alignments for all loci supported in the ANHIG/IMGTHLA GitHub repository.
+Applies updateAlleleListHistory(), atlasFull(), buildGazeteer(), extractGeneTypes(), and ffN() and to update the alleleListHistory, HLAatlas, HLAgazeteer, IMGTHLAGeneTypes and fragmentFeatureNames data objects.
+}
+\details{
+A new alleleListHistory data object will likely need to be generated with each IPD-IMGT/HLA Database release. The other data objects will likely only change if the IPD-IMGT/HLA Database includes additional genes.
 }
 \note{
-For internal HLAtools use.
+Generating a new HLAatlas can take 5 minutes or more to complete.
 }
 \examples{
 \dontrun{
