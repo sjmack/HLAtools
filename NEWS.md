@@ -1,5 +1,9 @@
 # HLAtools (development version)
 
+* Version 0.7.6.9000 March 13, 2024
+  Standardized versioning for the packaged data objects. 
+  Added functionality for updating packaged data objects.
+
 * Version 0.7.5.9000 March 13, 2024
   Expanded HLAgazeteer to define multiple functional and organizational sets of genes
   Expanded alignmentFull() to build user-defined sets of alignments  
