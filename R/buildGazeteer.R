@@ -4,14 +4,16 @@
 ##buildGazeteer
 #'Define categories of genes supported by the IPD-IMGT/HLA Database
 #'
+#'@description
 #'Consumes information in the ANHIG/IMGTHLA GitHub repository and at hla.alleles.org/genes to define specific categories of genes supported by the IPD-IMGT/HLA Database, which are represented as eighteen elements of the HLAgazeteer object.
+#'
 #'Elements: 
-#'  Genes that that do and do not have amino acid ($prot/$noprot), nucleotide ($nuc/$nonuc), and genomic ($gen/$nogen) alignments
-#'  HLA genes ($hla), pseudogenes ($pseudo), gene fragments ($frag)
-#'  Genes that are expressed ($expressed) or not expressed ($notexpressed)
-#'  Genes in the Class I region ($classireg), Class I HLA genes ($classIhla), Genes in the class II region ($classiireg), and Class II HLA genes ($classiihla)
-#'  Classical HLA genes ($classical) and non-classical exprssed HLA genes ($nonclassical)
-#'  All genes presented in map order ($map)
+#'*  Genes that that do and do not have amino acid ($prot/$noprot), nucleotide ($nuc/$nonuc), and genomic ($gen/$nogen) alignments
+#'*  HLA genes ($hla), pseudogenes ($pseudo), gene fragments ($frag)
+#'*  Genes that are expressed ($expressed) or not expressed ($notexpressed)
+#'*  Genes in the Class I region ($classireg), Class I HLA genes ($classIhla), Genes in the class II region ($classiireg), and Class II HLA genes ($classiihla)
+#'*  Classical HLA genes ($classical) and non-classical exprssed HLA genes ($nonclassical)
+#'*  All genes presented in map order ($map)
 #'
 #'The nineteenth element ($version) identifies the IPD-IMGT/HLA Database version used to build the HLAgazeteer.
 #'

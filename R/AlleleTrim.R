@@ -1,12 +1,14 @@
-#alleleTrim v1.1.1 1/29/2024 -- Steven J. Mack
+#alleleTrim v1.2.0 3/20/2024 -- Steven J. Mack
 
 ################
 ##alleleTrim
-#'Trims an HLA allele name to a specified number of fields.
+#'Trim all versions of allele names
+#'
+#'Trims an HLA allele name to a specified number of fields or number of digits, depending on the nomenclature version.
 #'
 #'@param allele A full HLA allele name formatted as locus*allele_name or HLA-locus*allele_name.
 #'@param resolution A number identifying the number of fields to trim the allele down to.
-#'@param version the HLA Nomenclature version under which the allele was named. Version 1 allele names are found in IPD-IMGT/HLA Database releases 1.0.0 to 1.16.0. Version 2 allele names are found in IPD-IMGT/HLA Database releases 2.0.0 to 2.28.0. Version 3 allele names are found in IPD_IMGT/HLA Database releases 3.0.0 and onward.
+#'@param version the HLA nomenclature version under which the allele was named. Version 1 allele names are found in IPD-IMGT/HLA Database releases 1.0.0 to 1.16.0. Version 2 allele names are found in IPD-IMGT/HLA Database releases 2.0.0 to 2.28.0. Version 3 allele names are found in IPD_IMGT/HLA Database releases 3.0.0 and onward.
 #'
 #'@return a trimmed allele name, shortented according to the input parameters.
 #'
@@ -14,6 +16,7 @@
 #'
 #'@examples
 #'alleleTrim(allele = "A*03:01:01", resolution = 2)
+#'alleleTrim(allele = "A*030101", resolution = 2,version = 2)
 #'
 alleleTrim <- function(allele,resolution,version=3){
 
@@ -25,7 +28,7 @@ alleleTrim <- function(allele,resolution,version=3){
   if(version == 3){
   currRes <- lengths(regmatches(allele,gregexpr(":",allele)))+1
 
-  if(currRes > resolution) {allele <- GetField(allele,resolution)}
+  if(currRes > resolution) {allele <- getField(allele,resolution)}
 
   }
 
@@ -61,29 +64,38 @@ alleleTrim <- function(allele,resolution,version=3){
 }
 
 ###############
-##GetField
-#' An HLA trimming function
+##getField
+#' Trims colon-delimited HLA allele names by field
+#' 
+#'@description
+#' Trims a properly formatted colon-delimited HLA allele name to a desired number of fields.
+#' 
+#' If an allele name with an expression-variant suffix is truncated, the suffix can be appended to the end of the truncated allele name. 
 #'
-#' Trim a properly formatted HLA allele to a desired number of fields.
+#' @param allele HLA allele.
+#' @param res Resolution desired.
+#' @param append A logical that, when TRUE, appends the expression variant suffix of a full-length allele name to a truncated allele name. The default value is FALSE.
 #'
-#' @param x HLA allele.
-#' @param Res Resolution desired.
-#'
-#' @note for internal use only.
+#' @note For internal HLAtools use.
 #'
 #' @export
 #'
 #'@examples
-#'GetField("HLA-A*01:01:01:01", 3)
+#'getField("HLA-A*01:01:01:01", 3)
+#'getField("DRB1*11:01:01:12N", 2,TRUE)
 #'
-GetField <- function(x,Res) {
-  Tmp <- unlist(strsplit(as.character(x),":"))
+getField <- function(allele,res,append=FALSE) {
+  Tmp <- unlist(strsplit(as.character(allele),":"))
+  suffix <- ""
+  
+  if(substr(Tmp[length(Tmp)],nchar(Tmp[length(Tmp)]),nchar(Tmp[length(Tmp)])) %in% c("N","L","S","C","A","Q")) {suffix <- substr(Tmp[length(Tmp)],nchar(Tmp[length(Tmp)]),nchar(Tmp[length(Tmp)])) }
+  
   if (length(Tmp)<2) {
-    return(x)
-  } else if (Res==1) {
-    return(Tmp[1])
-  } else if (Res > 1) {
-    Out <- paste(Tmp[1:Res],collapse=":")
+    return(allele)
+  } else if (res==1) {
+    return(paste(Tmp[1],ifelse(append,suffix,""),sep=""))
+  } else if (res > 1) {
+    Out <- paste(paste(Tmp[1:res],collapse=":"),ifelse(append,suffix,""),sep="")
     return(Out)
   }
 }

@@ -11,36 +11,31 @@ ffN(version)
 }
 \value{
 A list object where each element is the name of a pseudogene or gene fragment. Each of these elements is a list of 'features' and 'annotation'. "Features" identifies the gene features for that gene, ordered from 5' to 3'. Because these genes are not-expressed, the three standard gene features (U, Untranslated Region (UTR); E, Exon; and I, Intron) may not always be present. In these cases, H, J, N and S features (defined below) are returned. Each feature identifier is followed by an identifying number (e.g. U.5 is the 5' UTR, and E.3 is Exon 3). "Annotation" provides the composition of the non-standard H, J, N and S features for each gene.
+#'
 }
 \description{
 HLA pseudogenes and gene fragments many not share all of the gene features of their expressed homologs. The ffN() function generates a list object identifying the features present in a given gene fragment or pseudogene with an alignment file. This includes annotations of the differences between the pseudogenes and gene fragments, and their expressed homologs.
 Pseuogenes and gene fragments are identified in the IMGTHLAGeneTypes data object.
-}
-\note{
+
 Standard Features
-
-E - Exon, a peptide-encoding sequence
-
-I - Intron, an intervening sequence found between Exons
-
-U - UTR, an untranslated region of sequence preceding the first Exon or following the last Exon
+\itemize{
+\item E - Exon, a peptide-encoding sequence
+\item I - Intron, an intervening sequence found between Exons
+\item U - UTR, an untranslated region of sequence preceding the first Exon or following the last Exon
+}
 
 Additional Features used in these annotations, based on boundaries indicated in the sequence alignment, are:
-
-H - Hybrid, a sequence that includes at least one known feature sequence and one nucleotide sequence that does not correspond to a known feature
-
-J - Join, a sequence that includes two or more features that are separated by a feature boundary in the reference
-
-N - Novel, a novel sequence that does correspond to a known feature sequence
-
-S - Segment, a subset of a longer feature sequence
-
+\itemize{
+\item H - Hybrid, a sequence that includes at least one known feature sequence and one nucleotide sequence that does not correspond to a known feature
+\item J - Join, a sequence that includes two or more features that are separated by a feature boundary in the reference
+\item N - Novel, a novel sequence that does correspond to a known feature sequence
+\item S - Segment, a subset of a longer feature sequence
 Reference Genes
-
-HLA-C genomic sequence is used as the reference for class I pseudogenes and gene fragments.
-
-HLA-DPA1 and -DPB1 genomic sequences are used as the references for class II pseudogenes -DPA2 and -DPB2, respectively.
-
+\item HLA-C genomic sequence is used as the reference for class I pseudogenes and gene fragments.
+\item HLA-DPA1 and -DPB1 genomic sequences are used as the references for class II pseudogenes -DPA2 and -DPB2, respectively.
+}
+}
+\note{
 Features and their annotations have been identified manually, and this function is for internal HLAtools use.
 }
 \examples{

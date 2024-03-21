@@ -1,4 +1,4 @@
-#BuildAlignments v1.4.0 13FEB2024 - LT/SM
+#BuildAlignments v1.4.1 20MAR2024 - LT/SM
 
 #library(stringr)
 #library(BIGDAWG)
@@ -9,13 +9,13 @@
 ##BuildAlignments
 #'Build Amino Acid, cDNA and gDNA Alignments
 #'
-#'Returns a list of data frames of amino-acid, cDNA and gDNA alignments, and version information.
+#'Returns a list of data frames of amino acid, codon, nucleotide and genomic alignments, with version information.
 #'
-#'@param loci A vector of HLA gene names (ex. "DRB1", c("A","C")).
-#'@param source A vector of alignment types. The allowed values are "AA", "cDNA", and "gDNA". If 'source' is "AA", both amino acid and codon alignments are generated. If source is 'cDNA' or 'gDNA', a single cDNA or gDNA nucleotide alignment is generated. Up to four alignments will be returned for a locus, as determined by its ability to be transcribed or translated.
-#'@param version The desired release version (branch) of the ANHIG/IMGTHLA Github repository (e.g. '3.53.0'). The default value ('Latest') returns alignments for the most recent branch.
+#'@param loci A vector of HLA gene names (e.g., "DRB1", c("A","C")).
+#'@param source A vector of alignment types. The allowed values are "AA", "cDNA", and "gDNA". If 'source' is "cDNA", both codon and cDNA nucleotide alignments are generated. If source is 'AA' or 'gDNA', a single peptide or genomic nucleotide alignment is generated. Up to four alignments will be returned for a locus, as determined by its ability to be transcribed or translated.
+#'@param version The desired release version (branch) of the ANHIG/IMGTHLA Github repository (e.g. '3.53.0'). The default value ('Latest') returns alignments for the most recent release.
 #'
-#'@return A list object with a data frame of all allele names (and trimmed allele names) and their corresponding sequences (Amino Acid, cDNA, or gDNA) for a specific loci, as well as version details for the returned information. Also returns locations of exons in relation to amino acids, cDNA, and gDNA.
+#'@return A list object with a data frame of all allele names (and trimmed allele names) and their corresponding sequences (Amino Acid, codon, cDNA, or gDNA) for a specific locus, as well as version details for the returned information. These alignments identify locations of feature boundaries in relation to amino acid, codon, cDNA, and gDNA sequences.
 #'
 #'@importFrom stringr str_squish
 #'@importFrom tibble add_column
@@ -307,7 +307,7 @@ buildAlignments<-function(loci, source, version = "Latest"){
       aligned[[loci[i]]]<- as.matrix(do.call(rbind,strsplit(HLAalignments[[loci[i]]][,1],"[*]")))
 
       #adds a new column of pasted locus and trimmed two field alleles to aligned
-      aligned[[loci[i]]]<- cbind(aligned[[loci[i]]], paste(aligned[[loci[i]]][,1], apply(aligned[[loci[i]]],MARGIN=c(1,2),FUN=GetField,Res=2)[,2], sep="*"))
+      aligned[[loci[i]]]<- cbind(aligned[[loci[i]]], paste(aligned[[loci[i]]][,1], apply(aligned[[loci[i]]],MARGIN=c(1,2),FUN=getField,Res=2)[,2], sep="*"))
 
       #binds aligned and HLAalignments -- renames columns
       HLAalignments[[loci[i]]] <- cbind(aligned[[loci[i]]], HLAalignments[[loci[i]]])

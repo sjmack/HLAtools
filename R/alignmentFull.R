@@ -12,7 +12,6 @@
 #'
 #'@return A list object containing data frames of protein (prot), codons (codon), coding nucleotide (nuc), or genomic nucleotide (gen) alignments, for specified genes in the specified IPD-IMGT/HLA Database release, along with the pertinent reference database release.
 #'
-#'
 #'@examples
 #'\dontrun{
 #' HLAalignments <- alignmentFull()

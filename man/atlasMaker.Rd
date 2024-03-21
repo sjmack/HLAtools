@@ -20,7 +20,7 @@ A list object of 'atlas' dataframes and a 'release version' character string for
 The 'AA' atlas identifies the amino acid (AA) positions encoded by codons that span each exon (E) boundary. The 'cDNA' atlas describes the 3' nucleotide position in the cDNA sequence that follows each exon boundary, as well as the codon that spans each exon boundary. The 'gDNA' atlas describes first 3' nucleotide position following each UTR (U), exon or intron (I) boundary. Each feature is followed by its rank (e.g U3 is the 3' UTR).
 }
 \details{
-Builds an 'atlas' of the gene-feature (exon, intron and UTR) boundaries for IPD-IMGT/HLA loci, using IPD-IMGT/HLA database alignments.
+Builds an 'atlas' of the gene-feature (exon, intron and UTR) boundaries for IPD-IMGT/HLA loci, using IPD-IMGT/HLA Database alignments.
 }
 \note{
 Nucleotide atlases for pseudogenes will include a 'codon' row populated with NA values.

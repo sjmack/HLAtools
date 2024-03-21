@@ -7,17 +7,17 @@
 buildAlignments(loci, source, version = "Latest")
 }
 \arguments{
-\item{loci}{A vector of HLA gene names (ex. "DRB1", c("A","C")).}
+\item{loci}{A vector of HLA gene names (e.g., "DRB1", c("A","C")).}
 
-\item{source}{A vector of alignment types. The allowed values are "AA", "cDNA", and "gDNA". If 'source' is "AA", both amino acid and codon alignments are generated. If source is 'cDNA' or 'gDNA', a single cDNA or gDNA nucleotide alignment is generated. Up to four alignments will be returned for a locus, as determined by its ability to be transcribed or translated.}
+\item{source}{A vector of alignment types. The allowed values are "AA", "cDNA", and "gDNA". If 'source' is "cDNA", both codon and cDNA nucleotide alignments are generated. If source is 'AA' or 'gDNA', a single peptide or genomic nucleotide alignment is generated. Up to four alignments will be returned for a locus, as determined by its ability to be transcribed or translated.}
 
-\item{version}{The desired release version (branch) of the ANHIG/IMGTHLA Github repository (e.g. '3.53.0'). The default value ('Latest') returns alignments for the most recent branch.}
+\item{version}{The desired release version (branch) of the ANHIG/IMGTHLA Github repository (e.g. '3.53.0'). The default value ('Latest') returns alignments for the most recent release.}
 }
 \value{
-A list object with a data frame of all allele names (and trimmed allele names) and their corresponding sequences (Amino Acid, cDNA, or gDNA) for a specific loci, as well as version details for the returned information. Also returns locations of exons in relation to amino acids, cDNA, and gDNA.
+A list object with a data frame of all allele names (and trimmed allele names) and their corresponding sequences (Amino Acid, codon, cDNA, or gDNA) for a specific locus, as well as version details for the returned information. These alignments identify locations of feature boundaries in relation to amino acid, codon, cDNA, and gDNA sequences.
 }
 \description{
-Returns a list of data frames of amino-acid, cDNA and gDNA alignments, and version information.
+Returns a list of data frames of amino acid, codon, nucleotide and genomic alignments, with version information.
 }
 \examples{
 \dontrun{

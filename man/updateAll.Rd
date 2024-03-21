@@ -13,8 +13,7 @@ updateAll(updateType = "all", version = getLatestVersion())
 }
 \description{
 Applies updateAlleleListHistory(), atlasFull(), buildGazeteer(), extractGeneTypes(), and ffN() and to update the alleleListHistory, HLAatlas, HLAgazeteer, IMGTHLAGeneTypes and fragmentFeatureNames data objects.
-}
-\details{
+
 A new alleleListHistory data object will likely need to be generated with each IPD-IMGT/HLA Database release. The other data objects will likely only change if the IPD-IMGT/HLA Database includes additional genes.
 }
 \note{

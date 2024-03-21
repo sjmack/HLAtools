@@ -7,7 +7,7 @@
 posSort(posVec, alignType, locus)
 }
 \arguments{
-\item{posVec}{A vector of nucleotide positions}
+\item{posVec}{A character vector of variant positions}
 
 \item{alignType}{The type of alignment the positions are in. The values 'prot', 'codon', 'nuc' and 'gen' are valid options.}
 
@@ -18,9 +18,15 @@ A correctly sorted sequence.
 }
 \description{
 Sorts sequence alignment positions that contain indels in numerical order; e.g., three indels following position X are are identified as X.1, X.2 and X.3.
+
+Positions are validated against a specified locus for a specified alignment type. Positions that do not exist for that locus-alignment combination are not returned.
+}
+\note{
+Indel positions must be text-formatted (e.g. "607.12"), as illustrated in the the examples.
 }
 \examples{
 \dontrun{
 posSort(c(2,4,3,1,5), "nuc","DRB1")
+posSort(c("607.23","607.10","607.3","607.4"),"nuc","DRB1")
 }
 }

@@ -10,7 +10,7 @@
 ##atlasMaker
 #'Identify the gene-feature boundaries in HLA loci.
 #'
-#'Builds an 'atlas' of the gene-feature (exon, intron and UTR) boundaries for IPD-IMGT/HLA loci, using IPD-IMGT/HLA database alignments.
+#'Builds an 'atlas' of the gene-feature (exon, intron and UTR) boundaries for IPD-IMGT/HLA loci, using IPD-IMGT/HLA Database alignments.
 #'
 #'@param loci A specific HLA gene (ex. "DRB1"). More than one gene can be specified (e.g., c("DRB1","DQB1")).
 #'@param source The type of alignment used to build the atlas. The allowed options are "AA", for protein alignments, "cDNA", for nucleotide alignments, and "gDNA", for genomic alignments. More than one alignment type can be specified (e.g., c("AA","gDNA")).
@@ -419,7 +419,7 @@ atlasMaker<-function(loci, source, version = "Latest"){
         aligned[[loci[i]]]<- as.matrix(do.call(rbind,strsplit(HLAalignments[[loci[i]]][,1],"[*]")))
 
         # add a new column of pasted locus and trimmed two field alleles to aligned
-        aligned[[loci[i]]]<- cbind(aligned[[loci[i]]], paste(aligned[[loci[i]]][,1], apply(aligned[[loci[i]]],MARGIN=c(1,2),FUN=GetField,Res=2)[,2], sep="*"))
+        aligned[[loci[i]]]<- cbind(aligned[[loci[i]]], paste(aligned[[loci[i]]][,1], apply(aligned[[loci[i]]],MARGIN=c(1,2),FUN=getField,Res=2)[,2], sep="*"))
 
         # bind aligned and HLAalignments -- rename columns
         HLAalignments[[loci[i]]] <- cbind(aligned[[loci[i]]], HLAalignments[[loci[i]]])

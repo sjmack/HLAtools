@@ -1,5 +1,4 @@
-#GLupdater v0.4.0 7FEB24
-
+#GLupdater v0.4.0 7FEB24 R. Nickens
 
 #library('dplyr')
 #library('stringr')
@@ -238,9 +237,7 @@ GLupdate <- function(GLString, Version, expand = FALSE) {
     #changing version to reflect the update
     gBack <- gsub(origV,Version,gBack)
     gBack
-  }
-
-  else {
+  } else {
     for (i in 1:length(nameList)) {
       if(nameList[i] %in% alleleListHistory$AlleleListHistory[[inpos]]){
         #finding which row the allele is in
@@ -257,8 +254,7 @@ GLupdate <- function(GLString, Version, expand = FALSE) {
           #replacing words on gBack string to return
           gBack <- str_replace_all(gBack, fixed(nameList[i]), paste0("HLA-", valtemp))
         }
-      }
-      else {
+      }  else {
         message(nameList[i], " is not present in IPD-IMGT/HLA Database Version ", strsplit(GLString, "#")[[1]][[2]], ".")
         tempFind <- paste0(c("hla", origV, nameList[i]), collapse = "#")
         lastEffort <- GLupdate(tempFind, Version = origV, expand = TRUE)
@@ -271,8 +267,7 @@ GLupdate <- function(GLString, Version, expand = FALSE) {
           temp <- strsplit(temp, split = "#")[[1]][3]
           gBack <- str_replace_all(gBack, fixed(nameList[i]), temp)
         }
-        else {
-          gBack <- str_replace_all(gBack, fixed(nameList[i]), "NA")
+        else { gBack <- str_replace_all(gBack, fixed(nameList[i]), "NA")
         }
       }
     }

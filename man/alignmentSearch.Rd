@@ -21,7 +21,10 @@ alignmentSearch(alignType, allelename, positions, prefix = TRUE, sep = "~")
 A character string containing the corresponding peptide, codon or nucleotide sequence for each position in 'positions' for 'allelename'. A sequence is not returned if 'allelename' is not not found in the pertinent alignment. A position will be empty if 'allelename' does not have a value at the specified position.
 }
 \description{
-Searches ANHIG/IMGT-HLA alignments and returns protein, codons or nuceotide sequences for a submitted allele name and position(s).
+Searches ANHIG/IMGT-HLA alignments and returns protein, codons or nucleotide sequences for a submitted allele name and position(s).
+}
+\note{
+Indel positions must be text-formatted (e.g. "607.12"), as illustrated in the the examples.
 }
 \examples{
 \dontrun{
@@ -29,5 +32,6 @@ alignmentSearch("codon","DRB1*15:07:01",11:22)
 alignmentSearch("prot","DRB1*15:07:01",11:22)
 alignmentSearch("gen","DRB1*15:07:01",11:22)
 alignmentSearch("nuc","DRB1*15:07:01",11:22)
+alignmentSearch("nuc","DRB1*11:250N",c(605,"607.1","607.12",608))
 }
 }

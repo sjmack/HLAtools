@@ -1,10 +1,10 @@
-#### unified alignment search and construction functions v4.2.0 15 March 2024 Ryan Nickens & Steven Mack 
+#### unified alignment search and construction functions v4.3.0 20 March 2024 Ryan Nickens & Steven Mack 
 
 ################
 #AlignmentSearch
 #'Search peptide, codon or nucleotide HLA alignments for specific positions in a given allele.
 #'
-#'Searches ANHIG/IMGT-HLA alignments and returns protein, codons or nuceotide sequences for a submitted allele name and position(s).
+#'Searches ANHIG/IMGT-HLA alignments and returns protein, codons or nucleotide sequences for a submitted allele name and position(s).
 #'
 #'@param alignType The type of alignment being searched. Allowed values are "codon","gen", nuc" and "prot".
 #'@param allelename A full or 2-field HLA allele name, excluding the "HLA-" prefix.
@@ -17,12 +17,15 @@
 #'@importFrom xfun numbers_to_words
 #'@export
 #'
+#'@note Indel positions must be text-formatted (e.g. "607.12"), as illustrated in the the examples.
+#'
 #'@examples
 #'\dontrun{
 #'alignmentSearch("codon","DRB1*15:07:01",11:22)
 #'alignmentSearch("prot","DRB1*15:07:01",11:22)
 #'alignmentSearch("gen","DRB1*15:07:01",11:22)
 #'alignmentSearch("nuc","DRB1*15:07:01",11:22)
+#'alignmentSearch("nuc","DRB1*11:250N",c(605,"607.1","607.12",608))
 #'}
 alignmentSearch <- function(alignType,allelename,positions,prefix=TRUE,sep="~"){
   if(!alignType %in% c("codon","nuc","prot","gen")) {stop(paste("Please set 'alignType' to either 'prot' for peptide alignments, 'nuc' for single nucleotide alignments, 'codon' for codon alignments, or 'gen' for genomic alignments."))}
@@ -80,7 +83,7 @@ alignmentSearch <- function(alignType,allelename,positions,prefix=TRUE,sep="~"){
     positions <- posSort(positions,alignType,locus)
     message("Sorting positions to reflect sequence order.",if(prefix==FALSE){" Setting 'prefix=TRUE' for clarity."})
     prefix=TRUE
-    positions <- as.numeric(positions)
+    #positions <- as.numeric(positions)
   }
   return(multiSearch(alignType=alignType,locus=locus,allele=allele,positions=positions,prefix=prefix,sep=sep,trimmed=trimmed))
 }
@@ -121,7 +124,7 @@ multiSearch <- function(alignType, locus, allele, positions, prefix=TRUE,sep="~"
                   message(paste(allele,"is a full length alllele name.",sep=" "))
                   trimmed <- FALSE }
       } else {
-                if( paste(locus,allele,sep="*") %in% HLAalignments[[alignType]][[locus]]$trimmed_allele ) {
+                if( paste(locus,allele,sep="*") %in% HLAalignments[[alignType]][[locus]]$trimmed_allele && !paste(locus,allele,sep="*") %in% HLAalignments[[alignType]][[locus]]$allele_name) {
                   trimmed <- TRUE
                 }
       }

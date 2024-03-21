@@ -1,4 +1,4 @@
-## Locus Validator v0.3.0 23OCT2023
+## Locus Validater v0.3.0 23OCT2023
 
 ################
 ##validateLocus
