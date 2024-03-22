@@ -41,8 +41,8 @@ ffN <- function(version){ #Fragment Feature Names
 
   if(paste("X",gsub("\\.","",as.character(version)),sep="") %in% colnames(alleleListHistory$AlleleListHistory)) {
 
-  featureNames <- rep(list(list()), length(c(HLAgazeteer$pseudo[!is.element(HLAgazeteer$pseudo,HLAgazeteer$pseudo.noGen)],HLAgazeteer$frag[!is.element(HLAgazeteer$frag,HLAgazeteer$frag.noGen)])))
-  names(featureNames) <-sort(c(HLAgazeteer$pseudo[!is.element(HLAgazeteer$pseudo,HLAgazeteer$pseudo.noGen)],HLAgazeteer$frag[!is.element(HLAgazeteer$frag,HLAgazeteer$frag.noGen)]))
+  featureNames <- rep(list(list()), length(HLAgazeteer$align[HLAgazeteer$align %in% unique(c(HLAgazeteer$pseudo,HLAgazeteer$frag))]))
+  names(featureNames) <-sort(HLAgazeteer$align[HLAgazeteer$align %in% unique(c(HLAgazeteer$pseudo,HLAgazeteer$frag))])
 
 
   featureNames$DPA2$features <- c("U.5","E.1","I.1","E.2","I.2","E.3","I.3","E.4","U.3") #  8 boundaries -- **Unconfirmed

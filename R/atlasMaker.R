@@ -419,7 +419,7 @@ atlasMaker<-function(loci, source, version = "Latest"){
         aligned[[loci[i]]]<- as.matrix(do.call(rbind,strsplit(HLAalignments[[loci[i]]][,1],"[*]")))
 
         # add a new column of pasted locus and trimmed two field alleles to aligned
-        aligned[[loci[i]]]<- cbind(aligned[[loci[i]]], paste(aligned[[loci[i]]][,1], apply(aligned[[loci[i]]],MARGIN=c(1,2),FUN=getField,Res=2)[,2], sep="*"))
+        aligned[[loci[i]]]<- cbind(aligned[[loci[i]]], paste(aligned[[loci[i]]][,1], apply(aligned[[loci[i]]],MARGIN=c(1,2),FUN=getField,res=2)[,2], sep="*"))
 
         # bind aligned and HLAalignments -- rename columns
         HLAalignments[[loci[i]]] <- cbind(aligned[[loci[i]]], HLAalignments[[loci[i]]])

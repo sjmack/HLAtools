@@ -64,14 +64,15 @@
 ##HLAgazeteer
 #'Functional and organizational categories of genes supported by the IPD-IMGT/HLA Database.
 #'
-#'A list object of eighteen vectors that identify genes in the HLA region that share specific commonalities. 
+#'A list object of nineteen vectors that identify genes in the HLA region that share specific commonalities. 
 #'This object is built by the buildGazeteer() function.
 #'
 #' @docType data
 #' @name HLAgazeteer
 #' @usage data(HLAgazeteer)
-#' @format A large list of 18 vectors that define specific categories of genes supported by the IPD-IMGT/HLA Database
+#' @format A large list of 19 vectors that define specific categories of genes supported by the IPD-IMGT/HLA Database
 #' \itemize{
+#'.   \item(align: all genes with alignments in the IPD/IMGT-HLA GitHub Repository)
 #'    \item(gen: genes with genomic alignments in the IPD/IMGT-HLA GitHub Repository)
 #'    \item(nuc: genes with nucleotide alignments in the IPD/IMGT-HLA GitHub Repository)
 #'    \item(prot: genes with protein alignments in the IPD/IMGT-HLA GitHub Repository)

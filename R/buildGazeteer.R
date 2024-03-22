@@ -1,13 +1,14 @@
-#buildGazeteer v03.1.0 17MAR2024
+#buildGazeteer v03.2.0 21MAR2024
 
 ##############
 ##buildGazeteer
 #'Define categories of genes supported by the IPD-IMGT/HLA Database
 #'
 #'@description
-#'Consumes information in the ANHIG/IMGTHLA GitHub repository and at hla.alleles.org/genes to define specific categories of genes supported by the IPD-IMGT/HLA Database, which are represented as eighteen elements of the HLAgazeteer object.
+#'Consumes information in the ANHIG/IMGTHLA GitHub repository and at hla.alleles.org/genes to define specific categories of genes supported by the IPD-IMGT/HLA Database, which are represented as nineteen elements of the HLAgazeteer object.
 #'
 #'Elements: 
+#'*  All genes with alignments ($align)
 #'*  Genes that that do and do not have amino acid ($prot/$noprot), nucleotide ($nuc/$nonuc), and genomic ($gen/$nogen) alignments
 #'*  HLA genes ($hla), pseudogenes ($pseudo), gene fragments ($frag)
 #'*  Genes that are expressed ($expressed) or not expressed ($notexpressed)
@@ -15,7 +16,7 @@
 #'*  Classical HLA genes ($classical) and non-classical exprssed HLA genes ($nonclassical)
 #'*  All genes presented in map order ($map)
 #'
-#'The nineteenth element ($version) identifies the IPD-IMGT/HLA Database version used to build the HLAgazeteer.
+#'The twentieth element ($version) identifies the IPD-IMGT/HLA Database version used to build the HLAgazeteer.
 #'
 #'@param version A string identifying of the desired IPD-IMGT/HLA Database release version to which the gazeteer should be updated. The default value is most recent IPD-IMGT/HLA Database release version.
 #'
@@ -72,12 +73,14 @@ buildGazeteer <- function(version = getLatestVersion()) {
         }
       }
   }
-  locList <- list(firstList <- unlist(genList),  ## prot
+  locList <- list(zerothList <- unique(c(unlist(genList),unlist(nucList),unlist(protList))), #all aligned
+                      firstList <- unlist(genList),  ## prot
                       secondList <- unlist(nucList), ## nuc
                       thirdlist <- unlist(protList)) ## gen
 
-  names(locList) <- c("gen","nuc","prot")
+  names(locList) <- c("align","gen","nuc","prot")
   
+
   pseudo <- IMGTHLAGeneTypes$GeneTypes$Names[IMGTHLAGeneTypes$GeneTypes$`Pseudogene/Fragment` == "Pseudogene"]
   pseudo <- sub("HLA-","",pseudo,fixed=TRUE)
 

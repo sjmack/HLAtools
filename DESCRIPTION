@@ -1,7 +1,7 @@
 Package: HLAtools
 Type: Package
 Title: The Open-Source Informatic Toolkit for HLA Immunogenomic Research
-Version: 0.7.7.9000
+Version: 0.8.0.9000
 Authors@R: 
     person("Livia", "Tran", , "livia.tran@ucsf.edu", role = c("aut","cre"))
     person("Ryan", "Nickens", , "rynickens@gmail.com", role = c("aut", "cre"))
@@ -18,7 +18,7 @@ License: GPL-3 LICENSE
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1.9000
 Imports:
-  DescTools, dplyr, stringr, tibble, utils, xfun
+  DescTools, dplyr, stringr, tibble, utils, xfun, fmsb
 Depends: 
     R (>= 2.10)
 LazyData: true

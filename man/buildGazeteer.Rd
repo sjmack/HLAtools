@@ -18,10 +18,11 @@ buildGazeteer(version = getLatestVersion())
 A list object of vectors identifying those loci in the IPD-IMGT/HLA Database for which amino acid (prot), cDNA (nuc), and gDNA (gen) alignments are available. In addition, subsets of these loci identified as pseudogenes (pseudo) and gene fragments (frag) are identified, and genes for which no nucleotide or genomic alignments are available (nonuc and nonen) are also identified.
 }
 \description{
-Consumes information in the ANHIG/IMGTHLA GitHub repository and at hla.alleles.org/genes to define specific categories of genes supported by the IPD-IMGT/HLA Database, which are represented as eighteen elements of the HLAgazeteer object.
+Consumes information in the ANHIG/IMGTHLA GitHub repository and at hla.alleles.org/genes to define specific categories of genes supported by the IPD-IMGT/HLA Database, which are represented as nineteen elements of the HLAgazeteer object.
 
 Elements:
 \itemize{
+\item All genes with alignments ($align)
 \item Genes that that do and do not have amino acid ($prot/$noprot), nucleotide ($nuc/$nonuc), and genomic ($gen/$nogen) alignments
 \item HLA genes ($hla), pseudogenes ($pseudo), gene fragments ($frag)
 \item Genes that are expressed ($expressed) or not expressed ($notexpressed)
@@ -30,7 +31,7 @@ Elements:
 \item All genes presented in map order ($map)
 }
 
-The nineteenth element ($version) identifies the IPD-IMGT/HLA Database version used to build the HLAgazeteer.
+The twentieth element ($version) identifies the IPD-IMGT/HLA Database version used to build the HLAgazeteer.
 }
 \note{
 These elements are constructed using data compiled from hla.alleles.org/genes/, github.com/ANHIG/IMGTHLA/tree/Latest/alignments, DOI:10.2741/a317, DOI:10.1111/tan.15180, and Human Genome Assembly GRCh38.p14 reference assembly NC_000006.12.
