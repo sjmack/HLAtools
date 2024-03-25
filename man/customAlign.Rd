@@ -11,7 +11,7 @@ customAlign(alignType, alleles, positions)
 
 \item{alleles}{A vector of un-prefixed HLA locus names.}
 
-\item{positions}{Either a vector of nucleotide positions, against which all loci will be aligned, or a list of vectors of nucleotide positions, exactly one vector for each allele, against which each corresponding allele will be aligned.}
+\item{positions}{Either a vector of variant positions, against which all loci will be aligned, or a list of vectors of nucleotide positions, exactly one vector for each allele, against which each corresponding allele will be aligned.}
 }
 \value{
 A data frame of allele names and the corresponding nucleotide sequences for each desired nucleotide position. an error message is returned if input loci is not available in the ANHIG/IMGTHLA Github Repository.
@@ -22,6 +22,6 @@ Generates a peptide, codon, coding or genomic nucleotide alignment table for use
 \examples{
 \dontrun{
 customAlign("codon",c("DRB1*01:01","DQB1*02:01","DPB1*01:01"),c(1,2,3,7,8,9,13,14,15))
-customAlign("codon",c("DQA1*01:01:01:01","DQB1*05:01:01:01","DPB1*01:01:01:01"),list(1:4,6:9,19:35))
+customAlign("codon",c("DPB1*01:01:01:01","DQA1*01:01:01:01","DQB1*05:01:01:01"),list(19:35,1:4,6:9))
 }
 }

@@ -1,4 +1,4 @@
-##Accessory Functions v4.0.0 20MAR24
+##Accessory Functions v4.0.1 25MAR24
 
 ################
 ##posSort
@@ -107,8 +107,6 @@ validateAllele <- function(allele) {
 #'@param version A logical that indicates if the most recent nomenclature release version in which that name was valid should be returned. 
 #'
 #'@return A logical identifying if the allele name is found in AlleleListHistory (TRUE) or not (FALSE), or c(TRUE,version) if version = TRUE.
-#'
-#'@note
 #'
 #'@export
 #'
