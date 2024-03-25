@@ -1,5 +1,10 @@
 ## HLAtools (development version)
 
+### Version 0.8.1.9000 March 24, 2024
+- Added the BDstrat() function for stratifying BIGDAWG-formatted datasets by single alleles 
+- Added the verifyAllele() function, which leverages AlleleListHistory to determine if and when a full alllele name was valid.
+- Updated ReadMe.
+
 ### Version 0.8.0.9000 March 21, 2024
 - Added the relRisk() function for calculating relative risk using BIGDAWG-formatted datasets.
 - Added $align to HLAgazeteer to identify all genes with alignments.

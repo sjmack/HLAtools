@@ -1,0 +1,42 @@
+---
+title: "HLAtools"
+author: 
+- Ryan Nickens -- rynickens@gmail.com
+- Livia Tran -- livia.tran@ucsf.edu
+- Leamon Crooms IV -- lcroomsiv@gmail.com
+- Derek Pappas, PhD -- djpappas75@gmail.com
+- Vinh Luu -- vinhluu864@berkeley.edu
+- Josh Bredeweg
+- Steven J. Mack, PhD -- steven.mack@ucsf.edu
+date: "2024-03-25"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{HLAtools}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(HLAtools)
+```
+-   Package Version: 0.8.1.9000
+
+# Overview
+The *HLAtools* package contains a suite of tools and computable resources that facilitate the effective analysis of the named genes in the HLA region.
+
+These include:
+
+- Reference datasets that describe the genes supported by the IPD-IMGT/HLA Database, organize them into useful categories, and identify their structural element boundaries.
+- The ability to build local amino acid, codon, coding nucleotide, and genomic nucleotide sequence alignments for HLA genes of interest.
+- Advanced tools of the dissection and comparison of allele sequences, and the construction of customized multi-gene sequence alignments.
+- Functions that translate Genotype List (GL) String Code messages across IPD-INGT/HLA database release versions, and  inter-convert between GL String and UNIFORMAT formats.
+- Data-analysis tools that extend the utility of Bridging Immunogenomic Data-Analysis Workflow Gaps (BIGDAWG) formatted datasets by allowing stratification and calculating Relative Risk. 
+  
+

@@ -223,7 +223,7 @@ uniSearch <- function(alignType, locus, allele, position, prefix=TRUE, trimmed=F
 #'
 #'@param alignType The type of alignment being searched. Allowed values are "prot", codon", "nuc" and "gen".
 #'@param alleles A vector of un-prefixed HLA locus names.
-#'@param positions Either a vector of nucleotide positions, against which all loci will be aligned, or a list of vectors of nucleotide positions, exactly one vector for each allele, against which each corresponding allele will be aligned.
+#'@param positions Either a vector of variant positions, against which all loci will be aligned, or a list of vectors of nucleotide positions, exactly one vector for each allele, against which each corresponding allele will be aligned.
 #'
 #'@return A data frame of allele names and the corresponding nucleotide sequences for each desired nucleotide position. an error message is returned if input loci is not available in the ANHIG/IMGTHLA Github Repository.
 #'
@@ -232,7 +232,7 @@ uniSearch <- function(alignType, locus, allele, position, prefix=TRUE, trimmed=F
 #'@examples
 #'\dontrun{
 #'customAlign("codon",c("DRB1*01:01","DQB1*02:01","DPB1*01:01"),c(1,2,3,7,8,9,13,14,15))
-#'customAlign("codon",c("DQA1*01:01:01:01","DQB1*05:01:01:01","DPB1*01:01:01:01"),list(1:4,6:9,19:35))
+#'customAlign("codon",c("DPB1*01:01:01:01","DQA1*01:01:01:01","DQB1*05:01:01:01"),list(19:35,1:4,6:9))
 #'}
 customAlign <- function(alignType,alleles,positions){
   if(!alignType %in% c("codon","nuc","prot","gen")) {stop(paste("Please set 'alignType' to either 'prot' for peptide alignments, 'nuc' for single nucleotide alignments, 'codon' for codon alignments, or 'gen' for genomic alignments."))}

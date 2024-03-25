@@ -95,3 +95,45 @@ validateAllele <- function(allele) {
     return(FALSE)
    }
 }
+
+
+#################
+##verifyAllele
+#'Determine if a specific allele name ever existed, and (if so) the most recent IPD-IMGT/HLA Database release in which it appeared
+#'
+#'Returns TRUE if an allele name is present in AlleleListHistory or FALSE it is absent, or c(TRUE,version), where 'version' is the most recent IPD-IMGT/HLA Database release in which that name appeared, when version = TRUE.
+#'
+#'@param allele An HLA allele name. Colon-delimited and field-delimited names are both accepted.
+#'@param version A logical that indicates if the most recent nomenclature release version in which that name was valid should be returned. 
+#'
+#'@return A logical identifying if the allele name is found in AlleleListHistory (TRUE) or not (FALSE), or c(TRUE,version) if version = TRUE.
+#'
+#'@note
+#'
+#'@export
+#'
+#'@examples
+#'\dontrun{
+#'verifyAllele("A*01:01:01:01")
+#'verifyAllele("A*01:01:01:01",TRUE)
+#'verifyAllele("A*010101",TRUE)
+#'verifyAllele("A*0101",TRUE)
+#'}
+verifyAllele <- function(allele, version=FALSE){
+
+    resArray <- which(alleleListHistory$AlleleListHistory == allele,arr.ind = TRUE)
+    if(length(resArray)==0) {return(FALSE)}
+      
+    if(!version) {return(TRUE)
+        } else {
+          rawVersion <- colnames(alleleListHistory$AlleleListHistory)[resArray[1,2][[1]]]
+            return(c(TRUE,expandVersion(substr(rawVersion,start=2,stop = nchar(rawVersion)))))
+          } 
+  }
+    
+    
+    
+
+  
+  
+
