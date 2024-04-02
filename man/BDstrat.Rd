@@ -4,24 +4,25 @@
 \alias{BDstrat}
 \title{Allele stratification for BIGDAWG datasets}
 \usage{
-BDstrat(dataset, allele, warnBelow = 21)
+BDstrat(dataset, alleles, warnBelow = 21)
 }
 \arguments{
-\item{dataset}{A BIGDAWG-formatted data.frame or a path to a BIGDAWG-formatted tab-delimited text file.}
+\item{dataset}{A BIGDAWG-formatted data.frame or a path to a BIGDAWG-formatted, tab-delimited text file.}
 
-\item{allele}{A single allele in the \if{html}{\out{<locus>}}*\if{html}{\out{<allele name>}} format (e.g., "A\*01:01:01:01" for HLA alleles or "KIR2DL1\*001" for KIR alleles).}
+\item{alleles}{A vector of allele names in the \if{html}{\out{<locus>}}*\if{html}{\out{<allele name>}} format (e.g., "A\*01:01:01:01" for HLA alleles or "KIR2DL1\*001" for KIR alleles).}
 
 \item{warnBelow}{An integer that defines a low number of subjects in a stratum, generating a warning message. The default value is 21.}
 }
 \value{
-A list-object of two BIGDAWG-formatted data frames titled dataset$\code{allele-positive} and dataset$\code{allele-negative}. The positive list element includes all subjects with a specified allele, and the negative list element includes all subjects without that specified allele.
+A list-object of two BIGDAWG-formatted data frames titled dataset$\verb{<alleles>-positive} and dataset$\verb{<alleles>-negative}. The positive list element includes all subjects with the specified alleles, and the negative list element includes all subjects without those specified alleles.
 }
 \description{
-Divides a BIGDAWG-formatted dataset into two subsets (strata) that do and do not include a specific allele.
+Divides a BIGDAWG-formatted dataset into two subsets (strata) that do and do not include specified alleles.
 }
 \examples{
 \dontrun{
-HLA_data.strat <- BDstrat(BIGDAWG::HLA_data,"DRB1*15:01:01:01",Run.Tests = "L",HLA=TRUE)
+HLA_data.multi.strat <- BDstrat(BIGDAWG::HLA_data,c("DRB1\*08:01:03","DRB1\*03:01:02","A\*26:08","A\*11:01:01:02"))
+HLA_data.single.strat <- BDstrat(BIGDAWG::HLA_data,"DRB1*15:01:01:01")
 for(i in 1:2) {BIGDAWG(HLA_data.strat[[i]],HLA = TRUE,Run.Tests = "L")}
 }
 

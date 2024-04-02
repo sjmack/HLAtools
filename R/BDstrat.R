@@ -1,40 +1,34 @@
-#### BDstrat -- single allele stratification in BIGDAWG formatted datasets  
-####            v1.0.0 SJM March 24,2024
+#### BDstrat -- multi-allele stratification in BIGDAWG formatted datasets  
+####            v2.0.0 SJM March 30,2024
 
 ####################
 ##BDstrat
 #'Allele stratification for BIGDAWG datasets
 #'
-#'Divides a BIGDAWG-formatted dataset into two subsets (strata) that do and do not include a specific allele.
+#'Divides a BIGDAWG-formatted dataset into two subsets (strata) that do and do not include specified alleles.
 #'
-#'@param dataset A BIGDAWG-formatted data.frame or a path to a BIGDAWG-formatted tab-delimited text file.
-#'@param allele A single allele in the <locus>*<allele name> format (e.g., "A\*01:01:01:01" for HLA alleles or "KIR2DL1\*001" for KIR alleles).
+#'@param dataset A BIGDAWG-formatted data.frame or a path to a BIGDAWG-formatted, tab-delimited text file.
+#'@param alleles A vector of allele names in the <locus>*<allele name> format (e.g., "A\*01:01:01:01" for HLA alleles or "KIR2DL1\*001" for KIR alleles).
 #'@param warnBelow An integer that defines a low number of subjects in a stratum, generating a warning message. The default value is 21.
 #'
-#'@return A list-object of two BIGDAWG-formatted data frames titled dataset$`allele-positive` and dataset$`allele-negative`. The positive list element includes all subjects with a specified allele, and the negative list element includes all subjects without that specified allele.
+#'@return A list-object of two BIGDAWG-formatted data frames titled dataset$`<alleles>-positive` and dataset$`<alleles>-negative`. The positive list element includes all subjects with the specified alleles, and the negative list element includes all subjects without those specified alleles.
 #'
 #'@examples
 #'\dontrun{
-#' HLA_data.strat <- BDstrat(BIGDAWG::HLA_data,"DRB1*15:01:01:01",Run.Tests = "L",HLA=TRUE)
+#' HLA_data.multi.strat <- BDstrat(BIGDAWG::HLA_data,c("DRB1\*08:01:03","DRB1\*03:01:02","A\*26:08","A\*11:01:01:02"))
+#' HLA_data.single.strat <- BDstrat(BIGDAWG::HLA_data,"DRB1*15:01:01:01")
 #' for(i in 1:2) {BIGDAWG(HLA_data.strat[[i]],HLA = TRUE,Run.Tests = "L")}
 #'}
 #'
 #'@export
 #'
-BDstrat <- function(dataset,allele,warnBelow = 21){
+BDstrat <- function(dataset,alleles,warnBelow = 21){  
   
-  ## parsing allele name 
-  tempName <- strsplit(allele,"*",fixed=TRUE)
-  locus <- tempName[[1]][1]
-  alleles <- tempName[[1]][2]
-  loaded <- FALSE
-  
-  ## loading the dataset if it is a path
+   ## loading the dataset if it is a path
   if(!is.data.frame(dataset)) { 
     dataset <- read.table(dataset,header = TRUE,sep="\t",check.names = TRUE,stringsAsFactors = FALSE)
     # Since all loci are duplicated, check.names = TRUE generates "locus","Locus.1" name pairs if they are not unique
-    loaded <- TRUE
-    } 
+  } 
   
   ## checking for locus suffixes in the dataset's column header
   suffix <- NA
@@ -45,63 +39,69 @@ BDstrat <- function(dataset,allele,warnBelow = 21){
   
   if(unique(suffVec) == FALSE) {suffix = FALSE} else {suffix = TRUE} ## set suffixed or not 
   
-  # suffxing the selected locus to match the dataset
-  if(!suffix) {
-      locus <- c(locus,paste(locus,"1",sep=".")) } else {
-      locus <- c(paste(locus,"1",sep="_"),paste(locus,"2",sep="_"))
-      }
-  
   # and make.names(x,unique=TRUE) does the same for data frames
   if(!suffix) { colnames(dataset) <- make.names(colnames(dataset),unique = TRUE) }
+   
+  datafalse <- as.data.frame(matrix(data=FALSE,nrow=nrow(dataset),ncol = ncol(dataset)))
+  colnames(datafalse) <- colnames(dataset)
+  allcols <- c()
   
-  # make sure the locus is in the dataset
-  if(!locus[1] %in% colnames(dataset)) {
-    stop(paste(locus[1],"is not found in the dataset.",sep=" "))
-  }
+  for(s in 1:length(alleles)) { # main loop for all of the stratified alleles
+    
+        allele <- c(strsplit(alleles[s],"*",fixed = TRUE)[[1]])
+                                                                                                                  
+        if(suffix) {
+          currLoc <- (c(paste(allele[1],"1",sep="_"),paste(allele[1],"2",sep="_"))) } else {
+            currLoc <- make.names(c(allele[1],allele[1]),unique=TRUE) }
+                                                                                                                  
+        allcols <- append(allcols,currLoc) ## the targeted column names
+                                                                 
+        for(t in 1:nrow(datafalse)) {               
+          
+          if(!is.na(dataset[t,colnames(dataset) %in% currLoc[1]])) {
+                if(dataset[t,colnames(dataset) %in% currLoc[1]] == allele[2]) { datafalse[t,colnames(dataset) %in% currLoc[1]] <- TRUE}
+                      } #end NA check
+          if(!is.na(dataset[t,colnames(dataset) %in% currLoc[2]])) {
+                if(dataset[t,colnames(dataset) %in% currLoc[2]] == allele[2]) { datafalse[t,colnames(dataset) %in% currLoc[2]] <- TRUE}
+                      } #end NA check
+                } # end of t loop
+            
+          }  # end of s loop
   
-  #  make sure the allele is in the dataset
-  locus.alleles <-  unique(unique(dataset[,colnames(dataset) %in% locus[1]]),unique(dataset[,colnames(dataset) %in% locus[2]]))
-  if(!alleles %in% locus.alleles) {stop(paste(allele,"is not really found in the dataset.",sep=" "))}
+  datafalse <- datafalse[,colnames(datafalse) %in% unique(allcols)]
   
-  # Everything is stored in the strataSet list 
-  stratSet <- data.frame(rep(NA,nrow(dataset)))
+  sumVec <- rep(0,nrow(datafalse))
+  
+      for(i in 1:nrow(datafalse)){
+          sumVec[i] <- sum(datafalse[i,])
+        }
 
-  # Identify the rows containing each target allele for each locus column
-  for(i in 1:length(alleles)){
-      stratSet <- cbind(stratSet,dataset[[locus[1]]]==alleles[i],dataset[[locus[2]]]==alleles[i])
-      }
-
-  # Identify the rows containing any target allele
-  for(i in 1:nrow(stratSet)){
-      stratSet[i,1] <- any(unlist(stratSet[i,2:((2*length(alleles))+1)]))
-      }
-
-  # Split the parent dataset into two stratified subsets
-  posStrat <- dataset[stratSet[,1]==TRUE,]
-  negStrat <- dataset[stratSet[,1]==FALSE,]
-
+  posStrat <- dataset[sumVec[] > 0,]
+  negStrat <- dataset[sumVec[] == 0,]
+ 
   # Add them as elements of the stratPair list, named with the selected or excluded alleles
   stratPair <- list()
   stratPair[[paste(strsplit(locus[1],"_",fixed = TRUE)[[1]][1],"*",paste(unlist(alleles),collapse=paste("+",locus,"*",sep="")),"-positive",sep="")]] <- posStrat
   stratPair[[paste(strsplit(locus[1],"_",fixed = TRUE)[[1]][1],"*",paste(unlist(alleles),collapse=paste("+",locus,"*",sep="")),"-negative",sep="")]] <- negStrat
-
+  
   for(i in 1:2){
-  # Strip suffixes from column names if they have any
-      colnames(stratPair[[i]]) <- gsub(".1","",colnames(stratPair[[i]]),fixed=TRUE)
+    # Strip suffixes from column names if they have any
+    colnames(stratPair[[i]]) <- gsub(".1","",colnames(stratPair[[i]]),fixed=TRUE)
     
-      # Silently eliminate empty rows
-      stratPair[[i]][is.na(stratPair[[i]])] <- ""
-      stratPair[[i]] <- stratPair[[i]][!substr(rownames(stratPair[[i]]),1,2) == "NA",]
+    # Silently eliminate empty rows
+    stratPair[[i]][is.na(stratPair[[i]])] <- ""
+    stratPair[[i]] <- stratPair[[i]][!substr(rownames(stratPair[[i]]),1,2) == "NA",]
     
-      # Return Phenotype to integer
-      stratPair[[i]][,2] <- as.integer(stratPair[[i]][,2])
+    # Return Phenotype to integer
+    stratPair[[i]][,2] <- as.integer(stratPair[[i]][,2])
     
-      # Make blanks into NAs
-      stratPair[[i]][stratPair[[i]][,] == ""] <- NA
+    # Make blanks into NAs
+    stratPair[[i]][stratPair[[i]][,] == ""] <- NA
     
-      ## alert if number of rows in a stratum is < 20 (an arbitrary cutoff, to be adjusted)
-      if(nrow(stratPair[[i]])<warnBelow){warning(paste("The",names(stratPair[i]),"stratum contains",nrow(stratPair[[i]]),ifelse(nrow(stratPair[[i]])==1,"subject.","subjects."),sep=" "))}
-    }
+    ## alert if number of rows in a stratum is < 20 (an arbitrary cutoff, to be adjusted)
+    if(nrow(stratPair[[i]])<warnBelow){warning(paste("The",names(stratPair[i]),"stratum contains",nrow(stratPair[[i]]),ifelse(nrow(stratPair[[i]])==1,"subject.","subjects."),sep=" "))}
+  }
   #return object
   stratPair
+  
 }

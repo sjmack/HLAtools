@@ -1,6 +1,6 @@
 ## HLAtools: Functions and Datasets for Human Leukocyte Antigen Informatics
 
-## Version 0.8.1.9000
+## Version 0.9.1.9000
 
 The Human Leukocyte Antigen (HLA) region is the most polymorphic section of the human genome, with 38,008 allelic variants identified across 46 loci. The key roles played by the class I and class II HLA genes in stem-cell therapy and transplantation, HLA and disease association research, evolutionary biology, and population genetics results in constant discovery of new allele variants. These data are curated and maintained by the [IPD-IMGT/HLA Database](https://www.ebi.ac.uk/ipd/imgt/hla/) and made available on the [ANHIG/IMGTHLA GitHub repository](https://github.com/ANHIG/IMGTHLA) as static text files, which are updated every three months. Standardized use of the data in this key resource can be challenging. To address this, we have developed HLAtools, an R package that automates the consumption of IPD-IMGT/HLA resources, renders them computable, and makes them available alongside tools for data analysis and visualization.   
 
@@ -119,7 +119,7 @@ The package includes two data-analysis functions that accept BIGDAWG-formatted g
 
 - relRisk() calculates relative risk (RR) values, confidence interval (CI) values and p-values for non-case-control genotype data. For these analyses, two subject categories are required, but should not be affected/patient and unaffected/control categories; instead, the categories may be, e.g., either of two disease states, where one disease state is coded as 0 and the other is coded as 1 in the second column of the dataset.
 
-- BDstrat() stratifies BIGDAWG-formatted case-control datasets for an individual allele at a locus, generating two BIGDAWG-formatted datasets; one for the case and control subjects that have that allele, and one for the case and control subjects that do not.
+- BDstrat() stratifies BIGDAWG-formatted case-control datasets for individual alleles or multiple alleles at multiple loci, and generates two BIGDAWG-formatted datasets; one for the case and control subjects that have those alleles, and one for the case and control subjects that do not.
 
 
 
