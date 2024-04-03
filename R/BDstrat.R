@@ -1,5 +1,5 @@
 #### BDstrat -- multi-allele stratification in BIGDAWG formatted datasets  
-####            v2.0.0 SJM March 30,2024
+####            v2.1.0 SJM April 3, 2024
 
 ####################
 ##BDstrat
@@ -15,7 +15,7 @@
 #'
 #'@examples
 #'\dontrun{
-#' HLA_data.multi.strat <- BDstrat(BIGDAWG::HLA_data,c("DRB1\*08:01:03","DRB1\*03:01:02","A\*26:08","A\*11:01:01:02"))
+#' HLA_data.multi.strat <- BDstrat(BIGDAWG::HLA_data,c("DRB1\*08:01:03","DRB1\*03:01:02","A\*26:08"))
 #' HLA_data.single.strat <- BDstrat(BIGDAWG::HLA_data,"DRB1*15:01:01:01")
 #' for(i in 1:2) {BIGDAWG(HLA_data.strat[[i]],HLA = TRUE,Run.Tests = "L")}
 #'}
@@ -81,8 +81,8 @@ BDstrat <- function(dataset,alleles,warnBelow = 21){
  
   # Add them as elements of the stratPair list, named with the selected or excluded alleles
   stratPair <- list()
-  stratPair[[paste(strsplit(locus[1],"_",fixed = TRUE)[[1]][1],"*",paste(unlist(alleles),collapse=paste("+",locus,"*",sep="")),"-positive",sep="")]] <- posStrat
-  stratPair[[paste(strsplit(locus[1],"_",fixed = TRUE)[[1]][1],"*",paste(unlist(alleles),collapse=paste("+",locus,"*",sep="")),"-negative",sep="")]] <- negStrat
+  stratPair[[paste(paste(alleles,collapse="+"),"-positive",sep="")]] <- posStrat
+  stratPair[[paste(paste(alleles,collapse="+"),"-negative",sep="")]] <- negStrat
   
   for(i in 1:2){
     # Strip suffixes from column names if they have any

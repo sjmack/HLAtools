@@ -1,13 +1,15 @@
 ## HLAtools (development version)
 
-### Version 0.9.2.9000 April 2, 2024
+### Version 0.9.2.9000 April 3, 2024
 
 - Added multiLocusValidation() function.
 - Applied multiLocusValidation() in AlignmentFull().
 - Closed connections in versionValidation().
 - Added documentation to fragmentFeatureNames.R.
 - Added content to Vignette.
+- Corrected returned list names in BDstrat().
 - Updated ReadMe.
+- Updated documentation for relRisk().
 
 ### Version 0.9.1.9000 April 1, 2024
 

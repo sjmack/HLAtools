@@ -18,9 +18,11 @@ A list object of two lists ("alleles" and "genotypes"), each of which contains a
 This function returns a list object containing relative risk, confidence interval and p-value data for the individual alleles and individual genotypes at each locus in a BIGDAWG-formatted non-case-control genotype data frame or file.
 }
 \examples{
-# Analyzing the BIGDAWG::HLA_data dataset 
+\dontrun{
+# Analyzing the BIGDAWG::HLA_data dataset #'
 library(BIGDAWG)
 rr <- relRisk(HLA_data[,1:4])
+}
 }
 \references{
 \href{https://cran.r-project.org/web/packages/BIGDAWG/vignettes/BIGDAWG.html#input-data}{BIGDAWG Data Format}

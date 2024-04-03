@@ -15,7 +15,7 @@ A list object where each element is the name of a pseudogene or gene fragment. E
 }
 \description{
 HLA pseudogenes and gene fragments many not share all of the gene features of their expressed homologs. The ffN() function generates a list object identifying the features present in a given gene fragment or pseudogene with an alignment file. This includes annotations of the differences between the pseudogenes and gene fragments, and their expressed homologs.
-Pseuogenes and gene fragments are identified in the IMGTHLAGeneTypes data object.
+Pseudogenes and gene fragments are identified in the IMGTHLAGeneTypes data object.
 
 Standard Features
 \itemize{
@@ -36,7 +36,9 @@ Reference Genes
 }
 }
 \note{
-Features and their annotations have been identified manually, and this function is for internal HLAtools use.
+Features and their annotations have been identified manually. Feature annotations will not change unless a new pseudogene or gene fragment is added in a future release, in which case new annotations will be generated.
+
+This function is for internal HLAtools use.
 }
 \examples{
 fragmentFeatureNames <- ffN("3.35.0")

@@ -1,4 +1,4 @@
-## HLA RRisk Calculation -- Steven J Mack May 16, 2020 v 1.3
+## HLA RRisk Calculation -- Steven J Mack April 3, 2024 v 1.3.1
 
 #######################
 #' Calculate Relative Risk for Individual Alleles and Genotypes in BIGDAWG-formatted Non-Case-Control Datasets
@@ -13,11 +13,13 @@
 #' @return A list object of two lists ("alleles" and "genotypes"), each of which contains a list of nine-column data frames containing results for each unique allele or genotype (in rows) at each locus. Column headers in each dataframe are, *Locus*, *Variant*, *Status_1*, *Status_0*, *RelativeRisk*, *CI.low*, *CI.high*, *p.value*, and *Significant*.
 #' @export
 #' @examples
-#' # Analyzing the BIGDAWG::HLA_data dataset 
+#'\dontrun{
+#' # Analyzing the BIGDAWG::HLA_data dataset #'
 #' library(BIGDAWG)
 #' rr <- relRisk(HLA_data[,1:4])
+#' }
 #' @references \href{https://cran.r-project.org/web/packages/BIGDAWG/vignettes/BIGDAWG.html#input-data}{BIGDAWG Data Format}
-
+#' 
 relRisk <- function(dataset,return=TRUE){ ## if return == TRUE, a list object is returned; if return==FALSE, two tab-delimited text files are written for each locus; one for alleles and one for genotypes
 
 if(!is.data.frame(dataset)){
