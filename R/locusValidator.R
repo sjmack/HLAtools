@@ -1,8 +1,8 @@
-## Locus Validater v0.3.0 23OCT2023
+## Locus Validation Functions v0.3.0 2APR2024
 
 ################
 ##validateLocus
-#'Determine if a locus name is present in the HLA gazeteer.
+#'Determine if a locus name is present in the HLAgazeteer.
 #'
 #'Checks a vector of HLA locus names against the HLA gazeteer to determine if the locus name is valid for a specific type of alignment.
 #'
@@ -51,5 +51,43 @@ for(j in 1:length(loci)){
     }
   }
 valid
+}
+
+################
+##multiLocusValidation
+#'Apply validateLocus() to multiple individual loci
+#'
+#'Applies validateLocus() to a vector of locus names, validates them against HLAgazeteer$gen, and returns a vector of validated locus names. 
+#'
+#'@param loci A vector of locus names. 
+#'
+#'@param verbose A logocal value. If verbose = TRUE, messages describing the invalid names are generated.
+#'
+#'@return A vector of locus names that are present in HLAgazeteer$gen.
+#'
+#'@export
+#'
+#'@note The results of this check should only be considered valid for the IPD-IMGT/HLA Database release version of the current HLAgazeteer.
+#'
+#'@examples
+#'multiLocusValidation(loci = c("DRB1","DPB1","DQB8"))
+#'multiLocusValidation(loci = c("A","B","C","D","Q"))
+#'
+multiLocusValidation <- function(loci) {
+    lociTest <- rep(FALSE,length(loci))
+
+      for(i in 1:length(loci)) {
+            if(!loci[i] == "all") { 
+                if(suppressMessages(validateLocus(loci[i],"gDNA"))) { 
+                
+                lociTest[i] <- TRUE 
+                  } 
+                }
+              }
+        if(any(lociTest == FALSE)) {message(paste("The",loci[lociTest == FALSE],"locus is invalid and has been removed.\n"),sep=" ")}
+
+      loci <- loci[lociTest == TRUE]
+
+    loci
 }
 

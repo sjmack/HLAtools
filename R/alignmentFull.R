@@ -1,4 +1,4 @@
-### Alignment Full v3.1.0 1 April 2024
+### Alignment Full v3.2.0 1 April 2024
 
 ################
 ##alignmentFull
@@ -24,9 +24,12 @@
 #'Prior to IPD-IMGT/HLA Database release version 3.24.0, the HLA-DP and HLA-DQ sequence alignment files in the IPD-IMGT/HLA GitHub Repository did not all include a numerical suffix in the gene name (e.g., the protein sequence alignment file for the DQA1 gene was named 'DQA_prot.txt') because alignment files for the DPA2, DPB2, DQA2 and DQB2 genes had not been made available. Building DPA1, DPB1, DQA1, and DQB1 sequence alignments from releases prior to 3.24.0 require using a gene name that does not include the numerical suffix.
 #'
 #'@export
-
+#'
 alignmentFull <- function(loci = "all", alignType = "all", version = "Latest") {
-
+  
+  if(!"all" %in% loci) {
+      loci <- multiLocusValidation(loci) }
+  
   NL1 <- NL2 <- NL3 <- NL4 <- NULL
   
   if(version != "Latest"){ #
@@ -95,11 +98,6 @@ alignmentFull <- function(loci = "all", alignType = "all", version = "Latest") {
         names(codonList) <- NL4
       }
 #    }
-  #naming inside of nested lists
-  #names(cList) <- NL1
-  #names(gList) <- NL2
-  #names(protList) <- NL3
-  #names(codonList) <- NL4
 
   #placing nested lists inside of larger list
   AllAlignment<-list(firstList <- protList,
@@ -113,3 +111,4 @@ alignmentFull <- function(loci = "all", alignType = "all", version = "Latest") {
 
   AllAlignment
 }
+

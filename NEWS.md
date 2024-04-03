@@ -1,6 +1,16 @@
 ## HLAtools (development version)
 
+### Version 0.9.2.9000 April 2, 2024
+
+- Added multiLocusValidation() function.
+- Applied multiLocusValidation() in AlignmentFull().
+- Closed connections in versionValidation().
+- Added documentation to fragmentFeatureNames.R.
+- Added content to Vignette.
+- Updated ReadMe.
+
 ### Version 0.9.1.9000 April 1, 2024
+
 - Minor update to alignmentFull().
 - Updated alignmentFull() documentation to note the absence of DP and DQ gene numbers in older database releases.
 - Added sections to Vignette.

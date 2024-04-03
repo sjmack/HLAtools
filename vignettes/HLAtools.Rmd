@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(HLAtools)
 ```
--   Package Version: 0.9.1.9000
+-   Package Version: 0.9.2.9000
 
 # Overview
 The *HLAtools* package contains a set of computable resources and a suite of tools intended to facilitate the effective application and analysis of the named genes in the HLA region.
@@ -65,7 +65,7 @@ codon     1    91   183   275   314   325   341
 ```
 
 #### Genomic Sequence Atlases
-The column headers for *gen* atlases identify the genomic nucleotide positions preceed by a UTR (U), exon (E) or intron (I) boundary. The HLA-A *gen* atlas below illustrates that the boundary between the 5' UTR (U.5) and Exon 1 (E.1) is between genomic positions -1 and 1, and that the boundary between Exon 4 and Intron 4 is between positions 1569 and 1570 (presented as a table for readability). 
+The column headers for *gen* atlases identify the genomic nucleotide positions precede by a UTR (U), exon (E) or intron (I) boundary. The HLA-A *gen* atlas below illustrates that the boundary between the 5' UTR (U.5) and Exon 1 (E.1) is between genomic positions -1 and 1, and that the boundary between Exon 4 and Intron 4 is between positions 1569 and 1570 (presented as a table for readability). 
 
 |    |U.5-E.1|E.1-I.1|I.1-E.2|E.2-I.2|I.2-E.3|E.3-I.3|I.3-E.4|E.4-I.4|I.4-E.5|E.5-I.5|I.5-E.6|E.6-I.6|I.6-E.7|E.7-I.7|I.7-E.8|E.8-U.3|
 |:--:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
@@ -124,12 +124,14 @@ HLAgazeteer$prot
 
 The *fragmentFeatureNames* object identifies and annotates the non-standard gene features found in pseudogenes and gene fragments, based on the positions of feature boundaries ("|") in the sequence. Where the features of functional genes are limited to Introns (I), Exons (E) and Untranslated Regions (U), the non-standard features in pseudogenes and gene fragments are described as:
 
-  - Joins (J), when a feature includes sequence from two or more sequences that are separted by a bounary in the reference
+  - Joins (J), when a feature includes sequence from two or more sequences that are separated by a boundary in the reference
   - Segments (S), when the sequence of a feature is a subset of a longer feature sequence
   - Novel (N), when the sequence of a feature does not correspond to a known sequence
   - Hybrid (H), when a feature includes a sequence to belongs to a known feature as well as nucleotide sequence that does not correspond to feature
 
-For each pseudogene or gene fragment, the *fragmentFeatureNames* element contains a $features element identifyig the gene features in the 5' to 3' direction, and an *annotation* element that provides some detail about the feature.
+For each pseudogene or gene fragment, the *fragmentFeatureNames* element contains a \$features element identifying the gene features in the 5' to 3' direction, and an \$annotation element that provides some detail about the feature.
+
+The current annotations should not change across IPD-IMGT/HLA Database releases. However, when a new pseudogene or gene-fragment is added to the IPD-IMGT/HLA Database, a new annotation will be generated.
 
 ```
 fragmentFeatureNames$DPA2
@@ -215,9 +217,29 @@ HLAalignments$gen$A[1:5,1:13]
 5     A  01:01:01:05        A*01:01  A*01:01:01:05    *    *    *    *    *    *    *    *    *
 ```
 
+#### Insertion-Deletion (Indel) Variant Representation
+
+Indels in these alignments are numbered sequentially, following the 5' reference position, with decimal values appended to the 5' reference position, starting from ".1", as illustrated below.
+
+```
+HLAalignments$nuc$DQB1[c(1,1138:1140),c(1:4,57:63)]
+     locus      allele trimmed_allele      allele_name 53 54 54.1 54.2 54.3 54.4 55
+1     DQB1 05:01:01:01     DQB1*05:01 DQB1*05:01:01:01  T  C    .    .    .    .  A
+1138  DQB1      06:421    DQB1*06:421      DQB1*06:421  *  *    .    .    .    .  *
+1139  DQB1     06:422N   DQB1*06:422N     DQB1*06:422N  T  C    T    G    T    C  A
+1140  DQB1     06:423N   DQB1*06:423N     DQB1*06:423N  *  *    .    .    .    .  *
+
+HLAalignments$gen$DQB1[c(1,378:380),c(1:4,589:594)]
+    locus      allele trimmed_allele      allele_name 52 52.1 52.2 52.3 52.4 53
+1    DQB1 05:01:01:01     DQB1*05:01 DQB1*05:01:01:01  G    .    .    .    .  T
+378  DQB1 06:41:01:03     DQB1*06:41 DQB1*06:41:01:03  G    .    .    .    .  T
+379  DQB1     06:422N   DQB1*06:422N     DQB1*06:422N  G    T    C    T    G  T
+380  DQB1      06:424    DQB1*06:424      DQB1*06:424  G    .    .    .    .  T
+```
+
 ## Working with Sequence Alignments
 
-As noted above, the **HLAtools** package includes several functions for working with sequence alignments. All of these functions require that alignments first be built, as the complete set of protein, codon, nucleotide and genomic sequence alignments are too large to bundle with the package. The functions that perform operations in sequence alignments expect the alignments to be included in the *HLAalignments* data object as a dataframe in an alignment-type-specific sublist of the parent object. For example the HLA-A protein alignment would be identified as *HLAalignments$prot$A*. If alignments are built into a different data object, they will not be accessible to the functions described below.
+As noted above, the **HLAtools** package includes several functions for working with sequence alignments. All of these functions require that alignments first be built, as the complete set of protein, codon, nucleotide and genomic sequence alignments are too large to bundle with the package. <span style="color:red">**The functions that perform operations in sequence alignments expect the alignments to be included in the** ***HLAalignments*** **data object as a dataframe in an alignment-type-specific sublist of the parent object.**</span> For example the HLA-A protein alignment would be identified as *HLAalignments\$prot\$A*. If alignments are built into a different data object, they will not be accessible to the functions described below.
 
 ### Building Alignments
 
@@ -225,8 +247,8 @@ As noted above, the **HLAtools** package includes several functions for working 
 
 **Parameters**
 
-  - *loci*: A vector of the locus names for which alignments should be built. The default value ("all") specifies all loci. Allowed loci are listed in *HLAgazeteer$align*.
-  - *alignType*: A vector of alignment types for which alignments should be built. Allowed values are "prot", "codon", "nuc" and "gen", which specify respective protein, codon, nucleotide and genomic alignments, as mwell as the default value ("all"), which specifies all four alignment types. Loci with alignments for a specific *alignType* are defined in *HLAgazeteer$prot*, *HLAgazeteer$nuc* and *HLAgazeteer$gen*.
+  - *loci*: A vector of the locus names for which alignments should be built. The default value ("all") specifies all loci. Allowed loci are listed in *HLAgazeteer\$align*.
+  - *alignType*: A vector of alignment types for which alignments should be built. Allowed values are "prot", "codon", "nuc" and "gen", which specify respective protein, codon, nucleotide and genomic alignments, as mwell as the default value ("all"), which specifies all four alignment types. Loci with alignments for a specific *alignType* are defined in *HLAgazeteer\$prot*, *HLAgazeteer\$nuc* and *HLAgazeteer\$gen*.
   - *version*: A character string identifying the IPD-IMGT/HLA Database release version for which alignments should be built. The default value ("Latest") generates alignments for the most recent IPD-IMGT/HLA Database release. Other releases are identified by their IPD-IMGT/HLA Database version; e.g., "3.55.0" for IPD-IMGT/HLA Database version 3.55.0.
 
 A list object containing data frames of protein, codon, coding nucleotide, and genomic nucleotide alignments for specified genes in the specified IPD-IMGT/HLA Database release, and a character string identifuing the pertinent reference database version is returned.
@@ -238,7 +260,7 @@ HLAalignments <- alignmentFull(loci = c("C","DQB1","DPA1","DRB5")) ## generate a
 
 HLAalignments <- alignmentFull(c("C","DQB"),alignType = "nuc",version = "3.20.0") ## generate nucleotide alignments for two genes in release version 3.20.0
 
-HLAalignments <- alignmentFull("DRB1","prot","3.54.0") ## geneate a protein alignment for one gene in release versiin 3.54.0
+HLAalignments <- alignmentFull("DRB1","prot","3.54.0") ## geneate a protein alignment for one gene in release version 3.54.0
 
 ```
 *Note*: Prior to IPD-IMGT/HLA Database release version 3.24.0, all HLA-DP and HLA-DQ sequence alignment files in the IPD-IMGT/HLA GitHub Repository did not include a numerical suffix in the gene name (e.g., the protein sequence alignment file for the DQA1 gene was named 'DQA_prot.txt'), because sequence alignment files for the DPA2, DPB2, DQA2 and DQB2 genes had not been made available. Building DPA1, DPB1, DQA1, and DQB1 sequence alignments from releases prior to 3.24.0 may require using a gene name that does not include the numerical suffix.
