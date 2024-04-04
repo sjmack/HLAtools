@@ -8,7 +8,7 @@ author:
 - Vinh Luu -- vinhluu864@berkeley.edu
 - Josh Bredeweg
 - Steven J. Mack, PhD -- steven.mack@ucsf.edu
-date: "2024-03-25"
+date: "2024-04-04"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{HLAtools}
@@ -219,7 +219,7 @@ HLAalignments$gen$A[1:5,1:13]
 
 #### Insertion-Deletion (Indel) Variant Representation
 
-Indels in these alignments are numbered sequentially, following the 5' reference position, with decimal values appended to the 5' reference position, starting from ".1", as illustrated below.
+Indels in these alignments are numbered sequentially, following the position in the 5' direction, with decimal values appended to the 5' reference position, starting from ".1", as illustrated below.
 
 ```
 HLAalignments$nuc$DQB1[c(1,1138:1140),c(1:4,57:63)]
@@ -235,6 +235,17 @@ HLAalignments$gen$DQB1[c(1,378:380),c(1:4,589:594)]
 378  DQB1 06:41:01:03     DQB1*06:41 DQB1*06:41:01:03  G    .    .    .    .  T
 379  DQB1     06:422N   DQB1*06:422N     DQB1*06:422N  G    T    C    T    G  T
 380  DQB1      06:424    DQB1*06:424      DQB1*06:424  G    .    .    .    .  T
+```
+
+Indels in *codon* alignment positions are similarly numbered from the closest codon in the N-terminal direction. However, due to a peculiarity of the R environment, which strives for unique column-header names, the last two positions of the N-terminal-ward codon will be numbered with the next highest decimal values of the insertion. Positions in codons that do not precede an insertion are numbered X, X.1 and X.2. In the example below, the *allele* and *trimmed_allele* columns have been omitted for spacing.
+
+```
+HLAalignments$codon$DQB1[c(1,1138:1140),c(1,4,56:65)]
+     locus      allele_name -15 -15.5 -15.6 -15.1 -15.2 -15.3 -15.4 -14 -14.1 -14.2
+1     DQB1 DQB1*05:01:01:01   G     T     C     .     .     .     .   A     C     C
+1138  DQB1      DQB1*06:421   *     *     *     .     .     .     .   *     *     *
+1139  DQB1     DQB1*06:422N   G     T     C     T     G     T     C   A     C     C
+1140  DQB1     DQB1*06:423N   *     *     *     .     .     .     .   *     *     *
 ```
 
 ## Working with Sequence Alignments
@@ -258,12 +269,15 @@ HLAalignments <- alignmentFull() ## generate a full set of all alignments for al
 
 HLAalignments <- alignmentFull(loci = c("C","DQB1","DPA1","DRB5")) ## generate all alignments for four genes in the current release.
 
-HLAalignments <- alignmentFull(c("C","DQB"),alignType = "nuc",version = "3.20.0") ## generate nucleotide alignments for two genes in release version 3.20.0
-
 HLAalignments <- alignmentFull("DRB1","prot","3.54.0") ## geneate a protein alignment for one gene in release version 3.54.0
+```
+
+Prior to IPD-IMGT/HLA Database release version 3.24.0, all HLA-DP and HLA-DQ sequence alignment files in the IPD-IMGT/HLA GitHub Repository did not include a numerical suffix in the gene name (e.g., the protein sequence alignment file for the DQA1 gene was named 'DQA_prot.txt'), because sequence alignment files for the DPA2, DPB2, DQA2 and DQB2 genes had not been made available. Building DPA1, DPB1, DQA1, and DQB1 sequence alignments from releases prior to 3.24.0 may require using a gene name that does not include the numerical suffix. In addition, when building alignments for different releasees the *HLAgazeteer* should be updated to reflect the gene names in that release. 
 
 ```
-*Note*: Prior to IPD-IMGT/HLA Database release version 3.24.0, all HLA-DP and HLA-DQ sequence alignment files in the IPD-IMGT/HLA GitHub Repository did not include a numerical suffix in the gene name (e.g., the protein sequence alignment file for the DQA1 gene was named 'DQA_prot.txt'), because sequence alignment files for the DPA2, DPB2, DQA2 and DQB2 genes had not been made available. Building DPA1, DPB1, DQA1, and DQB1 sequence alignments from releases prior to 3.24.0 may require using a gene name that does not include the numerical suffix.
+
+HLAalignments <- alignmentFull(c("C","DQB"),alignType = "nuc",version = "3.20.0") ## generate nucleotide alignments for two genes in release version 3.20.0
+```
 
 ## Search and Query Functions
 

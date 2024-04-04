@@ -1,4 +1,4 @@
-### Functions for Validating IPD-IMGT/HLA Release Version Values v2.2.0 8 March 2024
+### Functions for Validating IPD-IMGT/HLA Release Version Values v2.3.0 4 April 2024
 
 ################
 ##CheckVersion
@@ -53,7 +53,7 @@ validateVersion <- function(version) {
     releases <- strsplit(readLines(url("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/Allelelist_history.txt"),n=7,ok=TRUE,skipNul = FALSE)[7],",")[[1]]
     releases <- releases[2:length(releases)]
 
-    on.exit(close("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/Allelelist_history.txt"))
+    on.exit(close(url("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/Allelelist_history.txt")))
     
     squashVersion(version) %in% releases
 
@@ -80,7 +80,7 @@ validateVersion <- function(version) {
 #'For internal HLAtools use.
 getLatestVersion <- function() {
   strsplit(readLines(url("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/release_version.txt"),n=3,ok=TRUE,skipNul = FALSE)[3]," ")[[1]][4]
-  on.exit(close("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/Allelelist_history.txt"))
+  on.exit(close(url("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/Allelelist_history.txt")))
 }
 
 ################
