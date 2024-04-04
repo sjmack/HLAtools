@@ -219,7 +219,7 @@ HLAalignments$gen$A[1:5,1:13]
 
 #### Insertion-Deletion (Indel) Variant Representation
 
-Indels in these alignments are numbered sequentially, following the position in the 5' direction, with decimal values appended to the 5' reference position, starting from ".1", as illustrated below.
+Indel positions in these alignments are numbered sequentially, following the first position 5'/N-terminal of the indel, with decimal values appended to the 5' reference position in the indel positions, starting from ".1", as illustrated below.
 
 ```
 HLAalignments$nuc$DQB1[c(1,1138:1140),c(1:4,57:63)]
@@ -237,7 +237,7 @@ HLAalignments$gen$DQB1[c(1,378:380),c(1:4,589:594)]
 380  DQB1      06:424    DQB1*06:424      DQB1*06:424  G    .    .    .    .  T
 ```
 
-Indels in *codon* alignment positions are similarly numbered from the closest codon in the N-terminal direction. However, due to a peculiarity of the R environment, which strives for unique column-header names, the last two positions of the N-terminal-ward codon will be numbered with the next highest decimal values of the insertion. Positions in codons that do not precede an insertion are numbered X, X.1 and X.2. In the example below, the *allele* and *trimmed_allele* columns have been omitted for spacing.
+Indels in *codon* alignment positions are similarly numbered from the codon in the N-terminal direction. However, due to a peculiarity of the R environment, which strives for unique column-header names, the last two positions of the N-terminal-ward codon before the deletion will be numbered with the decimal values following those used to identify the insertion positions, as shown below. In this example, the *allele* and *trimmed_allele* columns have been omitted for spacing.
 
 ```
 HLAalignments$codon$DQB1[c(1,1138:1140),c(1,4,56:65)]

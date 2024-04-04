@@ -79,8 +79,9 @@ validateVersion <- function(version) {
 #'@note
 #'For internal HLAtools use.
 getLatestVersion <- function() {
-  strsplit(readLines(url("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/release_version.txt"),n=3,ok=TRUE,skipNul = FALSE)[3]," ")[[1]][4]
+  vers <- strsplit(readLines(url("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/release_version.txt"),n=3,ok=TRUE,skipNul = FALSE)[3]," ")[[1]][4]
   on.exit(close(url("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/Allelelist_history.txt")))
+  vers
 }
 
 ################
