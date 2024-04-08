@@ -1,9 +1,14 @@
 ## HLAtools (development version)
 
-### Version 0.9.3.9000 April 5, 2024
+### Version 0.9.3.9000 April 7, 2024
 
-- Updated buildGazeteer().
+- Added getAlignmentNames() function.
+- Added repoVersion() function.
+- Added parseAlignmentHead() function.
+- Updated buildGazeteer() to use getAlignmentNames().
+- Updated atlasMaker(), buildAlignments() and buildGazeteer() to use repoVersion().
 - Updates to Vignette.
+- Updates to ReadMe.
 
 ### Version 0.9.2.9000 April 3, 2024
 
