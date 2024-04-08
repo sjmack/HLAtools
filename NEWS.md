@@ -1,5 +1,10 @@
 ## HLAtools (development version)
 
+### Version 0.9.3.9000 April 5, 2024
+
+- Updated buildGazeteer().
+- Updates to Vignette.
+
 ### Version 0.9.2.9000 April 3, 2024
 
 - Added multiLocusValidation() function.

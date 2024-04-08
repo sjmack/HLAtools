@@ -79,7 +79,7 @@ atlasMaker<-function(loci, source, version = "Latest"){
 
       if(source[j]=="AA"){ ## start of the AA routine
         # download nucleotide alignment from IPD-IMGT/HLA Github repository
-        nuc[[loci[[i]]]]<-readLines(paste("https://raw.githubusercontent.com/ANHIG/IMGTHLA/", version,"/alignments/",paste(ifelse(loci[[i]] %in% c("DRB1", "DRB3", "DRB4", "DRB5"),"DRB",loci[[i]]),"_nuc.txt",sep=""),sep=""),-1,ok=TRUE,skipNul = FALSE)
+        nuc[[loci[[i]]]]<-readLines(paste("https://raw.githubusercontent.com/ANHIG/IMGTHLA/", repoVersion(version),"/alignments/",paste(ifelse(loci[[i]] %in% c("DRB1", "DRB3", "DRB4", "DRB5"),"DRB",loci[[i]]),"_nuc.txt",sep=""),sep=""),-1,ok=TRUE,skipNul = FALSE)
 
         if((version == "Latest") | (is.numeric(version) & version > 3310)){ ## Account for the changes in file header structures
 
@@ -222,10 +222,10 @@ atlasMaker<-function(loci, source, version = "Latest"){
         # download relevant locus alignment file -- readLines allows for space preservation, which is important in
         # finding where the alignment sequence starts
         if(source[j] == "AA"|source[j] == "cDNA"){
-          alignment[[loci[i]]] <- readLines(paste("https://raw.githubusercontent.com/ANHIG/IMGTHLA/", version, "/alignments/",paste(ifelse(loci[[i]]=="DRB1"|loci[[i]]=="DRB3"|loci[[i]]=="DRB4"|loci[[i]]=="DRB5","DRB",loci[[i]]),suffix,sep=""),sep=""),-1,ok=TRUE,skipNul = FALSE)
+          alignment[[loci[i]]] <- readLines(paste("https://raw.githubusercontent.com/ANHIG/IMGTHLA/", repoVersion(version), "/alignments/",paste(ifelse(loci[[i]]=="DRB1"|loci[[i]]=="DRB3"|loci[[i]]=="DRB4"|loci[[i]]=="DRB5","DRB",loci[[i]]),suffix,sep=""),sep=""),-1,ok=TRUE,skipNul = FALSE)
         }
         else if(source[j] == "gDNA"){
-          alignment[[loci[i]]] <- readLines(paste("https://raw.githubusercontent.com/ANHIG/IMGTHLA/", version, "/alignments/",paste(loci[[i]],suffix,sep=""),sep=""),-1,ok=TRUE,skipNul = FALSE)
+          alignment[[loci[i]]] <- readLines(paste("https://raw.githubusercontent.com/ANHIG/IMGTHLA/", repoVersion(version), "/alignments/",paste(loci[[i]],suffix,sep=""),sep=""),-1,ok=TRUE,skipNul = FALSE)
         }
 
         # if version is equal to latest, or if version is numeric and > 3310, obtain

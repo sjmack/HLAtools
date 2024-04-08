@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(HLAtools)
 ```
--   Package Version: 0.9.2.9000
+-   Package Version: 0.9.3.9000
 
 # Overview
 The *HLAtools* package contains a set of computable resources and a suite of tools intended to facilitate the effective application and analysis of the named genes in the HLA region.
@@ -272,10 +272,9 @@ HLAalignments <- alignmentFull(loci = c("C","DQB1","DPA1","DRB5")) ## generate a
 HLAalignments <- alignmentFull("DRB1","prot","3.54.0") ## geneate a protein alignment for one gene in release version 3.54.0
 ```
 
-Prior to IPD-IMGT/HLA Database release version 3.24.0, all HLA-DP and HLA-DQ sequence alignment files in the IPD-IMGT/HLA GitHub Repository did not include a numerical suffix in the gene name (e.g., the protein sequence alignment file for the DQA1 gene was named 'DQA_prot.txt'), because sequence alignment files for the DPA2, DPB2, DQA2 and DQB2 genes had not been made available. Building DPA1, DPB1, DQA1, and DQB1 sequence alignments from releases prior to 3.24.0 may require using a gene name that does not include the numerical suffix. In addition, when building alignments for different releasees the *HLAgazeteer* should be updated to reflect the gene names in that release. 
+Prior to IPD-IMGT/HLA Database release version 3.24.0, the names of the sequence alignment files for the HLA-DP and HLA-DQ genes in the IPD-IMGT/HLA GitHub Repository did not include a numerical suffix in the gene name (e.g., the protein sequence alignment file for the DQA1 gene was named 'DQA_prot.txt') because sequence alignment files for the DPA2, DPB2, DQA2 and DQB2 genes had not been made available. Similarly, prior to release version 3.51.0, the 'DRB_prot.txt' and 'DRB_nuc.txt' alignment files included alignments for DRB1, DRB3, DRB4 and DRB5. Building DPA1, DPB1, DQA1, DQB1, DRB1, DRB3 and DRB5 sequence alignments from these earlier releases may require specifying a gene name that does not include the numerical suffix. In release version 3.55.0, there are no separate nucleotide alignments for the DRB6, DRB7, DRB8 or DRB9 genes; nucleotide alignments for these genes are included in the 'DRB_nuc.txt' file.  Accordingly, when building alignments for past releases, the *HLAgazeteer* should be updated to reflect the available gene names in that release, and consulted to determine which gene names should be provided to alignmentFull(). 
 
 ```
-
 HLAalignments <- alignmentFull(c("C","DQB"),alignType = "nuc",version = "3.20.0") ## generate nucleotide alignments for two genes in release version 3.20.0
 ```
 

@@ -1,4 +1,4 @@
-#buildGazeteer v03.2.0 21MAR2024
+#buildGazeteer v04.0.0 5APR2024
 
 ##############
 ##buildGazeteer
@@ -43,12 +43,10 @@ buildGazeteer <- function(version = getLatestVersion()) {
   
   if(!validateVersion(version)) {stop(paste(version,"is not a valid IPD-IMGT/HLA Database release.",sep=" "))}
   
-  URL <- paste("https://github.com/ANHIG/IMGTHLA/tree/",squashVersion(version),"/alignments",sep="")
-  rough <- suppressWarnings(read.table(URL))
-  rough <- strsplit(rough[[1]], split = "[,]|[:]|[\\{]|[\\}]")
-  narrow <- gsub("alignments/","",rough[[1]][grep("alignments/",rough[[1]])]) # pulls only loci in the 'alignments' directory
-  narrow <- substr(narrow,2,nchar(narrow)-1)
-
+  URL <- paste("https://github.com/ANHIG/IMGTHLA/tree/",repoVersion(version),"/alignments",sep="")
+  
+  narrow <- getAlignmentNames(URL)
+  
   nucList <- vector("list", 1)
   genList <- vector("list", 1)
   protList <- vector("list", 1)
@@ -56,20 +54,20 @@ buildGazeteer <- function(version = getLatestVersion()) {
  for(i in 1:length(narrow)) {
         if (grepl("Class", narrow[i], fixed = TRUE) == FALSE) {
            if (grepl("nuc", narrow[i], fixed = TRUE)) {
-          if(!narrow[i] == "DRB_nuc.txt") { #Exclude combined "DRB" alignments
+       #   if(!narrow[i] == "DRB_nuc.txt") { #Exclude combined "DRB" alignments
           pure <- strsplit(narrow[i], "_")
           nucList[[1]] <- append(nucList[[1]], fixed(pure[[1]][1]), after = length(nucList[[1]]))
-          }
+      #    }
         }
         if (grepl("gen", narrow[i], fixed = TRUE)) {
           pure <- strsplit(narrow[i], "_")
           genList[[1]] <- append(genList[[1]], fixed(pure[[1]][1]), after = length(genList[[1]]))
          }
         if (grepl("prot", narrow[i], fixed = TRUE)) {
-          if(!narrow[i] == "DRB_prot.txt") { #Exclude combined "DRB" alignments
+      #    if(!narrow[i] == "DRB_prot.txt") { #Exclude combined "DRB" alignments
           pure <- strsplit(narrow[i], "_")
           protList[[1]] <- append(protList[[1]], fixed(pure[[1]][1]), after = length(protList[[1]]))
-          }
+     #     }
         }
       }
   }
@@ -124,4 +122,50 @@ buildGazeteer <- function(version = getLatestVersion()) {
   locList$version <- version
     
   locList
+}
+
+##############
+##getAlignmentNames
+#'Retrieve alignment filenames for HLA genes
+#'
+#'Retrieves the filenames of the protein, nucleotide and genomic alignments available a specific branch of the IMGTHLA GitHub Repository
+#'
+#'@param URL A URL identifying of the desired IPD-IMGT/HLA Database release version from which the alignment filenames should be retrieved.
+#'
+#'@return A character vector of all of the filenames. 
+#'
+#'@importFrom stringr str_detect
+#'
+#'@examples
+#'\dontrun{
+#'getAlignmentNames("https://github.com/ANHIG/IMGTHLA/tree/3240/alignments")
+#'}
+#'
+#'@export
+#'
+getAlignmentNames <- function(URL){
+  
+  rough <- readLines(URL)
+  rough <- strsplit(rough, split = "[,]|[:]|[\\{]|[\\}]")
+  
+  roughList <- c()
+  k <- 0
+  
+  for(i in 1:length(rough)) {
+    if(length(rough[[i]])>0) {
+      for(j in 1:length(rough[[i]])) {
+        if(nchar(rough[[i]][j])!= 0){
+          if(any(!is.na(str_detect(rough[[i]][j],c("alignments"))))) {
+            if(str_detect(rough[[i]][j],c("alignments")) && str_detect(rough[[i]][j],c(".txt"))) {
+              roughList <- append(roughList,rough[[i]][j],length(roughList))
+              k <- k+1
+              roughList[k] <- substr(roughList[k],13,nchar(roughList[k])-1)
+            }
+          }        
+        }
+      }
+    }
+  }
+  
+  unique(roughList)
 }

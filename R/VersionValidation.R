@@ -22,16 +22,16 @@
 #'For internal HLAtools use.
 checkVersion <- function(version){
   if(version == "Latest") { version <- getLatestVersion()}
-
+  
   paste("X",gsub(".","",version,fixed=TRUE),sep="") %in% colnames(alleleListHistory$AlleleListHistory)
-
+  
 }
 
 ################
 ##ValidateVersion
-#'ValidateVersion - Validate a potential IPD-IMGT/HLA Release Version
+#'ValidateVersion - Validate an IPD-IMGT/HLA Release Version
 #'
-#'Determines if data for a given IPD-IMGT/HLA Release Version is available in the ANHIG/IMGTHLA GitHub repository.
+#'Determines if an IPD-IMGT/HLA Release Version is referenced in the AlleleListHistory file.
 #'
 #'@param version A release version (branch) of the ANHIG/IMGTHLA Github repository (e.g. '3.53.0'). The value 'Latest' refers to the most recent release.
 #'
@@ -49,16 +49,16 @@ checkVersion <- function(version){
 #'For internal HLAtools use.
 validateVersion <- function(version) {
   if(!checkVersion(version)) {
-
+    
     releases <- strsplit(readLines(url("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/Allelelist_history.txt"),n=7,ok=TRUE,skipNul = FALSE)[7],",")[[1]]
     releases <- releases[2:length(releases)]
-
+    
     on.exit(close(url("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/Allelelist_history.txt")))
     
     squashVersion(version) %in% releases
-
+    
   } else {TRUE}
-
+  
 }
 
 ################
@@ -86,7 +86,7 @@ getLatestVersion <- function() {
 
 ################
 ##SquashVersion
-#'SquashVersion -- Reduce an IPD-IMGT/HLA Database Release Version to a sequence of numbers
+#'SquashVersion - Reduce an IPD-IMGT/HLA Database Release Version to a sequence of numbers
 #'
 #'Removes the '.' delimiters from an IPD-IMGT/HLA Database Release Version name
 #'
@@ -103,14 +103,14 @@ getLatestVersion <- function() {
 #'@note
 #'For internal HLAtools use.
 squashVersion <- function(ver,num = FALSE){
-
+  
   ver <- gsub(".","",ver,fixed=TRUE)
   if(num){as.numeric(ver)} else {ver}
 }
 
 ################
 ##ExpandVersion
-#'ExpandVersion -- Adds 'dot' delimiters to an 'all numeral' IPD-IMGT/HLA Database Release Version
+#'ExpandVersion - Adds 'dot' delimiters to an 'all numeral' IPD-IMGT/HLA Database Release Version
 #'
 #'Adds the '.' delimiters to a 'squashed' IPD-IMGT/HLA Database Release Version name
 #'
@@ -127,10 +127,40 @@ squashVersion <- function(ver,num = FALSE){
 #'For internal HLAtools use.
 #'@note
 #'This function assumes single-character-length first and third fields of IPD-IMGT/HLA Database Release Version names.
+#'
 expandVersion <- function(ver){
-
+  
   if(is.numeric(ver)) {ver <- as.character(ver)}
   ver <- strsplit(ver,split="")[[1]]
   paste(ver[1],paste(ver[2:(length(ver)-1)],collapse = ""),ver[length(ver)],sep=".")
 }
 
+##################
+##RepoVersion
+#'RepoVersion - Convert an AlleleListHistory-formatted IPD-IMGT/HLA Database Release Version to the GitHub Repository Version
+#'
+#'Converts IMGT/HLA Database release versions '3.00.0'-'3.09.0' to '3.0.0'-'3.9.0' to facilitate working with these GitHub repo branches.
+#'
+#'@param version A validated IPD-IMGT/HLA Database release version.
+#'
+#'@return A character string of the release version suitable for use in an IMGT/HLA GitHub repository URL.
+#' 
+#'@examples
+#'repoVersion("3.05.0")
+#'
+#'@note
+#'For internal HLAtools use.
+#'
+#'@export
+#'
+repoVersion <- function(version){
+  
+  version <- squashVersion(version)
+  
+    verVec <- strsplit(version,"")[[1]]
+    if(verVec[2] == "0") {
+      return(paste(c(verVec[1],verVec[3:4]),collapse=""))
+      }  
+    
+    version
+}

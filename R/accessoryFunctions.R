@@ -128,10 +128,46 @@ verifyAllele <- function(allele, version=FALSE){
             return(c(TRUE,expandVersion(substr(rawVersion,start=2,stop = nchar(rawVersion)))))
           } 
   }
-    
-    
-    
 
+#################
+##parseAlignmentHead
+#'Guides For Parsing the Header Blocks of Alignment Files
+#'
+#'Returns a vector describing the location of key information on the header blocks of alignment files.
+#'
+#'@param version A validated IPD-IMGT/HLA Database release version (e.g., '3.25.0' or '3250').
+#'
+#'@return Either FALSE if the version is not valid, or two-value numerical vector describing (1) the header line in which alignment version data appears and (2) the length of the character string in that line preceding version data.
+#'
+#'@export
+#'
+#'@examples
+#'\dontrun{
+#'parseAlignmentHeader("3.25.0")
+#'}
+parseAlignmentHead <- function(version){
   
+  if(validateVersion(version) ) { version <- squashVersion(version)
+      } else {
+          return(FALSE) }
   
+    field1 <- as.numeric(substr(version,1,1))
+        if(field1 != 3) { 
+                  message(paste("Alignments are not available for version",field1,"releases.",sep=" "))
+                     return(FALSE) 
+              }
+    field2 <- as.numeric(substr(version,2,3))
+    
+    if(field2 >= 32) {return(c(3,24))} # on line three, skip the first 24 characters 
+    
+    if(field2 %in% c(25,27:31)) {return(c(2,22))} # on line 2, skip the first 22 characters
+    
+    if(field2 %in% c(0:24,26)) {return(c(2,18))} # on line 2, skip the first 18 characters
+    
+    return(FALSE) ## In case something else makes it through.
+    
+#    field3 <- substr(version,4,4) ## not needed.
+  
+}
+
 

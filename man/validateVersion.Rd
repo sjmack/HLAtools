@@ -2,7 +2,7 @@
 % Please edit documentation in R/VersionValidation.R
 \name{validateVersion}
 \alias{validateVersion}
-\title{ValidateVersion - Validate a potential IPD-IMGT/HLA Release Version}
+\title{ValidateVersion - Validate an IPD-IMGT/HLA Release Version}
 \usage{
 validateVersion(version)
 }
@@ -13,7 +13,7 @@ validateVersion(version)
 A logical. TRUE indicates that data for 'version' is available in the ANHIG/IMGTHLA GitHub repository. FALSE means that data for 'version' is not available.
 }
 \description{
-Determines if data for a given IPD-IMGT/HLA Release Version is available in the ANHIG/IMGTHLA GitHub repository.
+Determines if an IPD-IMGT/HLA Release Version is referenced in the AlleleListHistory file.
 }
 \note{
 For internal HLAtools use.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/VersionValidation.R
 \name{squashVersion}
 \alias{squashVersion}
-\title{SquashVersion -- Reduce an IPD-IMGT/HLA Database Release Version to a sequence of numbers}
+\title{SquashVersion - Reduce an IPD-IMGT/HLA Database Release Version to a sequence of numbers}
 \usage{
 squashVersion(ver, num = FALSE)
 }
