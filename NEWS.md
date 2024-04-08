@@ -2,6 +2,7 @@
 
 ### Version 0.9.3.9000 April 7, 2024
 
+- Correctly added GPL3 License to package.
 - Added getAlignmentNames() function.
 - Added repoVersion() function.
 - Added parseAlignmentHead() function.
