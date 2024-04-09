@@ -3,7 +3,7 @@
 \docType{data}
 \name{HLAatlas}
 \alias{HLAatlas}
-\title{identifies the boundary positions of exons, introns and UTRs in the amino acid, cDNA and gDNA alignments in the HLAalignments data object.}
+\title{Identifies the boundary positions of exons, introns and UTRs in the amino acid, cDNA and gDNA alignments in the HLAalignments data object.}
 \format{
 A list of 4 elements that include the gene features boundaries in each ANHIG/IMGTHLA sequence alingment.
 \itemize{

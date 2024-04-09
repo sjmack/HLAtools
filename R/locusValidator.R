@@ -61,7 +61,7 @@ valid
 #'
 #'@param loci A vector of locus names. 
 #'
-#'@param verbose A logiccal value. If verbose = TRUE, messages describing invalid locus names are generated. If verbose = FALSE, no messages are generated.
+#'@param verbose A logiccal value. If verbose = TRUE, messages describing invalid locus names for version of the current HLAgazeteer are generated. If verbose = FALSE, no messages are generated.
 #'
 #'@return A vector of locus names that are present in HLAgazeteer$gen.
 #'
@@ -85,7 +85,7 @@ multiLocusValidation <- function(loci,verbose=TRUE) {
                 }
               }
         if(any(lociTest == FALSE)) {if(verbose) {
-            message(paste("The",loci[lociTest == FALSE],"locus is invalid and has been removed.\n"),sep=" ")
+            message(paste("The",loci[lociTest == FALSE],"locus is invalid in version", HLAgazeteer$version ,"and has been removed.\n"),sep=" ")
               }
          }
     

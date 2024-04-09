@@ -1,7 +1,7 @@
-#atlasMaker v1.4.0 7 February 2024
+#atlasMaker v1.4.0 8 April 2024
 
 #library(stringr)
-#library(BIGDAWG)
+#library(BIGDAWG)5
 #library(dplyr)
 #library(tibble)
 #library(DescTools)
@@ -46,7 +46,9 @@ atlasMaker<-function(loci, source, version = "Latest"){
   if(version != "Latest"){ #
     if(!validateVersion(version)){stop(paste(version," is not a valid IPD-IMGT/HLA Database release version."))}
       }else{ version <- getLatestVersion()}
-
+  
+  loci <- multiLocusValidation(loci) # Added as a check to make sure that HLAgazeteer#version is enforced; otherwise validateLocus could return FALSE
+  
   if(validateLocus(loci=loci,source=source)) { ## primary 'check'.
 
   subSource<- expressed<-genestructure<-nucVersion<-pep_start<-nuc<-nuc_df<-extract_ref<-nuc_extract<-start<-end<-pipe_split<-column_names<-boundaries<-boundary_split<-AA_atlas<-sapply(loci, function(x) NULL)
@@ -223,8 +225,7 @@ atlasMaker<-function(loci, source, version = "Latest"){
         # finding where the alignment sequence starts
         if(source[j] == "AA"|source[j] == "cDNA"){
           alignment[[loci[i]]] <- readLines(paste("https://raw.githubusercontent.com/ANHIG/IMGTHLA/", repoVersion(version), "/alignments/",paste(ifelse(loci[[i]]=="DRB1"|loci[[i]]=="DRB3"|loci[[i]]=="DRB4"|loci[[i]]=="DRB5","DRB",loci[[i]]),suffix,sep=""),sep=""),-1,ok=TRUE,skipNul = FALSE)
-        }
-        else if(source[j] == "gDNA"){
+        } else if(source[j] == "gDNA"){
           alignment[[loci[i]]] <- readLines(paste("https://raw.githubusercontent.com/ANHIG/IMGTHLA/", repoVersion(version), "/alignments/",paste(loci[[i]],suffix,sep=""),sep=""),-1,ok=TRUE,skipNul = FALSE)
         }
 
@@ -250,7 +251,7 @@ atlasMaker<-function(loci, source, version = "Latest"){
           alignment[[loci[i]]] <- tail(alignment[[loci[i]]],-6)
         }
 
-        if(loci[[i]] %in% c("DPA2","DPB2")) { # In release version 3.53.0 and earlier these pseudogenes had 'AA codon' positions in their cDNA alignments, but in 3.54.0 those rows have been removed
+        if(loci[[i]] %in% HTexceptions$pseudo.codon) { # In release version 3.53.0 and earlier these pseudogenes had 'AA codon' positions in their cDNA alignments, but in 3.54.0 those rows have been removed; similarly the HLA-Y pseudogene had an AA codon line prior to version 3.36.0 
           alignment[[loci[i]]] <- alignment[[loci[[i]]]][!substr(alignment[[loci[[i]]]][],1,9) == " AA codon"]
         }
 

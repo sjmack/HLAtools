@@ -1,4 +1,4 @@
-##Accessory Functions v4.0.1 25MAR24
+##Accessory Functions v5.0.0 9APR2024
 
 ################
 ##posSort
@@ -170,4 +170,35 @@ parseAlignmentHead <- function(version){
   
 }
 
-
+##################
+##buildHTexceptions
+#'
+#'Builds 'HTexceptions', a list object of sub-lists of vectors that define exceptions for specific use cases, saves it as an Rdata file in the 'HLAtools/data' folder, and loads the HTexceptions object into the R environment.
+#'
+#'@param HTpath The path to the location where the 'HTexceptions.rda' object should be stored. The default value is the path to the /data folder of the installed HLAtools package. 
+#'
+#'@return The date stamp of the newly created HTexceptions.rda file. 
+#'
+#'@note For internal HLAtools use.
+#'
+#'@examples
+#'\dontrun{
+#'buildHTexceptions()
+#'}
+#'
+buildHTexceptions <- function(HTpath = paste(path.package("HLAtools"),"/data",sep="")){
+  
+  HTexceptions <- list()
+  
+  HTexceptions$pseudo.codon <- c("DPA2","DPB2","Y") 
+  # Prior to release version 3.53.0, the cDNA alignments for the DPA2 and DPB2 pseudogenes included 'AA codon' positions. These lines were removed in release version 3.54.0.
+  # Similarly, the HLA-Y pseudogene had an AA codon line prior to version 3.36.0.
+  # These exceptions are consumed by atlasMaker(), directing the removal of 'AA codon' lines for these cDNA alignments.
+ 
+   HTexceptions$date <- paste(strsplit(as.character(Sys.time())," ")[[1]],collapse="_")
+  
+  save(HTexceptions,file=paste(HTpath,"HTexceptions.rda",sep="/"))
+  load(paste(HTpath,"HTexceptions.rda",sep="/"))
+  
+  HTexceptions$date
+}

@@ -9,7 +9,7 @@ multiLocusValidation(loci, verbose = TRUE)
 \arguments{
 \item{loci}{A vector of locus names.}
 
-\item{verbose}{A logiccal value. If verbose = TRUE, messages describing invalid locus names are generated. If verbose = FALSE, no messages are generated.}
+\item{verbose}{A logiccal value. If verbose = TRUE, messages describing invalid locus names for version of the current HLAgazeteer are generated. If verbose = FALSE, no messages are generated.}
 }
 \value{
 A vector of locus names that are present in HLAgazeteer$gen.

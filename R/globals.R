@@ -6,4 +6,5 @@ utils::globalVariables("HLAgazeteer")
 utils::globalVariables("fragmentFeatureNames")
 utils::globalVariables("IMGTHLAGeneTypes")
 utils::globalVariables("HLAatlas")
+utils::globalVariables("HTexceptions")
 

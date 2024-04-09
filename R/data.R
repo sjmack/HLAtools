@@ -133,7 +133,7 @@
 "UNIFORMAT.example"
 
 ##HLAatlas
-#'identifies the boundary positions of exons, introns and UTRs in the amino acid, cDNA and gDNA alignments in the HLAalignments data object. 
+#'Identifies the boundary positions of exons, introns and UTRs in the amino acid, cDNA and gDNA alignments in the HLAalignments data object. 
 #'
 #'A list object of sub-lists of R dataframes (atlases) for each locus with a protein (prot), cDNA (nuc), and gDNA (gen) alignment. Each atlas identifies the position of the exon, intron or UTR boundaries in an alignment.
 #'This object is built by the atlasFull() function.
@@ -150,3 +150,20 @@
 #'    }
 #' @source https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments
 "HLAatlas"
+
+##HTexceptions
+#'Defines specific exceptions for use with package functions
+#'
+#'A list object of sub-lists of vectors that define exceptions for specific use cases.
+#'
+#' @docType data
+#' @name HTexceptions
+#' @usage data(HTexceptions)
+#' @format A list of elements containing vectors of data for specific exceptions.
+#' \itemize{
+#'    \item(pseudo.codon: A vector of pseudogenes that include spurious codon alignment coordinates in some releases)
+#'    \item(date: A YYYY-MM-DD_HH:mm:ss.SSSSSS formatted date stamp describing the HTexceptions object's time of creation)
+#' }
+#' @source HLAtools:HTexceptions()
+"HTexceptions"
+

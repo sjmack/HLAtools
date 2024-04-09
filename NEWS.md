@@ -1,5 +1,15 @@
 ## HLAtools (development version)
 
+### Version 0.9.4.9000 April 9, 2024
+
+- Added HTexceptions() and the HTexceptions data object, which make defined exceptions for specific use cases available for package functions. 
+- Added HTexceptions.rda to the /data folder. 
+- Updated atlasMaker() to use HTexceptions for building DPA2, DPB2 and HLA-Y nucleotide atlases.
+- Updated atlasMaker() to use multiLocusValidation(), which depends on the HLAgazeteer$version to evaluate locus:version matches. 
+- Modified multiLocusValidation() messaging to reflect this dependence on HLAgazeteer$version.
+- Updates to Vignette.
+- Updates to ReadMe.
+
 ### Version 0.9.3.9000 April 7, 2024
 
 - Correctly added GPL3 License to package.
