@@ -1,4 +1,4 @@
-## Locus Validation Functions v0.3.0 2APR2024
+## Locus Validation Functions v0.4.0 10APR2024
 
 ################
 ##validateLocus
@@ -59,9 +59,11 @@ valid
 #'
 #'Applies validateLocus() to a vector of locus names, validates them against HLAgazeteer$gen, and returns a vector of validated locus names. 
 #'
-#'@param loci A vector of locus names. 
+#'@param loci A vector of locus names found in the current HLAgazeteer. 
 #'
-#'@param verbose A logiccal value. If verbose = TRUE, messages describing invalid locus names for version of the current HLAgazeteer are generated. If verbose = FALSE, no messages are generated.
+#'@param alignType The type of alignment 'loci' should be validated against. Allowed options are 'AA' (protein), 'cDNA' (nucleotide) and 'gDNA' (genomic). Only a single value should be provided. The default value is 'gen'.
+#'
+#'@param verbose A logical value. If verbose = TRUE, messages describing invalid locus or alignType values are generated. If verbose = FALSE, no messages are generated.
 #'
 #'@return A vector of locus names that are present in HLAgazeteer$gen.
 #'
@@ -73,12 +75,15 @@ valid
 #'multiLocusValidation(loci = c("DRB1","DPB1","DQB8"))
 #'multiLocusValidation(loci = c("A","B","C","D","Q"))
 #'
-multiLocusValidation <- function(loci,verbose=TRUE) {
+multiLocusValidation <- function(loci, alignType = "gDNA") {
     lociTest <- rep(FALSE,length(loci))
-
+    
+    if(!alignType %in% c("AA","cDNA","gDNA")) {stop(paste(alignType," is not a valid alignType.\n",sep=""))}
+    if(length(alignType) != 1) {stop(paste("Please provide only a single 'alignType' value.\n"))}
+    
       for(i in 1:length(loci)) {
             if(!loci[i] == "all") { 
-                if(suppressMessages(validateLocus(loci[i],"gDNA"))) { 
+                if(suppressMessages(validateLocus(loci[i],alignType))) { 
                 
                 lociTest[i] <- TRUE 
                   } 

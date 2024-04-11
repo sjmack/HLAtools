@@ -1,5 +1,12 @@
 ## HLAtools (development version)
 
+### Version 0.9.5.9000 April 11, 2024
+
+- Added 'source' selection to multiLocusValidation().
+- Modified atlasMaker() to support updated multiLocusValidation().
+- Updated packaged data objects (HLAatlas,HLAgazeteer,fragmentFeatureNames and alleleListHistory) to version IPD-IMGT/HLA Database Release version 3.56.0.
+- Updated Vignette.
+
 ### Version 0.9.4.9000 April 9, 2024
 
 - Added HTexceptions() and the HTexceptions data object, which make defined exceptions for specific use cases available for package functions. 
@@ -88,6 +95,6 @@
 
 - Added documentation, updated functions for building alignments.  
   
-### Version 0.7.1.9000 Ferbrary 9, 2024
+### Version 0.7.1.9000 February 9, 2024
 
 - HLAtools Package contains reference datasets, along side query and analysis tools.  

@@ -4,12 +4,14 @@
 \alias{multiLocusValidation}
 \title{Apply validateLocus() to multiple individual loci}
 \usage{
-multiLocusValidation(loci, verbose = TRUE)
+multiLocusValidation(loci, alignType = "gDNA")
 }
 \arguments{
-\item{loci}{A vector of locus names.}
+\item{loci}{A vector of locus names found in the current HLAgazeteer.}
 
-\item{verbose}{A logiccal value. If verbose = TRUE, messages describing invalid locus names for version of the current HLAgazeteer are generated. If verbose = FALSE, no messages are generated.}
+\item{alignType}{The type of alignment 'loci' should be validated against. Allowed options are 'AA' (protein), 'cDNA' (nucleotide) and 'gDNA' (genomic). Only a single value should be provided. The default value is 'gen'.}
+
+\item{verbose}{A logical value. If verbose = TRUE, messages describing invalid locus or alignType values are generated. If verbose = FALSE, no messages are generated.}
 }
 \value{
 A vector of locus names that are present in HLAgazeteer$gen.
