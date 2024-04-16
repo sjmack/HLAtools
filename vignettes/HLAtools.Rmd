@@ -8,7 +8,7 @@ author:
 - Vinh Luu -- vinhluu864@berkeley.edu
 - Josh Bredeweg
 - Steven J. Mack, PhD -- steven.mack@ucsf.edu
-date: "2024-04-15"
+date: "2024-04-16"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{HLAtools}
@@ -304,9 +304,9 @@ Prior to IPD-IMGT/HLA Database release version 3.24.0, the names of the sequence
 
 Similarly, prior to release version 3.51.0, the 'DRB_prot.txt' and 'DRB_nuc.txt' alignment files were the source of alignments for DRB1, DRB3, DRB4 and DRB5. In release versions 3.0.0 to 3.23.0, genomic DRB1 alignments are in 'DRB_gen.txt' files, and these alignments are in 'DRB1_gen.txt' files in subsequent releases. Building DPA1, DPB1, DQA1, DQB1, DRB1, DRB3 and DRB5 sequence alignments from these earlier releases may require specifying a gene name that does not include the numerical suffix. 
 
-In all version 3.*.* releases, nucleotide alignments for the DRB6, DRB7, DRB8 or DRB9 genes are included in the 'DRB_nuc.txt' file.  
+In all version 3.*.* releases (3.0.0 to 3.56.0), nucleotide alignments for the DRB6, DRB7, DRB8 or DRB9 genes are included in the 'DRB_nuc.txt' file.  
 
-As noted above, when building alignments for past releases, the *HLAgazeteer* should be updated to reflect the available gene names in that release, and consulted to determine which gene names should be provided to alignmentFull(). 
+As noted above, when building alignments for past releases, the *HLAgazeteer* should be updated to reflect the gene names included in that release, and consulted to determine which gene names should be provided to alignmentFull(). 
 
 ```
 updateAll(version = "3.20.0")
@@ -443,7 +443,9 @@ customAlign("codon",c("DPB1*01:01:01:01","DQA1*01:01:01:01","DQB1*05:01:01:01"),
 
 ---
 
-# 4. Working with Genotype List String (GL String), GL String Code (GLSC), and UNIFORMAT Data
+# 4. Data Translation and Conversion Tools
+
+## Working with Genotype List String (GL String), GL String Code (GLSC), and UNIFORMAT Data
 
 [Genotype List (GL) String](https://onlinelibrary.wiley.com/doi/10.1111/tan.15126) is a grammar for describing the relationships between allele names reported in a genotype, using a set of six case-defined “AND” and “OR” delimiters ('?', '^', '|', '+', '~', '~', and '/'). 
 
