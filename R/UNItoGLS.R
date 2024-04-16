@@ -6,13 +6,13 @@
 ##UNItoGLS
 #'Translate strings from UNIFORMAT format to GL String format.
 #'
-#'A wrapper function for UNtoGL(), which translates strings from UNIFORMAT format to GL String format.
+#'A wrapper function for UNtoGL() which translates strings from UNIFORMAT format to GL String format.
 #'
 #'@param uniformat A string of HLA allele names and operators in the UNIFORMAT format signifying their relation with one another.
-#'@param prefix A string of the desired prefix (autoset to "HLA-"). This string should contain a "-" at the end.
-#'@param pre A logical that indicates whether user would like all allele names to contain the prefix of their choice (TRUE), or if the prefix should not be appended to allele names (FALSE).
+#'@param prefix A character string of the desired gene-system prefix (default is "HLA-").
+#'@param pre A logical that indicates whether returned allele names should contain 'prefix' (TRUE), or if 'prefix' should be excluded from returned names (FALSE).
 #'
-#'@return An altered version of the input string, converted to GL String format.
+#'@return  An version of 'uniformat' converted to GL String format, or FALSE if 'uniformat' is invalid.
 #'
 #'@note This function does not return the "?" operator, as the "?" operator has no cognate in UNIFORMAT.
 #'
@@ -25,75 +25,61 @@
 #'@references Nunes Tissue Antigens 2007;69(s1):203-205 https://doi.org/10.1111/j.1399-0039.2006.00808.x
 #'@references Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
 UNItoGLS <- function(uniformat, prefix = "HLA-", pre = TRUE) {
-  #using validator to better protect code
-  uniformat <- uniformatValidate(uniformat)
-  #if all is well, call GLupdate
-  UNtoGL(uniformat = uniformat, prefix = prefix, pre = pre)
+
+  if(validateUniformat(uniformat)){
+    
+          UNtoGL(uniformat = uniformat, prefix = prefix, pre = pre) } else { 
+              FALSE}
 }
 
 ################
 ##multiUNItoGLS
-#'Translate columns of UNIFORMAT strings to GL Strings.
+#'Translate multiple UNIFORMAT strings to GL Strings.
 #'
-#'A function that translates columns of arrays containing UNIFORMAT formatted strings to GL String format.
+#'Translate a data frame or vector of UNIFORMAT strings to GL Strings.
 #'
-#'@param UniformatArray A vector with UNIFORMAT formatted strings. if the vector has more than one column, the first column should only contain labels/identification data. The first column of a multi-column vector should NOT contain UNIFORMAT strings. if the input vector only contains one column, the column should contain UNIFORMAT strings.
-#'@param prefix A string of the desired prefix (autoset to "HLA-"), this string should contain a "-" at the end.
-#'@param pre A logical that indicates whether user would like all allele names to contain the prefix of their choice (TRUE), or if the prefix should not be appended to allele names (FALSE).
+#'@param UniformatArray A data frame or vector of UNIFORMAT formatted strings. If 'UniformatArray' is a data frame with more than one column, the first column should contain only identifiers. If 'UniformatgArray' is a vector, it should contain only UNIFORMAT strings.
+#'@param prefix A string of the desired locus prefix (default is "HLA-").
+#'@param pre A logical. If 'pre' is TRUE, all allele names will be prefixed with 'prefix'. If 'pre' is FALSE, no allele names will be prefixed.
 #'
-#'@return An altered version of the input string, converted to GL String format.
+#'@return A version of 'UniformatArray' in which the UNIFORMAT data have been converted to GL String format. If a 'UniformatArray' was a data frame, a data frame is returned. If 'UniformatArray' was a vector, a vector is returned. 
 #'
-#'@note This function does not return the "?" operator, as the "?" operator has no cognate in UNIFORMAT.
+#'@note This function does not return the GL String "?" operator, as the "?" operator has no cognate in UNIFORMAT.
 #'
 #'@export
 #'
 #'@examples
+#'multiUNItoGLS(unname(as.vector(UNIFORMAT.example[2]))[[1]])
 #'multiUNItoGLS(UNIFORMAT.example[1:2])
-#'multiUNItoGLS(UNIFORMAT.example[2])
 #'
 #'@references Nunes Tissue Antigens 2007;69(s1):203-205 https://doi.org/10.1111/j.1399-0039.2006.00808.x
 #'@references Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
 multiUNItoGLS <- function(UniformatArray, prefix = "HLA-", pre = TRUE) {
-  names <- colnames(UniformatArray)
-  if (is.null(names)) {
-    UniformatArray <-as.data.frame(UniformatArray)
-  }
-  names <- colnames(UniformatArray)
-  if (length(UniformatArray) == 1) {
-    #nn <- colnames(GLstringArray, do.NULL = FALSE)
-    nn <- names[1]
-    for (i in 1:length(UniformatArray[[1]])) {
-      #if there is anything not supposed to be there, badOperate will be false
-      badOperate <- all(strsplit(UniformatArray[[nn]][i],split="")[[1]] %in% c(" ","|",",","\t","~",0:9,LETTERS,"b", "l", "a", "n", "k", "g","*","-",":"))
-      if (badOperate) {
-        UniformatArray[[nn]][i] <- UNtoGL(UniformatArray[[nn]][i], prefix = prefix, pre = pre)
-      }
-      #populating return sentence with what is wrong
-      if (badOperate == FALSE) {
-        #simple return message
-        message( paste( "In row", i, ",the input uniformat string contains operators or characters not present in uniformat."))
-      }
+ 
+  vec <- FALSE
+  if (is.vector(UniformatArray)) {
+      vec <- TRUE
+      UniformatArray <-as.data.frame(UniformatArray)
     }
-  }
-  else {
-    for (x in 2:length(UniformatArray)) {
-      nn <- names[x]
-      for (i in 1:length(UniformatArray[[1]])) {
+  
+  names <- colnames(UniformatArray)
 
-        #if there is anything not supposed to be there, badOperate will be false
-        badOperate <- all(strsplit(UniformatArray[[nn]][i],split="")[[1]] %in% c(" ","|",",","\t","~",0:9,LETTERS,"b", "l", "a", "n", "k", "g","*","-",":"))
-        if (badOperate) {
+    for(x in ifelse(length(UniformatArray) == 1,1,2):length(UniformatArray)) {
+ 
+      nn <- names[x]
+      for (i in 1:length(UniformatArray[[x]])) {
+ 
+                if (suppressMessages(validateUniformat(UniformatArray[[nn]][i]))) {
           UniformatArray[[nn]][i] <- UNtoGL(UniformatArray[[nn]][i], prefix = prefix, pre = pre)
-        }
-        #populating return sentence with what is wrong
-        if (badOperate == FALSE) {
-          #simple return message
-          message( paste( " In row ", i, ", the input uniformat string contains operators or characters not present in uniformat."))
+        } else {
+
+          message( paste( "The UNIFORMAT string in row ",i,"contains operators or characters that are not permitted in UNIFORMAT."))
         }
       }
     }
-  }
-  #View(UniformatArray)
+
+  if(vec) { UniformatArray <- unname(unlist(UniformatArray)) }
+  
   UniformatArray
 }
 
@@ -104,7 +90,7 @@ multiUNItoGLS <- function(UniformatArray, prefix = "HLA-", pre = TRUE) {
 #'A function that translates strings from UNIFORMAT format to GL String format.
 #'
 #'@param uniformat A string of HLA allele names and operators in the UNIFORMAT format signifying their relation with one another.
-#'@param prefix A string of the desired prefix (autoset to "HLA-"), this string should contain a "-" at the end.
+#'@param prefix A string of the desired prefix (default is "HLA-").
 #'@param pre A logical that indicates whether user would like all allele names to contain the prefix of their choice (TRUE), or if the prefix should not be appended to allele names (FALSE).
 #'
 #'@return An altered version of the input string, converted to GL String format.
@@ -123,15 +109,12 @@ multiUNItoGLS <- function(UniformatArray, prefix = "HLA-", pre = TRUE) {
 #'@references Nunes Tissue Antigens 2007;69(s1):203-205 https://doi.org/10.1111/j.1399-0039.2006.00808.x
 #'@references Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
 UNtoGL <- function(uniformat, prefix = "HLA-", pre = TRUE) {
-  #print(uniformat)
-  #this string will be altered and returned
+ 
   GLret <- uniformat
+  
   preTemp <- prefix
-  preTemp <- gsub("-", "", preTemp)
-  #taking out all prefixes just in case they are present. this will be returned depending on prefix parameter
+
   GLret <- gsub(prefix, "", GLret)
-  GLret <- gsub("-", "", GLret)
-  GLret <- gsub(preTemp, "", GLret)
 
   #splitting across some operators, allowing more difficult translations to be carried out on segments
   firstSplit <- strsplit(GLret, "[ ]|[~]|[\t]")[[1]]
@@ -234,32 +217,29 @@ UNtoGL <- function(uniformat, prefix = "HLA-", pre = TRUE) {
   GLret
 }
 
-
 ################
-##uniformatValidate
-#'Validates a UNIFORMAT string.
+##validateUniformat
+#'Validate a UNIFORMAT string.
 #'
-#'A function that validates that a UNIFORMAT formatted string, ensuring that it does not contain any characters not supported in UNIFORMAT.
+#'Evaluates a UNIFORMAT string to identify unsupported characters.
 #'
-#'@param uniformat A string of HLA allele names and operators in the UNIFORMAT format signifying their relation with one another.
+#'@param uniformat A character string of allele names and operators in the UNIFORMAT format.
 #'
-#'@return If the input string is valid, the original string is returned. If the input string is invalid, an error message is generated.
+#'@return A logical. TRUE is returned when all characters in 'uniformat' are permitted. FALSE is returned when forbidden characters are present.
 #'
 #'@export
 #'
 #'@examples
-#'uniformatValidate("A*02:01,A*03:01|A*02:01,A*03:02|A*02:02,A*03:01|A*02:02,A*03:02")
+#'validateUniformat("A*02:01,A*03:01|A*02:01,A*03:02|A*02:02,A*03:01|A*02:02,A*03:02")
 #'
 #'@references Nunes Tissue Antigens 2007;69(s1):203-205 https://doi.org/10.1111/j.1399-0039.2006.00808.x
-uniformatValidate <- function(uniformat) {
-  #if there are any of these, badOperate will be true
+validateUniformat <- function(uniformat) {
+ 
   badOperate <- all(strsplit(uniformat,split="")[[1]] %in% c(" ","|",",","\t","~",0:9,LETTERS,"b", "l", "a", "n", "k", "g","*","-",":"))
+  
   #populating return sentence with what is wrong
-  if (badOperate == FALSE) {
-    message("The input uniformat string contains operators or characters not present in UNIFORMAT.")
-    stop()
-  }
+  if (!badOperate) {  message(paste(uniformat, "contains operators or characters not permitted in UNIFORMAT.",sep=" "))  }
 
-  uniformat
+  badOperate
 
 }

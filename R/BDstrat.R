@@ -8,7 +8,7 @@
 #'Divides a BIGDAWG-formatted dataset into two subsets (strata) that do and do not include specified alleles.
 #'
 #'@param dataset A BIGDAWG-formatted data.frame or a path to a BIGDAWG-formatted, tab-delimited text file.
-#'@param alleles A vector of allele names in the <locus>*<allele name> format (e.g., "A\*01:01:01:01" for HLA alleles or "KIR2DL1\*001" for KIR alleles).
+#'@param alleles A vector of allele names in the <locus>\*<allele name> format (e.g., "A\*01:01:01:01" for HLA alleles or "KIR2DL1\*001" for KIR alleles).
 #'@param warnBelow An integer that defines a low number of subjects in a stratum, generating a warning message. The default value is 21.
 #'
 #'@return A list-object of two BIGDAWG-formatted data frames titled dataset$`<alleles>-positive` and dataset$`<alleles>-negative`. The positive list element includes all subjects with the specified alleles, and the negative list element includes all subjects without those specified alleles.
@@ -16,7 +16,7 @@
 #'@examples
 #'\dontrun{
 #' HLA_data.multi.strat <- BDstrat(BIGDAWG::HLA_data,c("DRB1\*08:01:03","DRB1\*03:01:02","A\*26:08"))
-#' HLA_data.single.strat <- BDstrat(BIGDAWG::HLA_data,"DRB1*15:01:01:01")
+#' HLA_data.single.strat <- BDstrat(BIGDAWG::HLA_data,"DRB1\*15:01:01:01")
 #' for(i in 1:2) {BIGDAWG(HLA_data.strat[[i]],HLA = TRUE,Run.Tests = "L")}
 #'}
 #'

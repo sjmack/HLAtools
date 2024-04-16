@@ -9,15 +9,15 @@ UNItoGLS(uniformat, prefix = "HLA-", pre = TRUE)
 \arguments{
 \item{uniformat}{A string of HLA allele names and operators in the UNIFORMAT format signifying their relation with one another.}
 
-\item{prefix}{A string of the desired prefix (autoset to "HLA-"). This string should contain a "-" at the end.}
+\item{prefix}{A character string of the desired gene-system prefix (default is "HLA-").}
 
-\item{pre}{A logical that indicates whether user would like all allele names to contain the prefix of their choice (TRUE), or if the prefix should not be appended to allele names (FALSE).}
+\item{pre}{A logical that indicates whether returned allele names should contain 'prefix' (TRUE), or if 'prefix' should be excluded from returned names (FALSE).}
 }
 \value{
-An altered version of the input string, converted to GL String format.
+An version of 'uniformat' converted to GL String format, or FALSE if 'uniformat' is invalid.
 }
 \description{
-A wrapper function for UNtoGL(), which translates strings from UNIFORMAT format to GL String format.
+A wrapper function for UNtoGL() which translates strings from UNIFORMAT format to GL String format.
 }
 \note{
 This function does not return the "?" operator, as the "?" operator has no cognate in UNIFORMAT.

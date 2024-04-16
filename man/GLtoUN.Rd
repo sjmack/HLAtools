@@ -7,14 +7,14 @@
 GLtoUN(GLstring, prefix = "HLA-", pre = FALSE)
 }
 \arguments{
-\item{GLstring}{A string of HLA allele names and operators in the GL String format signifying their relation with one another.}
+\item{GLstring}{A character string of HLA allele names and operators in the GL String format signifying their relation with one another.}
 
-\item{prefix}{A string of the desired prefix (default is "HLA-"), this string should contain a "-" at the end.}
+\item{prefix}{A character string of the desired gene-system prefix (default is "HLA-").}
 
-\item{pre}{A logical that indicates whether user would like all allele names to contain the prefix of their choice (TRUE), or if the prefix should not be appended to allele names (FALSE).}
+\item{pre}{A logical that indicates whether returned allele names should contain 'prefix' (TRUE), or if 'prefix' should be excluded from returned names (FALSE).}
 }
 \value{
-An altered version of the input string, altered to be in UNIFORMAT format.
+A version of the input string converted to UNIFORMAT format.
 }
 \description{
 A function that translates strings from GL String format to UNIFORMAT format.

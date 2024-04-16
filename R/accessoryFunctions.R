@@ -202,3 +202,58 @@ buildHTexceptions <- function(HTpath = paste(path.package("HLAtools"),"/data",se
   
   HTexceptions$date
 }
+
+##################
+##queryRelease
+#'
+#'Searches specific release versions in the AlleleListHistory object for user-defined allele variants. 
+#'
+#'@param rel An IPD-IMGT/HLA Database release version, represented as either a character (e.g. "3.56.0") or a numeric (e.g., 3560) value.
+#'
+#'@param variant A character string. The value of 'var' can be any part of a locus or allele name (e.g., "DR", "02:01", "DRB1*08:07"). The default ("") specifies all alleles in 'rel'.
+#'
+#'@param all A logical. When 'all' = TRUE, a vector of all instances of 'variant' in 'rel' is returned.  When 'all' = FALSE, the number of instances of 'var' in 'rel' is returned. 
+#
+#'@return A vector all matches to 'variant' in 'rel' or the number of all matches to 'variant' in 'rel'.
+#'
+#'@examples
+#'\dontrun{
+#' # Indeitfy the number of DRB9 alleles in releases 3.30.0 and 3.31.0.
+#'queryRelease("3.30.0","DRB9",FALSE) 
+#'queryRelease("3.31.0","DRB9",FALSE)
+#'
+#' # Identify the total number of alleles in release 3.56.0.
+#' queryRelease(3560)
+#'}
+#'
+queryRelease <- function(rel, variant="", all= FALSE){
+  
+  if(validateVersion(rel)) {rel <- paste("X",squashVersion(rel),sep="")} else {return(paste("Release version",ifelse(is.numeric(rel),expandVersion(rel),rel),"is not in the local copy of 'AlleleListHisory'.",sep=" "))}
+  
+      alleles <- alleleListHistory$AlleleListHistory[,rel][!is.na(alleleListHistory$AlleleListHistory[,rel][])]
+  
+      if(variant == "") {
+          
+        matchAllele <- alleles 
+          
+            } else { 
+            
+            matchAllele <- grep(variant,alleles,fixed=TRUE)
+            
+              }
+  
+      numAllele <- length(matchAllele)
+  
+          if(all) { 
+            
+                  if(variant == "") {
+                          return(matchAllele) 
+                    } else {
+                   return(alleles[matchAllele])
+                    }
+    
+                 } else { return(numAllele)
+    
+             }
+  }
+

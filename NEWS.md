@@ -1,5 +1,13 @@
 ## HLAtools (development version)
 
+### Version 0.9.6.9000 April 15, 2024
+
+- Added the queryRelease() function for searching the alleleListHistory object.
+- Formalized and streamlined the GL String to UNIFORMAT and UNIFORMAT to GL String functions and updated documentation.
+- Corrected documentation for customAlign().
+- Corrected Markdown formatting in BDstrat.R.
+- First draft of complete Vignette.
+
 ### Version 0.9.5.9000 April 11, 2024
 
 - Added 'source' selection to multiLocusValidation().

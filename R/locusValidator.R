@@ -63,7 +63,7 @@ valid
 #'
 #'@param alignType The type of alignment 'loci' should be validated against. Allowed options are 'AA' (protein), 'cDNA' (nucleotide) and 'gDNA' (genomic). Only a single value should be provided. The default value is 'gen'.
 #'
-#'@param verbose A logical value. If verbose = TRUE, messages describing invalid locus or alignType values are generated. If verbose = FALSE, no messages are generated.
+#'@param verbose A logical value. If 'verbose' = TRUE, messages describing invalid 'loci' or 'alignType' values are generated. If 'verbose' = FALSE, no messages are generated.
 #'
 #'@return A vector of locus names that are present in HLAgazeteer$gen.
 #'
@@ -75,11 +75,11 @@ valid
 #'multiLocusValidation(loci = c("DRB1","DPB1","DQB8"))
 #'multiLocusValidation(loci = c("A","B","C","D","Q"))
 #'
-multiLocusValidation <- function(loci, alignType = "gDNA") {
+multiLocusValidation <- function(loci, alignType = "gDNA", verbose = TRUE) {
     lociTest <- rep(FALSE,length(loci))
     
-    if(!alignType %in% c("AA","cDNA","gDNA")) {stop(paste(alignType," is not a valid alignType.\n",sep=""))}
-    if(length(alignType) != 1) {stop(paste("Please provide only a single 'alignType' value.\n"))}
+    if(!alignType %in% c("AA","cDNA","gDNA")) {stop(if(verbose){paste(alignType," is not a valid alignType.\n",sep="")})}
+    if(length(alignType) != 1) {stop(if(verbose){paste("Please provide only a single 'alignType' value.\n")})}
     
       for(i in 1:length(loci)) {
             if(!loci[i] == "all") { 
@@ -90,7 +90,7 @@ multiLocusValidation <- function(loci, alignType = "gDNA") {
                 }
               }
         if(any(lociTest == FALSE)) {if(verbose) {
-            message(paste("The",loci[lociTest == FALSE],"locus is invalid in version", HLAgazeteer$version ,"and has been removed.\n"),sep=" ")
+            message(paste("The",loci[lociTest == FALSE],"locus is invalid in version", HLAgazeteer$version ,"and has been removed.\n",sep=" "))
               }
          }
     

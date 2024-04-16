@@ -222,7 +222,7 @@ uniSearch <- function(alignType, locus, allele, position, prefix=TRUE, trimmed=F
 #'Generates a peptide, codon, coding or genomic nucleotide alignment table for user-specified HLA alleles at user-specified positions.
 #'
 #'@param alignType The type of alignment being searched. Allowed values are "prot", codon", "nuc" and "gen".
-#'@param alleles A vector of un-prefixed HLA locus names.
+#'@param alleles A vector of un-prefixed HLA allele names.
 #'@param positions Either a vector of variant positions, against which all loci will be aligned, or a list of vectors of nucleotide positions, exactly one vector for each allele, against which each corresponding allele will be aligned.
 #'
 #'@return A data frame of allele names and the corresponding nucleotide sequences for each desired nucleotide position. an error message is returned if input loci is not available in the ANHIG/IMGTHLA Github Repository.

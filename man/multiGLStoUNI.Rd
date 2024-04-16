@@ -2,28 +2,29 @@
 % Please edit documentation in R/GLStoUNI.R
 \name{multiGLStoUNI}
 \alias{multiGLStoUNI}
-\title{Translates columns of GL Strings to UNIFORMAT strings.}
+\title{Translate multiple GL Strings to UNIFORMAT.}
 \usage{
 multiGLStoUNI(GLstringArray, prefix = "HLA-", pre = FALSE)
 }
 \arguments{
-\item{GLstringArray}{A vector with GL String format. If the vector has more than one column, the first column should only contain labels/identifiers; the first column of a multi-column vector should NOT contain GL Strings. If the input vector only contains one column, the column should contain GL Strings.}
+\item{GLstringArray}{A data frame or a vector containing GL String formatted data. If 'GLstringArray' is a data frame with more than one column, the first column should contain only identifiers. If 'GLstringArray' is a vector, it should contain only GL Strings.}
 
-\item{prefix}{A string of the desired prefix (autoset to "HLA-"), this string should contain a "-" at the end.}
+\item{prefix}{A string of the desired locus prefix (default is "HLA-").}
 
-\item{pre}{A logical that indicates whether user would like all allele names to contain the prefix of their choice (TRUE), or if the prefix should not be appended to allele names (FALSE).}
+\item{pre}{A logical. If 'pre' is TRUE, all allele names will be prefixed with 'prefix'. If 'pre' is FALSE, no allele names will be prefixed.}
 }
 \value{
-An altered version of the input array, converted to UNIFORMAT format.
+A version of 'GLStringArray' in which the GL String data has been converted to UNIFORMAT format. If a 'GLstringArray' was a data frame, a data frame is returned. If 'GLstringArray' was a vector, a vector is returned.
 }
 \description{
-A function that translates columns of arrays containing strings in GL String format to UNIFORMAT format.
+Translate a data frame or a vector of GL Strings to UNIFORMAT strings.
 }
 \note{
-This function does not function with the "?" operator, as the "?" operator has no cognate in UNIFORMAT.
+GL Strings that include the "?" operator will not be translated, as the "?" operator has no cognate in UNIFORMAT.
 }
 \examples{
-multiGLStoUNI(GLstring.ex[[2]][1:5])
+multiGLStoUNI(GLstring.ex[[2]][1:5],version) ## converting a vector of GL Strings to UNIFORMAT
+multiGLStoUNI(GLstring.ex[1:5,1:2])  ## converting a data.frame of GL Strings to UNIFORMAT
 
 }
 \references{

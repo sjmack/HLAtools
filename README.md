@@ -1,6 +1,6 @@
 ## HLAtools: Functions and Datasets for Human Leukocyte Antigen Informatics
 
-## Version 0.9.5.9000
+## Version 0.9.6.9000
 
 The Human Leukocyte Antigen (HLA) region is the most polymorphic section of the human genome, with 39,886 allelic variants identified across 46 loci. The key roles played by the class I and class II HLA genes in stem-cell therapy and transplantation, HLA and disease association research, evolutionary biology, and population genetics results in constant discovery of new allele variants. These data are curated and maintained by the [IPD-IMGT/HLA Database](https://www.ebi.ac.uk/ipd/imgt/hla/) and made available on the [ANHIG/IMGTHLA GitHub repository](https://github.com/ANHIG/IMGTHLA) as static text files, which are updated every three months. Standardized use of the data in this key resource can be challenging. To address this, we have developed HLAtools, an R package that automates the consumption of IPD-IMGT/HLA resources, renders them computable, and makes them available alongside tools for data analysis, visualization and investigation. This version of the package is compatible with all IPD-IMGT/HLA Database release versions up to release 3.56.0.
 
@@ -55,7 +55,23 @@ customAlign("prot",c("DPB1*01:01:01:01","DQA1*01:01:01:01","DQB1*05:01:01:01"),l
 5 DQB1*05:01:01:01  E  D  F  V                                       
 ```
 
-- Additional functions include alleleTrim(), which trims HLA allele-names by fields or digits, validateAllele(), which determines if the specified allele-name is present in the 'HLAalignments' object that has been loaded in the R environment, and verifyAllele(), which determines if the specified allele-name is present in the 'AlleleListHistory' object, and optionally identifies the most recent IPD-IMGT/HLA Database release including that allele.
+- queryRelease()* searches the alleleListHistory object for user-defined allele name variants in a specific IPD-IMGT/HLA release, identifying the number of alleles that match the query term, or a vector of allele names that match the query term. 
+
+```
+queryRelease("3.30.0","DRB9",FALSE) 
+[1] 1
+
+queryRelease("3.30.0","DRB9",TRUE) 
+[1] "DRB9*01:01"
+
+queryRelease("3.31.0","DRB9",FALSE) 
+[1] 6
+
+queryRelease("1.05.0","304",TRUE) 
+[1] "A*0304"    "A*3304"    "B*1304"    "Cw*03041"  "Cw*03042"  "DQB1*0304" "DRB1*0304" "DRB1*1304" "B*5304"    "A*2304"   
+```
+
+- Additional functions include *alleleTrim()*, which trims HLA allele-names by fields or digits, *validateAllele()*, which determines if the specified allele-name is present in the 'HLAalignments' object that has been loaded in the R environment, and *verifyAllele()*, which determines if the specified allele-name is present in the 'AlleleListHistory' object, and optionally identifies the most recent IPD-IMGT/HLA Database release including that allele.
 
 ```
 alleleTrim(allele = "A*03:01:01", resolution = 2)
@@ -105,7 +121,8 @@ GLupdate("hla#3.25.0#HLA-A*01:01:01:01/HLA-A*01:02+HLA-A*24:02:01:01","3.55.0")
 GLupdate("hla#3.25.0#HLA-A*01:01:01:01/HLA-A*01:02+HLA-A*24:02:01:01","1.05.0")
 [1] "hla#1.05.0#HLA-A*0101/HLA-A*0102+HLA-A*2402101"
 ```
-- GLStoUNI() and UNItoGLS() translate between the GL String and UNIFORMAT grammars
+
+- GLStoUNI() and UNItoGLS() convert between the GL String and UNIFORMAT grammars
 ```
 GLStoUNI("HLA-A*02:01/HLA-A*02:02+HLA-A*03:01/HLA-A*03:02")
 [1] "A*02:01,A*03:01|A*02:01,A*03:02|A*02:02,A*03:01|A*02:02,A*03:02"
