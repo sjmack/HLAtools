@@ -683,10 +683,10 @@ relrisk() returns a list object of two lists ("alleles" and "genotypes"), each o
 ```
 library(BIGDAWG)
 rr <- relRisk(HLA_data[,1:4])
-
-
-Column headers in each returned dataframe are, *Locus*, *Variant*, *Status_1*, *Status_0*, *RelativeRisk*, *CI.low*, *CI.high*, *p.value*, and *Significant*.
 ```
+
+Column headers in each returned dataframe are, Locus, Variant, Status_1, Status_0, RelativeRisk, CI.low, CI.high, p.value, and Significant.
+
 
 ## Automated Division of BIGDAWG-formatted Datasets for Stratification Analyses
 
