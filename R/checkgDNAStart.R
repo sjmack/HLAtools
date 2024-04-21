@@ -26,17 +26,17 @@ checkgDNAstart <- function(verbose=FALSE){
   findings <- matrix(rep(1,gLen),ncol=gLen)
   colnames(findings) <- names(HLAatlas$gen)
 
-tic <- 0
-for (i in 1:gLen){
+    tic <- 0
+      for (i in 1:gLen){
 
-  if(HLAatlas$gen[[i]][1,1] != 1) {
+        if(HLAatlas$gen[[i]][1,1] != 1) {
 
-   if(verbose) {cat(paste("The protein start position for the ",names(HLAatlas$gen)[i]," locus is ",HLAatlas$gen[[i]][1,1],".","\n",sep=""))}
-    findings[i] <- as.numeric(HLAatlas$gen[[i]][1,1])
-  tic <- tic + 1
-  }
+        if(verbose) {cat(paste("The protein start position for the ",names(HLAatlas$gen)[i]," locus is ",HLAatlas$gen[[i]][1,1],".","\n",sep=""))}
+      findings[i] <- as.numeric(HLAatlas$gen[[i]][1,1])
+    tic <- tic + 1
+    }
 
-  if(tic != 0 && verbose) {paste("All loci start with position 1.")}
-  }
-as.data.frame(findings)
-}
+        if(tic != 0 && verbose) {paste("All loci start with position 1.")}
+        }
+      as.data.frame(findings)
+    }

@@ -505,16 +505,16 @@ redec <- function(Cname) {
   Dname <- strsplit(Cname, "")[[1]]
   if(length(Dname)==4) {
     Dname <- append(append(Dname, ".", 1),".", 4)
-  }
+      }
   if(length(Dname)==3) {
     Dname <- append(append(Dname, ".", 1),".", 3)
-  }
+      }
   if(length(Dname)==2) {
     Dname <- append(Dname, ".", 1)
-  }
+      }
   for(i in 1:length(Dname)) {
     Rname <- paste0(Rname,Dname[i])
-  }
+      }
   Rname
 }
 
@@ -544,25 +544,25 @@ GLvalidate <- function(GLString) {
   if (length(strsplit(GLString, "#")[[1]]) > 3) {
     message("The input GL String code is formatted incorrectly, there are too many '#' delimited sections.")
     stop()
-  }
-  if (length(strsplit(GLString, "#")[[1]]) < 3) {
-    message("The input GL String code is formatted incorrectly, there are too few '#' delimited sections.")
-    stop()
-  }
+      }
+      if (length(strsplit(GLString, "#")[[1]]) < 3) {
+        message("The input GL String code is formatted incorrectly, there are too few '#' delimited sections.")
+        stop()
+      }
   if (length(strsplit(GLcopy, "#")[[1]]) == 3) {
     whole <- strsplit(GLcopy, '#')[[1]]
     first <- strsplit(GLcopy, '#')[[1]][1]
     se <- GLV(GLString)
     third <- strsplit(GLcopy, "#")[[1]][3]
-    if (first != "hla") {
-      whole[1] <- "hla"
-    }
+        if (first != "hla") {
+          whole[1] <- "hla"
+        }
     third <- gsub("hla-", "HLA-", third)
-    for (i in 1:2) {
-      GLret <- paste0(GLret, paste0(whole[i], "#"))
-    }
+        for (i in 1:2) {
+          GLret <- paste0(GLret, paste0(whole[i], "#"))
+        }
     GLret <- paste0(GLret, third)
 
-    return(GLret)
+      return(GLret)
+      }
   }
-}
