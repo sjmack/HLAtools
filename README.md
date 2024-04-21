@@ -55,7 +55,7 @@ customAlign("prot",c("DPB1*01:01:01:01","DQA1*01:01:01:01","DQB1*05:01:01:01"),l
 5 DQB1*05:01:01:01  E  D  F  V                                       
 ```
 
-- queryRelease()* searches the alleleListHistory object for user-defined allele name variants in a specific IPD-IMGT/HLA release, identifying the number of alleles that match the query term, or a vector of allele names that match the query term. 
+- queryRelease() searches the alleleListHistory object for user-defined allele name variants in a specific IPD-IMGT/HLA release, identifying the number of alleles that match the query term, or a vector of allele names that match the query term. 
 
 ```
 queryRelease("3.30.0","DRB9",FALSE) 
