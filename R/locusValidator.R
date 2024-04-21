@@ -1,4 +1,4 @@
-## Locus Validation Functions v0.4.0 10APR2024
+## Locus Validation Functions v1.0.0 17APR2024
 
 ################
 ##validateLocus
@@ -7,9 +7,9 @@
 #'Checks a vector of HLA locus names against the HLA gazeteer to determine if the locus name is valid for a specific type of alignment.
 #'
 #'@param loci A vector of HLA gene names (ex. "DRB1", c("DRB1","DQB1")).
-#'@param source A vector of alignment types. "AA", "cDNA", and "gDNA" are allowed types.
+#'@param source A vector of alignment source types. "AA", "cDNA", and "gDNA" are allowed types.
 #'
-#'@return A logical value. TRUE indicates that all of the names and types are valid. FALSE indicates that at least one locus name or alignment type is invalid.
+#'@return A logical value. TRUE indicates that all of the names and source types are valid. FALSE indicates that at least one locus name or alignment source type is invalid.
 #'
 #'@export
 #'
@@ -18,39 +18,36 @@
 #'@examples
 #'validateLocus(loci = "DRB1", source = "AA")
 #'validateLocus(loci = c("V"), source = c("cDNA","gDNA"))
-#'validateLocus(loci = c("E","F","G"), source = "aDNA")
+#'validateLocus(loci = c("E","F","G"), source = "gDNA")
 validateLocus<-function(loci, source){
-valid <- TRUE
-for(i in 1:length(source)){
-    if(!source[i] %in% c("AA","cDNA","gDNA")) {
-      message(paste(source[i], "is not a valid alignment type. Valid types are 'AA', 'cDNA' and 'gDNA'.",paste=" "))
-      return(FALSE)
-    }
-}
-for(j in 1:length(loci)){
-  if(loci[j]=="DRB1"|loci[j]=="DRB3"|loci[j]=="DRB4"|loci[j]=="DRB5") next
-  for(x in 1:length(source)) {
-    if(source[x] == "cDNA") {
-      if(loci[j]%in% HLAgazeteer$nuc == FALSE) {
-        message(paste("The", loci[j], "locus is not present in", source[x],"alignments.",sep=" "))
-        valid <- FALSE
-      }
-    }
-    if(source[x] == "gDNA") {
-      if(loci[j]%in% HLAgazeteer$gen == FALSE) {
-        message(paste("The", loci[j], "locus is not present in", source[x],"alignments.",sep=" "))
-        valid <- FALSE
-      }
-    }
-    if(source[x] == "AA") {
-      if(loci[j]%in% HLAgazeteer$prot == FALSE) {
-        message(paste("The", loci[j], "locus is not present in", source[x],"alignments.",sep=" "))
-        valid <- FALSE
+      valid <- TRUE
+
+      source <- checkSource(source)
+
+      for(j in 1:length(loci)){
+          if(loci[j]=="DRB1"|loci[j]=="DRB3"|loci[j]=="DRB4"|loci[j]=="DRB5") next
+      for(x in 1:length(source)) {
+          if(source[x] == "cDNA") {
+              if(loci[j]%in% HLAgazeteer$nuc == FALSE) {
+                  message(paste("The", loci[j], "locus is not present in", source[x],"alignments.",sep=" "))
+                  valid <- FALSE
+              }
+            }
+       if(source[x] == "gDNA") {
+          if(loci[j]%in% HLAgazeteer$gen == FALSE) {
+            message(paste("The", loci[j], "locus is not present in", source[x],"alignments.",sep=" "))
+            valid <- FALSE
+            }
+          }
+        if(source[x] == "AA") {
+            if(loci[j]%in% HLAgazeteer$prot == FALSE) {
+              message(paste("The", loci[j], "locus is not present in", source[x],"alignments.",sep=" "))
+              valid <- FALSE
+            }
+          }
         }
       }
-    }
-  }
-valid
+    valid
 }
 
 ################
@@ -61,9 +58,9 @@ valid
 #'
 #'@param loci A vector of locus names found in the current HLAgazeteer. 
 #'
-#'@param alignType The type of alignment 'loci' should be validated against. Allowed options are 'AA' (protein), 'cDNA' (nucleotide) and 'gDNA' (genomic). Only a single value should be provided. The default value is 'gen'.
+#'@param source The type of alignment 'loci' should be validated against. Allowed options are 'AA' (protein), 'cDNA' (nucleotide) and 'gDNA' (genomic). Only a single value should be provided. The default value is 'gen'.
 #'
-#'@param verbose A logical value. If 'verbose' = TRUE, messages describing invalid 'loci' or 'alignType' values are generated. If 'verbose' = FALSE, no messages are generated.
+#'@param verbose A logical value. If 'verbose' = TRUE, messages describing invalid 'loci' or 'source' values are generated. If 'verbose' = FALSE, no messages are generated.
 #'
 #'@return A vector of locus names that are present in HLAgazeteer$gen.
 #'
@@ -75,18 +72,27 @@ valid
 #'multiLocusValidation(loci = c("DRB1","DPB1","DQB8"))
 #'multiLocusValidation(loci = c("A","B","C","D","Q"))
 #'
-multiLocusValidation <- function(loci, alignType = "gDNA", verbose = TRUE) {
+multiLocusValidation <- function(loci, source = "gDNA", verbose = TRUE) {
     lociTest <- rep(FALSE,length(loci))
     
-    if(!alignType %in% c("AA","cDNA","gDNA")) {stop(if(verbose){paste(alignType," is not a valid alignType.\n",sep="")})}
-    if(length(alignType) != 1) {stop(if(verbose){paste("Please provide only a single 'alignType' value.\n")})}
+    funCaller <- as.character(sys.call(sys.parent())) ## checking to see if alignmentFull() called mLV(), because its source is always "gDNA", but user may specify "DRB" as a locus.
+
+    source <- checkSource(source)
+    if(length(source) != 1) {stop(if(verbose){paste("Please provide only a single 'source' value.\n")})}
+    
+    subSource <- source ### record the submitted source value for subverting 'source=gDNA' for cases when 'loci=DRB' when called from alignmentFull() and 'loci != all'.
     
       for(i in 1:length(loci)) {
             if(!loci[i] == "all") { 
-                if(suppressMessages(validateLocus(loci[i],alignType))) { 
-                
-                lociTest[i] <- TRUE 
-                  } 
+
+                                    if(funCaller[1] == "alignmentFull" && loci[i] == "DRB") { 
+                                            source <- "cDNA"} ### change source to "cDNA" for "DRB" only
+              
+                if(suppressMessages(validateLocus(loci[i],source))) { 
+                   
+                      lociTest[i] <- TRUE 
+                      } 
+                                    if(subSource != source ) { source <- subSource} ### return source to its original submitted version
                 }
               }
         if(any(lociTest == FALSE)) {if(verbose) {

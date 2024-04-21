@@ -9,8 +9,8 @@
 #'
 #'Positions are validated against a specified locus for a specified alignment type. Positions that do not exist for that locus-alignment combination are not returned.
 #'
-#'@param posVec A character vector of variant positions
-#'@param alignType The type of alignment the positions are in. The values 'prot', 'codon', 'nuc' and 'gen' are valid options. 
+#'@param posVec A character vector of variant positions.
+#'@param alignType The type of alignment the positions are found in. The values 'prot', 'codon', 'nuc' and 'gen' are valid options. Only one 'alignType' value is allowed.
 #'@param locus A locus in the HLAalignments object for the specified alignType.
 #'
 #'@return A correctly sorted sequence.
@@ -25,8 +25,12 @@
 #'posSort(c("607.23","607.10","607.3","607.4"),"nuc","DRB1")
 #'}
 posSort <- function(posVec,alignType, locus){
-  if(!alignType %in% c("prot","codon", "nuc","gen")) {stop(paste(alignType,"is not a valid 'alignType' value. Please chose from 'prot', 'codon', nuc' and 'gen'.\n",sep=" "))}
-  if(!locus %in% names(HLAalignments[[alignType]])) {stop(paste(locus,"is not included among the",alignType,"alignments.\n",sep=" "))}
+  
+    alignType <- checkAlignType(alignType)  
+    
+    if(length(alignType)!=1) {stop(paste("Please specify only one 'alignType'."))}
+    
+    if(!locus %in% names(HLAalignments[[alignType]])) {stop(paste(locus,"is not included among the",alignType,"alignments.\n",sep=" "))}
   
   tab <- as.data.frame(cbind(match(posVec,names(HLAalignments[[alignType]][[locus]])),posVec))
   tab$V1 <- as.numeric(tab$V1)
@@ -218,7 +222,7 @@ buildHTexceptions <- function(HTpath = paste(path.package("HLAtools"),"/data",se
 #'
 #'@examples
 #'\dontrun{
-#' # Indeitfy the number of DRB9 alleles in releases 3.30.0 and 3.31.0.
+#' # Indentify the number of DRB9 alleles in releases 3.30.0 and 3.31.0.
 #'queryRelease("3.30.0","DRB9",FALSE) 
 #'queryRelease("3.31.0","DRB9",FALSE)
 #'
@@ -257,3 +261,109 @@ queryRelease <- function(rel, variant="", all= FALSE){
              }
   }
 
+##################
+##checkAlignType
+#'
+#'Evaluates 'alignType' values to ensure that only "prot", "nuc", "codon" and "gen" are passed to downstream functions. If any other values are entered, a message describing excluded values is generated. 
+#'
+#'@param alignType A vector of character values specifying sequence alignment types to be used for a function.
+#'
+#'@return A vector that includes only allowed 'alignType' values.
+#'
+#'@export
+#'
+#'@examples
+#'\dontrun{
+#'checkAlignType(c("nuc","prot","gDNA")) 
+#'}
+#'
+checkAlignType <- function(alignType) {
+  
+  if(!all(alignType %in% c("codon","nuc","prot","gen"))) {
+    
+    fixedType <- alignType[alignType %in% c("codon","nuc","prot","gen")]
+    
+    if(length(fixedType) == 0 ){stop(paste("None of the values",paste(alignType,collapse=", "),"are valid 'alignType' values."))}
+    
+    message(paste("The value '",alignType[!alignType %in% fixedType],"' was removed from 'alignType', as it is not a valid 'alignType' value.\n",sep=""))
+    
+    return(fixedType)
+    }
+  
+  alignType
+}
+
+##################
+##checkSource
+#'
+#'Evaluates 'source' values to ensure that only "AA", "cDNA", and "gDNA" are passed to downstream functions. If any other values are entered, a message describing excluded values is generated. 
+#'
+#'@param source A vector of character values specifying sequence alignment file sources to be used for a function.
+#'
+#'@return A vector that includes only allowed 'source' values.
+#'
+#'@export
+#'
+#'@examples
+#'\dontrun{
+#'checkSource(c("AA","cDNA","codon")) 
+#'}
+#'
+checkSource <- function(source) {
+  
+  if(!all(source %in% c("AA","cDNA","gDNA"))) {
+    
+    fixedSource <- source[source %in% c("AA","cDNA","gDNA")]
+    
+    if(length(fixedSource) == 0 ){stop(paste("None of the values",paste(source,collapse=", "),"are valid 'source' values."))}
+    
+    message(paste("The value '",source[!source %in% fixedSource],"' was removed from 'source', as it is not a valid 'source' value.\n",sep=""))
+    
+    return(fixedSource)
+  }
+  
+  source
+}
+
+##################
+##TypeToSource
+#'
+#'Converts between 'alignType' values, identifying four types of sequence alignments and 'source' values, identifying three kinds of alignment files.
+#'
+#'@param alignVector A vector of character values specifying kinds of four sequence alignment types ("prot","nuc","codon" and "gen"), or three source alignment files ("AA","cDNA", and "gDNA").
+#'
+#'@param toSource A logical. If 'toSource' is true, 'alignType' values are converted to 'source' values. If 'toSource' is false, 'source' values are concerted to 'alignType' values
+#'
+#'@export
+#'
+#'@examples
+#'\dontrun{
+#'typeToSource(c("nuc","prot","gen"),TRUE) 
+#'}
+#'
+typeToSource <- function(alignVector,toSource=TRUE){
+  
+  if(toSource) {
+    
+    alignVector <- checkAlignType(alignVector)
+    
+    alignVector[alignVector == "prot"] <- "AA"
+    alignVector[alignVector == "nuc"] <- "cDNA"
+    alignVector[alignVector == "codon"] <- "cDNA"
+    alignVector[alignVector == "gen"] <- "gDNA"
+    
+    unique(alignVector)
+  } else {
+    
+      alignVector <- checkSource(alignVector)
+    
+      alignVector[alignVector == "AA"] <- "prot"
+      alignVector[alignVector == "cDNA"] <- "nuc"
+      alignVector[alignVector == "gDNA"] <- "gen"
+    
+      if("nuc" %in% alignVector) {alignVector <- append(alignVector,"codon",length(alignVector))} ## cDNA is both nuc and codon
+    
+      unique(alignVector)
+      
+      }  
+  }

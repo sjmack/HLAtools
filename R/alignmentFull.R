@@ -1,4 +1,4 @@
-### Alignment Full v3.2.0 1 April 2024
+### Alignment Full v3.3.0 16 April 2024
 
 ################
 ##alignmentFull
@@ -29,6 +29,9 @@ alignmentFull <- function(loci = "all", alignType = "all", version = "Latest") {
   
   if(!"all" %in% loci) {
       loci <- multiLocusValidation(loci) }
+  
+  if(!"all" %in% alignType) {
+  alignType <- checkAlignType(alignType) }
   
   NL1 <- NL2 <- NL3 <- NL4 <- NULL
   
@@ -69,7 +72,7 @@ alignmentFull <- function(loci = "all", alignType = "all", version = "Latest") {
 #  if(NL1 != "") {
     if(length(NL1) > 0) { 
       for(i in 1:length(NL1)){
-        cList[i] <- buildAlignments(as.character(NL1[i]), "cDNA", version = version)[[1]][2] } 
+        cList[i] <- suppressWarnings(buildAlignments(as.character(NL1[i]), "cDNA", version = version)[[1]][2]) } 
     
         names(cList) <- NL1
       }
@@ -77,7 +80,7 @@ alignmentFull <- function(loci = "all", alignType = "all", version = "Latest") {
 #  if(NL2 != "") {
     if(length(NL2) > 0) { 
       for(i in 1:length(NL2)){
-        gList[i] <- buildAlignments(as.character(NL2[i]), "gDNA", version = version)[[1]][1] }
+        gList[i] <- suppressWarnings(buildAlignments(as.character(NL2[i]), "gDNA", version = version)[[1]][1]) }
     
         names(gList) <- NL2
       }
@@ -85,7 +88,7 @@ alignmentFull <- function(loci = "all", alignType = "all", version = "Latest") {
 #  if(NL3 != "") {
     if(length(NL3) > 0) { 
       for(i in 1:length(NL3)){
-        protList[i] <- buildAlignments(as.character(NL3[i]), "AA", version = version)[[1]][1] }
+        protList[i] <- suppressWarnings(buildAlignments(as.character(NL3[i]), "AA", version = version)[[1]][1]) }
     
         names(protList) <- NL3
       }
@@ -93,7 +96,7 @@ alignmentFull <- function(loci = "all", alignType = "all", version = "Latest") {
 #  if(NL4 != "") {
     if(length(NL4) > 0) { 
       for(i in 1:length(NL4)){
-        codonList[i] <- buildAlignments(as.character(NL4[i]), "cDNA", version = version)[[1]][1] }
+        codonList[i] <- suppressWarnings(buildAlignments(as.character(NL4[i]), "cDNA", version = version)[[1]][1]) }
     
         names(codonList) <- NL4
       }

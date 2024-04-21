@@ -7,14 +7,14 @@
 alleleTrim(allele, resolution, version = 3)
 }
 \arguments{
-\item{allele}{A full HLA allele name formatted as locus\emph{allele_name or HLA-locus}allele_name.}
+\item{allele}{A full HLA allele name formatted as locus\*allele_name or HLA-locus\*allele_name.}
 
 \item{resolution}{A number identifying the number of fields to trim the allele down to.}
 
 \item{version}{the HLA nomenclature version under which the allele was named. Version 1 allele names are found in IPD-IMGT/HLA Database releases 1.0.0 to 1.16.0. Version 2 allele names are found in IPD-IMGT/HLA Database releases 2.0.0 to 2.28.0. Version 3 allele names are found in IPD_IMGT/HLA Database releases 3.0.0 and onward.}
 }
 \value{
-a trimmed allele name, shortented according to the input parameters.
+a trimmed allele name, shortened according to the input parameters.
 }
 \description{
 Trims an HLA allele name to a specified number of fields or number of digits, depending on the nomenclature version.

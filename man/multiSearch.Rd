@@ -15,7 +15,7 @@ multiSearch(
 )
 }
 \arguments{
-\item{alignType}{The type of alignment being searched. Allowed values are "prot", codon", "nuc" and "gen".}
+\item{alignType}{The type of alignment being searched. Allowed values are "prot", codon", "nuc" and "gen". Only one 'alignType' value is allowed.}
 
 \item{locus}{A specific locus.}
 

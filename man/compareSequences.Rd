@@ -7,7 +7,7 @@
 compareSequences(alignType, alleles)
 }
 \arguments{
-\item{alignType}{The type of alignment being searched. Allowed values are "codon","gen", nuc" and "prot".}
+\item{alignType}{The type of alignment being searched. Allowed values are "codon","gen", nuc" and "prot". Only one 'alignType' value is permitted.}
 
 \item{alleles}{A vector containing two full-length allele names at a locus (ex. c("DPA1\emph{01:03:38:01","DPA1}01:03:38:02")).}
 }

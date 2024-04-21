@@ -7,9 +7,9 @@
 posSort(posVec, alignType, locus)
 }
 \arguments{
-\item{posVec}{A character vector of variant positions}
+\item{posVec}{A character vector of variant positions.}
 
-\item{alignType}{The type of alignment the positions are in. The values 'prot', 'codon', 'nuc' and 'gen' are valid options.}
+\item{alignType}{The type of alignment the positions are found in. The values 'prot', 'codon', 'nuc' and 'gen' are valid options. Only one 'alignType' value is allowed.}
 
 \item{locus}{A locus in the HLAalignments object for the specified alignType.}
 }

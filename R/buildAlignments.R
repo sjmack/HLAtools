@@ -35,6 +35,8 @@ buildAlignments<-function(loci, source, version = "Latest"){
     if(!validateVersion(version)){stop(paste(version," is not a valid IPD-IMGT/HLA Database release version."))}
   }else{ version <- getLatestVersion()}
   
+  source <- checkSource(source)
+  
   #checks if input locus is present in version 3.38.0 HLA loci
   #skip name checks for DRB1/3/4/5, as they are a part of the DRB alignment
   for(j in 1:length(loci)){

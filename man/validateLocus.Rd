@@ -9,10 +9,10 @@ validateLocus(loci, source)
 \arguments{
 \item{loci}{A vector of HLA gene names (ex. "DRB1", c("DRB1","DQB1")).}
 
-\item{source}{A vector of alignment types. "AA", "cDNA", and "gDNA" are allowed types.}
+\item{source}{A vector of alignment source types. "AA", "cDNA", and "gDNA" are allowed types.}
 }
 \value{
-A logical value. TRUE indicates that all of the names and types are valid. FALSE indicates that at least one locus name or alignment type is invalid.
+A logical value. TRUE indicates that all of the names and source types are valid. FALSE indicates that at least one locus name or alignment source type is invalid.
 }
 \description{
 Checks a vector of HLA locus names against the HLA gazeteer to determine if the locus name is valid for a specific type of alignment.
@@ -23,5 +23,5 @@ The results of this check should only be considered valid for the IPD-IMGT/HLA D
 \examples{
 validateLocus(loci = "DRB1", source = "AA")
 validateLocus(loci = c("V"), source = c("cDNA","gDNA"))
-validateLocus(loci = c("E","F","G"), source = "aDNA")
+validateLocus(loci = c("E","F","G"), source = "gDNA")
 }

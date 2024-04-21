@@ -8,7 +8,7 @@ author:
 - Vinh Luu -- vinhluu864@berkeley.edu
 - Josh Bredeweg
 - Steven J. Mack, PhD -- steven.mack@ucsf.edu
-date: "2024-04-16"
+date: "2024-04-20"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{HLAtools}
@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(HLAtools)
 ```
--   Package Version: 0.9.6.9000
+-   Package Version: 0.9.7.9000
 
 # Overview
 The *HLAtools* package contains a set of computable resources and a suite of tools intended to facilitate the effective application and analysis of the named genes in the HLA region.
@@ -46,6 +46,8 @@ HLAtools includes:
 ## Atlas of Gene Feature Boundaries
 
 The *HLAatlas* data object is a list object of sub-lists of R dataframes identifying the location of boundary positions between gene-features (exons, introns and untranslated regions [UTRs]) identified in the protein, nucleotide and genomic alignments for each gene supported in the [ANHIG/IMGTHLA GitHub Repository](https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments). Example protein (*prot*), nucleotide (*nuc*) and genomic (*gen*) atlases for HLA-A are shown below. A new *HLAatlas* can be built after each IPD-IMGT/HLA Database release using the *updateAll()* function, although the atlases are not expected to change unless new genes are added to the IPD-IMGT/HLA Database. 
+
+Building the *HLAatlas* object requires internet access, and it can take several minutes to build a full complement of atlases. For example, building all of the atlases for IPD-IMGT/HLA Database release version 3.56.0 took 4.2 minutes on a 3.3 GHz 12-Core Intel Xenon W 2019 Mac Pro with 288 GB of 2933 MHZ DDR4 RAM, and 4.6 minutes on a 2.4 GHz 8-Core Intel Core i9 2019 MacBook Pro with 64 GB of 2667 MHZ DDR4 RAM.
 
 ### Protein Sequence Atlases 
 The column headers for *prot* atlases identify the peptide residues encoded by codons that follow or contain an exon (E) boundary. The HLA-A *prot* atlas below illustrates that the codon encoding amino acid 1 included the Exon 1: Exon 2 boundary (E.1-2).
@@ -132,6 +134,8 @@ The *fragmentFeatureNames* object identifies and annotates the non-standard gene
   - Hybrid (H), when a feature includes a sequence to belongs to a known feature as well as nucleotide sequence that does not correspond to feature
 
 For each pseudogene or gene fragment, the *fragmentFeatureNames* element contains a \$features element identifying the gene features in the 5' to 3' direction, and an \$annotation element that provides some detail about the feature.
+
+These non-standard gene features are included the feature boundaries of the gene fragments and pseudogenes in the *HLAatlas*.
 
 The current annotations should not change across IPD-IMGT/HLA Database releases. However, when a new pseudogene or gene-fragment is added to the IPD-IMGT/HLA Database, a new annotation will be generated.
 

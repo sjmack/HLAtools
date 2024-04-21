@@ -21,7 +21,7 @@ Searches specific release versions in the AlleleListHistory object for user-defi
 }
 \examples{
 \dontrun{
-# Indeitfy the number of DRB9 alleles in releases 3.30.0 and 3.31.0.
+# Indentify the number of DRB9 alleles in releases 3.30.0 and 3.31.0.
 queryRelease("3.30.0","DRB9",FALSE) 
 queryRelease("3.31.0","DRB9",FALSE)
 

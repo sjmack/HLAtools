@@ -47,6 +47,8 @@ atlasMaker<-function(loci, source, version = "Latest"){
     if(!validateVersion(version)){stop(paste(version," is not a valid IPD-IMGT/HLA Database release version."))}
       }else{ version <- getLatestVersion()}
   
+  source <- (checkSource(source))
+  
   loci <- multiLocusValidation(loci, source) # Added as a check to make sure that HLAgazeteer#version is enforced; otherwise validateLocus could return FALSE
   
   if(validateLocus(loci=loci,source=source)) { ## primary 'check'.

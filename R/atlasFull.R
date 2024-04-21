@@ -1,4 +1,4 @@
-##atlasFull v1.1.0 - 25 January 2024
+##atlasFull v1.2.0 - 16 April 2024
 
 ################
 ##atlasFull
@@ -37,13 +37,13 @@ atlasFull <- function(version = "Latest") {
   protList <- vector(mode='list', length=length(NL3))
   #filling nested lists with alignments
   for(i in 1:length(NL1)){
-    cList[i] <- atlasMaker(as.character(NL1[i]), "cDNA", version = version)[[1]][1]
+    cList[i] <- suppressWarnings(atlasMaker(as.character(NL1[i]), "cDNA", version = version)[[1]][1])
   }
   for(i in 1:length(NL2)){
-    gList[i] <- atlasMaker(as.character(NL2[i]), "gDNA", version = version)[[1]][1]
+    gList[i] <- suppressWarnings(atlasMaker(as.character(NL2[i]), "gDNA", version = version)[[1]][1])
   }
   for(i in 1:length(NL3)){
-    protList[i] <- atlasMaker(as.character(NL3[i]), "AA", version = version)[[1]][1]
+    protList[i] <- suppressWarnings(atlasMaker(as.character(NL3[i]), "AA", version = version)[[1]][1])
   }
 
   #naming inside of nested lists

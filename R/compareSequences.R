@@ -6,7 +6,7 @@
 #'
 #'Compares the sequences of two alleles at a locus, and identifies the differences between them at specific positions
 #'
-#'@param alignType The type of alignment being searched. Allowed values are "codon","gen", nuc" and "prot".
+#'@param alignType The type of alignment being searched. Allowed values are "codon","gen", nuc" and "prot". Only one 'alignType' value is permitted.
 #'@param alleles A vector containing two full-length allele names at a locus (ex. c("DPA1*01:03:38:01","DPA1*01:03:38:02")).
 #'
 #'@return A data two-row frame identifying the positions and sequences at which the two alleles differ. Positions for which the sequence of either allele is unknown are ignored. 
@@ -21,12 +21,15 @@ compareSequences <- function(alignType,alleles) {
 # Data checks
   if(length(alleles)!=2) {stop(paste("Please include exactly two alleles."))}
   
+  if(length(alignType)!=1) {stop(paste("Please specify only one 'alignType'."))}
+  
+  alignType <- checkAlignType(alignType)
+  
   if(strsplit(alleles[1],"*",fixed=TRUE)[[1]][1] != strsplit(alleles[2],"*",fixed=TRUE)[[1]][1]) {
     stop(paste(alleles[1],"and",alleles[2],"are alleles at different loci.\n",sep=" ")) }
   
   locus <- strsplit(alleles[1],"*",fixed=TRUE)[[1]][1]
-  
-  if(!alignType %in% c("codon","nuc","prot","gen")) {stop(paste("Please set 'alignType' to either 'prot' for peptide alignments, 'nuc' for single nucleotide alignments, 'codon' for codon alignments, or 'gen' for genomic alignments."))}
+    
   if(!validateAllele(alleles[1])) {stop(paste(alleles[1], "is not found in the genomic alignment for",locus,".",sep=" "))}
   if(!validateAllele(alleles[2])) {stop(paste(alleles[2], "is not found in the genomic alignment for",locus,".",sep=" "))}
   

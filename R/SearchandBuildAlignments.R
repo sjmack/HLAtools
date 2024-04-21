@@ -6,7 +6,7 @@
 #'
 #'Searches ANHIG/IMGT-HLA alignments and returns protein, codons or nucleotide sequences for a submitted allele name and position(s).
 #'
-#'@param alignType The type of alignment being searched. Allowed values are "codon","gen", nuc" and "prot".
+#'@param alignType The type of alignment being searched. Allowed values are "codon","gen", nuc" and "prot". Only one 'alignType' value is allowed.
 #'@param allelename A full or 2-field HLA allele name, excluding the "HLA-" prefix.
 #'@param positions A vector of sequence positions (e.g., c(-17,1,22,130)); in nucleotide and genomic alignments, indel positions are named using decimals. So the first indel between positions 26 and 27 is named 26.1, and the second indel between 26 and 27 is 26.2, etc.
 #'@param prefix A logical that indicates if the position number(s) should be included in the result.
@@ -28,7 +28,10 @@
 #'alignmentSearch("nuc","DRB1*11:250N",c(605,"607.1","607.12",608))
 #'}
 alignmentSearch <- function(alignType,allelename,positions,prefix=TRUE,sep="~"){
-  if(!alignType %in% c("codon","nuc","prot","gen")) {stop(paste("Please set 'alignType' to either 'prot' for peptide alignments, 'nuc' for single nucleotide alignments, 'codon' for codon alignments, or 'gen' for genomic alignments."))}
+
+  alignType <- checkAlignType(alignType)
+  if(length(alignType)!=1) {stop(paste("Please specify only one 'alignType'."))}
+  
   trimmed <- FALSE
   
   #make sure all necessary parameters are provided(allelename and positions)
@@ -94,7 +97,7 @@ alignmentSearch <- function(alignType,allelename,positions,prefix=TRUE,sep="~"){
 #'
 #'Generates a character string of multiple protein, codon or nucleotide or genomic sequences at the specified positions for the specified HLA allele name.
 #'
-#'@param alignType The type of alignment being searched. Allowed values are "prot", codon", "nuc" and "gen".
+#'@param alignType The type of alignment being searched. Allowed values are "prot", codon", "nuc" and "gen". Only one 'alignType' value is allowed.
 #'@param locus A specific locus.
 #'@param allele An allele name.
 #'@param positions Nucleotide positions to search.
@@ -117,8 +120,11 @@ alignmentSearch <- function(alignType,allelename,positions,prefix=TRUE,sep="~"){
 #'multiSearch("codon", "TAP2", "01:03:02:01",c(23:26))
 #'}
 multiSearch <- function(alignType, locus, allele, positions, prefix=TRUE,sep="~",trimmed=FALSE){
-  if(!alignType %in% c("codon","nuc","prot","gen")) {stop(paste("Please set 'alignType' to either 'prot' for peptide alignments, 'nuc' for single nucleotide alignments, 'codon' for codon alignments, or 'gen' for genomic alignments."))}
-  if(validateAllele(paste(locus,allele,sep="*"))) {
+
+    alignType <- checkAlignType(alignType)
+    if(length(alignType)!=1) {stop(paste("Please specify only one 'alignType'."))}
+  
+    if(validateAllele(paste(locus,allele,sep="*"))) {
   if(trimmed) {
       if( paste(locus,allele,sep="*") %in% HLAalignments[[alignType]][[locus]]$allele_name) {
                   message(paste(allele,"is a full length alllele name.",sep=" "))
@@ -155,7 +161,7 @@ multiSearch <- function(alignType, locus, allele, positions, prefix=TRUE,sep="~"
 #'
 #'Generates a character string of the peptide, codon or nucleotide sequence at the specified position for the specified HLA allele name.
 #'
-#'@param alignType The type of alignment being searched. Allowed values are "prot", "codon", "nuc" and "gen".
+#'@param alignType The type of alignment being searched. Allowed values are "prot", "codon", "nuc" and "gen". Only one 'alignType' value is allowed.
 #'@param locus A specific HLA locus.
 #'@param allele The name of the allele being searched.
 #'@param position The specified position.
@@ -176,8 +182,11 @@ multiSearch <- function(alignType, locus, allele, positions, prefix=TRUE,sep="~"
 #'uniSearch("gen","HFE", "001:01:02", 57)
 #'}
 uniSearch <- function(alignType, locus, allele, position, prefix=TRUE, trimmed=FALSE){
-  if(!alignType %in% c("codon","nuc","prot","gen")) {stop(paste("Please set 'alignType' to either 'prot' for peptide alignments, 'nuc' for single nucleotide alignments, 'codon' for codon alignments, or 'gen' for genomic alignments."))}
-  sec <- ""
+
+    alignType <- checkAlignType(alignType)
+    if(length(alignType)!=1) {stop(paste("Please specify only one 'alignType'."))}
+  
+    sec <- ""
   ## Initial parameter validations -- SJM
   if(length(position) > 1) {position <- position[1]; warning("More than one position was specified. Results will be returned for position ",position," only.")}
   if(trimmed == TRUE && numFields(allele) > 2) {return(warning("Two-field allele names are required when 'trimmed = TRUE'."))}
@@ -221,11 +230,11 @@ uniSearch <- function(alignType, locus, allele, position, prefix=TRUE, trimmed=F
 #'
 #'Generates a peptide, codon, coding or genomic nucleotide alignment table for user-specified HLA alleles at user-specified positions.
 #'
-#'@param alignType The type of alignment being searched. Allowed values are "prot", codon", "nuc" and "gen".
+#'@param alignType The type of alignment being searched. Allowed values are "prot", codon", "nuc" and "gen". Only one 'alignType' value is allowed.
 #'@param alleles A vector of un-prefixed HLA allele names.
 #'@param positions Either a vector of variant positions, against which all loci will be aligned, or a list of vectors of nucleotide positions, exactly one vector for each allele, against which each corresponding allele will be aligned.
 #'
-#'@return A data frame of allele names and the corresponding nucleotide sequences for each desired nucleotide position. an error message is returned if input loci is not available in the ANHIG/IMGTHLA Github Repository.
+#'@return A data frame of allele names and the corresponding nucleotide sequences for each desired nucleotide position. an error message is returned if input locus is not available in the ANHIG/IMGTHLA Github Repository.
 #'
 #'@export
 #'
@@ -235,7 +244,10 @@ uniSearch <- function(alignType, locus, allele, position, prefix=TRUE, trimmed=F
 #'customAlign("codon",c("DPB1*01:01:01:01","DQA1*01:01:01:01","DQB1*05:01:01:01"),list(19:35,1:4,6:9))
 #'}
 customAlign <- function(alignType,alleles,positions){
-  if(!alignType %in% c("codon","nuc","prot","gen")) {stop(paste("Please set 'alignType' to either 'prot' for peptide alignments, 'nuc' for single nucleotide alignments, 'codon' for codon alignments, or 'gen' for genomic alignments."))}
+
+  alignType <- checkAlignType(alignType)
+  if(length(alignType)!=1) {stop(paste("Please specify only one 'alignType'."))}
+  
   #makes sure no duplicate alleles will be present in table
   alleles <- unique(alleles)
   if(is.list(positions)) {
@@ -254,7 +266,7 @@ customAlign <- function(alignType,alleles,positions){
 #'
 #'Generates a peptide, codon, coding or genomic nucleotide alignment at a single set of positions for HLA alleles at one or more loci.
 #'
-#'@param alignType The type of alignment being searched. Allowed values are "prot", codon", "nuc" and "gen".
+#'@param alignType The type of alignment being searched. Allowed values are "prot", codon", "nuc" and "gen". Only one 'alignType' value is allowed.
 #'@param alleles A vector of un-prefixed HLA locus names.
 #'@param positions A vector of codon positions, against which all loci will be aligned.
 #'
@@ -269,7 +281,10 @@ customAlign <- function(alignType,alleles,positions){
 #'uniAlign("codon","DQA1*01:01:01:01",c(32:58))
 #'}
 uniAlign <- function(alignType, alleles,positions){
-  if(!alignType %in% c("codon","nuc","prot","gen")) {stop(paste("Please set 'alignType' to either 'prot' for peptide alignments, 'nuc' for single nucleotide alignments, 'codon' for codon alignments, or 'gen' for genomic alignments."))}
+
+  alignType <- checkAlignType(alignType)
+  if(length(alignType)!=1) {stop(paste("Please specify only one 'alignType'."))} 
+
   #making an array with correct dimensions
   align <- data.frame(matrix(" ", nrow = length(alleles), ncol = length(positions)+1),stringsAsFactors = FALSE)
   #naming first column
@@ -303,7 +318,7 @@ uniAlign <- function(alignType, alleles,positions){
 #'
 #'Generates a peptide, codon, coding nucleotide or genomic alignment for HLA alleles allowing each allele to be aligned to a different set of positions.
 #'
-#'@param alignType The type of alignment being searched. Allowed values are "prot", codon", "nuc" and "gen".
+#'@param alignType The type of alignment being searched. Allowed values are "prot", codon", "nuc" and "gen".  Only one 'alignType' value is allowed.
 #'@param alleles A vector of un-prefixed HLA locus names.
 #'@param positions A list of vectors of nucleotide positions, exactly one vector for each allele, against which each corresponding allele will be aligned.
 #'
@@ -318,8 +333,11 @@ uniAlign <- function(alignType, alleles,positions){
 #'multiAlign("gen",c("DQA1*01:01:01:01", "DRB1*01:01:01:01"),list(32:58, 33:59))
 #'}
 multiAlign <- function(alignType,alleles,positions){
-  if(!alignType %in% c("codon","nuc","prot","gen")) {stop(paste("Please set 'alignType' to either 'prot' for peptide alignments, 'nuc' for single nucleotide alignments, 'codon' for codon alignments, or 'gen' for genomic alignments."))}
-  #initial parameter check
+
+  alignType <- checkAlignType(alignType)
+  if(length(alignType)!=1) {stop(paste("Please specify only one 'alignType'."))}
+  
+    #initial parameter check
   if(length(alleles) != length(positions)) {return(warning("The number of sets of positions must exactly match the number of alleles, please adjust input accordingly."))}
   #creating an array of correct dimensions
   #as many rows as 2*alleles-1, as many columns as positions

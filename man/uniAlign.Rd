@@ -7,7 +7,7 @@
 uniAlign(alignType, alleles, positions)
 }
 \arguments{
-\item{alignType}{The type of alignment being searched. Allowed values are "prot", codon", "nuc" and "gen".}
+\item{alignType}{The type of alignment being searched. Allowed values are "prot", codon", "nuc" and "gen". Only one 'alignType' value is allowed.}
 
 \item{alleles}{A vector of un-prefixed HLA locus names.}
 

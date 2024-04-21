@@ -1,5 +1,16 @@
 ## HLAtools (development version)
 
+### Version 0.9.7.9000 April 20, 2024
+
+- Standardized use of 'source' in documentation. 
+- Changed 'alignType' parameter to 'source' in multiLocusValidation().
+- Added checkAlignType() and checkSource() functions for converting between alignmentType (for alignment objects) and source (for alignment files) values. 
+- Added checkAlignType() to AlignmentFull().
+- Suppressed warning messages in alignmentFull() and atlasMaker().
+- Restricted compareSequences() to a single 'alignType'.
+- Clarified when only a single 'alignType' is allowed for a function.
+- Edits to Vignette.
+
 ### Version 0.9.6.9000 April 15, 2024
 
 - Added the queryRelease() function for searching the alleleListHistory object.

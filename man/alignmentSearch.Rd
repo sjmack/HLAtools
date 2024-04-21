@@ -7,7 +7,7 @@
 alignmentSearch(alignType, allelename, positions, prefix = TRUE, sep = "~")
 }
 \arguments{
-\item{alignType}{The type of alignment being searched. Allowed values are "codon","gen", nuc" and "prot".}
+\item{alignType}{The type of alignment being searched. Allowed values are "codon","gen", nuc" and "prot". Only one 'alignType' value is allowed.}
 
 \item{allelename}{A full or 2-field HLA allele name, excluding the "HLA-" prefix.}
 
