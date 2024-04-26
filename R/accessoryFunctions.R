@@ -220,6 +220,8 @@ buildHTexceptions <- function(HTpath = paste(path.package("HLAtools"),"/data",se
 #
 #'@return A vector all matches to 'variant' in 'rel' or the number of all matches to 'variant' in 'rel'.
 #'
+#'@export
+#'
 #'@examples
 #'\dontrun{
 #' # Indentify the number of DRB9 alleles in releases 3.30.0 and 3.31.0.
