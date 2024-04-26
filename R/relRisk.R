@@ -1,4 +1,4 @@
-## HLA RRisk Calculation -- Steven J Mack April 3, 2024 v 1.3.1
+## HLA RRisk Calculation -- Steven J Mack April 26, 2024 v 1.4.0
 
 #######################
 #' Calculate Relative Risk for Individual Alleles and Genotypes in BIGDAWG-formatted Non-Case-Control Datasets
@@ -7,11 +7,17 @@
 #' 
 #' @param dataset The name of a non-case-control genotype dataset using the BIGDAWG format. Here, "non-case-control" means that while two subject categories are required, the categories should not be patients and controls; instead, the categories may be, e.g., for a dataset of patients, either of two disease states, where one disease state is coded as 0 and the other is coded as 1 in the second column of the dataset. Either a tab-delimited file or a data frame can be specified. 
 #' @param return A logical identifying if the list object should be returned (return=TRUE), or if pairs of tab-delimited text files of results (one for alleles and one for genotypes) should be written to the working directory for each locus.
+#' 
 #' @keywords relative risk genotype allele
+#' 
 #' @importFrom fmsb riskratio
+#' 
 #' @importFrom utils read.table capture.output write.table
+#' 
 #' @return A list object of two lists ("alleles" and "genotypes"), each of which contains a list of nine-column data frames containing results for each unique allele or genotype (in rows) at each locus. Column headers in each dataframe are, *Locus*, *Variant*, *Status_1*, *Status_0*, *RelativeRisk*, *CI.low*, *CI.high*, *p.value*, and *Significant*.
+#' 
 #' @export
+#' 
 #' @examples
 #'\dontrun{
 #' # Analyzing the BIGDAWG::HLA_data dataset #'
@@ -36,7 +42,7 @@ relRisk <- function(dataset,return=TRUE){ ## if return == TRUE, a list object is
         for(j in 1:nrow(HLAgenoData)) {
               for(i in 1:length(loci)){
                   if(!NA %in% HLAgenoData[j,colnames(HLAgenoData) %in% loci[i]]) { #ignore NAs
-              HLAgenoData[j,colnames(HLAgenoData) %in% loci[i]] <- sort(HLAgenoData[j,colnames(HLAgenoData) %in% loci[i]],decreasing = FALSE)
+              HLAgenoData[j,colnames(HLAgenoData) %in% loci[i]] <- sort(unlist(HLAgenoData[j,colnames(HLAgenoData) %in% loci[i]]),decreasing = FALSE)
               }
         }
     
