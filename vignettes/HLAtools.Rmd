@@ -101,7 +101,13 @@ alleleListHistory$AlleleListHistory[c(65,100:105,2094),c(1,23,58:59,81,96,101,10
 ```
 ## Functional and Organizational Categories of Genes in the HLA Region
 
-The *IMGTHLAGeneTypes* data object describes the [named genes in the HLA region](https://hla.alleles.org/genes/index.html) curated by the IPD-IMGT/HLA Database. *IMGTHLAGeneTypes* distinguishes pseudogenes and gene fragments from expressed genes, and summarizes each gene's molecular characteristics. The information in this object can be found at [https://hla.alleles.org/genes/index.html](https://hla.alleles.org/genes/index.html). A new *IMGTHLAGeneTypes* can be built can be built using the *updateAll()* function, although the source datat is not expected to change unless new genes are added to the IPD-IMGT/HLA Database.
+### IMGT/HLA Gene Types
+
+The *IMGTHLAGeneTypes* data object describes the [named genes in the HLA region](https://hla.alleles.org/genes/index.html) curated by the IPD-IMGT/HLA Database. *IMGTHLAGeneTypes* distinguishes pseudogenes and gene fragments from expressed genes, and summarizes each gene's molecular characteristics. 
+
+The information in this object can be found online at [https://hla.alleles.org/genes/index.html](https://hla.alleles.org/genes/index.html). A new *IMGTHLAGeneTypes* can be built can be built using the *updateAll()* function, although the source data is not expected to change unless new genes are added to the IPD-IMGT/HLA Database.
+
+### HLA Gazeeteer
 
 The *HLAgazeteer* data object is a list object that organizes the HLA region genes supported by the IPD-IMGT/HLA Database in nineteen vectors describing the availability of alignments, gene functionality, group identity and map order. A new *HLAgazeteer* can be built can be built after each IPD-IMGT/HLA Database release using the *updateAll()* function, although the gazeteer is not expected to change unless new genes are added to the IPD-IMGT/HLA Database.
 
@@ -110,7 +116,7 @@ names(HLAgazeteer)
  [1] "align" "gen" "nuc" "prot" "nogen" "nonuc" "noprot" "pseudo" "frag" "hla" "expressed" "notexpressed" "classireg" "classihla" "classiireg" "classiihla" "classical" "nonclassical" "map" "version"     
 ```
 
-For example, the *$align* vector includes all of the genes for which sequence **alignments** are available:
+For example, the *$align* vector includes all of the genes for which **sequence alignments** are available:
 
 ```
 HLAgazeteer$align
@@ -168,7 +174,9 @@ $annotation
 ## Sequence Alignments
 The *HLAalignments* data object is a list object of sub-lists of data frames of peptide (*prot*), codon (*codon*), coding nucleotide (*nuc*) and genomic nucleotide (*gen*) alignments for the HLA and HLA-region genes supported in the [ANHIG/IMGTHLA GitHub Repository](https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments), along with a *version* character string that identifies the IPD-IMGT/HLA Database release under which the *HLAalignments* object was built. 
 
-Given the size of all the combined aligmments, *HLAalignments* **is not bundled with the HLAtools package**, but all alignments, or desired subsets each type of alignment for a given gene can be built using the *alignmentFull()* function. These protein, codon, nucleotide and genomic DNA sequence alignments are described in detail below.
+Given the size of all the combined aligmments, *HLAalignments* **is not bundled with the HLAtools package**. All alignments, or desired subsets each type of alignment for a given gene, can be built using the *alignmentFull()* function. These protein, codon, nucleotide and genomic DNA sequence alignments are described in detail below.
+
+The first four columns of each alignment identify the locus, allele, two-field allele name (trimmed_allele), and full allele name (allele_name) for each sequence, while the remaining columbs identify the sequence at each position, as illustrated below.
 
 ### Protein (AA) Aligments
 The column header for the *prot* alignments identifies individual peptide positions, starting from the first peptide of the leader sequence (a negative position) or the first peptide of the native protein when there is no leader sequence. For example, as shown below, the HLA-A *prot* alignment begins at residue -24.
@@ -184,7 +192,7 @@ HLAalignments$prot$A[1:5,1:15]
 ```
 
 ### Codon and Individual Nucleotide (cDNA) Sequence Alignments
-Both codon-triplet (*codon*) and individual nucleotide (*nuc*) alignments are included as separate data frames. 
+Codon-triplet (*codon*) and individual nucleotide (*nuc*) alignments are included as separate data frames. 
 
 The column heads for the *codon* alignments identify the individual nucleotide positions within each codon, starting with the first codon. As shown below, the HLA-A *codon* alignment begins at the first nucleotide in codon position -24, which is identified as *-24*; the second nucleotide in codon -24 is identified as *-24.1* and the third nucleotide in codon -24 is identified as *-24.2*. 
 
@@ -290,7 +298,7 @@ HLAalignments <- alignmentFull("DRB1","prot","3.54.0")
 
 ## Working with Alignments in Past Releases
 
-As indicated above, *alignmentFull()* can be applied for any IPD-IMGT/HLA Database release version, but *updateAll()* must be used to build *HLAgazeteer* for the desired release version **before** applying *alignmentFull()*. 
+As indicated above, *alignmentFull()* can be applied for any IPD-IMGT/HLA Database release version. The *updateAll()* function must be applied to build *HLAgazeteer* for the desired release version **before** applying *alignmentFull()*. 
 
 ```
 > updateAll()
@@ -308,7 +316,7 @@ Prior to IPD-IMGT/HLA Database release version 3.24.0, the names of the sequence
 
 Similarly, prior to release version 3.51.0, the 'DRB_prot.txt' and 'DRB_nuc.txt' alignment files were the source of alignments for DRB1, DRB3, DRB4 and DRB5. In release versions 3.0.0 to 3.23.0, genomic DRB1 alignments are in 'DRB_gen.txt' files, and these alignments are in 'DRB1_gen.txt' files in subsequent releases. Building DPA1, DPB1, DQA1, DQB1, DRB1, DRB3 and DRB5 sequence alignments from these earlier releases may require specifying a gene name that does not include the numerical suffix. 
 
-In all version 3.*.* releases (3.0.0 to 3.56.0), nucleotide alignments for the DRB6, DRB7, DRB8 or DRB9 genes are included in the 'DRB_nuc.txt' file.  
+In all version 3.\*.\* releases (3.0.0 to 3.56.0), nucleotide alignments for the DRB6, DRB7, DRB8 or DRB9 genes are included in the 'DRB_nuc.txt' file.  
 
 As noted above, when building alignments for past releases, the *HLAgazeteer* should be updated to reflect the gene names included in that release, and consulted to determine which gene names should be provided to alignmentFull(). 
 
@@ -453,9 +461,9 @@ customAlign("codon",c("DPB1*01:01:01:01","DQA1*01:01:01:01","DQB1*05:01:01:01"),
 
 [Genotype List (GL) String](https://onlinelibrary.wiley.com/doi/10.1111/tan.15126) is a grammar for describing the relationships between allele names reported in a genotype, using a set of six case-defined “AND” and “OR” delimiters ('?', '^', '|', '+', '~', '~', and '/'). 
 
-[UNIFORMAT](https://hla-net.eu/tools/overview) is a parallel grammar that uses a different set of operators (",", "|", " ", and "~") to achieve similar goals. Additional details of UNIFORMAT can be found at [hla-net.eu](https://hla-net.eu/tools/uniformate).
+[UNIFORMAT](https://hla-net.eu/tools/overview) is a parallel grammar that uses an alternate set of operators (",", "|", " ", and "~") to describe the relationships between allele names in a genotype. Additional details of UNIFORMAT can be found at [hla-net.eu](https://hla-net.eu/tools/uniformate).
 
-[GL String Code](https://onlinelibrary.wiley.com/doi/10.1111/tan.15145) (GLSC) is a format that encapsulates a GL String with information describing the associated gene family namespace and the nomenclature version (or date) under which the GL String was generated. Additional information can be found at [glstring.org](https://glstring.org).
+[GL String Code](https://onlinelibrary.wiley.com/doi/10.1111/tan.15145) (GLSC) is a format that encapsulates a GL String with information describing the associated gene family namespace and the nomenclature version (or date) under which the GL String was generated. Additional information about GL String and GL String Code can be found at [glstring.org](https://glstring.org).
 
 An example GLSC for an HLA GL String generated under IPD-IMGT/HLA Database release version 3.1.0 is presented below.
 
@@ -548,7 +556,7 @@ The *multiGLStoUNI()* function converts GL string formatted data in data frames 
  
 **Return** If 'GLstringArray' was a data frame, a data frame of UNIFORMAT values is returned. If 'GLstringArray' was a vector, a vector of UNIFORMAT values is returned. 
 
-*data frame*
+*Example GL String data frame*
 
 ```         
 GLstring.ex[1:3,]
@@ -558,7 +566,7 @@ Subject    2 HLA-A*03:01~HLA-C*07:01~HLA-B*49:01~HLA-DRB1*04:05~HLA-DQB1*03:02~H
 Subject    3 HLA-A*11:01~HLA-C*04:01~HLA-B*15:01~HLA-DRB1*04:01~HLA-DQB1*03:02~HLA-DPB1*04:02+HLA-A*03:01~HLA-C*08:02~HLA
 ```
 
-*vector*
+*Example GL String vector*
 
 ```         
 GLstring.ex[2][1:3,]
@@ -567,19 +575,25 @@ GLstring.ex[2][1:3,]
 [3] "HLA-A*11:01~HLA-C*04:01~HLA-B*15:01~HLA-DRB1*04:01~HLA-DQB1*03:02~HLA-DPB1*04:02+HLA-A*03:01~HLA-C*08:02~HLA-B*14:02~HLA-DRB1*13:02~HLA-DQB1*06:09~HLA-DPB1*04:01"
 ```
 
-*GL String to UNIFOMAT*
+*Convert GL String to UNIFOMAT*
 
 ```    
 > multiGLStoUNI(GLstring.ex[1:3,])
   Relation Gl.String
-1  Subject A*02:01~C*07:02~B*07:02~DRB1*15:01~DQB1*06:02~DPB1*04:02,A*01:01~C*06:02~B*57:01~DRB1*07:01~DQB1*03:03~DPB1*04:01
-2  Subject A*03:01~C*07:01~B*49:01~DRB1*04:05~DQB1*03:02~DPB1*02:01,A*01:01~C*07:01~B*08:01~DRB1*13:01~DQB1*06:03~DPB1*04:01
-3  Subject A*11:01~C*04:01~B*15:01~DRB1*04:01~DQB1*03:02~DPB1*04:02,A*03:01~C*08:02~B*14:02~DRB1*13:02~DQB1*06:09~DPB1*04:01
+1  Subject A*02:01~C*07:02~B*07:02~DRB1*15:01~DQB1*06:02~DPB1*04:02,A*01:01~C*06:02~B*57:01~DRB1*07:01
+~DQB1*03:03~DPB1*04:01
+2  Subject A*03:01~C*07:01~B*49:01~DRB1*04:05~DQB1*03:02~DPB1*02:01,A*01:01~C*07:01~B*08:01~DRB1*13:01
+~DQB1*06:03~DPB1*04:01
+3  Subject A*11:01~C*04:01~B*15:01~DRB1*04:01~DQB1*03:02~DPB1*04:02,A*03:01~C*08:02~B*14:02~DRB1*13:02
+~DQB1*06:09~DPB1*04:01
 
 > multiGLStoUNI(GLstring.ex[2][1:3,])
-[1] "A*02:01~C*07:02~B*07:02~DRB1*15:01~DQB1*06:02~DPB1*04:02,A*01:01~C*06:02~B*57:01~DRB1*07:01~DQB1*03:03~DPB1*04:01"
-[2] "A*03:01~C*07:01~B*49:01~DRB1*04:05~DQB1*03:02~DPB1*02:01,A*01:01~C*07:01~B*08:01~DRB1*13:01~DQB1*06:03~DPB1*04:01"
-[3] "A*11:01~C*04:01~B*15:01~DRB1*04:01~DQB1*03:02~DPB1*04:02,A*03:01~C*08:02~B*14:02~DRB1*13:02~DQB1*06:09~DPB1*04:01"
+[1] "A*02:01~C*07:02~B*07:02~DRB1*15:01~DQB1*06:02~DPB1*04:02,A*01:01~C*06:02~B*57:01~DRB1*07:01
+~DQB1*03:03~DPB1*04:01"
+[2] "A*03:01~C*07:01~B*49:01~DRB1*04:05~DQB1*03:02~DPB1*02:01,A*01:01~C*07:01~B*08:01~DRB1*13:01
+~DQB1*06:03~DPB1*04:01"
+[3] "A*11:01~C*04:01~B*15:01~DRB1*04:01~DQB1*03:02~DPB1*04:02,A*03:01~C*08:02~B*14:02~DRB1*13:02
+~DQB1*06:09~DPB1*04:01"
 ```      
 
 ## *Convert UNIFORMAT-formatted data to GL String-formatted data*
@@ -622,7 +636,7 @@ The *multiUNItoGLS()* function translates columns of arrays from uniformat forma
 
 **Return** If 'uniformat' was a data frame, a data frame of GL String values is returned. If 'uniformat' was a vector, a vector of GL String values is returned. 
 
-*Data Frame*
+*Example UNIFORMAT Data Frame*
 
 ```         
 > UNIFORMAT.example[1:3,]
@@ -632,7 +646,7 @@ The *multiUNItoGLS()* function translates columns of arrays from uniformat forma
 3 hhrv_id642  A*66:01,A*31:08|A*31:08,A*66:08 B*27:05,B*07:02|B*27:05,B*07:61|B*27:13,B*07:02|B*27:13,B*07:61 DRB1*01:01,DRB1*16:02
 ```
 
-*Vector*
+*Example UNIFORMAT Vector*
 
 ```         
 > UNIFORMAT.example[2][1:3,]
@@ -643,7 +657,7 @@ The *multiUNItoGLS()* function translates columns of arrays from uniformat forma
 
 **Return** If 'uniformat' was a data frame, a data frame of GL String values is returned. If 'uniformat' was a vector, a vector of GL String values is returned. 
 
-*GL String to UNIFOMAT*
+*Convert GL String to UNIFOMAT*
 
 ```         
 multiGLStoUNI(GLstring.ex[1:5,1:2])
@@ -690,7 +704,7 @@ Column headers in each returned dataframe are, Locus, Variant, Status_1, Status_
 
 ## Automated Division of BIGDAWG-formatted Datasets for Stratification Analyses
 
-### BDstrat Multilocus Allele Stratificaiton for BIGDAWG Datasets
+### BDstrat: Multilocus Allele Stratificaiton for BIGDAWG Datasets
 
 The BDstrat() function divides a [BIGDAWG-formatted](https://cran.r-project.org/web/packages/BIGDAWG/vignettes/BIGDAWG.html#input-data)] dataset into two strata, one of which contains all subjects with any of a set of specified alleles, while the other contains all subjects without any of the specified alleles. If the positive-stratum and negative-stratum datasets have sufficient numbers of case and control (or exposed and unexposed) subjects, each stratum can be analyzed via BIGDAWG. Sample size is an important consideration when determining how many alleles on which to stratify. 
 
