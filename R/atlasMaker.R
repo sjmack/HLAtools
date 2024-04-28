@@ -253,7 +253,7 @@ atlasMaker<-function(loci, source, version = "Latest"){
           alignment[[loci[i]]] <- tail(alignment[[loci[i]]],-6)
         }
 
-        if(loci[[i]] %in% HTexceptions$pseudo.codon) { # In release version 3.53.0 and earlier these pseudogenes had 'AA codon' positions in their cDNA alignments, but in 3.54.0 those rows have been removed; similarly the HLA-Y pseudogene had an AA codon line prior to version 3.36.0 
+        if(loci[[i]] %in% pseudo.codon) { # In release version 3.53.0 and earlier these pseudogenes had 'AA codon' positions in their cDNA alignments, but in 3.54.0 those rows have been removed; similarly the HLA-Y pseudogene had an AA codon line prior to version 3.36.0 
           alignment[[loci[i]]] <- alignment[[loci[[i]]]][!substr(alignment[[loci[[i]]]][],1,9) == " AA codon"]
         }
 

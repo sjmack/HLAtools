@@ -150,20 +150,3 @@
 #'    }
 #' @source https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments
 "HLAatlas"
-
-##HTexceptions
-#'Defines specific exceptions for use with package functions
-#'
-#'A list object of sub-lists of vectors that define exceptions for specific use cases.
-#'
-#' @docType data
-#' @name HTexceptions
-#' @usage data(HTexceptions)
-#' @format A list of elements containing vectors of data for specific exceptions.
-#' \itemize{
-#'    \item(pseudo.codon: A vector of pseudogenes that include spurious codon alignment coordinates in some releases)
-#'    \item(date: A YYYY-MM-DD_HH:mm:ss.SSSSSS formatted date stamp describing the HTexceptions object's time of creation)
-#' }
-#' @source HLAtools:HTexceptions()
-"HTexceptions"
-
