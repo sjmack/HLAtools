@@ -19,7 +19,7 @@ This function returns a list object containing relative risk, confidence interva
 }
 \examples{
 \dontrun{
-# Analyzing the BIGDAWG::HLA_data dataset #'
+# Analyzing the BIGDAWG::HLA_data dataset
 library(BIGDAWG)
 rr <- relRisk(HLA_data[,1:4])
 }

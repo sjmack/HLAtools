@@ -1,6 +1,6 @@
 ## HLAtools: Functions and Datasets for Human Leukocyte Antigen Informatics
 
-## Version 0.9.8.9000
+## Version 0.9.9.9000
 
 The Human Leukocyte Antigen (HLA) region is the most polymorphic section of the human genome, with 39,886 allelic variants identified across 46 loci. The key roles played by the class I and class II HLA genes in stem-cell therapy and transplantation, HLA and disease association research, evolutionary biology, and population genetics results in constant discovery of new allele variants. These data are curated and maintained by the [IPD-IMGT/HLA Database](https://www.ebi.ac.uk/ipd/imgt/hla/) and made available on the [ANHIG/IMGTHLA GitHub repository](https://github.com/ANHIG/IMGTHLA) as static text files, which are updated every three months. Standardized use of the data in this key resource can be challenging. To address this, we have developed HLAtools, an R package that automates the consumption of IPD-IMGT/HLA resources, renders them computable, and makes them available alongside tools for data analysis, visualization and investigation. This version of the package is compatible with all IPD-IMGT/HLA Database release versions up to release 3.56.0.
 
@@ -100,7 +100,7 @@ verifyAllele("A*0101",TRUE)
 [1] "TRUE"   "1.06.0"
 ```
 
-### Format Conversion Funtions
+### Data Format Conversion Funtions
 The package includes functions that convert [Genotype List (GL) String Codes](https://glstring.org) across IPD/IMGT-HLA Database release versions and nomenclature epochs, and that inter-convert between [GL String](https://glstring.org) and [UNIFORMAT](https://hla-net.eu/tools/uniformate/) formats.  
 
 - GLudpdate() converts HLA allele names in GL String Code objects across IPD/IMGT-HLA Database release versions. 
@@ -132,12 +132,56 @@ UNItoGLS("A*02:01,A*03:01|A*02:01,A*03:02|A*02:02,A*03:01|A*02:02,A*03:02")
 ```
 
 ### Data Analysis Functions
-The package includes two data-analysis functions that accept BIGDAWG-formatted genotype datasets as input. 
+The package includes three data-analysis functions that accept BIGDAWG-formatted genotype datasets as input. 
 
-- relRisk() calculates relative risk (RR) values, confidence interval (CI) values and p-values for non-case-control genotype data. For these analyses, two subject categories are required, but should not be affected/patient and unaffected/control categories; instead, the categories may be, e.g., either of two disease states, where one disease state is coded as 0 and the other is coded as 1 in the second column of the dataset.
+- relRisk() calculates relative risk (RR) values, confidence interval (CI) values and p-values for BIGDAWG-formatted non-case-control genotype datasets. For these analyses, two subject categories are required, but should not be affected/patient and unaffected/control categories; instead, the categories may be, e.g., either of two disease states, where one disease state is coded as 0 and the other is coded as 1 in the second column of the dataset.
+
+```
+library(BIGDAWG)
+rr <- relRisk(HLA_data[,1:4])
+
+rr$alleles[[1]][c(1,3),]
+  Locus     Variant Status_1 Status_0  RelativeRisk        CI.low      CI.high       p.value Significant
+1     A 01:01:01:01      176      166  1.0343294132 0.92848272156 1.1522425892 0.54580794275          
+3     A    02:05:01      105      142 0.84368316144 0.72728310379 0.9787127917 0.01649632817           *
+
+rr$genotypes[[1]][c(1,52),]
+   Locus                 Variant Status_1 Status_0 RelativeRisk        CI.low      CI.high    p.value Significant
+1      A 01:01:01:01+01:01:01:01        8        7 1.0693602693 0.66473577000 1.7202796017 0.789560336
+52     A       02:05:01+26:01:01        1        7 0.2497492477 0.03990709706 1.5629973447 0.034058218          *
+```
 
 - BDstrat() stratifies BIGDAWG-formatted case-control datasets for individual alleles or multiple alleles at multiple loci, and generates two BIGDAWG-formatted datasets; one for the case and control subjects that have those alleles, and one for the case and control subjects that do not.
 
+```
+HLA_data.multi.strat <- BDstrat(BIGDAWG::HLA_data,c("DRB1*08:01:03","DRB1*03:01:02","A*26:08"))
 
+HLA_data.multi.strat$`DRB1*08:01:03+DRB1*03:01:02+A*26:08-positive`[1:2,1:6]
+  SampleID Disease           A   A.1        DRB1      DRB1.1
+2  SCo0002       0 03:01:01:01 68:06    08:01:03 15:01:01:01
+3  SCo0003       0       26:08 32:02 07:01:01:01 15:01:01:01
 
+HLA_data.multi.strat$`DRB1*08:01:03+DRB1*03:01:02+A*26:08-negative`[1:2,1:6]
+  SampleID Disease           A         A.1     DRB1   DRB1.1
+1  SCo0001       0 01:01:01:01 01:01:01:01 01:01:01 01:01:01
+4  SCo0004       0 01:01:01:01    32:01:01 01:01:01 11:04:01
+```
+
+- BDtoPyPop() converts a BIGDAWG-formatted case-control dataset into two PyPop version 1.\*.\* formatted datasets -- one for all 'case' subjects and one for all 'control' subjects.  
+
+```
+HLAdata.PP <- BDtoPyPop(BIGDAWG::HLA_data,"BDHLA",FALSE)
+
+HLAdata.PP$BDHLA.neagtive[1:3,]
+     SampleID Disease         A_1         A_2      DRB1_1      DRB1_2      DQB1_1      DQB1_2 DRB3_1 DRB3_2
+1     SCo0001       0 01:01:01:01 01:01:01:01    01:01:01    01:01:01 05:03:01:01 05:03:01:01  00:00  00:00
+2     SCo0002       0 03:01:01:01       68:06    08:01:03 15:01:01:01    03:02:12 03:01:01:01  00:00  00:00
+3     SCo0003       0       26:08       32:02 07:01:01:01 15:01:01:01    03:02:01 03:01:01:01  00:00  00:00
+
+HLAdata.PP$BDHLA.positive[1:3,]
+     SampleID Disease         A_1         A_2   DRB1_1      DRB1_2      DQB1_1   DQB1_2      DRB3_1   DRB3_2
+1003  SCa0001       1 01:01:01:01 11:01:01:01 01:01:01    04:01:01 05:03:01:01 03:02:01       00:00    00:00
+1004  SCa0002       1       32:02    68:01:01 03:01:02    11:01:01    06:02:01 05:02:01 01:01:02:01 03:01:01
+1005  SCa0003       1       32:02 11:01:01:02 01:01:01 07:01:01:01 05:03:01:01 02:02:01       00:00    00:00
+```
 

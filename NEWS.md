@@ -1,5 +1,10 @@
 ## HLAtools (development version)
 
+### Version 0.9.9.9000 May 3, 2024 
+
+- Added BDtoPyPop() function.
+- Updates to Vignette, ReadMe and Description.
+
 ### Version 0.9.8.9000 April 27, 2024
 
 - Removed reliance on HTexceptions data object.

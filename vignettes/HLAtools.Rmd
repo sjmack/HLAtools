@@ -8,7 +8,7 @@ author:
 - Vinh Luu -- vinhluu864@berkeley.edu
 - Josh Bredeweg
 - Steven J. Mack, PhD -- steven.mack@ucsf.edu
-date: "2024-04-27"
+date: "2024-05-03"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{HLAtools}
@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(HLAtools)
 ```
--   Package Version: 0.9.8.9000
+-   Package Version: 0.9.9.9000
 
 # Overview
 The *HLAtools* package contains a set of computable resources and a suite of tools intended to facilitate the effective application and analysis of the named genes in the HLA region.
@@ -45,7 +45,7 @@ HLAtools includes:
 
 ## Atlas of Gene Feature Boundaries
 
-The *HLAatlas* data object is a list object of sub-lists of R dataframes identifying the location of boundary positions between gene-features (exons, introns and untranslated regions [UTRs]) identified in the protein, nucleotide and genomic alignments for each gene supported in the [ANHIG/IMGTHLA GitHub Repository](https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments). Example protein (*prot*), nucleotide (*nuc*) and genomic (*gen*) atlases for HLA-A are shown below. A new *HLAatlas* can be built after each IPD-IMGT/HLA Database release using the *updateAll()* function, although the atlases are not expected to change unless new genes are added to the IPD-IMGT/HLA Database. 
+The *HLAatlas* data object is a list object of sub-lists of R data frames identifying the location of boundary positions between gene-features (exons, introns and untranslated regions [UTRs]) identified in the protein, nucleotide and genomic alignments for each gene supported in the [ANHIG/IMGTHLA GitHub Repository](https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments). Example protein (*prot*), nucleotide (*nuc*) and genomic (*gen*) atlases for HLA-A are shown below. A new *HLAatlas* can be built after each IPD-IMGT/HLA Database release using the *updateAll()* function, although the atlases are not expected to change unless new genes are added to the IPD-IMGT/HLA Database. 
 
 Building the *HLAatlas* object requires internet access, and it can take several minutes to build a full complement of atlases. For example, building all of the atlases for IPD-IMGT/HLA Database release version 3.56.0 took 4.2 minutes on a 3.3 GHz 12-Core Intel Xenon W 2019 Mac Pro with 288 GB of 2933 MHZ DDR4 RAM, and 4.6 minutes on a 2.4 GHz 8-Core Intel Core i9 2019 MacBook Pro with 64 GB of 2667 MHZ DDR4 RAM, and 5.24 minutes on a 2.4 GHz Intel Core i9-10885H Dell Precision 5500 with 32 GB of RAM.
 
@@ -69,7 +69,7 @@ codon     1    91   183   275   314   325   341
 ```
 
 ### Genomic Sequence Atlases
-The column headers for *gen* atlases identify the genomic nucleotide positions precede by a UTR (U), exon (E) or intron (I) boundary. The HLA-A *gen* atlas below illustrates that the boundary between the 5' UTR (U.5) and Exon 1 (E.1) is between genomic positions -1 and 1, and that the boundary between Exon 4 and Intron 4 is between positions 1569 and 1570 (presented as a table for readability). 
+The column headers for *gen* atlases identify the genomic nucleotide positions preceded by a UTR (U), exon (E) or intron (I) boundary. The HLA-A *gen* atlas below illustrates that the boundary between the 5' UTR (U.5) and Exon 1 (E.1) is between genomic positions -1 and 1, and that the boundary between Intron 3 and Exon 4 is between positions 1569 and 1570 (presented as a table for readability). 
 
 |    |U.5-E.1|E.1-I.1|I.1-E.2|E.2-I.2|I.2-E.3|E.3-I.3|I.3-E.4|E.4-I.4|I.4-E.5|E.5-I.5|I.5-E.6|E.6-I.6|I.6-E.7|E.7-I.7|I.7-E.8|E.8-U.3|
 |:--:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
@@ -174,9 +174,9 @@ $annotation
 ## Sequence Alignments
 The *HLAalignments* data object is a list object of sub-lists of data frames of peptide (*prot*), codon (*codon*), coding nucleotide (*nuc*) and genomic nucleotide (*gen*) alignments for the HLA and HLA-region genes supported in the [ANHIG/IMGTHLA GitHub Repository](https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments), along with a *version* character string that identifies the IPD-IMGT/HLA Database release under which the *HLAalignments* object was built. 
 
-Given the size of all the combined aligmments, *HLAalignments* **is not bundled with the HLAtools package**. All alignments, or desired subsets each type of alignment for a given gene, can be built using the *alignmentFull()* function. These protein, codon, nucleotide and genomic DNA sequence alignments are described in detail below.
+Given the size of all the combined aligmments, *HLAalignments* **is not bundled with the HLAtools package**. All alignments, or desired subsets each type of alignment for a given gene, can be built using the *alignmentFull()* function, as described in Section 2 *Working with Sequence Alignments*, below. These protein, codon, nucleotide and genomic DNA sequence alignments are described in detail below.
 
-The first four columns of each alignment identify the locus, allele, two-field allele name (trimmed_allele), and full allele name (allele_name) for each sequence, while the remaining columbs identify the sequence at each position, as illustrated below.
+The first four columns of each alignment identify the locus, allele, two-field allele name (trimmed_allele), and full allele name (allele_name) for each sequence, while the remaining columns identify the sequence at each position, as illustrated below.
 
 ### Protein (AA) Aligments
 The column header for the *prot* alignments identifies individual peptide positions, starting from the first peptide of the leader sequence (a negative position) or the first peptide of the native protein when there is no leader sequence. For example, as shown below, the HLA-A *prot* alignment begins at residue -24.
@@ -189,6 +189,18 @@ HLAalignments$prot$A[1:5,1:15]
 3     A  01:01:01:03        A*01:01  A*01:01:01:03   M   A   V   M   A   P   R   T   L   L   L
 4     A  01:01:01:04        A*01:01  A*01:01:01:04   M   A   V   M   A   P   R   T   L   L   L
 5     A  01:01:01:05        A*01:01  A*01:01:01:05   M   A   V   M   A   P   R   T   L   L   L
+```
+
+In contrast, the TAP *prot* alignment begins at residue 1, as shown below.
+
+```
+HLAalignments$prot$TAP1[1:5,1:15]
+  locus      allele trimmed_allele      allele_name 1 2 3 4 5 6 7 8 9 10 11
+1  TAP1 01:01:01:01     TAP1*01:01 TAP1*01:01:01:01 M A S S R C P A P  R  G
+2  TAP1 01:01:01:02     TAP1*01:01 TAP1*01:01:01:02 M A S S R C P A P  R  G
+3  TAP1 01:01:01:03     TAP1*01:01 TAP1*01:01:01:03 M A S S R C P A P  R  G
+4  TAP1 01:01:01:04     TAP1*01:01 TAP1*01:01:01:04 M A S S R C P A P  R  G
+5  TAP1 01:01:01:05     TAP1*01:01 TAP1*01:01:01:05 M A S S R C P A P  R  G
 ```
 
 ### Codon and Individual Nucleotide (cDNA) Sequence Alignments
@@ -251,7 +263,7 @@ HLAalignments$gen$DQB1[c(1,378:380),c(1:4,589:594)]
 380  DQB1      06:424    DQB1*06:424      DQB1*06:424  G    .    .    .    .  T
 ```
 
-Indels in *codon* alignment positions are similarly numbered from the codon in the N-terminal direction. However, due to a peculiarity of the R environment, which generates unique column-header names, the last two positions of the N-terminal-ward codon before the deletion will be numbered with the decimal values following those used to identify the insertion positions, as shown below. In this example, the *allele* and *trimmed_allele* columns have been omitted for spacing.
+Indels in *codon* alignment positions are similarly numbered from the codon in the N-terminal direction. However, due to a peculiarity of the R environment, which generates unique column-header names, the last two positions of the N-terminal-ward codon before the deletion will be numbered with the decimal values following those used to identify the insertion positions, as shown below. This only occurs when indel positions are included in a selected range. In this example, the *allele* and *trimmed_allele* columns have been omitted for spacing.
 
 ```
 HLAalignments$codon$DQB1[c(1,1138:1140),c(1,4,56:65)]
@@ -266,11 +278,15 @@ HLAalignments$codon$DQB1[c(1,1138:1140),c(1,4,56:65)]
 
 # 2. Working with Sequence Alignments
 
-As noted above, the **HLAtools** package includes several functions for working with sequence alignments. All of these functions require that alignments first be built, as the complete set of protein, codon, nucleotide and genomic sequence alignments are too large to bundle with the package. <span style="color:red">**The functions that perform operations in sequence alignments expect the alignments to be included in the** ***HLAalignments*** **data object as a dataframe in an alignment-type-specific sublist of the parent object.**</span> For example the HLA-A protein alignment would be identified as *HLAalignments\$prot\$A*. If alignments are built into a different data object, they will not be accessible to the functions described below.
+As noted above, the **HLAtools** package includes several functions for working with sequence alignments. All of these functions require that alignments first be built, as the complete set of protein, codon, nucleotide and genomic sequence alignments are too large to include in the package. <span style="color:red">**The functions that perform operations in sequence alignments expect the alignments to be in a variable named** ***HLAalignments***.</span> For example the HLA-A protein alignment is identified as *HLAalignments\$prot\$A*. If alignments are built into a different data object, they will not be accessible to the functions described below.
 
 ## Building Alignments
 
-*alignmentFull()* is a wrapper function for *buildAlignments()* that populates the *HLAalignments* object. This function requires internet access, and can take significant time to run to build a full complement of alignments. 
+*alignmentFull()* is a wrapper function that applies *buildAlignments()* to populate the *HLAalignments* object. When *alignmentFull()* is run, the resulting alignments will be built using the IPD-IMGT/HLA Database release under which the *HLAgazeteer* object was built ('HLAgazeteer$version'). When alignments for a different database release are desired, *updateAll()* should be used to update the *HLAgazeteer* to the desired release version first. 
+
+**Requirements**
+
+The *alignmentFull()* function requires internet access, and can take significant time to run to build a full complement of alignments. 
 
 For example, to build all of the alignments in IPD-IMGT/HLA Database release version 3.56.0, *HLAalignments <- alignmentFull()* completed in 6.2 minutes on a 3.3 GHz 12-Core Intel Xenon W 2019 Mac Pro with 288 GB of 2933 MHZ DDR4 RAM, 6.5 minutes on a 2.4 GHz 8-Core Intel Core i9 2019 MacBook Pro with 64 GB of 2667 MHZ DDR4 RAM, and 9.9 minutes on a 2.4 GHz Intel Core i9-10885H Dell Precision 5500 with 32 GB of RAM.
 
@@ -680,6 +696,8 @@ multiGLStoUNI(GLstring.ex[[2]][1:5])
 
 # 5. Data Analysis Tools
 
+The functions described in this section either perform data analyses or generate specific data sets suitable for additional analyses. All consume BIGDAWG-formatted datasets.
+
 ## Calculating Relative Risk with BIGDAWG-formatted Datasets
 
 ### relRisk
@@ -699,10 +717,10 @@ library(BIGDAWG)
 rr <- relRisk(HLA_data[,1:4])
 ```
 
-Column headers in each returned dataframe are, Locus, Variant, Status_1, Status_0, RelativeRisk, CI.low, CI.high, p.value, and Significant.
+Column headers in each returned data frame are, Locus, Variant, Status_1, Status_0, RelativeRisk, CI.low, CI.high, p.value, and Significant.
 
 
-## Automated Division of BIGDAWG-formatted Datasets for Stratification Analyses
+## Division of BIGDAWG-formatted Datasets for Stratification Analyses
 
 ### BDstrat: Multilocus Allele Stratificaiton for BIGDAWG Datasets
 
@@ -726,6 +744,32 @@ HLA_data.multi.strat <- BDstrat(BIGDAWG::HLA_data,c("DRB1*08:01:03","DRB1*03:01:
 Running BIGDAWG() on both multi-allele strata
 for(i in 1:2) {BIGDAWG(HLA_data.multi.strat[[i]],HLA = TRUE,Run.Tests = "L")}
 
+```
+## Conversion of BIGDAWG-formatted Datasets to *Python for Population Genetics* (PyPop)-formatted Datasets
+
+#### BDtoPyPop : Enabling Population Genetic Analyses of Case and Control Datasets
+
+- BDtoPyPop() converts a [BIGDAWG-formatted](https://cran.r-project.org/web/packages/BIGDAWG/vignettes/BIGDAWG.html#input-data) case-control dataset into two [PyPop version 1.\*.\*](http://pypop.org/docs/guide-chapter-usage.html) datasets -- one for all 'case' subjects and one for all 'control' subjects. PyPop can be exported as a pair of ".pop" files for analysis, or can be generated as a list object containing two data frames for additional manipulation before analysis.
+
+**Parameters**
+
+ - dataset A BIGDAWG-formatted data frame containing a case-control dataset.
+ - filename A character string identifying either the desired path and name for the generated files, or the elements of the returned list object.
+ - save.file A logical indicating if the pair of files should be written (TRUE) or if a list object should be returned. The default value is TRUE.
+
+**Return** When save.file = TRUE a pair of PyPop-formatted text files named "'filename'.positive.pop" and "'filename'.negative.pop" are generated in the specified directory. The "'filename'.positive.pop" file includes all subjects a value of 1 in the second column of the BIGDAWG data file, and the "'filename'.negative.pop" file includes all subjects with a value of 0 in the second column of the BIGDAWG data file. 
+
+When save.file = FALSE, a list-object of two PyPop-formatted data frames titled "'filename'.positive" and "'filename'-negative" is returned. The positive list element includes all subjects a value of 1 in the second column of the BIGDAWG data file, and the negative list element includes all subjects with a value of 0 in the second column of the BIGDAWG data file.
+
+**Note** PyPop is not an R package. In order to analyze the files generated by this function with PyPop version 1.\*.\*, [the pypop-genomics package must be installed](http://pypop.org/docs/guide-chapter-install.html) on your system, and a [PyPop configuration file](http://pypop.org/docs/guide-chapter-usage.html#the-configuration-file), detailing the analyses to be performed, is required. A PyPop configuration file is not generated by BDtoPyPop()
+
+
+```
+Generating a list object of two PyPop datasets from the HLA_data dataset bundled with BIGDAWG.
+HLAdata.PP <- BDtoPyPop(BIGDAWG::HLA_data,"BDHLA",FALSE)
+
+Generating a pair PyPop data files from the HLA_data dataset bundled with BIGDAWG.
+BDtoPyPop(BIGDAWG::HLA_data,"BDHLA",TRUE)
 ```
 
 ---
