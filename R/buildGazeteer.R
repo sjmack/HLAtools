@@ -1,4 +1,4 @@
-#buildGazeteer v04.0.0 5APR2024
+#buildGazeteer v5.0.0 10MAY2024
 
 ##############
 ##buildGazeteer
@@ -9,10 +9,10 @@
 #'
 #'Elements: 
 #'*  All genes with alignments ($align)
-#'*  Genes that that do and do not have amino acid ($prot/$noprot), nucleotide ($nuc/$nonuc), and genomic ($gen/$nogen) alignments
+#'*  Genes that that do and do not have amino acid ($prot/$noprot), nucleotide ($nuc/$nonuc), and genomic ($gen/$nogen) alignments 
 #'*  HLA genes ($hla), pseudogenes ($pseudo), gene fragments ($frag)
 #'*  Genes that are expressed ($expressed) or not expressed ($notexpressed)
-#'*  Genes in the Class I region ($classireg), Class I HLA genes ($classIhla), Genes in the class II region ($classiireg), and Class II HLA genes ($classiihla)
+#'*  Genes in the Class I region ($classireg), Class I HLA genes ($classIhla), Genes in the Class II region ($classiireg), and Class II HLA genes ($classiihla)
 #'*  Classical HLA genes ($classical) and non-classical exprssed HLA genes ($nonclassical)
 #'*  All genes presented in map order ($map)
 #'
@@ -20,7 +20,9 @@
 #'
 #'@param version A string identifying of the desired IPD-IMGT/HLA Database release version to which the gazeteer should be updated. The default value is most recent IPD-IMGT/HLA Database release version.
 #'
-#'@return A list object of vectors identifying those loci in the IPD-IMGT/HLA Database for which amino acid (prot), cDNA (nuc), and gDNA (gen) alignments are available. In addition, subsets of these loci identified as pseudogenes (pseudo) and gene fragments (frag) are identified, and genes for which no nucleotide or genomic alignments are available (nonuc and nonen) are also identified.
+#'@note The *$prot* and *$nuc* vectors include a 'DRB' "gene". While 'DRB' is not a gene name, the DRB_prot.txt file includes combined alignments for the DRB1, DRB3, DRB4, and DRB5 genes, and the DRB_nuc.txt file includes combined alignments for the DRB1, DRB2, DRB3, DRB4, DRB5, DRB6, DRB7, DRB8, and DRB9 genes. 'DRB' is included in these vectors for the purpose of validation when these combined alignments are desired.
+#'
+#'@return A list object of vectors organizing the genes in the IPD-IMGT/HLA Database into specific categories.
 #'
 #'@importFrom stringr fixed
 #'@importFrom utils read.table
@@ -71,13 +73,16 @@ buildGazeteer <- function(version = getLatestVersion()) {
         }
       }
   }
-  locList <- list(zerothList <- unique(c(unlist(genList),unlist(nucList),unlist(protList))), #all aligned
+  locList <- list(zerothList <- sort(unique(c(unlist(genList),unlist(nucList),unlist(protList),c("DRB2", "DRB6", "DRB7", "DRB9")))), #all aligned; these last four are in the DRB_nuc.txt file
                       firstList <- unlist(genList),  ## prot
                       secondList <- unlist(nucList), ## nuc
                       thirdlist <- unlist(protList)) ## gen
 
   names(locList) <- c("align","gen","nuc","prot")
   
+  locList
+  
+  locList$align <- locList$align[!locList$align %in% "DRB"] # remove "DRB" for the list of genes with alignments
 
   pseudo <- IMGTHLAGeneTypes$GeneTypes$Names[IMGTHLAGeneTypes$GeneTypes$`Pseudogene/Fragment` == "Pseudogene"]
   pseudo <- sub("HLA-","",pseudo,fixed=TRUE)
@@ -167,5 +172,7 @@ getAlignmentNames <- function(URL){
     }
   }
   
-  unique(roughList)
+  roughList <- roughList[!is.na(roughList)]
+  roughList <- unique(roughList)
+  roughList[!str_detect(roughList[],"Link--primary")]
 }

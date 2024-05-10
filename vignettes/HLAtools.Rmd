@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(HLAtools)
 ```
--   Package Version: 0.9.9.9000
+-   Package Version: 0.9.10.9000
 
 # Overview
 The *HLAtools* package contains a set of computable resources and a suite of tools intended to facilitate the effective application and analysis of the named genes in the HLA region.
@@ -120,19 +120,21 @@ For example, the *$align* vector includes all of the genes for which **sequence 
 
 ```
 HLAgazeteer$align
- [1] "A" "B" "C" "DMA" "DMB" "DOA" "DOB" "DPA1" "DPA2" "DPB1" "DPB2" "DQA1" "DQA2" "DQB1" "DQB2" "DRA" "DRB1" "DRB3" "DRB4" "DRB5" "E" "F" "G" "HFE" "H" "J" "K" "L" "MICA" "MICB" "N" "P" "S" "TAP1" "TAP2" "T" "U" "V" "W" "Y"   
+ [1] "A" "B" "C" "DMA" "DMB" "DOA" "DOB" "DPA1" "DPA2" "DPB1" "DPB2" "DQA1" "DQA2" "DQB1" "DQB2" "DRA"  "DRB1" "DRB2" "DRB3" "DRB4" "DRB5" "DRB6" "DRB7" "DRB8" "DRB9" "E" "F" "G" "H" "HFE" "J" "K" "L" "MICA" "MICB" "N" "P" "S" "T" "TAP1" "TAP2" "U" "V" "W" "Y"     
 ```
 
 The *$prot* vector includes all of the genes with **protein** alignments:
 
 ```
 HLAgazeteer$prot
- [1] "A" "B" "C" "DMA" "DMB" "DOA" "DOB" "DPA1" "DPB1" "DQA1" "DQA2" "DQB1" "DQB2" "DRA" "DRB1" "DRB3" "DRB4" "DRB5" "E" "F" "G" "HFE" "MICA" "MICB" "TAP1" "TAP2"
+ [1] "A" "B" "C" "DMA" "DMB" "DOA" "DOB" "DPA1" "DPB1" "DQA1" "DQA2" "DQB1" "DQB2" "DRA" "DRB1" "DRB3" "DRB4" "DRB5" "DRB" "E" "F" "G" "HFE" "MICA" "MICB" "TAP1" "TAP2"
 ```
+
+Note that the *\$prot* and *\$nuc* vectors include a 'DRB' "gene". While 'DRB' is not a gene name, the DRB_prot.txt file includes combined alignments for the DRB1, DRB3, DRB4, and DRB5 genes, and the DRB_nuc.txt file includes combined alignments for the DRB1, DRB2, DRB3, DRB4, DRB5, DRB6, DRB7, DRB8, and DRB9 genes. 'DRB' is included in these vectors for the purpose of validation when these combined alignments are desired.
 
 ## Annotation of Pseudogene and Gene Fragement Features
 
-The *fragmentFeatureNames* object identifies and annotates the non-standard gene features found in pseudogenes and gene fragments, based on the positions of feature boundaries ("|") in the sequence. Where the features of functional genes are limited to Introns (I), Exons (E) and Untranslated Regions (U), the non-standard features in pseudogenes and gene fragments are described as:
+The *fragmentFeatureNames* object identifies and annotates the non-standard gene features found in pseudogenes and gene fragments, based on the positions of feature boundaries ("|") in the pertinent genomic alignment sequence. Where the features of functional genes are limited to Introns (I), Exons (E) and Untranslated Regions (U), the non-standard features in pseudogenes and gene fragments are described as:
 
   - Joins (J), when a feature includes sequence from two or more sequences that are separated by a boundary in the reference
   - Segments (S), when the sequence of a feature is a subset of a longer feature sequence
@@ -332,7 +334,7 @@ Prior to IPD-IMGT/HLA Database release version 3.24.0, the names of the sequence
 
 Similarly, prior to release version 3.51.0, the 'DRB_prot.txt' and 'DRB_nuc.txt' alignment files were the source of alignments for DRB1, DRB3, DRB4 and DRB5. In release versions 3.0.0 to 3.23.0, genomic DRB1 alignments are in 'DRB_gen.txt' files, and these alignments are in 'DRB1_gen.txt' files in subsequent releases. Building DPA1, DPB1, DQA1, DQB1, DRB1, DRB3 and DRB5 sequence alignments from these earlier releases may require specifying a gene name that does not include the numerical suffix. 
 
-In all version 3.\*.\* releases (3.0.0 to 3.56.0), nucleotide alignments for the DRB6, DRB7, DRB8 or DRB9 genes are included in the 'DRB_nuc.txt' file.  
+In all version 3.\*.\* releases (3.0.0 to 3.56.0), nucleotide alignments for the DRB2, DRB6, DRB7 and DRB9 genes are included in the 'DRB_nuc.txt' file. 
 
 As noted above, when building alignments for past releases, the *HLAgazeteer* should be updated to reflect the gene names included in that release, and consulted to determine which gene names should be provided to alignmentFull(). 
 

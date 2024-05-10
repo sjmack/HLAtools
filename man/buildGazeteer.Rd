@@ -15,7 +15,7 @@ buildGazeteer(version = getLatestVersion())
 \item{version}{A string identifying of the desired IPD-IMGT/HLA Database release version to which the gazeteer should be updated. The default value is most recent IPD-IMGT/HLA Database release version.}
 }
 \value{
-A list object of vectors identifying those loci in the IPD-IMGT/HLA Database for which amino acid (prot), cDNA (nuc), and gDNA (gen) alignments are available. In addition, subsets of these loci identified as pseudogenes (pseudo) and gene fragments (frag) are identified, and genes for which no nucleotide or genomic alignments are available (nonuc and nonen) are also identified.
+A list object of vectors organizing the genes in the IPD-IMGT/HLA Database into specific categories.
 }
 \description{
 Consumes information in the ANHIG/IMGTHLA GitHub repository and at hla.alleles.org/genes to define specific categories of genes supported by the IPD-IMGT/HLA Database, which are represented as nineteen elements of the HLAgazeteer object.
@@ -26,7 +26,7 @@ Elements:
 \item Genes that that do and do not have amino acid ($prot/$noprot), nucleotide ($nuc/$nonuc), and genomic ($gen/$nogen) alignments
 \item HLA genes ($hla), pseudogenes ($pseudo), gene fragments ($frag)
 \item Genes that are expressed ($expressed) or not expressed ($notexpressed)
-\item Genes in the Class I region ($classireg), Class I HLA genes ($classIhla), Genes in the class II region ($classiireg), and Class II HLA genes ($classiihla)
+\item Genes in the Class I region ($classireg), Class I HLA genes ($classIhla), Genes in the Class II region ($classiireg), and Class II HLA genes ($classiihla)
 \item Classical HLA genes ($classical) and non-classical exprssed HLA genes ($nonclassical)
 \item All genes presented in map order ($map)
 }
@@ -34,6 +34,8 @@ Elements:
 The twentieth element ($version) identifies the IPD-IMGT/HLA Database version used to build the HLAgazeteer.
 }
 \note{
+The \emph{$prot} and \emph{$nuc} vectors include a 'DRB' "gene". While 'DRB' is not a gene name, the DRB_prot.txt file includes combined alignments for the DRB1, DRB3, DRB4, and DRB5 genes, and the DRB_nuc.txt file includes combined alignments for the DRB1, DRB2, DRB3, DRB4, DRB5, DRB6, DRB7, DRB8, and DRB9 genes. 'DRB' is included in these vectors for the purpose of validation when these combined alignments are desired.
+
 These elements are constructed using data compiled from hla.alleles.org/genes/, github.com/ANHIG/IMGTHLA/tree/Latest/alignments, DOI:10.2741/a317, DOI:10.1111/tan.15180, and Human Genome Assembly GRCh38.p14 reference assembly NC_000006.12.
 
 Additional information about these genes can be found in HLAtools::IMGTHLAGeneTypes.

@@ -1,5 +1,12 @@
 ## HLAtools (development version)
 
+### Version 0.9.10.9000 May 10, 2024 
+
+- Updated buildGazeteer() to account for the DRB2, DRB6, DRB7 and DRB9 gene.
+- Updated documentation for HLAgazeteer regarding the DRB2, DRB6, DRB7 and DRB9 genes and the DRB alignment files. 
+- Updated documentation for fragmentFeatureNames() regarding the DRB2, DRB6, DRB7 and DRB9 genes and genomic alignments.
+- Updated the vignette to reflect these issues.
+
 ### Version 0.9.9.9000 May 3, 2024 
 
 - Added BDtoPyPop() function.

@@ -5,7 +5,7 @@
 #'Identifies and annotates the gene features present in genomic alignments of HLA pseudogenes and gene fragments.
 #'
 #'@description
-#'HLA pseudogenes and gene fragments many not share all of the gene features of their expressed homologs. The ffN() function generates a list object identifying the features present in a given gene fragment or pseudogene with an alignment file. This includes annotations of the differences between the pseudogenes and gene fragments, and their expressed homologs.
+#'HLA pseudogenes and gene fragments many not share all of the gene features of their expressed homologs. The ffN() function generates a list object identifying the features present in a given gene fragment or pseudogene with a genomic alignment file. This includes annotations of the differences between the pseudogenes and gene fragments, and their expressed homologs.
 #'Pseudogenes and gene fragments are identified in the IMGTHLAGeneTypes data object.
 #'
 #'Standard Features
@@ -32,7 +32,8 @@
 #'@examples fragmentFeatureNames <- ffN("3.35.0")
 #'
 #'@note Features and their annotations have been identified manually. Feature annotations will not change unless a new pseudogene or gene fragment is added in a future release, in which case new annotations will be generated.
-#'@note This function is for internal HLAtools use.
+#'@note No annotations are included for the DRB2, DRB6, DRB7, and DRB9 genes, as genomic alignments for these genes are not available.
+#'@note For internal HLAtools use.
 #'
 ffN <- function(version){ #Fragment Feature Names
   
