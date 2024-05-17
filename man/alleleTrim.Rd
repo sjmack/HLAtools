@@ -7,7 +7,7 @@
 alleleTrim(allele, resolution, version = 3)
 }
 \arguments{
-\item{allele}{A full HLA allele name formatted as locus\*allele_name or HLA-locus\*allele_name.}
+\item{allele}{A full HLA allele name formatted as locus*allele_name, or including the "HLA-" prefix.}
 
 \item{resolution}{A number identifying the number of fields to trim the allele down to.}
 

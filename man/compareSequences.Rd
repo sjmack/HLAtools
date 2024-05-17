@@ -9,10 +9,10 @@ compareSequences(alignType, alleles)
 \arguments{
 \item{alignType}{The type of alignment being searched. Allowed values are "codon","gen", nuc" and "prot". Only one 'alignType' value is permitted.}
 
-\item{alleles}{A vector containing two full-length allele names at a locus (ex. c("DPA1\emph{01:03:38:01","DPA1}01:03:38:02")).}
+\item{alleles}{A vector containing two full-length names for alleles at the same locus.}
 }
 \value{
-A data two-row frame identifying the positions and sequences at which the two alleles differ. Positions for which the sequence of either allele is unknown are ignored.
+A two-row data frame identifying the positions and sequences at which the two alleles differ. Positions for which the sequence of either allele is unknown are ignored.
 }
 \description{
 Compares the sequences of two alleles at a locus, and identifies the differences between them at specific positions

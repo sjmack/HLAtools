@@ -14,7 +14,7 @@ https://hla-net.eu/wp/wp-content/uploads/example-three-loci.unif_.txt
 data(UNIFORMAT.example)
 }
 \description{
-An two-column example example data frame including UNIFORMAT data.
+A two-column example data frame including UNIFORMAT data.
 Column one contains sample identifiers, while column two identifies each subject's HLA genotype in UNIFORMAT format.
 To be used for example runs and demonstrations.
 }

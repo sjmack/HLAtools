@@ -7,9 +7,9 @@
 #'Compares the sequences of two alleles at a locus, and identifies the differences between them at specific positions
 #'
 #'@param alignType The type of alignment being searched. Allowed values are "codon","gen", nuc" and "prot". Only one 'alignType' value is permitted.
-#'@param alleles A vector containing two full-length allele names at a locus (ex. c("DPA1*01:03:38:01","DPA1*01:03:38:02")).
+#'@param alleles A vector containing two full-length names for alleles at the same locus.
 #'
-#'@return A data two-row frame identifying the positions and sequences at which the two alleles differ. Positions for which the sequence of either allele is unknown are ignored. 
+#'@return A two-row data frame identifying the positions and sequences at which the two alleles differ. Positions for which the sequence of either allele is unknown are ignored. 
 #'
 #'@export
 #'
@@ -29,6 +29,8 @@ compareSequences <- function(alignType,alleles) {
     stop(paste(alleles[1],"and",alleles[2],"are alleles at different loci.\n",sep=" ")) }
   
   locus <- strsplit(alleles[1],"*",fixed=TRUE)[[1]][1]
+  
+  if(!validateLocus(locus,typeToSource(alignType))) { stop()}
     
   if(!validateAllele(alleles[1])) {stop(paste(alleles[1], "is not found in the genomic alignment for",locus,".",sep=" "))}
   if(!validateAllele(alleles[2])) {stop(paste(alleles[2], "is not found in the genomic alignment for",locus,".",sep=" "))}

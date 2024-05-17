@@ -8,7 +8,7 @@ author:
 - Vinh Luu -- vinhluu864@berkeley.edu
 - Josh Bredeweg
 - Steven J. Mack, PhD -- steven.mack@ucsf.edu
-date: "2024-05-03"
+date: "2024-05-16"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{HLAtools}
@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(HLAtools)
 ```
--   Package Version: 0.9.10.9000
+-   Package Version: 0.9.11.9000
 
 # Overview
 The *HLAtools* package contains a set of computable resources and a suite of tools intended to facilitate the effective application and analysis of the named genes in the HLA region.
@@ -101,15 +101,15 @@ alleleListHistory$AlleleListHistory[c(65,100:105,2094),c(1,23,58:59,81,96,101,10
 ```
 ## Functional and Organizational Categories of Genes in the HLA Region
 
-### IMGT/HLA Gene Types
+### Molecular Characteristics of HLA Region Genes
 
 The *IMGTHLAGeneTypes* data object describes the [named genes in the HLA region](https://hla.alleles.org/genes/index.html) curated by the IPD-IMGT/HLA Database. *IMGTHLAGeneTypes* distinguishes pseudogenes and gene fragments from expressed genes, and summarizes each gene's molecular characteristics. 
 
-The information in this object can be found online at [https://hla.alleles.org/genes/index.html](https://hla.alleles.org/genes/index.html). A new *IMGTHLAGeneTypes* can be built can be built using the *updateAll()* function, although the source data is not expected to change unless new genes are added to the IPD-IMGT/HLA Database.
+The information in this object can be found online at [https://hla.alleles.org/genes/index.html](https://hla.alleles.org/genes/index.html). A new *IMGTHLAGeneTypes* can be built using the *updateAll()* function, although the source data is not expected to change unless new genes are added to the IPD-IMGT/HLA Database.
 
-### HLA Gazeeteer
+### Gazeeteer of HLA Region Genes
 
-The *HLAgazeteer* data object is a list object that organizes the HLA region genes supported by the IPD-IMGT/HLA Database in nineteen vectors describing the availability of alignments, gene functionality, group identity and map order. A new *HLAgazeteer* can be built can be built after each IPD-IMGT/HLA Database release using the *updateAll()* function, although the gazeteer is not expected to change unless new genes are added to the IPD-IMGT/HLA Database.
+The *HLAgazeteer* data object is a list object that organizes the HLA region genes supported by the IPD-IMGT/HLA Database in nineteen vectors describing the availability of alignments, gene functionality, group identity and map order. A new *HLAgazeteer* can be built after each IPD-IMGT/HLA Database release using the *updateAll()* function, although the *HLAgazeteer* is not expected to change unless new genes are added to the IPD-IMGT/HLA Database.
 
 ```
 names(HLAgazeteer)
@@ -139,7 +139,7 @@ The *fragmentFeatureNames* object identifies and annotates the non-standard gene
   - Joins (J), when a feature includes sequence from two or more sequences that are separated by a boundary in the reference
   - Segments (S), when the sequence of a feature is a subset of a longer feature sequence
   - Novel (N), when the sequence of a feature does not correspond to a known sequence
-  - Hybrid (H), when a feature includes a sequence to belongs to a known feature as well as nucleotide sequence that does not correspond to feature
+  - Hybrid (H), when a feature includes a sequence to belongs to a known feature as well as nucleotide sequence that does not correspond to a feature
 
 For each pseudogene or gene fragment, the *fragmentFeatureNames* element contains a \$features element identifying the gene features in the 5' to 3' direction, and an \$annotation element that provides some detail about the feature.
 
@@ -170,10 +170,11 @@ fragmentFeatureNames$S
 $features
 [1] "H.1" "S.1" "J.1" "E.7" "I.7" "E.9" "S.2"
 $annotation
-[1] "H.1 is 37 nucleotides of novel sequence, followed by the last 185 nucleotides of Intron 5. S.1 is the first 27 nucleotides of Exon 6. J.1 is the last 4 nucleotides of Exon 6 (2 nucleotides in the reference have been deleted), followed by the last 100 nucleotides of Intron 6 (6 nucleotides in the refernece have been deleted). E.9 in a 191 nucleotide long Exon in what is the 5' end of the 3' UTR in the reference. S.2 is the 3' end of the 3' UTR."
+[1] "H.1 is 37 nucleotides of novel sequence, followed by the last 185 nucleotides of Intron 5. S.1 is the first 27 nucleotides of Exon 6. J.1 is the last 4 nucleotides of Exon 6 (2 nucleotides in the reference have been deleted), followed by the last 100 nucleotides of Intron 6 (6 nucleotides in the reference have been deleted). E.9 is a 191 nucleotide-long Exon in what is the 5' end of the 3' UTR in the reference. S.2 is the 3' end of the 3' UTR."
 ```
 
 ## Sequence Alignments
+
 The *HLAalignments* data object is a list object of sub-lists of data frames of peptide (*prot*), codon (*codon*), coding nucleotide (*nuc*) and genomic nucleotide (*gen*) alignments for the HLA and HLA-region genes supported in the [ANHIG/IMGTHLA GitHub Repository](https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments), along with a *version* character string that identifies the IPD-IMGT/HLA Database release under which the *HLAalignments* object was built. 
 
 Given the size of all the combined aligmments, *HLAalignments* **is not bundled with the HLAtools package**. All alignments, or desired subsets each type of alignment for a given gene, can be built using the *alignmentFull()* function, as described in Section 2 *Working with Sequence Alignments*, below. These protein, codon, nucleotide and genomic DNA sequence alignments are described in detail below.
@@ -181,6 +182,7 @@ Given the size of all the combined aligmments, *HLAalignments* **is not bundled 
 The first four columns of each alignment identify the locus, allele, two-field allele name (trimmed_allele), and full allele name (allele_name) for each sequence, while the remaining columns identify the sequence at each position, as illustrated below.
 
 ### Protein (AA) Aligments
+
 The column header for the *prot* alignments identifies individual peptide positions, starting from the first peptide of the leader sequence (a negative position) or the first peptide of the native protein when there is no leader sequence. For example, as shown below, the HLA-A *prot* alignment begins at residue -24.
 
 ```
@@ -206,6 +208,7 @@ HLAalignments$prot$TAP1[1:5,1:15]
 ```
 
 ### Codon and Individual Nucleotide (cDNA) Sequence Alignments
+
 Codon-triplet (*codon*) and individual nucleotide (*nuc*) alignments are included as separate data frames. 
 
 The column heads for the *codon* alignments identify the individual nucleotide positions within each codon, starting with the first codon. As shown below, the HLA-A *codon* alignment begins at the first nucleotide in codon position -24, which is identified as *-24*; the second nucleotide in codon -24 is identified as *-24.1* and the third nucleotide in codon -24 is identified as *-24.2*. 
@@ -233,6 +236,7 @@ HLAalignments$nuc$A[1:5,1:21]
 ```
 
 ### Genomic (gDNA) Sequence Alignments
+
 The column heads for the *gen* alignments identify the individual nucleotide positions in the 'full gene' sequence, which usually starts in the 5' untranslated region (UTR) sequence for expressed genes. 
 
 ```
@@ -330,6 +334,7 @@ HLAalignments <- alignmentFull()
 ```
 
 ### Caveats for Alignments from Previous Releases 
+
 Prior to IPD-IMGT/HLA Database release version 3.24.0, the names of the sequence alignment files for the HLA-DP and HLA-DQ genes in the IPD-IMGT/HLA GitHub Repository did not include a numerical suffix in the gene name (e.g., the protein sequence alignment file for the DQA1 gene was 'DQA_prot.txt') because sequence alignment files for the DPA2, DPB2, DQA2 and DQB2 genes had not been made available. 
 
 Similarly, prior to release version 3.51.0, the 'DRB_prot.txt' and 'DRB_nuc.txt' alignment files were the source of alignments for DRB1, DRB3, DRB4 and DRB5. In release versions 3.0.0 to 3.23.0, genomic DRB1 alignments are in 'DRB_gen.txt' files, and these alignments are in 'DRB1_gen.txt' files in subsequent releases. Building DPA1, DPB1, DQA1, DQB1, DRB1, DRB3 and DRB5 sequence alignments from these earlier releases may require specifying a gene name that does not include the numerical suffix. 

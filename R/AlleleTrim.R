@@ -6,7 +6,7 @@
 #'
 #'Trims an HLA allele name to a specified number of fields or number of digits, depending on the nomenclature version.
 #'
-#'@param allele A full HLA allele name formatted as locus\*allele_name or HLA-locus\*allele_name.
+#'@param allele A full HLA allele name formatted as locus*allele_name, or including the "HLA-" prefix.
 #'@param resolution A number identifying the number of fields to trim the allele down to.
 #'@param version the HLA nomenclature version under which the allele was named. Version 1 allele names are found in IPD-IMGT/HLA Database releases 1.0.0 to 1.16.0. Version 2 allele names are found in IPD-IMGT/HLA Database releases 2.0.0 to 2.28.0. Version 3 allele names are found in IPD_IMGT/HLA Database releases 3.0.0 and onward.
 #'
@@ -70,7 +70,7 @@ alleleTrim <- function(allele,resolution,version=3){
 #'@description
 #' Trims a properly formatted colon-delimited HLA allele name to a desired number of fields.
 #' 
-#' If an allele name with an expression-variant suffix is truncated, the suffix can be appended to the end of the truncated allele name. 
+#' If an allele name with an expression-variant suffix is truncated, the suffix can be appended to the end of the truncated allele name. If a resolution value greater then the number of fields in the submitted field is specified, the original allele is returned.
 #'
 #' @param allele HLA allele.
 #' @param res Resolution desired.
@@ -87,6 +87,8 @@ alleleTrim <- function(allele,resolution,version=3){
 getField <- function(allele,res,append=FALSE) {
   Tmp <- unlist(strsplit(as.character(allele),":"))
   suffix <- ""
+  
+  if(length(Tmp) < res) return(allele) # added in case the requested resolution is larger than the allele's resolution
   
   if(substr(Tmp[length(Tmp)],nchar(Tmp[length(Tmp)]),nchar(Tmp[length(Tmp)])) %in% c("N","L","S","C","A","Q")) {suffix <- substr(Tmp[length(Tmp)],nchar(Tmp[length(Tmp)]),nchar(Tmp[length(Tmp)])) }
   

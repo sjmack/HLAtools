@@ -95,8 +95,8 @@
 #' }
 #' @source https://hla.alleles.org/genes
 #' @source https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments
-#' @source https://doi.org/10.2741/a317
-#' @source https://doi.org/10.1111/tan.15180
+#' @source Andersson Front. Biosci. 1998, 3(4), 739–745. https://doi.org/10.2741/a317
+#' @source Alexandrov et al. HLA 2023, Vol.102(5), p.599-606. https://doi.org/10.1111/tan.15180
 #' @source https://www.ncbi.nlm.nih.gov/nucleotide/NC_000009.12
 "HLAgazeteer"
 
@@ -120,7 +120,7 @@
 ##UNIFORMAT.example
 #'Example data frame containing UNIFORMAT data.
 #'
-#'An two-column example example data frame including UNIFORMAT data.
+#'A two-column example data frame including UNIFORMAT data.
 #'Column one contains sample identifiers, while column two identifies each subject's HLA genotype in UNIFORMAT format.
 #'To be used for example runs and demonstrations.
 #'

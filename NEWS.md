@@ -1,5 +1,16 @@
 ## HLAtools (development version)
 
+### Version 0.9.11.9000 May 16, 2024
+
+- Updated package title.
+- Minor updates to Vignette.
+- Changed '*' to '#' for PyPop version references.
+- Complete citations for published sources of the HLAgazeteer.
+- Limited asterisks in function parameter documentation.
+- Added link to PyPop configuration file webpage in pypopHeaders().
+- Added locus sanity check in compareSequences().
+- Modified getField() so that NA values are not appended to an allele name when a resolution higher than that of the provided allele is requested.
+
 ### Version 0.9.10.9000 May 10, 2024 
 
 - Updated buildGazeteer() to account for the DRB2, DRB6, DRB7 and DRB9 gene.

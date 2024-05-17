@@ -34,9 +34,9 @@ https://hla.alleles.org/genes
 
 https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments
 
-https://doi.org/10.2741/a317
+Andersson Front. Biosci. 1998, 3(4), 739–745. https://doi.org/10.2741/a317
 
-https://doi.org/10.1111/tan.15180
+Alexandrov et al. HLA 2023, Vol.102(5), p.599-606. https://doi.org/10.1111/tan.15180
 
 https://www.ncbi.nlm.nih.gov/nucleotide/NC_000009.12
 }

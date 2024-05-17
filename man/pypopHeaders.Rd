@@ -15,6 +15,9 @@ A PyPop-formatted column header.
 \description{
 Convert the header of a BIGDAWG-formatted data frame into PyPop-formatted header.
 }
+\note{
+This function returns unique locus names for each column. For example, "A_1" and "A_2" headers will be returned for two "A" locus columns. PyPop configuration (.ini) files allow this format to be customized.
+}
 \examples{
 \dontrun{
 pypopHeaders(colnames(BIGDAWG::HLA_data))
@@ -24,4 +27,7 @@ pypopHeaders(colnames(BIGDAWG::HLA_data))
 Lancaster et al. Front Immunol. 2024 Apr 2;15:1378512. https://pubmed.ncbi.nlm.nih.gov/38629078/
 
 Pappas et al. Hum Immunol. 2016 Mar 77(3):283-287. https://pubmed.ncbi.nlm.nih.gov/26708359/
+}
+\seealso{
+\href{http://pypop.org/docs/guide-chapter-usage.html#a-minimal-configuration-file}{PyPop Configuration File}
 }
