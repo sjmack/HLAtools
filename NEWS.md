@@ -1,5 +1,11 @@
 ## HLAtools (development version)
 
+###  Version 0.9.12.9000 May 28, 2024
+
+- Added motifMatch() and validateMotif() functions. Thanks to Kazu Osoegawa for the suggestion.
+- Updated documentation for checkAlignType().
+- Corrected documentation for fragmentFeatureNames.
+
 ### Version 0.9.11.9000 May 16, 2024
 
 - Updated package title.

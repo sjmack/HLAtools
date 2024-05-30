@@ -1,6 +1,6 @@
 ## HLAtools: Functions and Datasets for Human Leukocyte Antigen Informatics
 
-## Version 0.9.11.9000
+## Version 0.9.12.9000
 
 The Human Leukocyte Antigen (HLA) region is the most polymorphic section of the human genome, with 39,886 allelic variants identified across 46 loci. The key roles played by the class I and class II HLA genes in stem-cell therapy and transplantation, HLA and disease association research, evolutionary biology, and population genetics results in constant discovery of new allele variants. These data are curated and maintained by the [IPD-IMGT/HLA Database](https://www.ebi.ac.uk/ipd/imgt/hla/) and made available on the [ANHIG/IMGTHLA GitHub repository](https://github.com/ANHIG/IMGTHLA) as static text files, which are updated every three months. Standardized use of the data in this key resource can be challenging. To address this, we have developed HLAtools, an R package that automates the consumption of IPD-IMGT/HLA resources, renders them computable, and makes them available alongside tools for data analysis, visualization and investigation. This version of the package is compatible with all IPD-IMGT/HLA Database release versions up to release 3.56.0.
 
@@ -53,6 +53,18 @@ customAlign("prot",c("DPB1*01:01:01:01","DQA1*01:01:01:01","DQB1*05:01:01:01"),l
 3 DQA1*01:01:01:01  E  D  I  V                                       
 4             DQB1  5  6  7  8                                       
 5 DQB1*05:01:01:01  E  D  F  V                                       
+```
+
+- motifMatch() searches the HLAalignments object to identify full-length or two-field alleles that share user-specified nucleotide or peptide motifs.
+```
+motifMatch("A*-21M~2P","prot")
+[1] "A*02:774"  "A*11:284"  "A*11:417N" "A*68:216N"
+
+motifMatch("A*196G~301A~3046T","gen",FALSE)
+[1] "A*01:09"
+
+motifMatch("A*196G~301A~3046T","gen",TRUE)
+[1] "A*01:09:01:01" "A*01:09:01:02"
 ```
 
 - queryRelease() searches the alleleListHistory object for user-defined allele name variants in a specific IPD-IMGT/HLA release, identifying the number of alleles that match the query term, or a vector of allele names that match the query term. 

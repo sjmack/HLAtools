@@ -8,7 +8,7 @@ author:
 - Vinh Luu -- vinhluu864@berkeley.edu
 - Josh Bredeweg
 - Steven J. Mack, PhD -- steven.mack@ucsf.edu
-date: "2024-05-16"
+date: "2024-05-29"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{HLAtools}
@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(HLAtools)
 ```
--   Package Version: 0.9.11.9000
+-   Package Version: 0.9.12.9000
 
 # Overview
 The *HLAtools* package contains a set of computable resources and a suite of tools intended to facilitate the effective application and analysis of the named genes in the HLA region.
@@ -410,7 +410,7 @@ queryRelease("3.31.0","DRB9",FALSE)
 queryRelease("1.05.0","304",TRUE) 
 [1] "A*0304"    "A*3304"    "B*1304"    "Cw*03041"  "Cw*03042"  "DQB1*0304" "DRB1*0304" "DRB1*1304" "B*5304"    "A*2304"   
 ```
-## Searching Alignments
+## Searching Alignments at Specific Positions
 
 The *alignmentSearch()* function returns the variants for specific positions in a single allele for a specific type of alignment.
 
@@ -444,6 +444,26 @@ alignmentSearch("nuc","DPA1*01:103",c(181:182),prefix=FALSE,sep="")
 [1] "GA"
 alignmentSearch("nuc","DPA1*01:103",c("181","181.1","181.2","182"),prefix=FALSE,sep="")
 [1] "G..A"
+```
+## Searching Alignments for Sequence Motifs
+
+The *motifMatch()* function returns the names of alleles that share specific nucleotide or peptide motifs.
+
+**Parameters**
+
+  - *motif*: A nucleotide or peptide sequence variant motif structured as Locus*#\$~#\$~#$, where \## identifies a variant position, and \$ identifies the sequence variant. Any number of variants can be specified.
+  - *alignType*: The alignment type of either "codon", "gen", nuc" or "prot". Only a single alignType can be specified.
+  - *full*: A logical value indicating if full (TRUE) or truncated (FALSE) allele names should be returned.
+
+```
+motifMatch("A*-21M~2P","prot")
+[1] "A*02:774"  "A*11:284"  "A*11:417N" "A*68:216N"
+
+motifMatch("A*196G~301A~3046T","gen",FALSE)
+[1] "A*01:09"
+
+motifMatch("A*196G~301A~3046T","gen",TRUE)
+[1] "A*01:09:01:01" "A*01:09:01:02"
 ```
 
 ## Building Custom Alignments
