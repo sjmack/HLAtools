@@ -9,7 +9,7 @@ multiUpdateGL(GLstringArray, Version, expand = FALSE)
 \arguments{
 \item{GLstringArray}{An array of HLA allele names and operators in GL String code format identifying their relation with one another and the pertinent IPD-IMGT/HLA Database release version.}
 
-\item{Version}{A text string identifying the desired version to which for the alleles should be updated.}
+\item{Version}{A text string identifying the desired version to which for the alleles should be updated, going back to version 1.05.0.}
 
 \item{expand}{A logical to determine whether to include only the direct HLA ID match, or all possible allele matches.}
 }

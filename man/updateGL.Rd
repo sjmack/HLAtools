@@ -9,7 +9,7 @@ updateGL(GLStringCode, Version, expand = FALSE)
 \arguments{
 \item{GLStringCode}{A string of HLA allele names and operators in GL String Code format, signifying their relation with one another and the associated IMGT/HLA Database release version.}
 
-\item{Version}{A string identifying of the desired IPD-IMGT/HLA Database release version to which the alleles should be updated.}
+\item{Version}{A string identifying of the desired IPD-IMGT/HLA Database release version to which the alleles should be updated, going back to version 1.05.0}
 
 \item{expand}{A logical that indicates whether user would like to return all allele names that contain the input allele name (TRUE), or if only the direct HLA ID match should be returned (FALSE).}
 }

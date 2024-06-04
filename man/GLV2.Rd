@@ -7,7 +7,7 @@
 GLV2(Version)
 }
 \arguments{
-\item{Version}{A string of the desired version for the alleles to be updated to.}
+\item{Version}{A string of the desired version to which the alleles to be updated, going back to version 1.05.0.}
 }
 \value{
 Returns alleleListHistory$AlleleListHistory-column-formatted version.

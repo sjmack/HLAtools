@@ -10,7 +10,7 @@
 #'A quality control wrapper for GLupdate, which updates a GL String Code to a desired reference database version.
 #'
 #'@param GLStringCode A string of HLA allele names and operators in GL String Code format, signifying their relation with one another and the associated IMGT/HLA Database release version.
-#'@param Version A string identifying of the desired IPD-IMGT/HLA Database release version to which the alleles should be updated.
+#'@param Version A string identifying of the desired IPD-IMGT/HLA Database release version to which the alleles should be updated, going back to version 1.05.0
 #'@param expand A logical that indicates whether user would like to return all allele names that contain the input allele name (TRUE), or if only the direct HLA ID match should be returned (FALSE).
 #'
 #'@return A version of the input GL String code (in the form of a string) updated to the desired version.
@@ -48,7 +48,7 @@ updateGL <- function(GLStringCode, Version, expand = FALSE) {
 #'Updates columns from a data frame in GL String Code format to a desired reference database version.
 #'
 #'@param GLstringArray An array of HLA allele names and operators in GL String code format identifying their relation with one another and the pertinent IPD-IMGT/HLA Database release version.
-#'@param Version A text string identifying the desired version to which for the alleles should be updated.
+#'@param Version A text string identifying the desired version to which for the alleles should be updated, going back to version 1.05.0.
 #'@param expand A logical to determine whether to include only the direct HLA ID match, or all possible allele matches.
 #'
 #'@return A version of the input array of GL String Codes (in a data frame) updated to the desired version.
@@ -96,7 +96,7 @@ multiUpdateGL <- function(GLstringArray, Version, expand = FALSE) {
 #'Updates the allele names in a Genotype List (GL) String Code to the desired reference database version using the IPD-IMGT/HLA Database's Allele List History table.
 #'
 #'@param GLString A string of HLA allele names and operators in GL String Code format signifying their relation with one another and the pertinent HLA Allele List version.
-#'@param Version A string of the desired version for the alleles to be updated to
+#'@param Version A string of the desired version to which the alleles to be updated, going back to version 1.05.0.
 #'@param expand A logical that determines whether to return only the direct HLA ID allele match or all possible HLA allele matches.
 #'
 #'@return An updated version the GL String Code input (in the form of a string) updated to the input desired version.
@@ -329,7 +329,7 @@ GLV <- function(GLString) {
 #'
 #'Returns the AlleleListHistory-formatted version of a dot-delimited IPD-IMGT/HLA Database release, or provides appropriate options if version input is not present in the IPD-IMGT/HLA Database.
 #'
-#'@param Version  A string of the desired version for the alleles to be updated to.
+#'@param Version  A string of the desired version to which the alleles to be updated, going back to version 1.05.0.
 #'
 #'@return Returns alleleListHistory$AlleleListHistory-column-formatted version.
 #'
@@ -374,7 +374,7 @@ GLV2 <- function(Version) {
 #'
 #' Uses the provided version information to locate and return possible matches for an incompletely defined IPD-IMGT/HLA Database release version.
 #'
-#'@param Version  A string of the desired version for the alleles to be updated to.
+#'@param Version  A string of the desired version to which the alleles should be updated, going back to version 1.05.0.
 #'
 #'@return Returns possible matches to a given incomplete input.
 #'

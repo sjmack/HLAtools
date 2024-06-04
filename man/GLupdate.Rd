@@ -12,7 +12,7 @@ GLupdate(GLString, Version, expand = FALSE)
 \arguments{
 \item{GLString}{A string of HLA allele names and operators in GL String Code format signifying their relation with one another and the pertinent HLA Allele List version.}
 
-\item{Version}{A string of the desired version for the alleles to be updated to}
+\item{Version}{A string of the desired version to which the alleles to be updated, going back to version 1.05.0.}
 
 \item{expand}{A logical that determines whether to return only the direct HLA ID allele match or all possible HLA allele matches.}
 }

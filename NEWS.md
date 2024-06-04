@@ -1,6 +1,11 @@
 ## HLAtools (development version)
 
-###  Version 0.9.12.9000 May 28, 2024
+### Version 0.9.13.9000 June 4, 2024
+
+- Clarified that the oldest available release for GL String Code updating is version 1.05.0.
+- Changed the default IMGT/HLA Release version for alignmentFull() to the version of the loaded HLAgazeteer.
+
+### Version 0.9.12.9000 May 28, 2024
 
 - Added motifMatch() and validateMotif() functions. Thanks to Kazu Osoegawa for the suggestion.
 - Updated documentation for checkAlignType().

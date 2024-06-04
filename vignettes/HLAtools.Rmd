@@ -8,7 +8,7 @@ author:
 - Vinh Luu -- vinhluu864@berkeley.edu
 - Josh Bredeweg
 - Steven J. Mack, PhD -- steven.mack@ucsf.edu
-date: "2024-05-29"
+date: "2024-06-04"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{HLAtools}
@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(HLAtools)
 ```
--   Package Version: 0.9.12.9000
+-   Package Version: 0.9.13.9000
 
 # Overview
 The *HLAtools* package contains a set of computable resources and a suite of tools intended to facilitate the effective application and analysis of the named genes in the HLA region.
@@ -518,7 +518,7 @@ hla#3.1.0#HLA-A*02:01~HLA-C*07:02~HLA-B*07:02~HLA-DRB1*15:01~HLA-DQB1*06:02~HLA-
 
 ### updateGL
 
-The *updateGL()* function translates the HLA allele names in a GL String Code across IPD-IMGT/HLA Database Release Versions. Allele names can be matched across release versions via the allele Accession ID, or via shared allele name fields across, as illustrated below.
+The *updateGL()* function translates the HLA allele names in a GL String Code across IPD-IMGT/HLA Database Release Versions, going back to version 1.05.0. Allele names can be matched across release versions via the allele Accession ID, or via shared allele name fields across, as illustrated below.
 
 **Parameters**
 
@@ -526,7 +526,7 @@ The *updateGL()* function translates the HLA allele names in a GL String Code ac
  - *Version* A string identifying of the desired IPD-IMGT/HLA Database release version to which the alleles should be updated.
  - *expand* A logical that indicates whether user would like to return all allele names that match the allele name in 'GLStringCode' (TRUE), or if only the direct HLA accession ID match should be returned (FALSE).
 
-In the examples below, a GLSC containing a single DPB1 allele name, as recorded in release verion 1.0.5, is translated to version 3.52.0. In the first example,  'expand = FALSE', and the HLA accession ID of the submitted allele is used to perform the translation to a single allele. In the second example, 'expand = TRUE' and all alleles that match the submitted allele in release 3.52.0 are returned. 
+In the examples below, a GLSC containing a single DPB1 allele name, as recorded in release version 1.05.0, is translated to version 3.52.0. In the first example,  'expand = FALSE', and the HLA accession ID of the submitted allele is used to perform the translation to a single allele. In the second example, 'expand = TRUE' and all alleles that match the submitted allele in release 3.52.0 are returned. 
 
 ```
 updateGL("hla#1.05.0#HLA-DPA1*0106", "3.52.0", expand = FALSE)
@@ -538,7 +538,7 @@ updateGL("hla#1.05.0#HLA-DPA1*0106", "3.52.0", expand = TRUE)
 
 ### multiUpdateGL
 
-The *multiUpdateGL()* function translates columns of GL String Code data across IPD-IMGT/HLA Database release versions in data frames. If a single column of a data frame is provided, it must contain GL string codes. If multiple columns are entered, the first column should contain identifiers, which will not be updated. 
+The *multiUpdateGL()* function translates columns of GL String Code data across IPD-IMGT/HLA Database release versions in data frames. If a single column of a data frame is provided, it must contain GL string codes. If multiple columns are entered, the first column should contain identifiers, which will not be updated. Translations can go back to IMGT/HLA Database version 1.05.0.
 
 **Parameters**
 
