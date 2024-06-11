@@ -165,6 +165,11 @@ buildAlignments<-function(loci, source, version = "Latest"){
       #determines positions of "cDNA" or "Prot" and the end of that reference block segment
       start[[loci[i]]] <-as.numeric(grep(type, alignment[[loci[i]]]))
       end[[loci[i]]] <- as.numeric(c(start[[loci[i]]][2:length(start[[loci[i]]])]-1,length(alignment[[loci[i]]])))
+      
+      if(version == "3480" && source[j] == "gDNA" && loci[i] == "DRB1"){ ## Fix for DRB1*15:200:01:01N and DRB1*15:200:01:02N in 3.48.0 gDNA alignment
+          alignment[[loci[i]]] <- gsub("DRB1*15:200:01:01N","DRB1*15:200:01:01N ",alignment[[loci[i]]], fixed=TRUE)
+          alignment[[loci[i]]] <- gsub("DRB1*15:200:01:02N","DRB1*15:200:01:02N ",alignment[[loci[i]]], fixed=TRUE)
+      }
 
       if(source[j]=="AA"){
         #extracts rows with "Prot" and reference sequence position information
