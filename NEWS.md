@@ -1,5 +1,9 @@
 ## HLAtools (development version)
 
+### Version 0.9.14.9000 June 10, 2024
+
+- Updated buildAlignments() to build DPA2 and DPB2 cDNA alignments in releases prior to 3.54.0.
+
 ### Version 0.9.13.9000 June 4, 2024
 
 - Clarified that the oldest available release for GL String Code updating is version 1.05.0.
