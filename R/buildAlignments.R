@@ -94,7 +94,7 @@ buildAlignments<-function(loci, source, version = "Latest"){
         #change delete lines to first and second lines if locus does not have protein sequence ## LT
         if(loci[[i]] %in% HLAgazeteer$nuc[!HLAgazeteer$nuc %in% HLAgazeteer$prot]){
           delete_lines<-c(1,2)
-                              #### DPA2 and DPB2 cDNA alignments included an 'AA codon' row in several releases, through they are both pseudogenes
+                              #### DPA2, DPB2 and HLA-N cDNA alignments included an 'AA codon' row in several releases, through they are both pseudogenes
                               if(loci[i] == "DPA2" && version %in% c("3530","3520","3510","3500","3490","3480","3470",
                                                  "3460","3450","3440","3430","3420","3410","3400",
                                                  "3390","3380","3370","3360","3350","3340","3330",
@@ -108,6 +108,9 @@ buildAlignments<-function(loci, source, version = "Latest"){
                                                  "3250","3240")) {
                                 delete_lines <- c(1,2,3)} # 3.53.0 - 3.24.0
           
+                              if(loci[i] == "N" && version %in% c("3350","3340","3330")) {
+                                delete_lines <- c(1,2,3)} # 3.35.0 - 3.33.0
+  
                         } else{
                   delete_lines <- c(1,2,3)}
         divide <- 3
@@ -139,7 +142,10 @@ buildAlignments<-function(loci, source, version = "Latest"){
         alignment[[loci[i]]] <- head(alignment[[loci[i]]],-3)
         alignment[[loci[i]]] <- tail(alignment[[loci[i]]],-7)
       }
-
+          ### Fix for extraneous block of allele name rows in HLA-B cDNA alignment in 3.44.0 and 3.43.0.
+      if(loci == "B" && version == "3440" && source == "cDNA"){ alignment[[loci[i]]] <- alignment[[loci[i]]][-c(127540:135510)] } # 3.44.0
+      if(loci == "B" && version == "3430" && source == "cDNA"){ alignment[[loci[i]]] <- alignment[[loci[i]]][-c(124129:131886)] } # 3.43.0
+      
       #if version is numeric and <= 3310, obtain version number from line 2, and
       #skip first 6 rows and last 2 rows
       if((is.numeric(version) & version <= 3310)){ ## this format is 'IPD-IMGT/HLA Release: 3.31.0'. I'd like it to be 'IPD-IMGT/HLA 3.31.0' to match the post 3.31.0 version structure ****
