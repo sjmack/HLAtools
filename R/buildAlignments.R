@@ -108,7 +108,7 @@ buildAlignments<-function(loci, source, version = "Latest"){
                                                  "3250","3240")) {
                                 delete_lines <- c(1,2,3)} # 3.53.0 - 3.24.0
           
-                              if(loci[i] == "N" && version %in% c("3350","3340","3330")) {
+                              if(loci[i] %in% c("N","S") && version %in% c("3350","3340","3330")) {
                                 delete_lines <- c(1,2,3)} # 3.35.0 - 3.33.0
   
                         } else{
