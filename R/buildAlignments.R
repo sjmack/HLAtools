@@ -116,7 +116,7 @@ buildAlignments<-function(loci, source, version = "Latest"){
                                                                  "3250","3240","3230","3220","3210","3200")) {
                                delete_lines <- c(1,2,3)} # 3.32.0 - 3.20.0
           
-                              if(loci[i] =="W" && version == "3270") {
+                              if(loci[i] %in% c("W","T") && version == "3270") {
                                 delete_lines <- c(1,2,3)} # 3.35.0 - 3.33.0
   
                         } else{
