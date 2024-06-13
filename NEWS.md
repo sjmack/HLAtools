@@ -6,8 +6,8 @@
 - Updated buildAlignments() to build DRB1 gDNA alignments in release 3.48.0.
 - Updated buildAlignments() to build HLA-B cDNA alignments in releases 3.44.0 and 3.43.0.
 - Updated buildAlignments() to build HLA-N, -S, -U and -Y cDNA alignments in releases prior to 3.36.0.
-- Updated buildAlignments() to build HLA-W and -T alignments in release 3.27.0.
-- Updated buildAlignments() to build HFE alignments in releases prior to 3.28.0.
+- Updated buildAlignments() to build HLA-W and -T cDNA alignments in release 3.27.0.
+- Updated buildAlignments() to build HFE cDNA alignments in releases prior to 3.28.0.
 
 ### Version 0.9.13.9000 June 4, 2024
 
