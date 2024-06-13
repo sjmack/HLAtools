@@ -154,6 +154,17 @@ buildAlignments<-function(loci, source, version = "Latest"){
       if(loci == "B" && version == "3440" && source == "cDNA"){ alignment[[loci[i]]] <- alignment[[loci[i]]][-c(127540:135510)] } # 3.44.0
       if(loci == "B" && version == "3430" && source == "cDNA"){ alignment[[loci[i]]] <- alignment[[loci[i]]][-c(124129:131886)] } # 3.43.0
       
+         ### Fix for missing "AA codon" lines in HFE versions 3.27.0 to 3.22.0.
+      if(loci == "HFE" && version %in% c("3270","3260","3250","3240","3230","3220") && source == "cDNA") {
+        
+              startPos <- c("301","276","251","226","201","176","151","126","101","76","51","26","1","-25")
+              afterRow <- c(124,115,106,97,88,79,70,61,52,43,34,25,16,7)
+        
+                for(f in 1:length(startPos)) {
+                  alignment[[loci[i]]] <- append(alignment[[loci[i]]],paste(" AA codon          ",startPos[f],sep=""),after=afterRow[f])
+                }
+            }
+      
       #if version is numeric and <= 3310, obtain version number from line 2, and
       #skip first 6 rows and last 2 rows
       if((is.numeric(version) & version <= 3310)){ ## this format is 'IPD-IMGT/HLA Release: 3.31.0'. I'd like it to be 'IPD-IMGT/HLA 3.31.0' to match the post 3.31.0 version structure ****
