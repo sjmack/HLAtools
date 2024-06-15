@@ -1,6 +1,6 @@
 ## HLAtools (development version)
 
-### Version 0.9.14.9000 June 10 to June 12, 2024
+### Version 0.9.14.9000 June 10 to June 14, 2024
 
 - Updated buildAlignments() to build DPA2 and DPB2 cDNA alignments in releases prior to 3.54.0.
 - Updated buildAlignments() to build DRB1 gDNA alignments in release 3.48.0.
@@ -8,7 +8,7 @@
 - Updated buildAlignments() to build HLA-N, -S, -U and -Y cDNA alignments in releases prior to 3.36.0.
 - Updated buildAlignments() to build HLA-W and -T cDNA alignments in release 3.27.0.
 - Updated buildAlignments() to build HFE cDNA alignments in releases prior to 3.28.0.
-- Updated buildAlignments() to build DPA AA alignments in release 3.23.0. While the returned object is called "$DPA", the locus in this object is "DPA1".
+- Updated buildAlignments() to build DPA, DPB, DQA and DQB AA alignments in releases prior to 3.24.0. The returned objects are "$DPA", "$DPB", "$DQA" and "$DQB", the loci in these objects are "DPA1", "DPB1", "DQA1" and "DQB1".
 
 ### Version 0.9.13.9000 June 4, 2024
 

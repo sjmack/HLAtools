@@ -357,9 +357,17 @@ buildAlignments<-function(loci, source, version = "Latest"){
           #sets refexon to a reference peptide for each HLA locus based on the reference sequences in HLAalignments
           refexon[[loci[i]]] <- rbind(HLAalignments[[loci[i]]][1,])[which(rbind(HLAalignments[[loci[i]]][1,])[,"locus"]=="DRB1"),sequence_name]
         } else{       
-                ## Fix error with DPA1 cDNA alignments in version 3.23.0, where the filename is "DPA_nuc.txt"
-                if(loci[i] == "DPA" && source == "AA" && version == "3230") {
-                  refexon[[loci[i]]] <- rbind(HLAalignments[[loci[i]]][1,])[which(rbind(HLAalignments[[loci[i]]][1,])[,"locus"]=="DPA1"),sequence_name]
+                ## Fix error in version 3.23.0 with DPA1 cDNA alignments, where the filename is "DPA_prot.txt, and DPB1 with filenane "DPB_prot.txt".
+                if(loci[i] %in% c("DPA","DPB","DQA","DQB") && source == "AA" && version %in% c("3230","3220","3210","3200","3190","3180",
+                                                                                               "3170","3160","3150","3140","3130","3120",
+                                                                                               "3110","3100","390","380","370","360",
+                                                                                               "350","340","330","320","310","300")) {
+                  
+                 if(loci[i] == "DPA") {refexon[[loci[i]]] <- rbind(HLAalignments[[loci[i]]][1,])[which(rbind(HLAalignments[[loci[i]]][1,])[,"locus"]=="DPA1"),sequence_name]}
+                 if(loci[i] == "DPB") {refexon[[loci[i]]] <- rbind(HLAalignments[[loci[i]]][1,])[which(rbind(HLAalignments[[loci[i]]][1,])[,"locus"]=="DPB1"),sequence_name]}
+                 if(loci[i] == "DQA") {refexon[[loci[i]]] <- rbind(HLAalignments[[loci[i]]][1,])[which(rbind(HLAalignments[[loci[i]]][1,])[,"locus"]=="DQA1"),sequence_name]}
+                 if(loci[i] == "DQB") {refexon[[loci[i]]] <- rbind(HLAalignments[[loci[i]]][1,])[which(rbind(HLAalignments[[loci[i]]][1,])[,"locus"]=="DQB1"),sequence_name]}
+                  
                   } else {
                       refexon[[loci[i]]] <- rbind(HLAalignments[[loci[i]]][1,])[which(rbind(HLAalignments[[loci[i]]][1,])[,"locus"]==loci[i]),sequence_name]
                           }
