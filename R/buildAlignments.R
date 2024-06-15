@@ -92,7 +92,7 @@ buildAlignments<-function(loci, source, version = "Latest"){
         type <- "cDNA"
 
         #change delete lines to first and second lines if locus does not have protein sequence ## LT
-        if(loci[[i]] %in% HLAgazeteer$nuc[!HLAgazeteer$nuc %in% HLAgazeteer$prot]){
+        if(loci[i] %in% HLAgazeteer$nuc[!HLAgazeteer$nuc %in% HLAgazeteer$prot]){
           delete_lines<-c(1,2)
                               #### DPA2, DPB2 and HLA-N cDNA alignments included an 'AA codon' row in several releases, through they are both pseudogenes
                               if(loci[i] == "DPA2" && version %in% c("3530","3520","3510","3500","3490","3480","3470",
@@ -130,13 +130,13 @@ buildAlignments<-function(loci, source, version = "Latest"){
         divide <- 1
         sequence_name <- "gDNAsequence"
       }
-
+      
       #downloads relevant locus alignment file -- readLines allows for space preservation, which is important in
       #finding where the alignment sequence starts
       if(source[j] == "AA"|source[j] == "cDNA"){
-        alignment[[loci[i]]] <- readLines(paste("https://raw.githubusercontent.com/ANHIG/IMGTHLA/", repoVersion(version), "/alignments/",paste(ifelse(loci[[i]]=="DRB1"|loci[[i]]=="DRB3"|loci[[i]]=="DRB4"|loci[[i]]=="DRB5","DRB",loci[[i]]),suffix,sep=""),sep=""),-1,ok=TRUE,skipNul = FALSE)
+        alignment[[loci[i]]] <- readLines(paste("https://raw.githubusercontent.com/ANHIG/IMGTHLA/", repoVersion(version), "/alignments/",paste(ifelse(loci[i]=="DRB1"|loci[i]=="DRB3"|loci[i]=="DRB4"|loci[i]=="DRB5","DRB",loci[i]),suffix,sep=""),sep=""),-1,ok=TRUE,skipNul = FALSE)
       }  else if(source[j] == "gDNA"){
-        alignment[[loci[i]]] <- readLines(paste("https://raw.githubusercontent.com/ANHIG/IMGTHLA/", repoVersion(version), "/alignments/",paste(loci[[i]],suffix,sep=""),sep=""),-1,ok=TRUE,skipNul = FALSE)
+        alignment[[loci[i]]] <- readLines(paste("https://raw.githubusercontent.com/ANHIG/IMGTHLA/", repoVersion(version), "/alignments/",paste(loci[i],suffix,sep=""),sep=""),-1,ok=TRUE,skipNul = FALSE)
       }
 
       #if version is equal to latest, or if version is numeric and > 3310, obtain
@@ -213,7 +213,7 @@ buildAlignments<-function(loci, source, version = "Latest"){
         }
       }  else if(source[j]=="cDNA"){
         #these loci do not have protein sequences; set alignment start to 1
-        if(loci[[i]] %in% HLAgazeteer$nuc[!HLAgazeteer$nuc %in% HLAgazeteer$prot]){
+        if(loci[i] %in% HLAgazeteer$nuc[!HLAgazeteer$nuc %in% HLAgazeteer$prot]){
           alignment_start[[loci[i]]] <- 1
         } else{
         #determines the alignment start by finding the second vector in second list and removing "codon"
@@ -240,7 +240,7 @@ buildAlignments<-function(loci, source, version = "Latest"){
       if(source[j]=="AA"){alignment[[loci[i]]][which(alignment[[loci[i]]][,1]==alignment[[loci[i]]][,2]),2] <- ""}
 
       #renames columns to "alleles" and "seq"
-      colnames(alignment[[loci[i]]])<-c(paste(loci[[i]], "alleles", sep="_"), "seq")
+      colnames(alignment[[loci[i]]])<-c(paste(loci[i], "alleles", sep="_"), "seq")
 
       #due to ANHIG formatting, cases where an allele contains newly reference peptide sequences will not
       #contain the same number of rows as previous reference peptide blocks
@@ -252,7 +252,7 @@ buildAlignments<-function(loci, source, version = "Latest"){
         for(l in 1:length(start[[loci[i]]])){
           if(nrow(alignment[[loci[i]]][start[[loci[i]]][l]:end[[loci[i]]][l],])!=nrow(alignment[[loci[i]]][start[[loci[i]]][1]:end[[loci[i]]][1],])){
             x<-as.data.frame(alignment[[loci[i]]][,1][start[[loci[i]]][1]:end[[loci[i]]][1]][-c(1,2)], stringsAsFactors = F)
-            colnames(x)<-paste(loci[[i]], "alleles", sep="_")
+            colnames(x)<-paste(loci[i], "alleles", sep="_")
             x<-cbind.data.frame(x, seq=as.character(paste(rep(".", nchar(tail(alignment[[loci[i]]][,2], 1))), collapse = "")), stringsAsFactors=FALSE)
             y<-data.frame(tail(alignment[[loci[i]]], (nrow(alignment[[loci[i]]][start[[loci[i]]][l]:end[[loci[i]]][l],][nrow(alignment[[loci[i]]][start[[loci[i]]][l]:end[[loci[i]]][l],])!=nrow(alignment[[loci[i]]][start[[loci[i]]][1]:end[[loci[i]]][1],]),])-2)), stringsAsFactors = F)
             x$seq[match(y[,1], x[,1])]<-y$seq
@@ -266,7 +266,7 @@ buildAlignments<-function(loci, source, version = "Latest"){
         for(l in 1:length(start[[loci[i]]])){
           if(nrow(alignment[[loci[i]]][start[[loci[i]]][l]:end[[loci[i]]][l],])!=nrow(alignment[[loci[i]]][start[[loci[i]]][1]:end[[loci[i]]][1],])){
             x<-as.data.frame(alignment[[loci[i]]][,1][start[[loci[i]]][1]:end[[loci[i]]][1]][-c(1,2)], stringsAsFactors = F)
-            colnames(x)<-paste(loci[[i]], "alleles", sep="_")
+            colnames(x)<-paste(loci[i], "alleles", sep="_")
             temp_vec<-alignment[[loci[i]]][start[[loci[i]]][l]:end[[loci[i]]][l],][-c(1,2),]
 
             #if there is only one allele with an extended amino acid sequence, the conversion from a named
@@ -313,7 +313,7 @@ buildAlignments<-function(loci, source, version = "Latest"){
       if(source[j]=="AA"|source[j]=="cDNA"){
         #if the first position enumeration is negative (i.e. has a leader peptide sequence), determines alignment length based on the total number of characters plus the alignment start (which is negative)
         if(grepl("-", alignment_start[[loci[i]]][[1]])==TRUE){
-          alignment_length[[loci[i]]]<-(as.numeric(nchar(HLAalignments[[loci[i]]][,2][1]))/divide)+(alignment_start[[loci[[i]]]])
+          alignment_length[[loci[i]]]<-(as.numeric(nchar(HLAalignments[[loci[i]]][,2][1]))/divide)+(alignment_start[[loci[i]]])
         } else{ #if there is no leader peptide (i.e sequence starts at 1), determines alignment length based on total number of characters
           alignment_length[[loci[i]]]<-as.numeric(nchar(HLAalignments[[loci[i]]][,2][1]))
         }
@@ -353,17 +353,21 @@ buildAlignments<-function(loci, source, version = "Latest"){
 
       if(source[j]=="AA"){
         #if locus is DRB3/4/5, use DRB line 1 as reference sequence
-        if(loci[[i]]=="DRB3"|loci[[i]]=="DRB4"|loci[[i]]=="DRB5"){
+        if(loci[i]=="DRB3"|loci[i]=="DRB4"|loci[i]=="DRB5"){
           #sets refexon to a reference peptide for each HLA locus based on the reference sequences in HLAalignments
           refexon[[loci[i]]] <- rbind(HLAalignments[[loci[i]]][1,])[which(rbind(HLAalignments[[loci[i]]][1,])[,"locus"]=="DRB1"),sequence_name]
-        } else{
-          refexon[[loci[i]]] <- rbind(HLAalignments[[loci[i]]][1,])[which(rbind(HLAalignments[[loci[i]]][1,])[,"locus"]==loci[[i]]),sequence_name]
-        }
-
+        } else{       
+                ## Fix error with DPA1 cDNA alignments in version 3.23.0, where the filename is "DPA_nuc.txt"
+                if(loci[i] == "DPA" && source == "AA" && version == "3230") {
+                  refexon[[loci[i]]] <- rbind(HLAalignments[[loci[i]]][1,])[which(rbind(HLAalignments[[loci[i]]][1,])[,"locus"]=="DPA1"),sequence_name]
+                  } else {
+                      refexon[[loci[i]]] <- rbind(HLAalignments[[loci[i]]][1,])[which(rbind(HLAalignments[[loci[i]]][1,])[,"locus"]==loci[i]),sequence_name]
+                          }
+                      }
         #if input loci is DRB, use grep statement to match input loci to loci in HLAalignments
-        if(loci[[i]]=="DRB"){
-          refexon[[loci[i]]]<-rbind(HLAalignments[[loci[i]]][1,])[grepl(loci[[i]], rbind(HLAalignments[[loci[i]]][1,])[,"locus"]), sequence_name]}
-      }
+        if(loci[i]=="DRB"){
+          refexon[[loci[i]]]<-rbind(HLAalignments[[loci[i]]][1,])[grepl(loci[i], rbind(HLAalignments[[loci[i]]][1,])[,"locus"]), sequence_name]}
+          }
 
       #splits sequence column at every amino acid or nucleotide, resulting in a split list of each for each row
       pepsplit[[loci[i]]] <- sapply(HLAalignments[[loci[i]]][,sequence_name],strsplit,split="*")
@@ -383,59 +387,59 @@ buildAlignments<-function(loci, source, version = "Latest"){
 
       if(source[j]=="AA"|source[j]=="cDNA"){
         #get reference sequence from DRB alignment
-        if(loci[[i]]=="DRB3"|loci[[i]]=="DRB4"|loci[[i]]=="DRB5"){
-          DRBref<-HLAalignments[[loci[[i]]]][1,]}
+        if(loci[i]=="DRB3"|loci[i]=="DRB4"|loci[i]=="DRB5"){
+          DRBref<-HLAalignments[[loci[i]]][1,]}
 
         #if the locus is DRB1/3/4/5, subset the specific locus from DRB alignment
-        if(loci[[i]]=="DRB1"|loci[[i]]=="DRB3"|loci[[i]]=="DRB4"|loci[[i]]=="DRB5"){
-          HLAalignments[[loci[i]]]<-HLAalignments[[loci[i]]][HLAalignments[[loci[[i]]]]$locus==loci[[i]],]}
+        if(loci[i]=="DRB1"|loci[i]=="DRB3"|loci[i]=="DRB4"|loci[i]=="DRB5"){
+          HLAalignments[[loci[i]]]<-HLAalignments[[loci[i]]][HLAalignments[[loci[i]]]$locus==loci[i],]}
 
         #add reference sequence to DRB3/4/5, reset row names to numerical order
-        if(loci[[i]]=="DRB3"|loci[[i]]=="DRB4"|loci[[i]]=="DRB5"){
-          HLAalignments[[loci[[i]]]]<- rbind(DRBref, HLAalignments[[loci[[i]]]])
-          rownames(HLAalignments[[loci[[i]]]])<-NULL}
+        if(loci[i]=="DRB3"|loci[i]=="DRB4"|loci[i]=="DRB5"){
+          HLAalignments[[loci[i]]]<- rbind(DRBref, HLAalignments[[loci[i]]])
+          rownames(HLAalignments[[loci[i]]])<-NULL}
       }
 
       #inputs HLAalignments alignment sequence into the corr_table with "InDel" still present
-      corr_table[[loci[i]]][1,]<-names(HLAalignments[[loci[[i]]]][5:ncol(HLAalignments[[loci[[i]]]])])
+      corr_table[[loci[i]]][1,]<-names(HLAalignments[[loci[i]]][5:ncol(HLAalignments[[loci[i]]])])
 
       #finds positions in HLAalignments that have ".", indicating an inDel
-      inDels[[loci[[i]]]]<-colnames(HLAalignments[[loci[[i]]]][1, 5:ncol(HLAalignments[[loci[[i]]]])][HLAalignments[[loci[[i]]]][1, 5:ncol(HLAalignments[[loci[[i]]]])] %in% "."])
+      inDels[[loci[i]]]<-colnames(HLAalignments[[loci[i]]][1, 5:ncol(HLAalignments[[loci[i]]])][HLAalignments[[loci[i]]][1, 5:ncol(HLAalignments[[loci[i]]])] %in% "."])
 
       #finds positions in HLAalignments that have "|", indicating a exon boundary
-      exonB[[loci[[i]]]]<-colnames(HLAalignments[[loci[[i]]]][1, 5:ncol(HLAalignments[[loci[[i]]]])][HLAalignments[[loci[[i]]]][1, 5:ncol(HLAalignments[[loci[[i]]]])] %in% "|"])
+      exonB[[loci[i]]]<-colnames(HLAalignments[[loci[i]]][1, 5:ncol(HLAalignments[[loci[i]]])][HLAalignments[[loci[i]]][1, 5:ncol(HLAalignments[[loci[i]]])] %in% "|"])
 
       #inDel inclusion if there are inDels present
-      if(length(inDels[[loci[[i]]]])!=0){
-        for(o in 1:length(inDels[[loci[[i]]]])){
-          corr_table[[loci[[i]]]][2,][inDels[[loci[[i]]]][[o]]==corr_table[[loci[[i]]]][1,]]<-paste("INDEL", o, sep="-")
-          corr_table[[loci[[i]]]][3,][inDels[[loci[[i]]]][[o]]==corr_table[[loci[[i]]]][1,]]<-paste("INDEL", o, sep="-")
+      if(length(inDels[[loci[i]]])!=0){
+        for(o in 1:length(inDels[[loci[i]]])){
+          corr_table[[loci[i]]][2,][inDels[[loci[i]]][[o]]==corr_table[[loci[i]]][1,]]<-paste("INDEL", o, sep="-")
+          corr_table[[loci[i]]][3,][inDels[[loci[i]]][[o]]==corr_table[[loci[i]]][1,]]<-paste("INDEL", o, sep="-")
         }
       }
 
       #exonB inclusion if there are exon boundaries present
-      if(length(exonB[[loci[[i]]]])!=0){
-        for(p in 1:length(exonB[[loci[[i]]]])){
-          corr_table[[loci[[i]]]][2,][exonB[[loci[[i]]]][[p]]==corr_table[[loci[[i]]]][1,]]<-paste("EXONB", p, sep="-")
-          corr_table[[loci[[i]]]][3,][exonB[[loci[[i]]]][[p]]==corr_table[[loci[[i]]]][1,]]<-paste("EXONB", p, sep="-")
+      if(length(exonB[[loci[i]]])!=0){
+        for(p in 1:length(exonB[[loci[i]]])){
+          corr_table[[loci[i]]][2,][exonB[[loci[i]]][[p]]==corr_table[[loci[i]]][1,]]<-paste("EXONB", p, sep="-")
+          corr_table[[loci[i]]][3,][exonB[[loci[i]]][[p]]==corr_table[[loci[i]]][1,]]<-paste("EXONB", p, sep="-")
         }
       }
 
       if(source[j]=="AA"|source[j]=="cDNA"){
         #pastes alignment_positions into corr_table accounting for InDels and exon boundaries
         codon_count<-as.vector(1)
-        for(q in 1:length(corr_table[[loci[[i]]]][2,])){
-          if(is.na(corr_table[[loci[[i]]]][2,q])){
-            corr_table[[loci[[i]]]][2,q]<-alignment_positions[[loci[i]]][codon_count]
+        for(q in 1:length(corr_table[[loci[i]]][2,])){
+          if(is.na(corr_table[[loci[i]]][2,q])){
+            corr_table[[loci[i]]][2,q]<-alignment_positions[[loci[i]]][codon_count]
             codon_count<-codon_count+1
           }
         }
       }
 
       # create number sequence for alignment (cDNA and gDNA tables only)
-      if(source[j]=="cDNA"){ alignment_positions[[loci[i]]]<-as.character(unlist(strsplit(capture.output(cat(DNA_start[[loci[i]]]:length(corr_table[[loci[[i]]]][3,]))), " ")))
-      } else if(source[j]=="gDNA"){ if(DNA_start[[loci[i]]] < 0) {alignment_positions[[loci[i]]]<-as.character(unlist(strsplit(capture.output(cat(c(DNA_start[[loci[i]]]:-1,1:length(corr_table[[loci[[i]]]][3,])))), " "))) ## most loci have negative start positions
-      } else {alignment_positions[[loci[i]]]<-as.character(unlist(strsplit(capture.output(cat(c(DNA_start[[loci[i]]]:length(corr_table[[loci[[i]]]][3,])))), " ")))  #### HLA-P starts at position 1, but in theory some other locus could start at a different positive position
+      if(source[j]=="cDNA"){ alignment_positions[[loci[i]]]<-as.character(unlist(strsplit(capture.output(cat(DNA_start[[loci[i]]]:length(corr_table[[loci[i]]][3,]))), " ")))
+      } else if(source[j]=="gDNA"){ if(DNA_start[[loci[i]]] < 0) {alignment_positions[[loci[i]]]<-as.character(unlist(strsplit(capture.output(cat(c(DNA_start[[loci[i]]]:-1,1:length(corr_table[[loci[i]]][3,])))), " "))) ## most loci have negative start positions
+      } else {alignment_positions[[loci[i]]]<-as.character(unlist(strsplit(capture.output(cat(c(DNA_start[[loci[i]]]:length(corr_table[[loci[i]]][3,])))), " ")))  #### HLA-P starts at position 1, but in theory some other locus could start at a different positive position
       }
       } # In 3.53.0, only the HLA-P alignment started with 1, so, using the original version above, the first four alignment_positions values are "1"   "0"   "-1"  "1"
       # pastes number sequence into corr_table accounting for InDels and exon boundaries (cDNA and gDNA tables only)
@@ -443,34 +447,34 @@ buildAlignments<-function(loci, source, version = "Latest"){
       #pastes number sequence into corr_table accounting for InDels and exon boundaries (cDNA and gDNA tables only)
       if(source[j]=="cDNA"|source[j]=="gDNA"){
         cDNAcount<-as.vector(1)
-        for(r in 1:length(corr_table[[loci[[i]]]][3,])){
-          if(is.na(corr_table[[loci[[i]]]][3,r])){
-            corr_table[[loci[[i]]]][3,r]<-alignment_positions[[loci[i]]][cDNAcount]
+        for(r in 1:length(corr_table[[loci[i]]][3,])){
+          if(is.na(corr_table[[loci[i]]][3,r])){
+            corr_table[[loci[i]]][3,r]<-alignment_positions[[loci[i]]][cDNAcount]
             cDNAcount<-cDNAcount+1
           }
         }
       }
 
       #run if InDels or exon boundaries are present in alignment
-      if(any(grepl("INDEL|EXONB", corr_table[[loci[[i]]]][2,]))){
+      if(any(grepl("INDEL|EXONB", corr_table[[loci[i]]][2,]))){
         #finds which positions have InDels or exon boundaries
-        v<-as.numeric(corr_table[[loci[[i]]]][1,][which(grepl("INDEL", corr_table[[loci[[i]]]][2,]))])
-        w<-as.numeric(corr_table[[loci[[i]]]][1,][which(grepl("EXONB", corr_table[[loci[[i]]]][2,]))])
+        v<-as.numeric(corr_table[[loci[i]]][1,][which(grepl("INDEL", corr_table[[loci[i]]][2,]))])
+        w<-as.numeric(corr_table[[loci[i]]][1,][which(grepl("EXONB", corr_table[[loci[i]]][2,]))])
 
         #splits cumulative sequences
         vsplit<-split(v, cumsum(c(TRUE, diff(v) != 1L)))
         wsplit<-split(w, cumsum(c(TRUE, diff(w) != 1L)))
 
 
-        if(any(grepl("INDEL", corr_table[[loci[[i]]]][2,]))){
+        if(any(grepl("INDEL", corr_table[[loci[i]]][2,]))){
           #adds increments of .1 to any InDels in row 2
           if(source[j]=="AA"|source[j]=="cDNA"){
             for(s in 1:length(vsplit)){
-              if(grepl("-", corr_table[[loci[[i]]]][2,][vsplit[[s]][[1]]-1])){
-                corr_table[[loci[[i]]]][2,][vsplit[[s]]]<-paste(corr_table[[loci[[i]]]][2,][vsplit[[s]][[1]]-1], gsub(0, "", seq(1, length(vsplit[[s]]))/10), sep="")
+              if(grepl("-", corr_table[[loci[i]]][2,][vsplit[[s]][[1]]-1])){
+                corr_table[[loci[i]]][2,][vsplit[[s]]]<-paste(corr_table[[loci[i]]][2,][vsplit[[s]][[1]]-1], gsub(0, "", seq(1, length(vsplit[[s]]))/10), sep="")
              # }
-     #         else{corr_table[[loci[[i]]]][2,][vsplit[[s]]]<-as.numeric(corr_table[[loci[[i]]]][2,][vsplit[[s]][[1]]-1])+as.numeric(paste(0,".",seq(1, length(vsplit[[s]])),sep = ""))}
-             }  else{corr_table[[loci[[i]]]][2,][vsplit[[s]]]<-paste(corr_table[[loci[[i]]]][2,][vsplit[[s]][[1]]-1], paste(".",seq(1,length(vsplit[[s]])),sep=""),sep="")}
+     #         else{corr_table[[loci[i]]][2,][vsplit[[s]]]<-as.numeric(corr_table[[loci[i]]][2,][vsplit[[s]][[1]]-1])+as.numeric(paste(0,".",seq(1, length(vsplit[[s]])),sep = ""))}
+             }  else{corr_table[[loci[i]]][2,][vsplit[[s]]]<-paste(corr_table[[loci[i]]][2,][vsplit[[s]][[1]]-1], paste(".",seq(1,length(vsplit[[s]])),sep=""),sep="")}
             }
           }
 
@@ -478,36 +482,36 @@ buildAlignments<-function(loci, source, version = "Latest"){
           #adds increments of .1 to any InDels in row 3
           if(source[j]=="cDNA"|source[j]=="gDNA"){
             for(t in 1:length(vsplit)){
-              corr_table[[loci[[i]]]][3,][vsplit[[t]]]<-paste(corr_table[[loci[[i]]]][3,][vsplit[[t]][[1]]-1],".",seq(1, length(vsplit[[t]])),sep = "")
+              corr_table[[loci[i]]][3,][vsplit[[t]]]<-paste(corr_table[[loci[i]]][3,][vsplit[[t]][[1]]-1],".",seq(1, length(vsplit[[t]])),sep = "")
             }
           }
         }
 
 
-        if(any(grepl("EXONB", corr_table[[loci[[i]]]][2,]))){
+        if(any(grepl("EXONB", corr_table[[loci[i]]][2,]))){
 
           #changes EXONB to E.(# of last exon)-(# of next exon)
           if(source[j]=="cDNA"){
             for(u in 1:length(wsplit)){
-              corr_table[[loci[[i]]]][2,][wsplit[[u]]]<-paste("E.",u,"-",u+1, sep = "")
-              corr_table[[loci[[i]]]][3,][wsplit[[u]]]<-paste("E.",u,"-",u+1, sep = "")
+              corr_table[[loci[i]]][2,][wsplit[[u]]]<-paste("E.",u,"-",u+1, sep = "")
+              corr_table[[loci[i]]][3,][wsplit[[u]]]<-paste("E.",u,"-",u+1, sep = "")
             }
           }
 
           #changes EXONB to corresponding boundary e.g. UTR-E.1
           #also creates table (atlas) of gDNA boundaries and their locus
           if(source[j]=="gDNA"){
-            if(loci[[i]] %in% names(fragmentFeatureNames)) { # simplified gDNA atlas builder for genes in the fragemtnFeatureNames object
+            if(loci[i] %in% names(fragmentFeatureNames)) { # simplified gDNA atlas builder for genes in the fragemtnFeatureNames object
 
-              gDNA_atlas[[loci[[i]]]]<-matrix(, nrow = 1, ncol = length(wsplit))
-              gDNA_atlas[[loci[[i]]]]<- as.numeric(corr_table[[i]][3,w+1])
-              newNames <- rep(NA,length(fragmentFeatureNames[names(fragmentFeatureNames) %in% loci[[i]] == TRUE][[1]][[1]])-1)
+              gDNA_atlas[[loci[i]]]<-matrix(, nrow = 1, ncol = length(wsplit))
+              gDNA_atlas[[loci[i]]]<- as.numeric(corr_table[[i]][3,w+1])
+              newNames <- rep(NA,length(fragmentFeatureNames[names(fragmentFeatureNames) %in% loci[i] == TRUE][[1]][[1]])-1)
               for(f in 1:(length(newNames))) {
-                newNames[f] <- paste(fragmentFeatureNames[names(fragmentFeatureNames) %in% loci[[i]] == TRUE][[1]][[1]][f],"-",fragmentFeatureNames[names(fragmentFeatureNames) %in% loci[[i]] == TRUE][[1]][[1]][f+1], sep="")
+                newNames[f] <- paste(fragmentFeatureNames[names(fragmentFeatureNames) %in% loci[i] == TRUE][[1]][[1]][f],"-",fragmentFeatureNames[names(fragmentFeatureNames) %in% loci[i] == TRUE][[1]][[1]][f+1], sep="")
               }
-              gDNA_atlas[[loci[[i]]]] <- as.data.frame(t(gDNA_atlas[[loci[[i]]]]))
-              colnames(gDNA_atlas[[loci[[i]]]]) <- newNames
-              rownames(gDNA_atlas[[loci[[i]]]]) <- "gDNA"
+              gDNA_atlas[[loci[i]]] <- as.data.frame(t(gDNA_atlas[[loci[i]]]))
+              colnames(gDNA_atlas[[loci[i]]]) <- newNames
+              rownames(gDNA_atlas[[loci[i]]]) <- "gDNA"
 
             } else{
               intron<-as.vector(paste("I.",seq(1,((length(wsplit)-1)/2)-0.5),sep = ""))
@@ -517,38 +521,38 @@ buildAlignments<-function(loci, source, version = "Latest"){
               b<-vector()
               for(y in 1:(length(a)-1)){
                 b<-c(b,paste(a[[y]],"-",a[[y+1]],sep = ""))}
-              gDNA_atlas[[loci[[i]]]]<-matrix(, nrow = 1, ncol = length(wsplit))
+              gDNA_atlas[[loci[i]]]<-matrix(, nrow = 1, ncol = length(wsplit))
               #covers 3 loci
-              if(length(b) != length(gDNA_atlas[[loci[[i]]]])) {
-                gDNA_atlas[[loci[[i]]]]<-matrix(, nrow = 1, ncol = length(b))
+              if(length(b) != length(gDNA_atlas[[loci[i]]])) {
+                gDNA_atlas[[loci[i]]]<-matrix(, nrow = 1, ncol = length(b))
               }
-              colnames(gDNA_atlas[[loci[[i]]]])<-b
-              rownames(gDNA_atlas[[loci[[i]]]])<-"gDNA"
+              colnames(gDNA_atlas[[loci[i]]])<-b
+              rownames(gDNA_atlas[[loci[i]]])<-"gDNA"
               for(z in 1:length(wsplit)){
-                gDNA_atlas[[loci[[i]]]][1,z]<-corr_table[[loci[[i]]]][3,][wsplit[[z]]+1]
-                corr_table[[loci[[i]]]][3,][wsplit[[z]]]<-b[[z]]
+                gDNA_atlas[[loci[i]]][1,z]<-corr_table[[loci[i]]][3,][wsplit[[z]]+1]
+                corr_table[[loci[i]]][3,][wsplit[[z]]]<-b[[z]]
               }
             }
           }
           #creates table (atlas) of cDNA boundaries and their locus
           if(source[j]=="cDNA"){
-            cDNA_atlas[[loci[[i]]]]<-matrix(, nrow = 2, ncol = length(wsplit))
-            colnames(cDNA_atlas[[loci[[i]]]])<-corr_table[[loci[[i]]]][2,][unlist(wsplit)]
-            rownames(cDNA_atlas[[loci[[i]]]])<-c("cDNA","AA")
+            cDNA_atlas[[loci[i]]]<-matrix(, nrow = 2, ncol = length(wsplit))
+            colnames(cDNA_atlas[[loci[i]]])<-corr_table[[loci[i]]][2,][unlist(wsplit)]
+            rownames(cDNA_atlas[[loci[i]]])<-c("cDNA","AA")
             for(z in 1:length(wsplit)){
-              cDNA_atlas[[loci[[i]]]][1,z]<-corr_table[[loci[[i]]]][3,][wsplit[[z]]+1]
-              cDNA_atlas[[loci[[i]]]][2,z]<-corr_table[[loci[[i]]]][2,][wsplit[[z]]+1]
+              cDNA_atlas[[loci[i]]][1,z]<-corr_table[[loci[i]]][3,][wsplit[[z]]+1]
+              cDNA_atlas[[loci[i]]][2,z]<-corr_table[[loci[i]]][2,][wsplit[[z]]+1]
             }
           }
 
           #creates table (atlas) of exon boundaries and their locus -- PROVISIONAL SJM
           if(source[j]=="AA"){
-            AA_atlas[[loci[[i]]]]<-matrix(, nrow = 2, ncol = length(wsplit))
-            colnames(AA_atlas[[loci[[i]]]])<-corr_table[[loci[[i]]]][2,][unlist(wsplit)]
-            rownames(AA_atlas[[loci[[i]]]])<-c("cDNA","AA")
+            AA_atlas[[loci[i]]]<-matrix(, nrow = 2, ncol = length(wsplit))
+            colnames(AA_atlas[[loci[i]]])<-corr_table[[loci[i]]][2,][unlist(wsplit)]
+            rownames(AA_atlas[[loci[i]]])<-c("cDNA","AA")
             for(z in 1:length(wsplit)){
-              AA_atlas[[loci[[i]]]][1,z]<-corr_table[[loci[[i]]]][3,][wsplit[[z]]+1]
-              AA_atlas[[loci[[i]]]][2,z]<-corr_table[[loci[[i]]]][2,][wsplit[[z]]+1]
+              AA_atlas[[loci[i]]][1,z]<-corr_table[[loci[i]]][3,][wsplit[[z]]+1]
+              AA_atlas[[loci[i]]][2,z]<-corr_table[[loci[i]]][2,][wsplit[[z]]+1]
             }
           }   ## End PROVISIONAL
 
@@ -562,7 +566,7 @@ buildAlignments<-function(loci, source, version = "Latest"){
 
       if(source[j]=="cDNA"|source[j]=="AA"){
         #renames columns in AA_codon_alignments to codon names
-        colnames(AA_codon_alignments[[loci[i]]]) <- c("locus","allele","trimmed_allele","allele_name", corr_table[[loci[[i]]]][2,])
+        colnames(AA_codon_alignments[[loci[i]]]) <- c("locus","allele","trimmed_allele","allele_name", corr_table[[loci[i]]][2,])
         #distributes  reference sequence from row 1
         #into all other rows, if they contain a "-"
         #amino acids with changes will not be impacted
@@ -572,7 +576,7 @@ buildAlignments<-function(loci, source, version = "Latest"){
 
       if(source[j]=="cDNA"|source[j]=="gDNA"){
         #renames columns in DNAalignments to cDNA names
-        colnames(DNAalignments[[loci[i]]]) <- c("locus","allele","trimmed_allele","allele_name", corr_table[[loci[[i]]]][3,])
+        colnames(DNAalignments[[loci[i]]]) <- c("locus","allele","trimmed_allele","allele_name", corr_table[[loci[i]]][3,])
         #distributes  reference sequence from row 1
         #into all other rows, if they contain a "-"
         #amino acids with changes will not be impacted
@@ -590,8 +594,8 @@ buildAlignments<-function(loci, source, version = "Latest"){
       }
 
       #Adds version number
-      #     final_alignment[[loci[i]]]<-c(final_alignment[[loci[i]]],`ANHIG/IMGTHLA Alignments Version` = alignmentVersion[[loci[[i]]]])
-      final_alignment[[loci[i]]]<-c(final_alignment[[loci[i]]],'Version' = alignmentVersion[[loci[[i]]]])
+      #     final_alignment[[loci[i]]]<-c(final_alignment[[loci[i]]],`ANHIG/IMGTHLA Alignments Version` = alignmentVersion[[loci[i]]])
+      final_alignment[[loci[i]]]<-c(final_alignment[[loci[i]]],'Version' = alignmentVersion[[loci[i]]])
 
     }
 

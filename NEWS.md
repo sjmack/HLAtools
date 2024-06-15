@@ -8,6 +8,8 @@
 - Updated buildAlignments() to build HLA-N, -S, -U and -Y cDNA alignments in releases prior to 3.36.0.
 - Updated buildAlignments() to build HLA-W and -T cDNA alignments in release 3.27.0.
 - Updated buildAlignments() to build HFE cDNA alignments in releases prior to 3.28.0.
+- Updated buildAlignments() to build DPA AA alignments in release 3.23.0. While the returned object is called "$DPA", the locus in this object is "DPA1".
+
 
 ### Version 0.9.13.9000 June 4, 2024
 
