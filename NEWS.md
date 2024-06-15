@@ -10,7 +10,6 @@
 - Updated buildAlignments() to build HFE cDNA alignments in releases prior to 3.28.0.
 - Updated buildAlignments() to build DPA AA alignments in release 3.23.0. While the returned object is called "$DPA", the locus in this object is "DPA1".
 
-
 ### Version 0.9.13.9000 June 4, 2024
 
 - Clarified that the oldest available release for GL String Code updating is version 1.05.0.
