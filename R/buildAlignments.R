@@ -94,29 +94,29 @@ buildAlignments<-function(loci, source, version = "Latest"){
         #change delete lines to first and second lines if locus does not have protein sequence ## LT
         if(loci[i] %in% HLAgazeteer$nuc[!HLAgazeteer$nuc %in% HLAgazeteer$prot]){
           delete_lines<-c(1,2)
-                              #### DPA2, DPB2 and HLA-N cDNA alignments included an 'AA codon' row in several releases, through they are both pseudogenes
-                              if(loci[i] == "DPA2" && version %in% c("3530","3520","3510","3500","3490","3480","3470",
-                                                 "3460","3450","3440","3430","3420","3410","3400",
-                                                 "3390","3380","3370","3360","3350","3340","3330",
-                                                 "3320","3310","3300","3290","3280","3270")) {
+                              #### Fix: DPA2, DPB2 and HLA-N cDNA alignments included an 'AA codon' row in several releases, through they are both pseudogenes
+                              if(loci[i] == "DPA2" && version %in% c(3530,3520,3510,3500,3490,3480,3470,
+                                                 3460,3450,3440,3430,3420,3410,3400,
+                                                 3390,3380,3370,3360,3350,3340,3330,
+                                                 3320,3310,3300,3290,3280,3270)) {
                                 delete_lines <- c(1,2,3)} # 3.53.0 - 3.27.0
           
-                              if(loci[i] == "DPB2" && version %in% c("3530","3520","3510","3500","3490","3480","3470",
-                                                 "3460","3450","3440","3430","3420","3410","3400",
-                                                 "3390","3380","3370","3360","3350","3340","3330",
-                                                 "3320","3310","3300","3290","3280","3270","3260",
-                                                 "3250","3240")) {
+                              if(loci[i] == "DPB2" && version %in% c(3530,3520,3510,3500,3490,3480,3470,
+                                                 3460,3450,3440,3430,3420,3410,3400,
+                                                 3390,3380,3370,3360,3350,3340,3330,
+                                                 3320,3310,3300,3290,3280,3270,3260,
+                                                 3250,3240)) {
                                 delete_lines <- c(1,2,3)} # 3.53.0 - 3.24.0
           
-                              if(loci[i] %in% c("N","S","U","Y") && version %in% c("3350","3340","3330")) {
+                              if(loci[i] %in% c("N","S","U","Y") && version %in% c(3350,3340,3330)) {
                                 delete_lines <- c(1,2,3)} # 3.35.0 - 3.33.0
           
-                              if(loci[i] =="Y" && version %in% c("3320","3310","3300","3320","3310",
-                                                                 "3300","3290","3280","3270","3260",
-                                                                 "3250","3240","3230","3220","3210","3200")) {
+                              if(loci[i] =="Y" && version %in% c(3320,3310,3300,3320,3310,
+                                                                 3300,3290,3280,3270,3260,
+                                                                 3250,3240,3230,3220,3210,3200)) {
                                delete_lines <- c(1,2,3)} # 3.32.0 - 3.20.0
           
-                              if(loci[i] %in% c("W","T") && version == "3270") {
+                              if(loci[i] %in% c("W","T") && version == 3270) {
                                 delete_lines <- c(1,2,3)} # 3.35.0 - 3.33.0
   
                         } else{
@@ -130,6 +130,8 @@ buildAlignments<-function(loci, source, version = "Latest"){
         divide <- 1
         sequence_name <- "gDNAsequence"
       }
+      
+      if(version == 3131) {version <- 3130} ## Fix for downloading the alignments, as the repo URL includes "3130", but the files use "3131".
       
       #downloads relevant locus alignment file -- readLines allows for space preservation, which is important in
       #finding where the alignment sequence starts
@@ -151,11 +153,11 @@ buildAlignments<-function(loci, source, version = "Latest"){
         alignment[[loci[i]]] <- tail(alignment[[loci[i]]],-7)
       }
           ### Fix for extraneous block of allele name rows in HLA-B cDNA alignment in 3.44.0 and 3.43.0.
-      if(loci == "B" && version == "3440" && source == "cDNA"){ alignment[[loci[i]]] <- alignment[[loci[i]]][-c(127540:135510)] } # 3.44.0
-      if(loci == "B" && version == "3430" && source == "cDNA"){ alignment[[loci[i]]] <- alignment[[loci[i]]][-c(124129:131886)] } # 3.43.0
+      if(loci[i] == "B" && version == 3440 && source == "cDNA"){ alignment[[loci[i]]] <- alignment[[loci[i]]][-c(127540:135510)] } # 3.44.0
+      if(loci[i] == "B" && version == 3430 && source == "cDNA"){ alignment[[loci[i]]] <- alignment[[loci[i]]][-c(124129:131886)] } # 3.43.0
       
          ### Fix for missing "AA codon" lines in HFE versions 3.27.0 to 3.22.0.
-      if(loci == "HFE" && version %in% c("3270","3260","3250","3240","3230","3220") && source == "cDNA") {
+      if(loci[i] == "HFE" && version %in% c(3270,3260,3250,3240,3230,3220) && source == "cDNA") {
         
               startPos <- c("301","276","251","226","201","176","151","126","101","76","51","26","1","-25")
               afterRow <- c(124,115,106,97,88,79,70,61,52,43,34,25,16,7)
@@ -164,6 +166,12 @@ buildAlignments<-function(loci, source, version = "Latest"){
                   alignment[[loci[i]]] <- append(alignment[[loci[i]]],paste(" AA codon          ",startPos[f],sep=""),after=afterRow[f])
                 }
             }
+      
+            ### Fix for missing carriage-return between lines 2 and 3 in HLA-V versions 3.14.0, and converting 3.15.0 to 3.14.0    
+       if(loci[i] == "V" && version == 3140) { 
+                  alignment[[loci[i]]] <- append(alignment[[loci[i]]],"Sequences Aligned: 2014 January 17",after=2)
+                  alignment[[loci[i]]][2] <- "IMGT/HLA Release: 3.14.0"
+                  }
       
       #if version is numeric and <= 3310, obtain version number from line 2, and
       #skip first 6 rows and last 2 rows
@@ -191,7 +199,7 @@ buildAlignments<-function(loci, source, version = "Latest"){
       start[[loci[i]]] <-as.numeric(grep(type, alignment[[loci[i]]]))
       end[[loci[i]]] <- as.numeric(c(start[[loci[i]]][2:length(start[[loci[i]]])]-1,length(alignment[[loci[i]]])))
       
-      if(version == "3480" && source[j] == "gDNA" && loci[i] == "DRB1"){ ## Fix for DRB1*15:200:01:01N and DRB1*15:200:01:02N in 3.48.0 gDNA alignment
+      if(version == 3480 && source[j] == "gDNA" && loci[i] == "DRB1"){ ## Fix for DRB1*15:200:01:01N and DRB1*15:200:01:02N in 3.48.0 gDNA alignment
           alignment[[loci[i]]] <- gsub("DRB1*15:200:01:01N","DRB1*15:200:01:01N ",alignment[[loci[i]]], fixed=TRUE)
           alignment[[loci[i]]] <- gsub("DRB1*15:200:01:02N","DRB1*15:200:01:02N ",alignment[[loci[i]]], fixed=TRUE)
       }
@@ -358,10 +366,10 @@ buildAlignments<-function(loci, source, version = "Latest"){
           refexon[[loci[i]]] <- rbind(HLAalignments[[loci[i]]][1,])[which(rbind(HLAalignments[[loci[i]]][1,])[,"locus"]=="DRB1"),sequence_name]
         } else{       
                 ## Fix error in version 3.23.0 with DPA1 cDNA alignments, where the filename is "DPA_prot.txt, and DPB1 with filenane "DPB_prot.txt".
-                if(loci[i] %in% c("DPA","DPB","DQA","DQB") && source == "AA" && version %in% c("3230","3220","3210","3200","3190","3180",
-                                                                                               "3170","3160","3150","3140","3130","3120",
-                                                                                               "3110","3100","390","380","370","360",
-                                                                                               "350","340","330","320","310","300")) {
+                if(loci[i] %in% c("DPA","DPB","DQA","DQB") && source == "AA" && version %in% c(3230,3220,3210,3200,3190,3180,
+                                                                                               3170,3160,3150,3140,3130,3120,
+                                                                                               3110,3100,390,380,370,360,
+                                                                                               350,340,330,320,310,300)) {
                   
                  if(loci[i] == "DPA") {refexon[[loci[i]]] <- rbind(HLAalignments[[loci[i]]][1,])[which(rbind(HLAalignments[[loci[i]]][1,])[,"locus"]=="DPA1"),sequence_name]}
                  if(loci[i] == "DPB") {refexon[[loci[i]]] <- rbind(HLAalignments[[loci[i]]][1,])[which(rbind(HLAalignments[[loci[i]]][1,])[,"locus"]=="DPB1"),sequence_name]}
