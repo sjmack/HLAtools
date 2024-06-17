@@ -139,7 +139,7 @@ expandVersion <- function(ver){
 ##RepoVersion
 #'RepoVersion - Convert an AlleleListHistory-formatted IPD-IMGT/HLA Database Release Version to the GitHub Repository Version
 #'
-#'Converts IMGT/HLA Database release versions '3.00.0'-'3.09.0' to '3.0.0'-'3.9.0' to facilitate working with these GitHub repo branches.
+#'Removes periods from IMGT/HLA Database release versions, and converts release versions '3.00.0'-'3.09.0' to '300'-'390' to facilitate working with these GitHub repo branches.
 #'
 #'@param version A validated IPD-IMGT/HLA Database release version.
 #'

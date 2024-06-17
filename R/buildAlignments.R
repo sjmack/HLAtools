@@ -68,7 +68,8 @@ buildAlignments<-function(loci, source, version = "Latest"){
   alignmentVersion<-pepsplit<-refexon<-aligned<-final_alignment<-AA_codon_alignments<-DNAalignments<-HLAalignments<-exonB<-inDels<-AA_atlas<-gDNA_atlas<-cDNA_atlas<-atlas<-corr_table<-cols<-downloaded_segments<-w<-alignment_positionsx3<-alignment_positions<-alignment_length<-DNA_start<-alignment_start<-space_diff<-prot_extractions<-refblock_number<-sapply(loci, function(x) NULL)
 
   #sub out periods in version, if there are any
-  version <- gsub(".", "", version, fixed=T)
+  # version <- gsub(".", "", version, fixed=T) ## change to 
+  version <- repoVersion(version)
 
   #if version is not latest, turn into numeric object
   if(version != "Latest"){

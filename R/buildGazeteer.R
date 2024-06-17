@@ -47,6 +47,9 @@ buildGazeteer <- function(version = getLatestVersion()) {
   
   URL <- paste("https://github.com/ANHIG/IMGTHLA/tree/",repoVersion(version),"/alignments",sep="")
   
+  # Fix for version 3.13.0/3.13.1, where "3130" is used in the URL, but "3.13.1" is used in the AlleleListHistory file and alignments
+  if(version == "3.13.1") { URL <- "https://github.com/ANHIG/IMGTHLA/tree/3130/alignments" }
+  
   narrow <- getAlignmentNames(URL)
   
   nucList <- vector("list", 1)
