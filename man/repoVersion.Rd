@@ -13,7 +13,7 @@ repoVersion(version)
 A character string of the release version suitable for use in an IMGT/HLA GitHub repository URL.
 }
 \description{
-Converts IMGT/HLA Database release versions '3.00.0'-'3.09.0' to '3.0.0'-'3.9.0' to facilitate working with these GitHub repo branches.
+Removes periods from IMGT/HLA Database release versions, and converts release versions '3.00.0'-'3.09.0' to '300'-'390' to facilitate working with these GitHub repo branches.
 }
 \note{
 For internal HLAtools use.
