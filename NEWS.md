@@ -11,6 +11,9 @@
 - Updated buildAlignments() to build DPA, DPB, DQA and DQB AA alignments in releases prior to 3.24.0. The returned objects are "$DPA", "$DPB", "$DQA" and "$DQB", the loci in these objects are "DPA1", "DPB1", "DQA1" and "DQB1".
 - Updated buildAlignments() to build HLA-V in version 3.14.0.
 - Updated buildAlignments() to account for version inconsistency (3.13.0 vs 3.13.1) in release 3.13.1 alignments.
+- Updated documentation of repoVersion() for accuracy.
+- Applied repoVersion() in buildAlignments().
+- Modified buildGazeteer() to account for version differences in URL and alignment files for release 3.13.0/3.13.1.
 
 ### Version 0.9.13.9000 June 4, 2024
 
