@@ -152,7 +152,7 @@ buildGazeteer <- function(version = getLatestVersion()) {
 #'@export
 #'
 getAlignmentNames <- function(URL){
-  
+  on.exit(closeAllConnections())
   rough <- readLines(URL)
   rough <- strsplit(rough, split = "[,]|[:]|[\\{]|[\\}]")
   

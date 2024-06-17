@@ -156,6 +156,9 @@ buildAlignments<-function(loci, source, version = "Latest"){
           ### Fix for extraneous block of allele name rows in HLA-B cDNA alignment in 3.44.0 and 3.43.0.
       if(loci[i] == "B" && version == 3440 && source == "cDNA"){ alignment[[loci[i]]] <- alignment[[loci[i]]][-c(127540:135510)] } # 3.44.0
       if(loci[i] == "B" && version == 3430 && source == "cDNA"){ alignment[[loci[i]]] <- alignment[[loci[i]]][-c(124129:131886)] } # 3.43.0
+         ### Fix for extraneous HLA-C allele name rows in version 3.2.0 
+      if(loci[i] == "C" && version == 320 && source == "cDNA"){ alignment[[loci[i]]] <- alignment[[loci[i]]][-c(14467:15430)] } # 3.43.0
+      
       
          ### Fix for missing "AA codon" lines in HFE versions 3.27.0 to 3.22.0.
       if(loci[i] == "HFE" && version %in% c(3270,3260,3250,3240,3230,3220) && source == "cDNA") {
