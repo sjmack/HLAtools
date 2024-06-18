@@ -158,7 +158,7 @@ repoVersion <- function(version){
   version <- squashVersion(version)
   
     verVec <- strsplit(version,"")[[1]]
-    if(verVec[2] == "0") {
+    if(verVec[2] == "0" && length(verVec) == 4) {
       return(paste(c(verVec[1],verVec[3:4]),collapse=""))
       }  
     
