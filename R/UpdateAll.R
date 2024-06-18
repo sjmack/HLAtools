@@ -10,7 +10,7 @@
 #'A new alleleListHistory data object will likely need to be generated with each IPD-IMGT/HLA Database release. The other data objects will likely only change if the IPD-IMGT/HLA Database includes additional genes.
 #'
 #'@param version The version of the ANHIG/IMGTHLA Github repository to build these objects from. By default, updateAll() calls the getLatestVersion() function to identify the most recent IPD-IMGT/HLA Database release.
-#'@param updateType A vector of the data objects to be updated. By default, updateAll() builds all five data objects (data="all"). Alternatively specific data objects can be updated; e.g., data="alleleListHistory" or data=c("alleleListHistory","fragmentFeatureNames").
+#'@param updateType A vector of the names of data objects to be updated. By default, updateAll() builds all five data objects (updateType="all"). Alternatively specific data objects can be updated; e.g., updateType="alleleListHistory" or updateType=c("alleleListHistory","fragmentFeatureNames").
 #'
 #'@examples
 #'\dontrun{
