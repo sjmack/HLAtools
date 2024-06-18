@@ -17,6 +17,8 @@
 - Updated buildAlignments() to build HLA-C cDNA alignments in release 3.02.0.
 - Close connections in HLAgazeteer().
 - Updated buildAligmments() to build HLA-DOA AA alignment in release 3.01.0.
+- Updated documentation for updateAll().
+- Updated repoVersion() for release 3.00.0.
 
 ### Version 0.9.13.9000 June 4, 2024
 
