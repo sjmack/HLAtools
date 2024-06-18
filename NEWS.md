@@ -1,6 +1,6 @@
 ## HLAtools (development version)
 
-### Version 0.9.14.9000 June 10 to June 17, 2024
+### Version 0.9.14.9000 June 10 to June 18, 2024
 
 - Updated buildAlignments() to build DPA2 and DPB2 cDNA alignments in releases prior to 3.54.0.
 - Updated buildAlignments() to build DRB1 gDNA alignments in release 3.48.0.
@@ -8,13 +8,15 @@
 - Updated buildAlignments() to build HLA-N, -S, -U and -Y cDNA alignments in releases prior to 3.36.0.
 - Updated buildAlignments() to build HLA-W and -T cDNA alignments in release 3.27.0.
 - Updated buildAlignments() to build HFE cDNA alignments in releases prior to 3.28.0.
-- Updated buildAlignments() to build DPA, DPB, DQA and DQB AA alignments in releases prior to 3.24.0. The returned objects are "$DPA", "$DPB", "$DQA" and "$DQB", the loci in these objects are "DPA1", "DPB1", "DQA1" and "DQB1".
+- Updated buildAlignments() to build HLA-DPA, -DPB, -DQA and -DQB AA alignments in releases prior to 3.24.0. The returned objects are "$DPA", "$DPB", "$DQA" and "$DQB", the loci in these objects are "DPA1", "DPB1", "DQA1" and "DQB1".
 - Updated buildAlignments() to build HLA-V in version 3.14.0.
 - Updated buildAlignments() to account for version inconsistency (3.13.0 vs 3.13.1) in release 3.13.1 alignments.
 - Updated documentation of repoVersion() for accuracy.
 - Applied repoVersion() in buildAlignments().
 - Modified buildGazeteer() to account for version differences in URL and alignment files for release 3.13.0/3.13.1.
 - Updated buildAlignments() to build HLA-C cDNA alignments in release 3.02.0.
+- Close connections in HLAgazeteer().
+- Updated buildAligmments() to build HLA-DOA AA alignment in release 3.01.0.
 
 ### Version 0.9.13.9000 June 4, 2024
 

@@ -201,7 +201,12 @@ buildAlignments<-function(loci, source, version = "Latest"){
 
       #determines positions of "cDNA" or "Prot" and the end of that reference block segment
       start[[loci[i]]] <-as.numeric(grep(type, alignment[[loci[i]]]))
-      end[[loci[i]]] <- as.numeric(c(start[[loci[i]]][2:length(start[[loci[i]]])]-1,length(alignment[[loci[i]]])))
+      
+      ## Fix #1 for DOA in 3.01.0 - Only one block of sequence
+      if(length(start[[loci[i]]]) == 1) {
+        end[[loci[i]]] <- length(alignment[[loci[i]]]) ## the only end is the end of the sequence block
+          } else {
+      end[[loci[i]]] <- as.numeric(c(start[[loci[i]]][2:length(start[[loci[i]]])]-1,length(alignment[[loci[i]]]))) }
       
       if(version == 3480 && source[j] == "gDNA" && loci[i] == "DRB1"){ ## Fix for DRB1*15:200:01:01N and DRB1*15:200:01:02N in 3.48.0 gDNA alignment
           alignment[[loci[i]]] <- gsub("DRB1*15:200:01:01N","DRB1*15:200:01:01N ",alignment[[loci[i]]], fixed=TRUE)
@@ -270,7 +275,9 @@ buildAlignments<-function(loci, source, version = "Latest"){
             x$seq[match(y[,1], x[,1])]<-y$seq
             alignment[[loci[i]]]<-as.matrix(rbind(head(alignment[[loci[i]]], -(nrow(alignment[[loci[i]]][start[[loci[i]]][l]:end[[loci[i]]][l],][nrow(alignment[[loci[i]]][start[[loci[i]]][l]:end[[loci[i]]][l],])!=nrow(alignment[[loci[i]]][start[[loci[i]]][1]:end[[loci[i]]][1],]),])-2)), x))
             start[[loci[i]]]<-as.numeric(grep(type, alignment[[loci[i]]]))
-            end[[loci[i]]] <- as.numeric(c(start[[loci[i]]][2:length(start[[loci[i]]])]-1,nrow(alignment[[loci[i]]])))}
+            
+            end[[loci[i]]] <- as.numeric(c(start[[loci[i]]][2:length(start[[loci[i]]])]-1,nrow(alignment[[loci[i]]])))
+            }
         }
       }
 
@@ -305,19 +312,25 @@ buildAlignments<-function(loci, source, version = "Latest"){
         }
       }
 
-      #if a locus has extra formatting, resulting in unqeual rows, start and end will be updated to reflect subsetting
+      #if a locus has extra formatting, resulting in unequal rows, start and end will be updated to reflect subsetting
       #if a locus has no extra formatting, start and end will remain the same, as procured by earlier code
+      if(length(start[[loci[i]]]) > 1) { # Fix #2a for DOA in 3.01.0 -- only need to bind together multiple sequence blocks
       for(m in 1:length(start[[loci[i]]])){
         HLAalignments[[loci[i]]]<-cbind(HLAalignments[[loci[i]]], alignment[[loci[i]]][start[[loci[i]]][m]:end[[loci[i]]][m],])
-      }
+              }
+          } else { HLAalignments[[loci[i]]] <- alignment[[loci[i]]]}
 
       #removes rows containing "cDNA", "AA codon", or "Prot"
       HLAalignments[[loci[i]]] <- HLAalignments[[loci[i]]][-delete_lines,]
 
       #designates columns to be combined as every other so allele names are not included
-      #in pasting all the amino acid sequences together
-      cols<-seq(0, ncol(HLAalignments[[loci[i]]]), by=2)
-      HLAalignments[[loci[i]]]<-cbind(HLAalignments[[loci[i]]][,1], apply(HLAalignments[[loci[i]]][,cols], 1 ,paste, collapse = ""))
+      #in pasting all the amino acid sequences together 
+      
+      ### Fix #2b for DOA in 3.01.0 -- only need to bind together multiple sequence blocks 
+     if(length(start[[loci[i]]]) > 1) {
+            cols<-seq(0, ncol(HLAalignments[[loci[i]]]), by=2)
+            HLAalignments[[loci[i]]]<-cbind(HLAalignments[[loci[i]]][,1], apply(HLAalignments[[loci[i]]][,cols], 1 ,paste, collapse = "")) 
+            }                     
 
       #creates a new matrix with the number of columns equal to the number of characters in the reference sequence
       corr_table[[loci[i]]]<-matrix(, nrow = 3, ncol = as.numeric(nchar(HLAalignments[[loci[i]]][,2][1])))
