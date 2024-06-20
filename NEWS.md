@@ -1,6 +1,6 @@
 ## HLAtools (development version)
 
-### Version 0.9.14.9000 June 10 to June 18, 2024
+### Version 0.9.14.9000 June 10 to June 20, 2024
 
 - Updated buildAlignments() to build DPA2 and DPB2 cDNA alignments in releases prior to 3.54.0.
 - Updated buildAlignments() to build DRB1 gDNA alignments in release 3.48.0.
@@ -19,6 +19,7 @@
 - Updated buildAligmments() to build HLA-DOA AA alignment in release 3.01.0.
 - Updated documentation for updateAll().
 - Updated repoVersion() for release 3.00.0.
+- Updated buildAlignments() to build HLA-DPA and -DPB cDA alignments in release 3.00.0.
 
 ### Version 0.9.13.9000 June 4, 2024
 

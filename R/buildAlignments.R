@@ -171,7 +171,32 @@ buildAlignments<-function(loci, source, version = "Latest"){
                 }
             }
       
-            ### Fix for missing carriage-return between lines 2 and 3 in HLA-V versions 3.14.0, and converting 3.15.0 to 3.14.0    
+         ### Fix for missing "AA codon" lines in DPA in version 0.00.0
+      
+      if(loci[i] == "DPA" && version %in% c(300) && source == "cDNA") {
+        
+        startPos <- c("220","195","170","145","120","95","70","45","20","-6","-31")
+        afterRow <- c(317,286,255,224,193,162,131,100,69,38,7)
+        
+            for(f in 1:length(startPos)) {
+              alignment[[loci[i]]] <- append(alignment[[loci[i]]],paste(" AA codon          ",startPos[f],sep=""),after=afterRow[f])
+            }      
+        }
+      
+       ### Fix for missing "AA codon" lines in DPB in version 0.00.0
+      
+      if(loci[i] == "DPB" && version %in% c(300) && source == "cDNA") {
+        
+        startPos <- c("222","197","172","147","122","97","72","47","22","-4","-29")  ## change for DPB
+        afterRow <- rev(which(alignment[[loci[i]]] == "                   |")-1)     ## change for DPB
+        
+        for(f in 1:length(startPos)) {
+          alignment[[loci[i]]] <- append(alignment[[loci[i]]],paste(" AA codon          ",startPos[f],sep=""),after=afterRow[f])
+        }        
+        
+      }
+      
+         ### Fix for missing carriage-return between lines 2 and 3 in HLA-V versions 3.14.0, and converting 3.15.0 to 3.14.0    
        if(loci[i] == "V" && version == 3140) { 
                   alignment[[loci[i]]] <- append(alignment[[loci[i]]],"Sequences Aligned: 2014 January 17",after=2)
                   alignment[[loci[i]]][2] <- "IMGT/HLA Release: 3.14.0"
