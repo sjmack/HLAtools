@@ -335,4 +335,35 @@ typeToSource <- function(alignVector,toSource=TRUE){
       unique(alignVector)
       
       }  
-  }
+}
+
+#################
+##AddCodonLine
+#'
+#'Modifies cDNA alignment files that are missing "AA codon" lines to include these lines in the correct location with the correct codon position information.
+#'
+#'@param cDNAalign A matrix of cDNA alignment lines, generated from an alignment file that is missing "AA codon" lines.
+#'@param firstPos A numeric value identifying the position number of the transcript's N-terminal codon, based on a complete cDNA alignment in another release.
+#'@param afterLine The number of the line below the first "cDNA" line in the alignment. The default value is 8.
+#'@param codons The number of codons in each line of the nucleotide alignment. The default value is 25.
+#'
+#'@export
+#'
+#'@note For internal HLAtools use.
+#'
+addCodonLine <- function(cDNAalign,firstPos,afterLine = 8, codons = 25){
+  
+  # Assigns the AA codon positions using the first position in the codon row of another release, and adds the missing lines.
+  afterRow <- rev(which(cDNAalign == cDNAalign[afterLine])-1)
+  numRow <- length(afterRow)
+  startPos <- rep(firstPos,numRow) ## this needs to be set based on a correct alignment 
+  for(k in 2:length(startPos)) {startPos[k] <- startPos[k-1]+codons}
+  if(any(startPos < 1)) {startPos[startPos > 0] = startPos[startPos > 0 ]+1 }
+  startPos <- rev(startPos)
+  
+  for(f in 1:length(startPos)) {
+    cDNAalign <- append(cDNAalign,paste(" AA codon          ",startPos[f],sep=""),after=afterRow[f])
+  }      
+  
+  cDNAalign
+}

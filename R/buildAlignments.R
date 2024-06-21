@@ -1,4 +1,4 @@
-#BuildAlignments v1.5.0 10JUN2024 - LT/SM
+#BuildAlignments v1.5.0 21JUN2024 - LT/SM
 
 #library(stringr)
 #library(BIGDAWG)
@@ -159,44 +159,25 @@ buildAlignments<-function(loci, source, version = "Latest"){
          ### Fix for extraneous HLA-C allele name rows in version 3.2.0 
       if(loci[i] == "C" && version == 320 && source == "cDNA"){ alignment[[loci[i]]] <- alignment[[loci[i]]][-c(14467:15430)] } # 3.43.0
       
-      
          ### Fix for missing "AA codon" lines in HFE versions 3.27.0 to 3.22.0.
       if(loci[i] == "HFE" && version %in% c(3270,3260,3250,3240,3230,3220) && source == "cDNA") {
         
-              startPos <- c("301","276","251","226","201","176","151","126","101","76","51","26","1","-25")
-              afterRow <- c(124,115,106,97,88,79,70,61,52,43,34,25,16,7)
+              firstPos <- -25
+              alignment[[loci[i]]] <- addCodonLine(alignment[[loci[i]]],firstPos)
         
-                for(f in 1:length(startPos)) {
-                  alignment[[loci[i]]] <- append(alignment[[loci[i]]],paste(" AA codon          ",startPos[f],sep=""),after=afterRow[f])
-                }
             }
       
-         ### Fix for missing "AA codon" lines in DPA in version 0.00.0
-      
-      if(loci[i] == "DPA" && version %in% c(300) && source == "cDNA") {
+         ### Fix for missing "AA codon" lines in DPA, DPB, TAP1 and TAP2 in version 0.00.0
+      if(version == 300 && source == "cDNA" && loci[i] %in% c("DPA","DPB","TAP1","TAP2")) {
+
+                  if(loci[i] == "DPA") { firstPos <- -31 }
+                  if(loci[i] == "DPB") { firstPos <- -29 }
+                  if(loci[i] %in% c("TAP1","TAP2")) { firstPos <- 1 }
         
-        startPos <- c("220","195","170","145","120","95","70","45","20","-6","-31")
-        afterRow <- c(317,286,255,224,193,162,131,100,69,38,7)
+                  alignment[[loci[i]]] <- addCodonLine(alignment[[loci[i]]],firstPos)
+                }
         
-            for(f in 1:length(startPos)) {
-              alignment[[loci[i]]] <- append(alignment[[loci[i]]],paste(" AA codon          ",startPos[f],sep=""),after=afterRow[f])
-            }      
-        }
-      
-       ### Fix for missing "AA codon" lines in DPB in version 0.00.0
-      
-      if(loci[i] == "DPB" && version %in% c(300) && source == "cDNA") {
-        
-        startPos <- c("222","197","172","147","122","97","72","47","22","-4","-29")  ## change for DPB
-        afterRow <- rev(which(alignment[[loci[i]]] == "                   |")-1)     ## change for DPB
-        
-        for(f in 1:length(startPos)) {
-          alignment[[loci[i]]] <- append(alignment[[loci[i]]],paste(" AA codon          ",startPos[f],sep=""),after=afterRow[f])
-        }        
-        
-      }
-      
-         ### Fix for missing carriage-return between lines 2 and 3 in HLA-V versions 3.14.0, and converting 3.15.0 to 3.14.0    
+      ### Fix for missing carriage-return between lines 2 and 3 in HLA-V versions 3.14.0, and converting "3.15.0" to "3.14.0"    
        if(loci[i] == "V" && version == 3140) { 
                   alignment[[loci[i]]] <- append(alignment[[loci[i]]],"Sequences Aligned: 2014 January 17",after=2)
                   alignment[[loci[i]]][2] <- "IMGT/HLA Release: 3.14.0"
@@ -227,7 +208,7 @@ buildAlignments<-function(loci, source, version = "Latest"){
       #determines positions of "cDNA" or "Prot" and the end of that reference block segment
       start[[loci[i]]] <-as.numeric(grep(type, alignment[[loci[i]]]))
       
-      ## Fix #1 for DOA in 3.01.0 - Only one block of sequence
+      ## Fix for DOA in 3.01.0 - Only one sequence block
       if(length(start[[loci[i]]]) == 1) {
         end[[loci[i]]] <- length(alignment[[loci[i]]]) ## the only end is the end of the sequence block
           } else {
@@ -248,7 +229,6 @@ buildAlignments<-function(loci, source, version = "Latest"){
           prot_extractions[[loci[i]]][k]<-strsplit(alignment[[loci[i]]][start[[loci[i]]][k]], " ")
 
           refblock_number[[loci[i]]][k]<-as.numeric(sapply(prot_extractions[[loci[i]]][k], "[", 2))
-
 
           #determines the alignment start by adding -30 to the difference between white spaces found above
           alignment_start[[loci[i]]]<-refblock_number[[loci[i]]][1]+space_diff[[loci[i]]]
