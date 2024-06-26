@@ -8,7 +8,7 @@ author:
 - Vinh Luu -- vinhluu864@berkeley.edu
 - Josh Bredeweg
 - Steven J. Mack, PhD -- steven.mack@ucsf.edu
-date: "2024-07-24"
+date: "2024-07-25"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{HLAtools}
@@ -48,6 +48,8 @@ HLAtools includes:
 The *HLAatlas* data object is a list object of sub-lists of R data frames identifying the location of boundary positions between gene-features (exons, introns and untranslated regions [UTRs]) identified in the protein, nucleotide and genomic alignments for each gene supported in the [ANHIG/IMGTHLA GitHub Repository](https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments). Example protein (*prot*), nucleotide (*nuc*) and genomic (*gen*) atlases for HLA-A are shown below. A new *HLAatlas* can be built after each IPD-IMGT/HLA Database release using the *updateAll()* function, although the atlases are not expected to change unless new genes are added to the IPD-IMGT/HLA Database. 
 
 Building the *HLAatlas* object requires internet access, and it can take several minutes to build a full complement of atlases. For example, building all of the atlases for IPD-IMGT/HLA Database release version 3.56.0 took 4.2 minutes on a 3.3 GHz 12-Core Intel Xenon W 2019 Mac Pro with 288 GB of 2933 MHZ DDR4 RAM, and 4.6 minutes on a 2.4 GHz 8-Core Intel Core i9 2019 MacBook Pro with 64 GB of 2667 MHZ DDR4 RAM, and 5.24 minutes on a 2.4 GHz Intel Core i9-10885H Dell Precision 5500 with 32 GB of RAM.
+
+*HLAatlas* objects can be built for all HLA region genes with available genomic, nucleotide and amino acid alignments in release versions 3.00.0 to 3.56.0.
 
 ### Protein Sequence Atlases 
 The column headers for *prot* atlases identify the peptide residues encoded by codons that follow or contain an exon (E) boundary. The HLA-A *prot* atlas below illustrates that the codon encoding amino acid 1 included the Exon 1: Exon 2 boundary (E.1-2).
@@ -177,7 +179,9 @@ $annotation
 
 The *HLAalignments* data object is a list object of sub-lists of data frames of peptide (*prot*), codon (*codon*), coding nucleotide (*nuc*) and genomic nucleotide (*gen*) alignments for the HLA and HLA-region genes supported in the [ANHIG/IMGTHLA GitHub Repository](https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments), along with a *version* character string that identifies the IPD-IMGT/HLA Database release under which the *HLAalignments* object was built. 
 
-Given the size of all the combined aligmments, *HLAalignments* **is not bundled with the HLAtools package**. All alignments, or desired subsets each type of alignment for a given gene, can be built using the *alignmentFull()* function, as described in Section 2 *Working with Sequence Alignments*, below. These protein, codon, nucleotide and genomic DNA sequence alignments are described in detail below.
+Given the size of all the combined alignments, *HLAalignments* **is not bundled with the HLAtools package**. All alignments, or desired subsets of each type of alignment for a given gene, can be built using the *alignmentFull()* function, as described in Section 2 *Working with Sequence Alignments*, below. *HLAalignments* objects can be built for all HLA region genes with available genomic, nucleotide and amino acid alignments in IPD-IMGT/HLA release versions 3.00.0 to 3.56.0.
+
+These protein, codon, nucleotide and genomic DNA sequence alignments are described in detail below.
 
 The first four columns of each alignment identify the locus, allele, two-field allele name (trimmed_allele), and full allele name (allele_name) for each sequence, while the remaining columns identify the sequence at each position, as illustrated below.
 
@@ -269,7 +273,7 @@ HLAalignments$gen$DQB1[c(1,378:380),c(1:4,589:594)]
 380  DQB1      06:424    DQB1*06:424      DQB1*06:424  G    .    .    .    .  T
 ```
 
-Indels in *codon* alignment positions are similarly numbered from the codon in the N-terminal direction. However, due to a peculiarity of the R environment, which generates unique column-header names, the last two positions of the N-terminal-ward codon before the deletion will be numbered with the decimal values following those used to identify the insertion positions, as shown below. This only occurs when indel positions are included in a selected range. In this example, the *allele* and *trimmed_allele* columns have been omitted for spacing.
+Indels in *codon* alignment positions are similarly numbered from the codon in the N-terminal direction. However, due to a peculiarity of the R environment, which generates unique column-header names, the last two positions of the N-terminal-ward codon **before** the deletion will be numbered with the decimal values following those used to identify the insertion positions, as shown below. This only occurs when indel positions are included in a selected range. In this example, the *allele* and *trimmed_allele* columns have been omitted for spacing.
 
 ```
 HLAalignments$codon$DQB1[c(1,1138:1140),c(1,4,56:65)]
@@ -284,7 +288,7 @@ HLAalignments$codon$DQB1[c(1,1138:1140),c(1,4,56:65)]
 
 # 2. Working with Sequence Alignments
 
-As noted above, the **HLAtools** package includes several functions for working with sequence alignments. All of these functions require that alignments first be built, as the complete set of protein, codon, nucleotide and genomic sequence alignments are too large to include in the package. <span style="color:red">**The functions that perform operations in sequence alignments expect the alignments to be in a variable named** ***HLAalignments***.</span> For example the HLA-A protein alignment is identified as *HLAalignments\$prot\$A*. If alignments are built into a different data object, they will not be accessible to the functions described below.
+As noted above, the **HLAtools** package includes several functions for working with sequence alignments. All of these functions require that alignments first be built, as the complete set of protein, codon, nucleotide and genomic sequence alignments is too large to include in the **HLAtools** package. <span style="color:red">**The functions that perform operations in sequence alignments expect the alignments to be in a variable named** ***HLAalignments***.</span> For example the HLA-A protein alignment is identified as *HLAalignments\$prot\$A*. If alignments are built into a different data object, they will not be accessible to the functions described below.
 
 ## Building Alignments
 
@@ -320,7 +324,7 @@ HLAalignments <- alignmentFull("DRB1","prot","3.54.0")
 
 ## Working with Alignments in Past Releases
 
-As indicated above, *alignmentFull()* can be applied for any IPD-IMGT/HLA Database release version. The *updateAll()* function must be applied to build *HLAgazeteer* for the desired release version **before** applying *alignmentFull()*. 
+As indicated above, *alignmentFull()* can be applied for any IPD-IMGT/HLA Database release version. The *updateAll()* function must be applied to build the *HLAgazeteer* for the desired release version **before** applying *alignmentFull()*. 
 
 ```
 > updateAll()
@@ -337,7 +341,7 @@ HLAalignments <- alignmentFull()
 
 Prior to IPD-IMGT/HLA Database release version 3.24.0, the names of the sequence alignment files for the HLA-DP and HLA-DQ genes in the IPD-IMGT/HLA GitHub Repository did not include a numerical suffix in the gene name (e.g., the protein sequence alignment file for the DQA1 gene was 'DQA_prot.txt') because sequence alignment files for the DPA2, DPB2, DQA2 and DQB2 genes had not been made available. 
 
-Similarly, prior to release version 3.51.0, the 'DRB_prot.txt' and 'DRB_nuc.txt' alignment files were the source of alignments for DRB1, DRB3, DRB4 and DRB5. In release versions 3.0.0 to 3.23.0, genomic DRB1 alignments are in 'DRB_gen.txt' files, and these alignments are in 'DRB1_gen.txt' files in subsequent releases. Building DPA1, DPB1, DQA1, DQB1, DRB1, DRB3 and DRB5 sequence alignments from these earlier releases may require specifying a gene name that does not include the numerical suffix. 
+Similarly, prior to release version 3.51.0, the 'DRB_prot.txt' and 'DRB_nuc.txt' alignment files were the source of alignments for DRB1, DRB3, DRB4 and DRB5. In release versions 3.0.0 to 3.23.0, genomic DRB1 alignments are in 'DRB_gen.txt' files, and these alignments are in 'DRB1_gen.txt' files in subsequent releases. Building DPA1, DPB1, DQA1, DQB1, DRB1, DRB3 and DRB5 sequence alignments from these earlier releases may require specifying a gene name that does not include the numerical suffix. When the *HLAgazeteer* has been updated to the desired release version, the available gene names for that release can be found in the *HLAgazeteer*.
 
 In all version 3.\*.\* releases (3.0.0 to 3.56.0), nucleotide alignments for the DRB2, DRB6, DRB7 and DRB9 genes are included in the 'DRB_nuc.txt' file. 
 
@@ -451,7 +455,7 @@ The *motifMatch()* function returns the names of alleles that share specific nuc
 
 **Parameters**
 
-  - *motif*: A nucleotide or peptide sequence variant motif structured as Locus*#\$~#\$~#$, where \## identifies a variant position, and \$ identifies the sequence variant. Any number of variants can be specified.
+  - *motif*: A nucleotide or peptide sequence variant motif structured as Locus*#\$\~#\$\~#$, where \# identifies a variant position, and \$ identifies the sequence variant. Any number of variants can be specified.
   - *alignType*: The alignment type of either "codon", "gen", nuc" or "prot". Only a single alignType can be specified.
   - *full*: A logical value indicating if full (TRUE) or truncated (FALSE) allele names should be returned.
 
@@ -468,7 +472,7 @@ motifMatch("A*196G~301A~3046T","gen",TRUE)
 
 ## Building Custom Alignments
 
-The *customAlign()* function returns a customized peptide, codon, coding nucleotide or genomic nucleotide alignment specified alleles at specified positions.\
+The *customAlign()* function returns a customized peptide, codon, coding nucleotide or genomic nucleotide alignment specified alleles at specified positions.
 
 **Parameters**
 
@@ -508,7 +512,7 @@ customAlign("codon",c("DPB1*01:01:01:01","DQA1*01:01:01:01","DQB1*05:01:01:01"),
 
 [GL String Code](https://onlinelibrary.wiley.com/doi/10.1111/tan.15145) (GLSC) is a format that encapsulates a GL String with information describing the associated gene family namespace and the nomenclature version (or date) under which the GL String was generated. Additional information about GL String and GL String Code can be found at [glstring.org](https://glstring.org).
 
-An example GLSC for an HLA GL String generated under IPD-IMGT/HLA Database release version 3.1.0 is presented below.
+An example GLSC for an HLA GL String generated under IPD-IMGT/HLA Database release version 3.01.0 is presented below.
 
 ```
 hla#3.1.0#HLA-A*02:01~HLA-C*07:02~HLA-B*07:02~HLA-DRB1*15:01~HLA-DQB1*06:02~HLA-DPB1*04:02+HLA-A*01:01~HLA-C*06:02~HLA-B*57:01~HLA-DRB1*07:01~HLA-DQB1*03:03~HLA-DPB1*04:01"
@@ -705,18 +709,28 @@ The *multiUNItoGLS()* function translates columns of arrays from uniformat forma
 ```         
 multiGLStoUNI(GLstring.ex[1:5,1:2])
   Relation                                                                                                         Gl.String
-1  Subject A*02:01~C*07:02~B*07:02~DRB1*15:01~DQB1*06:02~DPB1*04:02,A*01:01~C*06:02~B*57:01~DRB1*07:01~DQB1*03:03~DPB1*04:01
-2  Subject A*03:01~C*07:01~B*49:01~DRB1*04:05~DQB1*03:02~DPB1*02:01,A*01:01~C*07:01~B*08:01~DRB1*13:01~DQB1*06:03~DPB1*04:01
-3  Subject A*11:01~C*04:01~B*15:01~DRB1*04:01~DQB1*03:02~DPB1*04:02,A*03:01~C*08:02~B*14:02~DRB1*13:02~DQB1*06:09~DPB1*04:01
-4  Subject A*68:01~C*15:02~B*40:06~DRB1*16:02~DQB1*05:02~DPB1*10:01,A*68:01~C*06:02~B*45:01~DRB1*04:05~DQB1*03:02~DPB1*11:01
-5  Subject A*02:01~C*05:01~B*44:02~DRB1*15:01~DQB1*06:02~DPB1*02:01,A*30:01~C*06:02~B*13:02~DRB1*07:01~DQB1*02:02~DPB1*17:01
+1  Subject A*02:01~C*07:02~B*07:02~DRB1*15:01~DQB1*06:02~DPB1*04:02,A*01:01~C*06:02~B*57:01~DRB1*07:01
+~DQB1*03:03~DPB1*04:01
+2  Subject A*03:01~C*07:01~B*49:01~DRB1*04:05~DQB1*03:02~DPB1*02:01,A*01:01~C*07:01~B*08:01~DRB1*13:01
+~DQB1*06:03~DPB1*04:01
+3  Subject A*11:01~C*04:01~B*15:01~DRB1*04:01~DQB1*03:02~DPB1*04:02,A*03:01~C*08:02~B*14:02~DRB1*13:02
+~DQB1*06:09~DPB1*04:01
+4  Subject A*68:01~C*15:02~B*40:06~DRB1*16:02~DQB1*05:02~DPB1*10:01,A*68:01~C*06:02~B*45:01~DRB1*04:05
+~DQB1*03:02~DPB1*11:01
+5  Subject A*02:01~C*05:01~B*44:02~DRB1*15:01~DQB1*06:02~DPB1*02:01,A*30:01~C*06:02~B*13:02~DRB1*07:01
+~DQB1*02:02~DPB1*17:01
 
 multiGLStoUNI(GLstring.ex[[2]][1:5])
-[1] "A*02:01~C*07:02~B*07:02~DRB1*15:01~DQB1*06:02~DPB1*04:02,A*01:01~C*06:02~B*57:01~DRB1*07:01~DQB1*03:03~DPB1*04:01"
-[2] "A*03:01~C*07:01~B*49:01~DRB1*04:05~DQB1*03:02~DPB1*02:01,A*01:01~C*07:01~B*08:01~DRB1*13:01~DQB1*06:03~DPB1*04:01"
-[3] "A*11:01~C*04:01~B*15:01~DRB1*04:01~DQB1*03:02~DPB1*04:02,A*03:01~C*08:02~B*14:02~DRB1*13:02~DQB1*06:09~DPB1*04:01"
-[4] "A*68:01~C*15:02~B*40:06~DRB1*16:02~DQB1*05:02~DPB1*10:01,A*68:01~C*06:02~B*45:01~DRB1*04:05~DQB1*03:02~DPB1*11:01"
-[5] "A*02:01~C*05:01~B*44:02~DRB1*15:01~DQB1*06:02~DPB1*02:01,A*30:01~C*06:02~B*13:02~DRB1*07:01~DQB1*02:02~DPB1*17:01"
+[1] "A*02:01~C*07:02~B*07:02~DRB1*15:01~DQB1*06:02~DPB1*04:02,A*01:01~C*06:02~B*57:01~
+DRB1*07:01~DQB1*03:03~DPB1*04:01"
+[2] "A*03:01~C*07:01~B*49:01~DRB1*04:05~DQB1*03:02~DPB1*02:01,A*01:01~C*07:01~B*08:01~
+DRB1*13:01~DQB1*06:03~DPB1*04:01"
+[3] "A*11:01~C*04:01~B*15:01~DRB1*04:01~DQB1*03:02~DPB1*04:02,A*03:01~C*08:02~B*14:02~
+DRB1*13:02~DQB1*06:09~DPB1*04:01"
+[4] "A*68:01~C*15:02~B*40:06~DRB1*16:02~DQB1*05:02~DPB1*10:01,A*68:01~C*06:02~B*45:01~
+DRB1*04:05~DQB1*03:02~DPB1*11:01"
+[5] "A*02:01~C*05:01~B*44:02~DRB1*15:01~DQB1*06:02~DPB1*02:01,A*30:01~C*06:02~B*13:02~
+DRB1*07:01~DQB1*02:02~DPB1*17:01"
 ```         
 
 ---
@@ -784,11 +798,11 @@ for(i in 1:2) {BIGDAWG(HLA_data.multi.strat[[i]],HLA = TRUE,Run.Tests = "L")}
  - filename A character string identifying either the desired path and name for the generated files, or the elements of the returned list object.
  - save.file A logical indicating if the pair of files should be written (TRUE) or if a list object should be returned. The default value is TRUE.
 
-**Return** When save.file = TRUE a pair of PyPop-formatted text files named "'filename'.positive.pop" and "'filename'.negative.pop" are generated in the specified directory. The "'filename'.positive.pop" file includes all subjects a value of 1 in the second column of the BIGDAWG data file, and the "'filename'.negative.pop" file includes all subjects with a value of 0 in the second column of the BIGDAWG data file. 
+**Return** When save.file = TRUE a pair of PyPop-formatted text files named "'filename'.positive.pop" and "'filename'.negative.pop" are generated in the specified directory. The "'filename'.positive.pop" file includes all subjects with a value of 1 in the second column of the BIGDAWG data file, and the "'filename'.negative.pop" file includes all subjects with a value of 0 in the second column of the BIGDAWG data file. 
 
 When save.file = FALSE, a list-object of two PyPop-formatted data frames titled "'filename'.positive" and "'filename'-negative" is returned. The positive list element includes all subjects a value of 1 in the second column of the BIGDAWG data file, and the negative list element includes all subjects with a value of 0 in the second column of the BIGDAWG data file.
 
-**Note** PyPop is not an R package. In order to analyze the files generated by this function with PyPop version 1.\*.\*, [the pypop-genomics package must be installed](http://pypop.org/docs/guide-chapter-install.html) on your system, and a [PyPop configuration file](http://pypop.org/docs/guide-chapter-usage.html#the-configuration-file), detailing the analyses to be performed, is required. A PyPop configuration file is not generated by BDtoPyPop()
+**Note** PyPop is not an R package. In order to analyze the files generated by this function with PyPop version 1.\*.\*, [the pypop-genomics package must be installed](http://pypop.org/docs/guide-chapter-install.html) on your system, and a [PyPop configuration file](http://pypop.org/docs/guide-chapter-usage.html#the-configuration-file), detailing the analyses to be performed, is required. A PyPop configuration file is not generated by BDtoPyPop().
 
 
 ```
