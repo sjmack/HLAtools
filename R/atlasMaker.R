@@ -1,7 +1,7 @@
 #atlasMaker v1.5.0 10 April 2024
 
 #library(stringr)
-#library(BIGDAWG)5
+#library(BIGDAWG)
 #library(dplyr)
 #library(tibble)
 #library(DescTools)
@@ -213,6 +213,33 @@ atlasMaker<-function(loci, source, version = "Latest"){
           type <- "cDNA"
           delete_lines <- c(1,2,3) # cDNA alignments for unexpressed genes (e.g., HLA-H, J, K, L, N, S, T, U, V, W and Y) only have 2 lines
           if(!expressed[[i]]) {delete_lines <- c(1,2)} ## prior to release 3.54.0, DPA2 and DPB2 had 3 lines, but are pseudogenes
+          
+          ### Some cDNAs for pseudogenes still have 3 lines. These lines fix that. 
+          #### Fix: DPA2, DPB2 and HLA-N cDNA alignments included an 'AA codon' row in several releases, through they are both pseudogenes
+          if(loci[i] == "DPA2" && version %in% c(3530,3520,3510,3500,3490,3480,3470,
+                                                 3460,3450,3440,3430,3420,3410,3400,
+                                                 3390,3380,3370,3360,3350,3340,3330,
+                                                 3320,3310,3300,3290,3280,3270)) {
+            delete_lines <- c(1,2,3)} # 3.53.0 - 3.27.0
+          
+          if(loci[i] == "DPB2" && version %in% c(3530,3520,3510,3500,3490,3480,3470,
+                                                 3460,3450,3440,3430,3420,3410,3400,
+                                                 3390,3380,3370,3360,3350,3340,3330,
+                                                 3320,3310,3300,3290,3280,3270,3260,
+                                                 3250,3240)) {
+            delete_lines <- c(1,2,3)} # 3.53.0 - 3.24.0
+          
+          if(loci[i] %in% c("N","S","U","Y") && version %in% c(3350,3340,3330)) {
+            delete_lines <- c(1,2,3)} # 3.35.0 - 3.33.0
+          
+          if(loci[i] =="Y" && version %in% c(3320,3310,3300,3320,3310,
+                                             3300,3290,3280,3270,3260,
+                                             3250,3240,3230,3220,3210,3200)) {
+            delete_lines <- c(1,2,3)} # 3.32.0 - 3.20.0
+          
+          if(loci[i] %in% c("W","T") && version == 3270) {
+            delete_lines <- c(1,2,3)} # 3.35.0 - 3.33.0
+          
           divide <- 3
           sequence_name <- "cDNAsequence"
         } else if(source[j]=="gDNA"){
@@ -223,6 +250,8 @@ atlasMaker<-function(loci, source, version = "Latest"){
           sequence_name <- "gDNAsequence"
         }
 
+        if(version == 3131) {version <- 3130} ## Fix for downloading the alignments, as the repo URL includes "3130", but the files use "3131".
+        
         # download relevant locus alignment file -- readLines allows for space preservation, which is important in
         # finding where the alignment sequence starts
         if(source[j] == "AA"|source[j] == "cDNA"){
@@ -231,6 +260,37 @@ atlasMaker<-function(loci, source, version = "Latest"){
           alignment[[loci[i]]] <- readLines(paste("https://raw.githubusercontent.com/ANHIG/IMGTHLA/", repoVersion(version), "/alignments/",paste(loci[[i]],suffix,sep=""),sep=""),-1,ok=TRUE,skipNul = FALSE)
         }
 
+        ### Fix for extraneous block of allele name rows in HLA-B cDNA alignment in 3.44.0 and 3.43.0.
+        if(loci[i] == "B" && version == 3440 && source == "cDNA"){ alignment[[loci[i]]] <- alignment[[loci[i]]][-c(127540:135510)] } # 3.44.0
+        if(loci[i] == "B" && version == 3430 && source == "cDNA"){ alignment[[loci[i]]] <- alignment[[loci[i]]][-c(124129:131886)] } # 3.43.0
+        ### Fix for extraneous HLA-C allele name rows in version 3.2.0 
+        if(loci[i] == "C" && repoVersion(version) == 320 && source == "cDNA"){ alignment[[loci[i]]] <- alignment[[loci[i]]][-c(14467:15430)] } # 3.43.0
+        
+        ### Fix for missing "AA codon" lines in HFE versions 3.27.0 to 3.22.0.
+        if(loci[i] == "HFE" && version %in% c(3270,3260,3250,3240,3230,3220) && source == "cDNA") {
+          
+          firstPos <- -25
+          alignment[[loci[i]]] <- addCodonLine(alignment[[loci[i]]],firstPos)
+          
+        }
+        
+        ### Fix for missing "AA codon" lines in DPA, DPB, TAP1 and TAP2 in version 0.00.0
+        if(repoVersion(version) == 300 && source == "cDNA" && loci[i] %in% c("DPA","DPB","TAP1","TAP2")) {
+          
+          if(loci[i] == "DPA") { firstPos <- -31 }
+          if(loci[i] == "DPB") { firstPos <- -29 }
+          if(loci[i] %in% c("TAP1","TAP2")) { firstPos <- 1 }
+          
+          alignment[[loci[i]]] <- addCodonLine(alignment[[loci[i]]],firstPos)
+        }
+        
+        ### Fix for missing carriage-return between lines 2 and 3 in HLA-V versions 3.14.0, and converting "3.15.0" to "3.14.0"    
+        if(loci[i] == "V" && version == 3140) { 
+          alignment[[loci[i]]] <- append(alignment[[loci[i]]],"Sequences Aligned: 2014 January 17",after=2)
+          alignment[[loci[i]]][2] <- "IMGT/HLA Release: 3.14.0"
+        }
+        
+        
         # if version is equal to latest, or if version is numeric and > 3310, obtain
         # version number from line 3, and skip first 7 rows and last 3 rows
         if((version == "Latest") | (is.numeric(version) & version > 3310)){
@@ -257,6 +317,12 @@ atlasMaker<-function(loci, source, version = "Latest"){
           alignment[[loci[i]]] <- alignment[[loci[[i]]]][!substr(alignment[[loci[[i]]]][],1,9) == " AA codon"]
         }
 
+        if(version == 3480 && source[j] == "gDNA" && loci[i] == "DRB1"){ ## Fix for DRB1*15:200:01:01N and DRB1*15:200:01:02N in 3.48.0 gDNA alignment
+          alignment[[loci[i]]] <- gsub("DRB1*15:200:01:01N","DRB1*15:200:01:01N ",alignment[[loci[i]]], fixed=TRUE)
+          alignment[[loci[i]]] <- gsub("DRB1*15:200:01:02N","DRB1*15:200:01:02N ",alignment[[loci[i]]], fixed=TRUE)
+        }
+        
+        
         # See countSpaces function (AA table only)
         # Counts difference between Prot to -30 and beginning of Prot to -30 + 1 due to zero number indexing to find where
         # the alignment sequence actually starts
@@ -679,7 +745,7 @@ atlasMaker<-function(loci, source, version = "Latest"){
 
         }
       ## Write each correspondence table to the tmp directory
-      write.table(as.data.frame(corr_table[[loci[i]]]),paste(tempdir(),paste(substr(alignmentVersion[[loci[i]]][1],nchar(alignmentVersion[[loci[i]]][1])-5,nchar(alignmentVersion[[loci[i]]][1])),loci[i],source[j],"corr_table.txt",sep="_"),sep="/"),append = FALSE,sep = ",",row.names = FALSE,col.names = TRUE)
+     # write.table(as.data.frame(corr_table[[loci[i]]]),paste(tempdir(),paste(substr(alignmentVersion[[loci[i]]][1],nchar(alignmentVersion[[loci[i]]][1])-5,nchar(alignmentVersion[[loci[i]]][1])),loci[i],source[j],"corr_table.txt",sep="_"),sep="/"),append = FALSE,sep = ",",row.names = FALSE,col.names = TRUE)
     } # end of the loop if j source values
   } # end of main loop of i length values
 

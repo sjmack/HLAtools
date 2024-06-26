@@ -1,10 +1,25 @@
-## HLAtools (development version)
+### HLAtools (development version)
+
+### Version 0.9.16.9000 June 24th to 25th, 2024
+
+- Updated atlasMaker() to build atlases for DRB1 in release 3.48.0.
+- Updated atlasMaker() to build atlases for HLA-B in releases 3.44.0 and 3.43.0.
+- Updated atlasMaker() to build atlases for HFE in releases 3.27.0 to 3.22.0. 
+- Updated atlasMaker() to build atlases for HLA-V in release 3.14.0.
+- Updated atlasMaker() to build atlases for DPA2 and DPB2 in releases 3.53.0-3.27.0.
+- Updated atlasMaker() to build atlases for HLA-N, -S, -U, and -Y in releases 3.35.0-3.33.0
+- Updated atlasMaker() to build atlases for HLA-Y in releases 3.32.0-3.20.0.
+- Updated atlasMaker() to build atlases for HLA-W and -T in release 3.27.0.
+- Updated atlasMaker() to build atlases for All loci in release 3.13.0/3.13.1
+- Updated atlasMaker() to build atlases for  HLA-C in release 3.02.0.
+- Updated atlasMaker() to build atlases for DPA, DPB, TAP1 and TAP2 in release 3.00.0.
+- Stopped atlasMaker() writing correspondence_tables to tempdir.
 
 ### Version 0.9.15.9000 June 21, 2024
 
 - Added addCodonLine() function to facilitate fixing nucleotide alignments that are missing "AA codon" lines.
 
-### Version 0.9.14.9000 June 10 to June 20, 2024
+### Version 0.9.14.9000 June 10th to 20th, 2024
 
 - Updated buildAlignments() to build DPA2 and DPB2 cDNA alignments in releases prior to 3.54.0.
 - Updated buildAlignments() to build DRB1 gDNA alignments in release 3.48.0.
