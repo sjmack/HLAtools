@@ -9,7 +9,7 @@ BDstrat(dataset, alleles, warnBelow = 21)
 \arguments{
 \item{dataset}{A BIGDAWG-formatted data.frame or a path to a BIGDAWG-formatted, tab-delimited text file.}
 
-\item{alleles}{A vector of allele names in the \if{html}{\out{<locus>}}\if{html}{\out{<allele name>}} format (e.g., "A*01:01:01:01").}
+\item{alleles}{A vector of allele names in the locus-asterisk-allele_name format (e.g., "A*01:01:01:01").}
 
 \item{warnBelow}{An integer that defines a low number of subjects in a stratum, generating a warning message. The default value is 21.}
 }

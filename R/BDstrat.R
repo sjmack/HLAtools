@@ -1,5 +1,5 @@
 #### BDstrat -- multi-allele stratification in BIGDAWG formatted datasets  
-####            v2.1.0 SJM April 3, 2024
+####            v2.1.0 SJM April 3, 2024 
 
 ####################
 ##BDstrat
@@ -8,7 +8,7 @@
 #'Divides a BIGDAWG-formatted dataset into two subsets (strata) that do and do not include specified alleles.
 #'
 #'@param dataset A BIGDAWG-formatted data.frame or a path to a BIGDAWG-formatted, tab-delimited text file.
-#'@param alleles A vector of allele names in the <locus><allele name> format (e.g., "A*01:01:01:01").
+#'@param alleles A vector of allele names in the locus-asterisk-allele_name format (e.g., "A*01:01:01:01").
 #'@param warnBelow An integer that defines a low number of subjects in a stratum, generating a warning message. The default value is 21.
 #'
 #'@return A list-object of two BIGDAWG-formatted data frames titled dataset$`<alleles>-positive` and dataset$`<alleles>-negative`. The positive list element includes all subjects with the specified alleles, and the negative list element includes all subjects without those specified alleles.
