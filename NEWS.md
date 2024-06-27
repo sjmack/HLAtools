@@ -1,5 +1,11 @@
 ### HLAtools
 
+### Version 1.0.1
+
+- Wrapped individual authors in c() in DESCRIPTION.
+- Limited 'cre' role to the package Maintainer.
+- Submission to CRAN.
+
 ### Version 1.0.0
 
 - June 26, 2024

@@ -1,16 +1,16 @@
 Package: HLAtools
 Type: Package
 Title: Toolkit for HLA Immunogenomics
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: 
-    person("Livia", "Tran", , "livia.tran@ucsf.edu", role = c("aut","cre"))
-    person("Ryan", "Nickens", , "rynickens@gmail.com", role = c("aut", "cre"))
-    person("Leamon", "Crooms IV", , "lcroomsiv@gmail.com", role = "aut")
-    person("Derek", "Pappas", , "djpappas75@gmail.com", role = "aut")
-    person("Vinh", "Luu", , "vinhluu864@berkeley.edu", role = "ctb")
-    person("Josh", "Bredeweg", , role = "ctb")
+    c(person("Livia", "Tran", , "livia.tran@ucsf.edu", role = c("aut")),
+    person("Ryan", "Nickens", , "rynickens@gmail.com", role = c("aut")),
+    person("Leamon", "Crooms IV", , "lcroomsiv@gmail.com", role = "aut"),
+    person("Derek", "Pappas", , "djpappas75@gmail.com", role = "aut"),
+    person("Vinh", "Luu", , "vinhluu864@berkeley.edu", role = "ctb"),
+    person("Josh", "Bredeweg", , role = "ctb"),
     person("Steven", "Mack", , "Steven.Mack@ucsf.edu", role = c("aut", "cre"), 
-           comment = c(ORCID = "0000-0001-9820-9547"))
+           comment = c(ORCID = "0000-0001-9820-9547")))
 Maintainer: Steven Mack <Steven.Mack@ucsf.edu>
 Description: A toolkit for the analysis and management of data for genes in the Human Leukocyte Antigen (HLA) region. Functions extract reference data from the ANHIG/IMGTHLA GitHub repository, validate Genotype List (GL) Strings, convert between UNIFORMAT and GL String Code (GLSC) formats, translate HLA alleles and GLSCs across IPT-IMGT/HLA Database release versions, identify differences between pairs of alleles at a locus, generate customized, multi-position sequence alignments, trim and convert allele-names across nomenclature epochs, and extend existing data-analysis methods.
 Encoding: UTF-8
