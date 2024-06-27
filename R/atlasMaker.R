@@ -26,14 +26,12 @@
 #'
 #'@note
 #'Some HLA-DQB1*05 and *06 alleles include a 5th exon that is not present in the DQB1*05:01:01:01 reference allele. In this case, the Exon 4 to Exon 5 boundary is defined as 'Ins' (insertion). For all other alleles there is no E.4-5 boundary.
-#'@note
-#'A set of versioned 'correspondence tables' for each alignment are written to tempdir().
 #'
 #'@importFrom DescTools StrLeft IsOdd
 #'@importFrom dplyr filter
 #'@importFrom stringr str_replace str_squish
 #'@importFrom tibble add_column
-#'@importFrom utils capture.output head tail write.table
+#'@importFrom utils capture.output head tail
 #'
 #'@export
 #'
@@ -744,8 +742,6 @@ atlasMaker<-function(loci, source, version = "Latest"){
         } # close cDNA & gDNA creation code
 
         }
-      ## Write each correspondence table to the tmp directory
-     # write.table(as.data.frame(corr_table[[loci[i]]]),paste(tempdir(),paste(substr(alignmentVersion[[loci[i]]][1],nchar(alignmentVersion[[loci[i]]][1])-5,nchar(alignmentVersion[[loci[i]]][1])),loci[i],source[j],"corr_table.txt",sep="_"),sep="/"),append = FALSE,sep = ",",row.names = FALSE,col.names = TRUE)
     } # end of the loop if j source values
   } # end of main loop of i length values
 

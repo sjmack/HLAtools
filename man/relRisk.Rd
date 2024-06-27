@@ -4,12 +4,14 @@
 \alias{relRisk}
 \title{Calculate Relative Risk for Individual Alleles and Genotypes in BIGDAWG-formatted Non-Case-Control Datasets}
 \usage{
-relRisk(dataset, return = TRUE)
+relRisk(dataset, return = TRUE, save.path = tempdir())
 }
 \arguments{
 \item{dataset}{The name of a non-case-control genotype dataset using the BIGDAWG format. Here, "non-case-control" means that while two subject categories are required, the categories should not be patients and controls; instead, the categories may be, e.g., for a dataset of patients, either of two disease states, where one disease state is coded as 0 and the other is coded as 1 in the second column of the dataset. Either a tab-delimited file or a data frame can be specified.}
 
 \item{return}{A logical identifying if the list object should be returned (return=TRUE), or if pairs of tab-delimited text files of results (one for alleles and one for genotypes) should be written to the working directory for each locus.}
+
+\item{save.path}{A character string identifying the path in which to write the pair of files when return is FALSE. The default value is tempdir().}
 }
 \value{
 A list object of two lists ("alleles" and "genotypes"), each of which contains a list of nine-column data frames containing results for each unique allele or genotype (in rows) at each locus. Column headers in each dataframe are, \emph{Locus}, \emph{Variant}, \emph{Status_1}, \emph{Status_0}, \emph{RelativeRisk}, \emph{CI.low}, \emph{CI.high}, \emph{p.value}, and \emph{Significant}.

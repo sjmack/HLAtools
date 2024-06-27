@@ -508,7 +508,7 @@ customAlign("codon",c("DPB1*01:01:01:01","DQA1*01:01:01:01","DQB1*05:01:01:01"),
 
 [Genotype List (GL) String](https://onlinelibrary.wiley.com/doi/10.1111/tan.15126) is a grammar for describing the relationships between allele names reported in a genotype, using a set of six case-defined “AND” and “OR” delimiters ('?', '^', '|', '+', '~', '~', and '/'). 
 
-[UNIFORMAT](https://hla-net.eu/tools/overview) is a parallel grammar that uses an alternate set of operators (",", "|", " ", and "~") to describe the relationships between allele names in a genotype. Additional details of UNIFORMAT can be found at [hla-net.eu](https://hla-net.eu/tools/uniformate).
+[UNIFORMAT](https://hla-net.eu/tools/overview/) is a parallel grammar that uses an alternate set of operators (",", "|", " ", and "~") to describe the relationships between allele names in a genotype. Additional details of UNIFORMAT can be found at [hla-net.eu](https://hla-net.eu/tools/uniformate/).
 
 [GL String Code](https://onlinelibrary.wiley.com/doi/10.1111/tan.15145) (GLSC) is a format that encapsulates a GL String with information describing the associated gene family namespace and the nomenclature version (or date) under which the GL String was generated. Additional information about GL String and GL String Code can be found at [glstring.org](https://glstring.org).
 
@@ -651,7 +651,7 @@ The *validateUniformat()* function evaluates UNIFORMAT data for incorrect charac
 
 **Parameters**
 
- - 'uniformat' A character string of allele names and operators in the UNIFORMAT format.
+ - *uniformat* A character string of allele names and operators in the UNIFORMAT format.
  
 ```
 validateUniformat("A*02:01,A*03:01|A*02:01,A*03:02|A*02:02,A*03:01|A*02:02,A*03:02")
@@ -668,9 +668,9 @@ The *UNItoGLS()* function converts a single UNIFORMAT string to GL string format
 
 **Parameters**
 
- - 'uniformat' A string of HLA allele names and operators in the UNIFORMAT format signifying their relation with one another.
- - 'prefix' A character string of the desired gene-system prefix (default is "HLA-").
- - 'pre' A logical that indicates whether returned allele names should contain 'prefix' (TRUE), or if 'prefix' should be excluded from returned names (FALSE).
+ - *uniformat* A string of HLA allele names and operators in the UNIFORMAT format signifying their relation with one another.
+ - *prefix* A character string of the desired gene-system prefix (default is "HLA-").
+ - *pre* A logical that indicates whether returned allele names should contain 'prefix' (TRUE), or if 'prefix' should be excluded from returned names (FALSE).
 
 ```
 UNItoGLS("A*02:01,A*03:01|A*02:01,A*03:02|A*02:02,A*03:01|A*02:02,A*03:02")
@@ -749,8 +749,9 @@ relrisk() returns a list object of two lists ("alleles" and "genotypes"), each o
 
 **Parameters**
 
- - 'dataset' The name of a non-case-control genotype dataset using the BIGDAWG format.
- - 'return' A logical identifying if the list object should be returned (return=TRUE), or if pairs of tab-delimited text files of results (one for alleles and one for genotypes) should be written to the working directory for each locus.
+ - *dataset* The name of a non-case-control genotype dataset using the BIGDAWG format.
+ - *return* A logical identifying if the list object should be returned (return=TRUE), or if pairs of tab-delimited text files of results (one for alleles and one for genotypes) should be written to the working directory for each locus.
+ - *save.path* A character string identifying the path in which to write the pair of files when return is FALSE. The default value is tempdir().
 
 
 ```
@@ -769,9 +770,9 @@ The BDstrat() function divides a [BIGDAWG-formatted](https://cran.r-project.org/
 
 **Parameters**
 
- - 'dataset': A BIGDAWG-formatted data frame or a path to a BIGDAWG-formatted, tab-delimited text file.
- - 'alleles': A vector of allele names in the <locus>\*<allele name> format (e.g., "A\*01:01:01:01" for HLA alleles or "KIR2DL1\*001" for KIR alleles).
- - 'warnBelow' : An integer that defines a low number of subjects in a stratum, generating a warning message. The default value is 21.
+ - *dataset*: A BIGDAWG-formatted data frame or a path to a BIGDAWG-formatted, tab-delimited text file.
+ - *alleles*: A vector of allele names in the <locus>\*<allele name> format (e.g., "A\*01:01:01:01" for HLA alleles or "KIR2DL1\*001" for KIR alleles).
+ - *warnBelow* : An integer that defines a low number of subjects in a stratum, generating a warning message. The default value is 21.
  
 **Return** A list-object of two BIGDAWG-formatted data frames titled 'dataset'\$'alleles'-positive' and 'dataset'\$'alleles'-negative`. The positive list element includes all subjects with the specified alleles, and the negative list element includes all subjects without those specified alleles.
 
@@ -794,9 +795,11 @@ for(i in 1:2) {BIGDAWG(HLA_data.multi.strat[[i]],HLA = TRUE,Run.Tests = "L")}
 
 **Parameters**
 
- - dataset A BIGDAWG-formatted data frame containing a case-control dataset.
- - filename A character string identifying either the desired path and name for the generated files, or the elements of the returned list object.
- - save.file A logical indicating if the pair of files should be written (TRUE) or if a list object should be returned. The default value is TRUE.
+ - *dataset* A BIGDAWG-formatted data frame containing a case-control dataset.
+ - *filename* A character string identifying either the desired path and name for the generated files, or the elements of the returned list object.
+ - *save.file* A logical indicating if the pair of files should be written (TRUE) or if a list object should be returned. The default value is TRUE.
+ - *save.path* A character string identifying the path in which to write the pair of files when return is FALSE. The default value is tempdir().
+
 
 **Return** When save.file = TRUE a pair of PyPop-formatted text files named "'filename'.positive.pop" and "'filename'.negative.pop" are generated in the specified directory. The "'filename'.positive.pop" file includes all subjects with a value of 1 in the second column of the BIGDAWG data file, and the "'filename'.negative.pop" file includes all subjects with a value of 0 in the second column of the BIGDAWG data file. 
 

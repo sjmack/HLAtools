@@ -6,7 +6,7 @@
 
 Converts a BIGDAWG-formatted data frame into a pair of PyPop-formatted case and control data frames.}
 \usage{
-BDtoPyPop(dataset, filename, save.file = TRUE)
+BDtoPyPop(dataset, filename, save.file = TRUE, save.path = tempdir())
 }
 \arguments{
 \item{dataset}{A data frame containing a BIGDAWG-formatted case-control dataset}
@@ -14,6 +14,8 @@ BDtoPyPop(dataset, filename, save.file = TRUE)
 \item{filename}{A character string identifying the desired path and name for the generated files or the elements of the returned list object.}
 
 \item{save.file}{A logical that determines if a pair of files should be written (TRUE) or if a list object should be returned. The default value is TRUE.}
+
+\item{save.path}{A character string identifying the path in which to write the pair of files when save.file is TRUE. The default value is tempdir().}
 }
 \value{
 When save.file = TRUE, a pair of files named "'filename'.positive.pop" and "'filename'.negative.pop" are generated in the working directory. When save.file = FALSE, a list of two-elements, named "'filename'.positive" and "'filename'.negative", is returned.

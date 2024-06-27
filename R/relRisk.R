@@ -7,6 +7,7 @@
 #' 
 #' @param dataset The name of a non-case-control genotype dataset using the BIGDAWG format. Here, "non-case-control" means that while two subject categories are required, the categories should not be patients and controls; instead, the categories may be, e.g., for a dataset of patients, either of two disease states, where one disease state is coded as 0 and the other is coded as 1 in the second column of the dataset. Either a tab-delimited file or a data frame can be specified. 
 #' @param return A logical identifying if the list object should be returned (return=TRUE), or if pairs of tab-delimited text files of results (one for alleles and one for genotypes) should be written to the working directory for each locus.
+#' @param save.path A character string identifying the path in which to write the pair of files when return is FALSE. The default value is tempdir().
 #' 
 #' @keywords relative risk genotype allele
 #' 
@@ -26,7 +27,7 @@
 #' }
 #' @references \href{https://cran.r-project.org/web/packages/BIGDAWG/vignettes/BIGDAWG.html#input-data}{BIGDAWG Data Format}
 #' 
-relRisk <- function(dataset,return=TRUE){ ## if return == TRUE, a list object is returned; if return==FALSE, two tab-delimited text files are written for each locus; one for alleles and one for genotypes
+relRisk <- function(dataset,return=TRUE,save.path = tempdir()){ ## if return == TRUE, a list object is returned; if return==FALSE, two tab-delimited text files are written for each locus; one for alleles and one for genotypes
 
       if(!is.data.frame(dataset)){
       # load in HLA BIGDAWG formatted data
@@ -108,7 +109,7 @@ relRisk <- function(dataset,return=TRUE){ ## if return == TRUE, a list object is
               RRtab[[k]][[i]][j,1:9] <- c(loci[i],masterTab[[k]][[i]][j,1],masterTab[[k]][[i]][j,2],masterTab[[k]][[i]][j,3],RR$estimate,RR$conf.int[1],RR$conf.int[2],RR$p.value,ifelse(RR$p.value<0.05,"*",""))
                     } # end of variant loop j  
 
-              if(!return){write.table(RRtab[[k]][[i]],file=paste(loci[i],ifelse(k == 2,"genotype","allele"),"relative_risk.txt",sep="."),append = FALSE,quote = FALSE,sep = "\t",row.names = FALSE,col.names = TRUE)
+              if(!return){write.table(RRtab[[k]][[i]],file=paste(save.path,paste(loci[i],ifelse(k == 2,"genotype","allele"),"relative_risk.txt",sep="."),sep=.Platform$file.sep),append = FALSE,quote = FALSE,sep = "\t",row.names = FALSE,col.names = TRUE)
                     message(loci[i],ifelse(k == 2,".genotype",".allele"),".relative_risk.txt file written.")
                       }
                 } # end of Loci loop i 

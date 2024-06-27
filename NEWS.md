@@ -4,6 +4,8 @@
 
 - June 26, 2024
 - Standardized function documentation.
+- Remove write.table() calls from atlasMaker().
+- Add save.path parameter to BDtoPyPop() and relRisk().
 - initial package release.
 - Submission to CRAN.
 
