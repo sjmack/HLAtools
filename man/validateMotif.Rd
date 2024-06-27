@@ -2,7 +2,7 @@
 % Please edit documentation in R/motifMatch.R
 \name{validateMotif}
 \alias{validateMotif}
-\title{Evaluates a motif to determine if the locus is valid and variants are alud.}
+\title{Determine if a Motif is Properly Formatted}
 \usage{
 validateMotif(motif, alignType)
 }
@@ -15,7 +15,7 @@ validateMotif(motif, alignType)
 If the motif is valid, TRUE is returned. If the locus or body of the motif is invalid, FALSE is returned along with a brief message.
 }
 \description{
-Evaluates a motif to determine if the locus is valid and variants are alud.
+Evaluates a motif to determine if the locus is valid and variants are valid.
 }
 \examples{
 \dontrun{

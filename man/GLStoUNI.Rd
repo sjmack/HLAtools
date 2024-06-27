@@ -2,7 +2,7 @@
 % Please edit documentation in R/GLStoUNI.R
 \name{GLStoUNI}
 \alias{GLStoUNI}
-\title{Translates strings from GL String format to UNIFORMAT format.}
+\title{Translate GL String to UNIFORMAT}
 \usage{
 GLStoUNI(GLstring, prefix = "HLA-", pre = FALSE)
 }

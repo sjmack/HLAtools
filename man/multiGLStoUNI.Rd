@@ -2,7 +2,7 @@
 % Please edit documentation in R/GLStoUNI.R
 \name{multiGLStoUNI}
 \alias{multiGLStoUNI}
-\title{Translate multiple GL Strings to UNIFORMAT.}
+\title{Translate Multiple GL Strings to UNIFORMAT}
 \usage{
 multiGLStoUNI(GLstringArray, prefix = "HLA-", pre = FALSE)
 }

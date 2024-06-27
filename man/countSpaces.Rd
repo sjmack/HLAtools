@@ -2,7 +2,7 @@
 % Please edit documentation in R/ThirdPartyFunctions.R
 \name{countSpaces}
 \alias{countSpaces}
-\title{countSpaces - Count the number of spaces in a character string.}
+\title{Count the Spaces in a Character String}
 \source{
 https://www.reddit.com/r/rstats/comments/2th8ic/function_to_count_the_number_of_white_spaces/
 }

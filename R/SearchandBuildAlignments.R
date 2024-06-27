@@ -2,7 +2,7 @@
 
 ################
 #AlignmentSearch
-#'Search peptide, codon or nucleotide HLA alignments for specific positions in a given allele.
+#'Search Alignments for Specific Positions in a Specific Allele
 #'
 #'Searches ANHIG/IMGT-HLA alignments and returns protein, codons or nucleotide sequences for a submitted allele name and position(s).
 #'
@@ -93,9 +93,9 @@ alignmentSearch <- function(alignType,allelename,positions,prefix=TRUE,sep="~"){
 
 ################
 ##multiSearch
-#'Return HLA alignment sequences at multiple positions for a specified HLA allele
+#'Search Alignment Sequences at Multiple Positions for a Specified Allele
 #'
-#'Generates a character string of multiple protein, codon or nucleotide or genomic sequences at the specified positions for the specified HLA allele name.
+#'Generates a character string of multiple protein, codon or nucleotide or genomic sequences at the specified positions for the specified allele name.
 #'
 #'@param alignType The type of alignment being searched. Allowed values are "prot", codon", "nuc" and "gen". Only one 'alignType' value is allowed.
 #'@param locus A specific locus.
@@ -157,9 +157,9 @@ multiSearch <- function(alignType, locus, allele, positions, prefix=TRUE,sep="~"
 
 ################
 ##uniSearch
-#'Search HLA peptide and nucleotides sequences at single specified position for a specified HLA allele
+#'Search Sequences at a Single Position for an Allele
 #'
-#'Generates a character string of the peptide, codon or nucleotide sequence at the specified position for the specified HLA allele name.
+#'Generates a character string of the peptide, codon or nucleotide sequence at the specified position for the specified HLA allele.
 #'
 #'@param alignType The type of alignment being searched. Allowed values are "prot", "codon", "nuc" and "gen". Only one 'alignType' value is allowed.
 #'@param locus A specific HLA locus.
@@ -226,7 +226,7 @@ uniSearch <- function(alignType, locus, allele, position, prefix=TRUE, trimmed=F
 
 ################
 ##customAlign
-#'Generate a customized peptide, codon or coding or genomic nucleotide sequence alignment.
+#'Generate a Customized Peptide, Codon or Nucleotide Sequence Alignment.
 #'
 #'Generates a peptide, codon, coding or genomic nucleotide alignment table for user-specified HLA alleles at user-specified positions.
 #'
@@ -262,7 +262,7 @@ customAlign <- function(alignType,alleles,positions){
 
 ################
 ##uniAlign
-#'Generate a peptide, codon or coding or genomic nucleotide alignment for specific alleles at specific positions.
+#'Generate an Alignment for Specific Alleles at Specific Positions
 #'
 #'Generates a peptide, codon, coding or genomic nucleotide alignment at a single set of positions for HLA alleles at one or more loci.
 #'
@@ -314,7 +314,7 @@ uniAlign <- function(alignType, alleles,positions){
 
 ################
 ##multiAlign
-#'Generate an alignment for specific HLA alleles at different sets of positions.
+#'Generate an Alignment for Specific Alleles at Different Positions
 #'
 #'Generates a peptide, codon, coding nucleotide or genomic alignment for HLA alleles allowing each allele to be aligned to a different set of positions.
 #'

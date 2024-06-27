@@ -2,7 +2,7 @@
 
 ################
 ##FormatHead
-#'Format the header of a PyPop data frame.
+#'Format PyPop Data Frame Headers
 #'  
 #'Format the header of a PyPop-formatted data frame.
 #'
@@ -34,7 +34,7 @@ formatHead <- function(colHead) {
 
 ################
 ##convertAny
-#' Convert one value to another value across an entire data frame or vector.
+#' Convert Values Across an Entire Data Frame or Vector
 #'  
 #' Converts all instances of a value in a data frame or vector to a specified value.
 #'
@@ -65,9 +65,9 @@ convertAny <- function(dataset,change.from=NA,change.to="****") {
 
 ################
 ##pypopHeaders
-#'Convert the header of a BIGDAWG data file to PyPop format. 
+#'Convert BIGDAWG File Headers to PyPop Format 
 #'
-#'Convert the header of a BIGDAWG-formatted data frame into PyPop-formatted header.
+#'Convert the header of a BIGDAWG-formatted data frame into a PyPop-formatted header.
 #'
 #'@param colHead A vector of column names. BIGDAWG format requires that the first two header values are the sample identifier character string and the subject status (0 or 1). All other header values should be paired locus/gene names.
 #'
@@ -123,7 +123,7 @@ pypopHeaders <- function(colHead) {
 
 ################
 ## BDtoPyPop
-#'Convert a BIGDAWG dataset into a pair of 'case' and 'control' PyPop version 1.#.# datasets.
+#'Convert BIGDAWG datasets to PyPop datasets
 #'  
 #'Converts a BIGDAWG-formatted data frame into a pair of PyPop-formatted case and control data frames.
 #'

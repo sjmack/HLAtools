@@ -4,7 +4,7 @@
 
 ################
 ##UNItoGLS
-#'Translate strings from UNIFORMAT format to GL String format.
+#'Translate UNIFORMAT to GL String
 #'
 #'A wrapper function for UNtoGL() which translates strings from UNIFORMAT format to GL String format.
 #'
@@ -34,7 +34,7 @@ UNItoGLS <- function(uniformat, prefix = "HLA-", pre = TRUE) {
 
 ################
 ##multiUNItoGLS
-#'Translate multiple UNIFORMAT strings to GL Strings.
+#'Translate Multiple UNIFORMAT Strings to GL Strings
 #'
 #'Translate a data frame or vector of UNIFORMAT strings to GL Strings.
 #'
@@ -85,7 +85,7 @@ multiUNItoGLS <- function(UniformatArray, prefix = "HLA-", pre = TRUE) {
 
 ################
 ##UNtoGL
-#'Translate UNIFORMAT strings to GL Strings.
+#'Translate UNIFORMAT Strings to GL Strings
 #'
 #'A function that translates strings from UNIFORMAT format to GL String format.
 #'
@@ -219,7 +219,7 @@ UNtoGL <- function(uniformat, prefix = "HLA-", pre = TRUE) {
 
 ################
 ##validateUniformat
-#'Validate a UNIFORMAT string.
+#'Validate a UNIFORMAT String
 #'
 #'Evaluates a UNIFORMAT string to identify unsupported characters.
 #'

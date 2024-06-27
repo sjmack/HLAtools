@@ -2,7 +2,7 @@
 % Please edit documentation in R/AlleleTrim.R
 \name{alleleTrim}
 \alias{alleleTrim}
-\title{Trim all versions of allele names}
+\title{Trim All Versions of Allele Names}
 \usage{
 alleleTrim(allele, resolution, version = 3)
 }

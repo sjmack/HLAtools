@@ -2,7 +2,7 @@
 % Please edit documentation in R/accessoryFunctions.R
 \name{validateAllele}
 \alias{validateAllele}
-\title{Determine if an allele name is properly formed and present in HLAalignments}
+\title{Validate Allele-Name Format and Presence in HLAalignments}
 \usage{
 validateAllele(allele)
 }

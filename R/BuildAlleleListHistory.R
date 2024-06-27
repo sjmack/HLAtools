@@ -2,7 +2,7 @@
 
 ################
 ##updateAlleleListHistory
-#'Build the AlleleList History R Object.
+#'Build the AlleleList History R Object
 #'
 #'Consumes the ANHIG/IMGTHLA GitHub repository's allelelisthistory.txt file to create the AlleleListHistory object.
 #'

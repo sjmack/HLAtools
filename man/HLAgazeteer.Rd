@@ -3,7 +3,7 @@
 \docType{data}
 \name{HLAgazeteer}
 \alias{HLAgazeteer}
-\title{Functional and organizational categories of genes supported by the IPD-IMGT/HLA Database.}
+\title{Functional and Organizational Categories of Genes Supported by the IPD-IMGT/HLA Database}
 \format{
 A large list of 19 vectors that define specific categories of genes supported by the IPD-IMGT/HLA Database
 \itemize{

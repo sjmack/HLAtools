@@ -2,7 +2,7 @@
 % Please edit documentation in R/BDtoPyPop.R
 \name{pypopHeaders}
 \alias{pypopHeaders}
-\title{Convert the header of a BIGDAWG data file to PyPop format.}
+\title{Convert BIGDAWG File Headers to PyPop Format}
 \usage{
 pypopHeaders(colHead)
 }
@@ -13,7 +13,7 @@ pypopHeaders(colHead)
 A PyPop-formatted column header.
 }
 \description{
-Convert the header of a BIGDAWG-formatted data frame into PyPop-formatted header.
+Convert the header of a BIGDAWG-formatted data frame into a PyPop-formatted header.
 }
 \note{
 This function returns unique locus names for each column. For example, "A_1" and "A_2" headers will be returned for two "A" locus columns. PyPop configuration (.ini) files allow this format to be customized.

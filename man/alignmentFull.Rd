@@ -2,7 +2,7 @@
 % Please edit documentation in R/alignmentFull.R
 \name{alignmentFull}
 \alias{alignmentFull}
-\title{Build sets of protein, codon, coding nucleotide and genomic nucleotide alignments for specified  Loci.}
+\title{Build Sets of Protein, Codon, Coding Nucleotide and Genomic Nucleotide Alignments for Specified  Loci}
 \usage{
 alignmentFull(loci = "all", alignType = "all", version = HLAgazeteer$version)
 }

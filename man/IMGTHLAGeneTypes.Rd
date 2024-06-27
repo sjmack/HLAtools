@@ -3,7 +3,7 @@
 \docType{data}
 \name{IMGTHLAGeneTypes}
 \alias{IMGTHLAGeneTypes}
-\title{Describes the molecular characteristics of the genes curated by the IPD-IMGT/HLA Database, and identifies gene fragments and pseudogenes.}
+\title{Molecular characteristics of the Genes Curated by the IPD-IMGT/HLA Database}
 \format{
 A list object of two elements:
 \itemize{

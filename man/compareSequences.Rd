@@ -2,7 +2,7 @@
 % Please edit documentation in R/compareSequences.R
 \name{compareSequences}
 \alias{compareSequences}
-\title{Identify the differences between a pair of allele sequences at a locus}
+\title{Identify Sequence Differences Between Two Alleles at a Locus}
 \usage{
 compareSequences(alignType, alleles)
 }

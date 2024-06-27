@@ -3,7 +3,7 @@
 \docType{data}
 \name{GLstring.ex}
 \alias{GLstring.ex}
-\title{Example data frame containing Genotype List String data.}
+\title{Example Data Frame of Genotype List String Data.}
 \format{
 A dataframe with 419 rows and 2 columns.
 }

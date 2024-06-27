@@ -2,7 +2,7 @@
 % Please edit documentation in R/GLupdater.R
 \name{updateGL}
 \alias{updateGL}
-\title{Update a GL String Code to a specified IPD-IMGT/HLA Database version.}
+\title{Update a GL String Code to a Specified IPD-IMGT/HLA Database Version.}
 \usage{
 updateGL(GLStringCode, Version, expand = FALSE)
 }

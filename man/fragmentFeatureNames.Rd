@@ -3,7 +3,7 @@
 \docType{data}
 \name{fragmentFeatureNames}
 \alias{fragmentFeatureNames}
-\title{Identifies the gene features of HLA pseduogenes and gene fragments}
+\title{Gene Features of HLA Pseduogenes and Gene Fragments}
 \format{
 A list of 15 elements that identify the gene features for each locus wih a genomic alignment and annotate non-standard features
 }

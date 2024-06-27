@@ -4,7 +4,7 @@
 
 ################
 ##GLStoUNI
-#'Translates strings from GL String format to UNIFORMAT format.
+#'Translate GL String to UNIFORMAT
 #'
 #'A wrapper function for GLtoUN, which translates strings from GL String format to UNIFORMAT format.
 #'
@@ -37,7 +37,7 @@ GLStoUNI <- function(GLstring, prefix = "HLA-", pre = FALSE) {
 
 ################
 ##multiGLStoUNI
-#'Translate multiple GL Strings to UNIFORMAT.
+#'Translate Multiple GL Strings to UNIFORMAT
 #'
 #'Translate a data frame or a vector of GL Strings to UNIFORMAT strings.
 #'
@@ -86,7 +86,7 @@ multiGLStoUNI <- function(GLstringArray, prefix = "HLA-", pre = FALSE) {
 
 ################
 ##GLtoUN
-#'Translates GL Strings to UNIFORMAT strings.
+#'Translates GL Strings to UNIFORMAT Strings
 #'
 #'A function that translates strings from GL String format to UNIFORMAT format.
 #'
@@ -168,7 +168,7 @@ GLtoUN <- function(GLstring, prefix = "HLA-", pre = FALSE) {
 
 ################
 ##validateGLstring
-#'Validate a GL String.
+#'Validate a GL String
 #'
 #'Evaluates a GL String to identify unsupported characters for a specified GL String version.
 #'

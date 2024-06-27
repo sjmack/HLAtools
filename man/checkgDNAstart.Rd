@@ -2,7 +2,7 @@
 % Please edit documentation in R/checkgDNAStart.R
 \name{checkgDNAstart}
 \alias{checkgDNAstart}
-\title{Identify HLA gDNA alignments for which the first feature boundary is not identified as position +1.}
+\title{Identify gDNA Alignments in Which the First Feature Boundary is not Identified as Position +1.}
 \usage{
 checkgDNAstart(verbose = FALSE)
 }
@@ -25,6 +25,5 @@ For internal HLAtools use.
 \dontrun{
 gDNAStartPositions <- checkgDNAstart()
 }
-
 
 }

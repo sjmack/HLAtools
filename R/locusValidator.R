@@ -2,7 +2,7 @@
 
 ################
 ##validateLocus
-#'Determine if a locus name is present in the HLAgazeteer.
+#'Determine if a Locus Name is in the HLAgazeteer
 #'
 #'Checks a vector of HLA locus names against the HLA gazeteer to determine if the locus name is valid for a specific type of alignment.
 #'
@@ -52,7 +52,7 @@ validateLocus<-function(loci, source){
 
 ################
 ##multiLocusValidation
-#'Apply validateLocus() to multiple individual loci
+#'Apply validateLocus() to Multiple Loci
 #'
 #'Applies validateLocus() to a vector of locus names, validates them against HLAgazeteer$gen, and returns a vector of validated locus names. 
 #'

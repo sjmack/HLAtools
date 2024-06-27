@@ -3,7 +3,7 @@
 \docType{data}
 \name{alleleListHistory}
 \alias{alleleListHistory}
-\title{Identifies HLA loci that have amino acid, cDNA, or gDNA alignments.}
+\title{Allele Names Across All Release Versions}
 \format{
 A large list of 2 elements that identify the table of allele names for each IPD-IMGT/HLA reference Database release and the source release
 \itemize{
@@ -18,7 +18,7 @@ https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/Allelelist_history.txt
 data(alleleListHistory)
 }
 \description{
-A large list object of two elements. The first element contains Allele List version information. The second element contains all releases of allele lists on the IMGT/HLA database.
+A large list object of two elements. The first element contains version information. The second element contains all releases of allele name lists in the IMGT/HLA database.
 This object is built by the UpdateAlleleListHistory() function.
 }
 \keyword{datasets}

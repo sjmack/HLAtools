@@ -2,7 +2,7 @@
 
 ################
 ##alignmentFull
-#'Build sets of protein, codon, coding nucleotide and genomic nucleotide alignments for specified  Loci.
+#'Build Sets of Protein, Codon, Coding Nucleotide and Genomic Nucleotide Alignments for Specified  Loci
 #'
 #'Applies buildAlignments() to build a set of alignments for loci supported in the ANHIG/IMGTHLA GitHub repository.
 #'

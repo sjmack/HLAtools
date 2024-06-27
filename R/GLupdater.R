@@ -5,7 +5,7 @@
 
 ################
 ##updateGL
-#'Update a GL String Code to a specified IPD-IMGT/HLA Database version.
+#'Update a GL String Code to a Specified IPD-IMGT/HLA Database Version.
 #'
 #'A quality control wrapper for GLupdate, which updates a GL String Code to a desired reference database version.
 #'

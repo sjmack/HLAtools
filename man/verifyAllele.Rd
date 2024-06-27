@@ -2,7 +2,7 @@
 % Please edit documentation in R/accessoryFunctions.R
 \name{verifyAllele}
 \alias{verifyAllele}
-\title{Determine if a specific allele name ever existed, and (if so) the most recent IPD-IMGT/HLA Database release in which it appeared}
+\title{Determine if an Allele Name Ever Existed, and (if so) its Most Recent IPD-IMGT/HLA Database Release}
 \usage{
 verifyAllele(allele, version = FALSE)
 }

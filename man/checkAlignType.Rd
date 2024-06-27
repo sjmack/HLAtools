@@ -2,7 +2,7 @@
 % Please edit documentation in R/accessoryFunctions.R
 \name{checkAlignType}
 \alias{checkAlignType}
-\title{Evaluates 'alignType' values to ensure that only "prot", "nuc", "codon" and "gen" are passed to downstream functions. If any other values are entered, a message describing excluded values is generated. If no valid 'alignType' values are are present, an error is generated, and any calling function is ended.}
+\title{Ensure that AlignType Values are Valid}
 \usage{
 checkAlignType(alignType)
 }

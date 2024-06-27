@@ -2,7 +2,7 @@
 
 ################
 ##FragmentFeatureNames (ffN)
-#'Identifies and annotates the gene features present in genomic alignments of HLA pseudogenes and gene fragments.
+#'Identify and Annotate Gene Features in Pseudogenes and Gene Fragments.
 #'
 #'@description
 #'HLA pseudogenes and gene fragments many not share all of the gene features of their expressed homologs. The ffN() function generates a list object identifying the features present in a given gene fragment or pseudogene with a genomic alignment file. This includes annotations of the differences between the pseudogenes and gene fragments, and their expressed homologs.

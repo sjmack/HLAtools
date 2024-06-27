@@ -2,7 +2,7 @@
 % Please edit documentation in R/AlleleTrim.R
 \name{getField}
 \alias{getField}
-\title{Trims colon-delimited HLA allele names by field}
+\title{Trim Colon-Delimited HLA Allele Names by Field}
 \usage{
 getField(allele, res, append = FALSE)
 }

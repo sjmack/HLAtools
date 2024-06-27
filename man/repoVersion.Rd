@@ -2,7 +2,7 @@
 % Please edit documentation in R/VersionValidation.R
 \name{repoVersion}
 \alias{repoVersion}
-\title{RepoVersion - Convert an AlleleListHistory-formatted IPD-IMGT/HLA Database Release Version to the GitHub Repository Version}
+\title{Convert an AlleleListHistory Release Version to the GitHub Repository Version}
 \usage{
 repoVersion(version)
 }

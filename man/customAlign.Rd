@@ -2,7 +2,7 @@
 % Please edit documentation in R/SearchandBuildAlignments.R
 \name{customAlign}
 \alias{customAlign}
-\title{Generate a customized peptide, codon or coding or genomic nucleotide sequence alignment.}
+\title{Generate a Customized Peptide, Codon or Nucleotide Sequence Alignment.}
 \usage{
 customAlign(alignType, alleles, positions)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/accessoryFunctions.R
 \name{numFields}
 \alias{numFields}
-\title{Identifies the number of fields in a colon-delimited HLA allele name.}
+\title{Identify the Number of Fields in a Colon-Delimited Allele Name}
 \usage{
 numFields(allele)
 }

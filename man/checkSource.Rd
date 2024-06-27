@@ -2,7 +2,7 @@
 % Please edit documentation in R/accessoryFunctions.R
 \name{checkSource}
 \alias{checkSource}
-\title{Evaluates 'source' values to ensure that only "AA", "cDNA", and "gDNA" are passed to downstream functions. If any other values are entered, a message describing excluded values is generated.}
+\title{Ensure that Source Values are Valid}
 \usage{
 checkSource(source)
 }

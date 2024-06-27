@@ -2,7 +2,7 @@
 % Please edit documentation in R/SearchandBuildAlignments.R
 \name{uniSearch}
 \alias{uniSearch}
-\title{Search HLA peptide and nucleotides sequences at single specified position for a specified HLA allele}
+\title{Search Sequences at a Single Position for an Allele}
 \usage{
 uniSearch(alignType, locus, allele, position, prefix = TRUE, trimmed = FALSE)
 }
@@ -23,7 +23,7 @@ uniSearch(alignType, locus, allele, position, prefix = TRUE, trimmed = FALSE)
 The peptide residue, codon or nucleotide sequence at specified position for specified allele as available in the ANHIG/IMGTHLA Github Repository.
 }
 \description{
-Generates a character string of the peptide, codon or nucleotide sequence at the specified position for the specified HLA allele name.
+Generates a character string of the peptide, codon or nucleotide sequence at the specified position for the specified HLA allele.
 }
 \note{
 For internal HLAtools use.

@@ -8,7 +8,7 @@
 
 ################
 ##atlasMaker
-#'Identify the gene-feature boundaries in HLA loci.
+#'Identify the Gene-Feature Boundaries in HLA Region Genes
 #'
 #'Builds an 'atlas' of the gene-feature (exon, intron and UTR) boundaries for IPD-IMGT/HLA loci, using IPD-IMGT/HLA Database alignments.
 #'

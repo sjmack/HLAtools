@@ -2,7 +2,7 @@
 % Please edit documentation in R/GLStoUNI.R
 \name{validateGLstring}
 \alias{validateGLstring}
-\title{Validate a GL String.}
+\title{Validate a GL String}
 \usage{
 validateGLstring(GLstring, version)
 }

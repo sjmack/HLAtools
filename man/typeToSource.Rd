@@ -2,7 +2,7 @@
 % Please edit documentation in R/accessoryFunctions.R
 \name{typeToSource}
 \alias{typeToSource}
-\title{Converts between 'alignType' values, identifying four types of sequence alignments and 'source' values, identifying three kinds of alignment files.}
+\title{Convert AlignType Values to Source Values}
 \usage{
 typeToSource(alignVector, toSource = TRUE)
 }

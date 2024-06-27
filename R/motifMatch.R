@@ -63,9 +63,9 @@ motifMatch <- function(motif,alignType,full=TRUE){
 
 ####################
 ### Validate Motif
-## Determine if a motif is properly formatted
+#' Determine if a Motif is Properly Formatted
 #'
-#'Evaluates a motif to determine if the locus is valid and variants are alud. 
+#'Evaluates a motif to determine if the locus is valid and variants are valid. 
 #'
 #'@param motif A sequence variant motif in the following format: Locus*#$~#$~#$, where ## identifies a variant position, and $ identifies the sequence variant. Both nucleotide and peptide motifs can be provided, and any number of variants can be specified.
 #'@param alignType The type of alignment being searched. Allowed values are "codon","gen", nuc" and "prot". Only one 'alignType' value is allowed.

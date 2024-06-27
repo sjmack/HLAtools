@@ -2,7 +2,7 @@
 % Please edit documentation in R/UpdateAll.R
 \name{updateAll}
 \alias{updateAll}
-\title{Updates all of the package data objects derived from IPD-IMGT/HLA Database resources.}
+\title{Update All Package Data Objects Derived from IPD-IMGT/HLA Database Resources}
 \usage{
 updateAll(updateType = "all", version = getLatestVersion())
 }

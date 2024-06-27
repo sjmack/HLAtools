@@ -2,7 +2,7 @@
 % Please edit documentation in R/accessoryFunctions.R
 \name{posSort}
 \alias{posSort}
-\title{Numerical sort for sequence alignment positions that contain indels.}
+\title{Numerical Sort of Alignment Positions that Contain Indels}
 \usage{
 posSort(posVec, alignType, locus)
 }

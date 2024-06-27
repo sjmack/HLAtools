@@ -3,7 +3,7 @@
 \docType{data}
 \name{GLSC.ex}
 \alias{GLSC.ex}
-\title{Example data frame containing Genotype List String Code data.}
+\title{Example Data Frame of Genotype List String Code Data}
 \format{
 A dataframe with 419 rows and 2 columns.
 }

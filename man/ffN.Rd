@@ -2,7 +2,7 @@
 % Please edit documentation in R/fragmentFeatureNames.R
 \name{ffN}
 \alias{ffN}
-\title{Identifies and annotates the gene features present in genomic alignments of HLA pseudogenes and gene fragments.}
+\title{Identify and Annotate Gene Features in Pseudogenes and Gene Fragments.}
 \usage{
 ffN(version)
 }

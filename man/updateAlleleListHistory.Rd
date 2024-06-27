@@ -2,7 +2,7 @@
 % Please edit documentation in R/BuildAlleleListHistory.R
 \name{updateAlleleListHistory}
 \alias{updateAlleleListHistory}
-\title{Build the AlleleList History R Object.}
+\title{Build the AlleleList History R Object}
 \usage{
 updateAlleleListHistory()
 }

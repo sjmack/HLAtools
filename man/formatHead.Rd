@@ -2,7 +2,7 @@
 % Please edit documentation in R/BDtoPyPop.R
 \name{formatHead}
 \alias{formatHead}
-\title{Format the header of a PyPop data frame.
+\title{Format PyPop Data Frame Headers
 
 Format the header of a PyPop-formatted data frame.}
 \usage{
@@ -15,7 +15,7 @@ formatHead(colHead)
 A vector in which the locus names are suffixed with '_1' and '_2'.
 }
 \description{
-Format the header of a PyPop data frame.
+Format PyPop Data Frame Headers
 
 Format the header of a PyPop-formatted data frame.
 }

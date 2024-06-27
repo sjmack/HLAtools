@@ -2,7 +2,7 @@
 
 ################
 ##atlasFull
-#'Generate a complete set of HLA atlases for protein, coding nucleotide and genomic nucleotide alignments.
+#'Generate a Complete set of Protein, Coding nucleotide and Genomic Nucleotide Atlases
 #'
 #'Applies atlasMaker() to build a set of 'atlases' identifying the gene-feature (exon, intron, and UTR) boundaries in the protein, coding nucleotide, and genomic nucleotide alignments of all HLA loci.
 #'

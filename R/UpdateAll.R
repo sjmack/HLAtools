@@ -2,7 +2,7 @@
 
 ################
 ##updateAll
-#'Updates all of the package data objects derived from IPD-IMGT/HLA Database resources.
+#'Update All Package Data Objects Derived from IPD-IMGT/HLA Database Resources
 #'
 #'@description
 #'Applies updateAlleleListHistory(), atlasFull(), buildGazeteer(), extractGeneTypes(), and ffN() to update the alleleListHistory, HLAatlas, HLAgazeteer, IMGTHLAGeneTypes and fragmentFeatureNames data objects.

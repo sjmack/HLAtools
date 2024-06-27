@@ -2,7 +2,7 @@
 % Please edit documentation in R/accessoryFunctions.R
 \name{addCodonLine}
 \alias{addCodonLine}
-\title{Modifies cDNA alignment files that are missing "AA codon" lines to include these lines in the correct location with the correct codon position information.}
+\title{Add an 'AA codon' Line to Alignments When Missing.}
 \usage{
 addCodonLine(cDNAalign, firstPos, afterLine = 8, codons = 25)
 }

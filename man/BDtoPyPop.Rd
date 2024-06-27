@@ -2,7 +2,7 @@
 % Please edit documentation in R/BDtoPyPop.R
 \name{BDtoPyPop}
 \alias{BDtoPyPop}
-\title{Convert a BIGDAWG dataset into a pair of 'case' and 'control' PyPop version 1.#.# datasets.
+\title{Convert BIGDAWG datasets to PyPop datasets
 
 Converts a BIGDAWG-formatted data frame into a pair of PyPop-formatted case and control data frames.}
 \usage{
@@ -19,7 +19,7 @@ BDtoPyPop(dataset, filename, save.file = TRUE)
 When save.file = TRUE, a pair of files named "'filename'.positive.pop" and "'filename'.negative.pop" are generated in the working directory. When save.file = FALSE, a list of two-elements, named "'filename'.positive" and "'filename'.negative", is returned.
 }
 \description{
-Convert a BIGDAWG dataset into a pair of 'case' and 'control' PyPop version 1.#.# datasets.
+Convert BIGDAWG datasets to PyPop datasets
 
 Converts a BIGDAWG-formatted data frame into a pair of PyPop-formatted case and control data frames.
 }

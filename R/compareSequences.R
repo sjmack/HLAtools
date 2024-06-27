@@ -2,7 +2,7 @@
 
 ################
 ##compareSequences
-#'Identify the differences between a pair of allele sequences at a locus
+#'Identify Sequence Differences Between Two Alleles at a Locus
 #'
 #'Compares the sequences of two alleles at a locus, and identifies the differences between them at specific positions
 #'

@@ -2,7 +2,7 @@
 % Please edit documentation in R/UNItoGLS.R
 \name{UNtoGL}
 \alias{UNtoGL}
-\title{Translate UNIFORMAT strings to GL Strings.}
+\title{Translate UNIFORMAT Strings to GL Strings}
 \usage{
 UNtoGL(uniformat, prefix = "HLA-", pre = TRUE)
 }

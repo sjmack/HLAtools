@@ -3,7 +3,7 @@
 
 ################
 ##countSpaces
-#'countSpaces - Count the number of spaces in a character string.
+#'Count the Spaces in a Character String
 #'
 #'Counts the number of spaces in a character string.
 #'

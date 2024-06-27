@@ -2,7 +2,7 @@
 
 ####################
 ##checkgDNAStart
-#'Identify HLA gDNA alignments for which the first feature boundary is not identified as position +1.
+#'Identify gDNA Alignments in Which the First Feature Boundary is not Identified as Position +1.
 #'
 #'Checks the position of the first feature boundary (the 5' UTR - Exon 1 boundary in expressed genes) in each gDNA alignment, and identifies those alignments in which that position is not 1.
 #'
@@ -12,11 +12,12 @@
 #'
 #'@param verbose A logical indicating if loci with first feature boundary positions that are not 1 should be reported in the console (verbose = TRUE).
 #'
+#'@export
+#'
 #'@examples
 #'\dontrun{
 #'gDNAStartPositions <- checkgDNAstart()
 #'}
-#'
 #'
 #'@note For internal HLAtools use.
 #'

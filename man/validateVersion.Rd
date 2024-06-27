@@ -2,7 +2,7 @@
 % Please edit documentation in R/VersionValidation.R
 \name{validateVersion}
 \alias{validateVersion}
-\title{ValidateVersion - Validate an IPD-IMGT/HLA Release Version}
+\title{Validate an IPD-IMGT/HLA Release Version}
 \usage{
 validateVersion(version)
 }

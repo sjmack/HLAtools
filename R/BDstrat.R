@@ -3,7 +3,7 @@
 
 ####################
 ##BDstrat
-#'Allele stratification for BIGDAWG datasets
+#'Stratify BIGDAWG Datasets by Specific Alleles
 #'
 #'Divides a BIGDAWG-formatted dataset into two subsets (strata) that do and do not include specified alleles.
 #'

@@ -1,9 +1,9 @@
 ##data v1.1.0 15MAR2024
 
 ##alleleListHistory
-#'Identifies HLA loci that have amino acid, cDNA, or gDNA alignments.
+#'Allele Names Across All Release Versions
 #'
-#'A large list object of two elements. The first element contains Allele List version information. The second element contains all releases of allele lists on the IMGT/HLA database.
+#'A large list object of two elements. The first element contains version information. The second element contains all releases of allele name lists in the IMGT/HLA database.
 #'This object is built by the UpdateAlleleListHistory() function.
 #'
 #' @docType data
@@ -18,7 +18,7 @@
 "alleleListHistory"
 
 ##fragmentFeatureNames
-#'Identifies the gene features of HLA pseduogenes and gene fragments
+#'Gene Features of HLA Pseduogenes and Gene Fragments
 #'
 #'A list object of 15 elements. Each of the 15 elements corresponds to one of the 15 HLA pseudogenes and gene fragments, and contains two items. The first item identifies the gene features for that locus. The second item contains an annotation detailing information regarding non-standard gene structures.
 #'This object is built by the ffN() function.
@@ -32,7 +32,7 @@
 "fragmentFeatureNames"
 
 ##GLSC.ex
-#'Example data frame containing Genotype List String Code data.
+#'Example Data Frame of Genotype List String Code Data
 #'
 #'A two-column data frame (modified from pould::hla.hap.demo) including GL String data in Gl String Code format.
 #'Column one identifies each subject's status, while column two identifies each subject's HLA genotype in GL String Code format.
@@ -47,7 +47,7 @@
 "GLSC.ex"
 
 ##GLstring.ex
-#'Example data frame containing Genotype List String data.
+#'Example Data Frame of Genotype List String Data.
 #'
 #'A two-column example data frame (from pould::hla.hap.demo) including GL String Data.
 #'Column one identifies each subject's status, while column two identifies each subject's HLA genotype in GL String format.
@@ -62,7 +62,7 @@
 "GLstring.ex"
 
 ##HLAgazeteer
-#'Functional and organizational categories of genes supported by the IPD-IMGT/HLA Database.
+#'Functional and Organizational Categories of Genes Supported by the IPD-IMGT/HLA Database
 #'
 #'A list object of nineteen vectors that identify genes in the HLA region that share specific commonalities. 
 #'This object is built by the buildGazeteer() function.
@@ -101,7 +101,7 @@
 "HLAgazeteer"
 
 ##IMGTHLAGeneTypes
-#'Describes the molecular characteristics of the genes curated by the IPD-IMGT/HLA Database, and identifies gene fragments and pseudogenes.
+#'Molecular characteristics of the Genes Curated by the IPD-IMGT/HLA Database
 #'
 #'A data frame of three columns identifying each gene supported by the IPD-IMGT/HLA Database, its molecular characteristics, and its status as a gene fragment or pseudogene.
 #'This object is built by the BuildIMGTHLAGeneTypes() function.
@@ -118,7 +118,7 @@
 "IMGTHLAGeneTypes"
 
 ##UNIFORMAT.example
-#'Example data frame containing UNIFORMAT data.
+#'Example Data Frame of UNIFORMAT Data.
 #'
 #'A two-column example data frame including UNIFORMAT data.
 #'Column one contains sample identifiers, while column two identifies each subject's HLA genotype in UNIFORMAT format.
@@ -133,7 +133,7 @@
 "UNIFORMAT.example"
 
 ##HLAatlas
-#'Identifies the boundary positions of exons, introns and UTRs in the amino acid, cDNA and gDNA alignments in the HLAalignments data object. 
+#'Boundary Positions of Exons, Introns and UTRs in Amino Acid, cDNA and gDNA Alignments 
 #'
 #'A list object of sub-lists of R dataframes (atlases) for each locus with a protein (prot), cDNA (nuc), and gDNA (gen) alignment. Each atlas identifies the position of the exon, intron or UTR boundaries in an alignment.
 #'This object is built by the atlasFull() function.

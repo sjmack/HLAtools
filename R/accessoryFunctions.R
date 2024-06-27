@@ -2,7 +2,7 @@
 
 ################
 ##posSort
-#'Numerical sort for sequence alignment positions that contain indels.
+#'Numerical Sort of Alignment Positions that Contain Indels
 #'
 #'@description
 #'Sorts sequence alignment positions that contain indels in numerical order; e.g., three indels following position X are are identified as X.1, X.2 and X.3.
@@ -40,7 +40,7 @@ posSort <- function(posVec,alignType, locus){
 
 ################
 ##numFields
-#'Identifies the number of fields in a colon-delimited HLA allele name.
+#'Identify the Number of Fields in a Colon-Delimited Allele Name
 #'
 #'Returns the number of fields in a colon-delimited HLA allele name. A value of 1 is returned for digit-delimited HLA allele names.
 #'
@@ -60,7 +60,7 @@ numFields <- function(allele) {
 
 #################
 ##validateAllele
-#'Determine if an allele name is properly formed and present in HLAalignments
+#'Validate Allele-Name Format and Presence in HLAalignments
 #'
 #'Returns TRUE if an allele name is found in HLAalignments in either the 'allele_name' column of full-length allele names or the 'trimmed_allele' column of two-field allele names in the pertinent genomic alignment. Returns FALSE if the allele name is not properly formed, or if the allele name is not found in HLAalignments.
 #'
@@ -103,7 +103,7 @@ validateAllele <- function(allele) {
 
 #################
 ##verifyAllele
-#'Determine if a specific allele name ever existed, and (if so) the most recent IPD-IMGT/HLA Database release in which it appeared
+#'Determine if an Allele Name Ever Existed, and (if so) its Most Recent IPD-IMGT/HLA Database Release
 #'
 #'Returns TRUE if an allele name is present in AlleleListHistory or FALSE it is absent, or c(TRUE,version), where 'version' is the most recent IPD-IMGT/HLA Database release in which that name appeared, when version = TRUE.
 #'
@@ -137,7 +137,7 @@ verifyAllele <- function(allele, version=FALSE){
 ##parseAlignmentHead
 #'Guides For Parsing the Header Blocks of Alignment Files
 #'
-#'Returns a vector describing the location of key information on the header blocks of alignment files.
+#'Returns a vector describing the location of key information in the header blocks of alignment files.
 #'
 #'@param version A validated IPD-IMGT/HLA Database release version (e.g., '3.25.0' or '3250').
 #'
@@ -176,6 +176,7 @@ parseAlignmentHead <- function(version){
 
 ##################
 ##queryRelease
+#'Search Allele Names Across Release Versions 
 #'
 #'Searches specific release versions in the AlleleListHistory object for user-defined allele variants. 
 #'
@@ -232,6 +233,7 @@ queryRelease <- function(rel, variant="", all= FALSE){
 
 ##################
 ##checkAlignType
+#'Ensure that AlignType Values are Valid
 #'
 #'Evaluates 'alignType' values to ensure that only "prot", "nuc", "codon" and "gen" are passed to downstream functions. If any other values are entered, a message describing excluded values is generated. If no valid 'alignType' values are are present, an error is generated, and any calling function is ended. 
 #'
@@ -264,6 +266,7 @@ checkAlignType <- function(alignType) {
 
 ##################
 ##checkSource
+#'Ensure that Source Values are Valid
 #'
 #'Evaluates 'source' values to ensure that only "AA", "cDNA", and "gDNA" are passed to downstream functions. If any other values are entered, a message describing excluded values is generated. 
 #'
@@ -296,6 +299,7 @@ checkSource <- function(source) {
 
 ##################
 ##TypeToSource
+#'Convert AlignType Values to Source Values
 #'
 #'Converts between 'alignType' values, identifying four types of sequence alignments and 'source' values, identifying three kinds of alignment files.
 #'
@@ -339,6 +343,7 @@ typeToSource <- function(alignVector,toSource=TRUE){
 
 #################
 ##AddCodonLine
+#'Add an 'AA codon' Line to Alignments When Missing.
 #'
 #'Modifies cDNA alignment files that are missing "AA codon" lines to include these lines in the correct location with the correct codon position information.
 #'

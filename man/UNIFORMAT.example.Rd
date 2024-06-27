@@ -3,7 +3,7 @@
 \docType{data}
 \name{UNIFORMAT.example}
 \alias{UNIFORMAT.example}
-\title{Example data frame containing UNIFORMAT data.}
+\title{Example Data Frame of UNIFORMAT Data.}
 \format{
 A dataframe with 20 rows and 2 columns.
 }

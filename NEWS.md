@@ -1,4 +1,11 @@
-### HLAtools (development version)
+### HLAtools
+
+### Version 1.0.0
+
+- June 26, 2024
+- Standardized function documentation.
+- initial package release.
+- Submission to CRAN.
 
 ### Version 0.9.16.9000 June 24th to 25th, 2024
 
@@ -7,10 +14,10 @@
 - Updated atlasMaker() to build atlases for HFE in releases 3.27.0 to 3.22.0. 
 - Updated atlasMaker() to build atlases for HLA-V in release 3.14.0.
 - Updated atlasMaker() to build atlases for DPA2 and DPB2 in releases 3.53.0-3.27.0.
-- Updated atlasMaker() to build atlases for HLA-N, -S, -U, and -Y in releases 3.35.0-3.33.0
+- Updated atlasMaker() to build atlases for HLA-N, -S, -U, and -Y in releases 3.35.0-3.33.0.
 - Updated atlasMaker() to build atlases for HLA-Y in releases 3.32.0-3.20.0.
 - Updated atlasMaker() to build atlases for HLA-W and -T in release 3.27.0.
-- Updated atlasMaker() to build atlases for All loci in release 3.13.0/3.13.1
+- Updated atlasMaker() to build atlases for All loci in release 3.13.0/3.13.1.
 - Updated atlasMaker() to build atlases for  HLA-C in release 3.02.0.
 - Updated atlasMaker() to build atlases for DPA, DPB, TAP1 and TAP2 in release 3.00.0.
 - Stopped atlasMaker() writing correspondence_tables to tempdir.

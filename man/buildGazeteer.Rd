@@ -2,7 +2,7 @@
 % Please edit documentation in R/buildGazeteer.R
 \name{buildGazeteer}
 \alias{buildGazeteer}
-\title{Define categories of genes supported by the IPD-IMGT/HLA Database}
+\title{Define Categories of Genes Supported by the IPD-IMGT/HLA Database}
 \source{
 Andersson G. Evolution of the human HLA-DR region. Front. Biosci. 1998 Jul 27:3:d739-45.
 

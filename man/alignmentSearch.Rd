@@ -2,7 +2,7 @@
 % Please edit documentation in R/SearchandBuildAlignments.R
 \name{alignmentSearch}
 \alias{alignmentSearch}
-\title{Search peptide, codon or nucleotide HLA alignments for specific positions in a given allele.}
+\title{Search Alignments for Specific Positions in a Specific Allele}
 \usage{
 alignmentSearch(alignType, allelename, positions, prefix = TRUE, sep = "~")
 }

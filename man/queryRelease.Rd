@@ -2,7 +2,7 @@
 % Please edit documentation in R/accessoryFunctions.R
 \name{queryRelease}
 \alias{queryRelease}
-\title{Searches specific release versions in the AlleleListHistory object for user-defined allele variants.}
+\title{Search Allele Names Across Release Versions}
 \usage{
 queryRelease(rel, variant = "", all = FALSE)
 }

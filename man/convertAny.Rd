@@ -2,7 +2,7 @@
 % Please edit documentation in R/BDtoPyPop.R
 \name{convertAny}
 \alias{convertAny}
-\title{Convert one value to another value across an entire data frame or vector.
+\title{Convert Values Across an Entire Data Frame or Vector
 
 Converts all instances of a value in a data frame or vector to a specified value.}
 \usage{
@@ -19,7 +19,7 @@ convertAny(dataset, change.from = NA, change.to = "****")
 A data frame or vector in which 'change.from' has been converted to 'change.to'.
 }
 \description{
-Convert one value to another value across an entire data frame or vector.
+Convert Values Across an Entire Data Frame or Vector
 
 Converts all instances of a value in a data frame or vector to a specified value.
 }

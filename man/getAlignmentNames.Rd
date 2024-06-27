@@ -2,7 +2,7 @@
 % Please edit documentation in R/buildGazeteer.R
 \name{getAlignmentNames}
 \alias{getAlignmentNames}
-\title{Retrieve alignment filenames for HLA genes}
+\title{Retrieve Alignment Filenames for HLA Genes}
 \usage{
 getAlignmentNames(URL)
 }

@@ -13,7 +13,7 @@ parseAlignmentHead(version)
 Either FALSE if the version is not valid, or two-value numerical vector describing (1) the header line in which alignment version data appears and (2) the length of the character string in that line preceding version data.
 }
 \description{
-Returns a vector describing the location of key information on the header blocks of alignment files.
+Returns a vector describing the location of key information in the header blocks of alignment files.
 }
 \examples{
 \dontrun{

@@ -2,7 +2,7 @@
 % Please edit documentation in R/SearchandBuildAlignments.R
 \name{uniAlign}
 \alias{uniAlign}
-\title{Generate a peptide, codon or coding or genomic nucleotide alignment for specific alleles at specific positions.}
+\title{Generate an Alignment for Specific Alleles at Specific Positions}
 \usage{
 uniAlign(alignType, alleles, positions)
 }

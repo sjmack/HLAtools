@@ -2,7 +2,7 @@
 
 ################
 ##alleleTrim
-#'Trim all versions of allele names
+#'Trim All Versions of Allele Names
 #'
 #'Trims an HLA allele name to a specified number of fields or number of digits, depending on the nomenclature version.
 #'
@@ -65,7 +65,7 @@ alleleTrim <- function(allele,resolution,version=3){
 
 ###############
 ##getField
-#' Trims colon-delimited HLA allele names by field
+#' Trim Colon-Delimited HLA Allele Names by Field
 #' 
 #'@description
 #' Trims a properly formatted colon-delimited HLA allele name to a desired number of fields.

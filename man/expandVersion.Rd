@@ -2,7 +2,7 @@
 % Please edit documentation in R/VersionValidation.R
 \name{expandVersion}
 \alias{expandVersion}
-\title{ExpandVersion - Adds 'dot' delimiters to an 'all numeral' IPD-IMGT/HLA Database Release Version}
+\title{Adds 'Dot' Delimiters to a Numeric Release Version}
 \usage{
 expandVersion(ver)
 }

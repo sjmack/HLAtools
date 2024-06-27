@@ -2,7 +2,7 @@
 % Please edit documentation in R/atlasFull.R
 \name{atlasFull}
 \alias{atlasFull}
-\title{Generate a complete set of HLA atlases for protein, coding nucleotide and genomic nucleotide alignments.}
+\title{Generate a Complete set of Protein, Coding nucleotide and Genomic Nucleotide Atlases}
 \usage{
 atlasFull(version = "Latest")
 }

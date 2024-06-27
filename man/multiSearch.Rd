@@ -2,7 +2,7 @@
 % Please edit documentation in R/SearchandBuildAlignments.R
 \name{multiSearch}
 \alias{multiSearch}
-\title{Return HLA alignment sequences at multiple positions for a specified HLA allele}
+\title{Search Alignment Sequences at Multiple Positions for a Specified Allele}
 \usage{
 multiSearch(
   alignType,
@@ -33,7 +33,7 @@ multiSearch(
 codons (possibly with position number) at 'positions' for 'allele'. If 'allele' does not have a codon at 'position', '' will be returned.
 }
 \description{
-Generates a character string of multiple protein, codon or nucleotide or genomic sequences at the specified positions for the specified HLA allele name.
+Generates a character string of multiple protein, codon or nucleotide or genomic sequences at the specified positions for the specified allele name.
 }
 \note{
 For internal HLAtools use only.

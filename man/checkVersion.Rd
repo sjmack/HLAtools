@@ -2,7 +2,7 @@
 % Please edit documentation in R/VersionValidation.R
 \name{checkVersion}
 \alias{checkVersion}
-\title{CheckVersion - Determine if an IPD-IMGT/HLA Release Version is supported in the local HLAtools package.}
+\title{Check IPD-IMGT/HLA Release Version Allele Names}
 \usage{
 checkVersion(version)
 }
@@ -13,7 +13,7 @@ checkVersion(version)
 A logical. TRUE indicates that data for 'version' is available to the local HLAtools package. FALSE means that data for 'version' is not available.
 }
 \description{
-Determines if data for a given IPD-IMGT/HLA Release Version is present in the local HLAtools package.
+Determines if allele name data for a given IPD-IMGT/HLA Release Version is present in the local HLAtools package.
 }
 \note{
 For internal HLAtools use.

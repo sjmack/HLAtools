@@ -2,7 +2,7 @@
 % Please edit documentation in R/VersionValidation.R
 \name{getLatestVersion}
 \alias{getLatestVersion}
-\title{GetLatestVersion - Identifies the latest IPD-IMGT/HLA Database Release}
+\title{Identify the Latest IPD-IMGT/HLA Database Release}
 \usage{
 getLatestVersion()
 }

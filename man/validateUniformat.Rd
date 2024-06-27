@@ -2,7 +2,7 @@
 % Please edit documentation in R/UNItoGLS.R
 \name{validateUniformat}
 \alias{validateUniformat}
-\title{Validate a UNIFORMAT string.}
+\title{Validate a UNIFORMAT String}
 \usage{
 validateUniformat(uniformat)
 }

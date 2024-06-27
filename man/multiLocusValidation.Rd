@@ -2,7 +2,7 @@
 % Please edit documentation in R/locusValidator.R
 \name{multiLocusValidation}
 \alias{multiLocusValidation}
-\title{Apply validateLocus() to multiple individual loci}
+\title{Apply validateLocus() to Multiple Loci}
 \usage{
 multiLocusValidation(loci, source = "gDNA", verbose = TRUE)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/SearchandBuildAlignments.R
 \name{multiAlign}
 \alias{multiAlign}
-\title{Generate an alignment for specific HLA alleles at different sets of positions.}
+\title{Generate an Alignment for Specific Alleles at Different Positions}
 \usage{
 multiAlign(alignType, alleles, positions)
 }

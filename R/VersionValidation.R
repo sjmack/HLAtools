@@ -2,9 +2,9 @@
 
 ################
 ##CheckVersion
-#'CheckVersion - Determine if an IPD-IMGT/HLA Release Version is supported in the local HLAtools package.
+#'Check IPD-IMGT/HLA Release Version Allele Names
 #'
-#'Determines if data for a given IPD-IMGT/HLA Release Version is present in the local HLAtools package.
+#'Determines if allele name data for a given IPD-IMGT/HLA Release Version is present in the local HLAtools package.
 #'
 #'@param version A release version (branch) of the ANHIG/IMGTHLA Github repository (e.g. '3.53.0'). The value 'Latest' refers to the most recent release.
 #'
@@ -29,7 +29,7 @@ checkVersion <- function(version){
 
 ################
 ##ValidateVersion
-#'ValidateVersion - Validate an IPD-IMGT/HLA Release Version
+#'Validate an IPD-IMGT/HLA Release Version
 #'
 #'Determines if an IPD-IMGT/HLA Release Version is referenced in the AlleleListHistory file.
 #'
@@ -63,7 +63,7 @@ validateVersion <- function(version) {
 
 ################
 ##GetLatestVersion
-#'GetLatestVersion - Identifies the latest IPD-IMGT/HLA Database Release
+#'Identify the Latest IPD-IMGT/HLA Database Release
 #'
 #'Identifies the most recent version of the IPD-IMGT/HLA Database available in the ANHIG/IMGTHLA Github repository.
 #'
@@ -86,7 +86,7 @@ getLatestVersion <- function() {
 
 ################
 ##SquashVersion
-#'SquashVersion - Reduce an IPD-IMGT/HLA Database Release Version to a sequence of numbers
+#'Reduce a Release Version to Numerals
 #'
 #'Removes the '.' delimiters from an IPD-IMGT/HLA Database Release Version name
 #'
@@ -110,7 +110,7 @@ squashVersion <- function(ver,num = FALSE){
 
 ################
 ##ExpandVersion
-#'ExpandVersion - Adds 'dot' delimiters to an 'all numeral' IPD-IMGT/HLA Database Release Version
+#'Adds 'Dot' Delimiters to a Numeric Release Version
 #'
 #'Adds the '.' delimiters to a 'squashed' IPD-IMGT/HLA Database Release Version name
 #'
@@ -137,7 +137,7 @@ expandVersion <- function(ver){
 
 ##################
 ##RepoVersion
-#'RepoVersion - Convert an AlleleListHistory-formatted IPD-IMGT/HLA Database Release Version to the GitHub Repository Version
+#'Convert an AlleleListHistory Release Version to the GitHub Repository Version
 #'
 #'Removes periods from IMGT/HLA Database release versions, and converts release versions '3.00.0'-'3.09.0' to '300'-'390' to facilitate working with these GitHub repo branches.
 #'

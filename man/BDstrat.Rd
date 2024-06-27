@@ -2,7 +2,7 @@
 % Please edit documentation in R/BDstrat.R
 \name{BDstrat}
 \alias{BDstrat}
-\title{Allele stratification for BIGDAWG datasets}
+\title{Stratify BIGDAWG Datasets by Specific Alleles}
 \usage{
 BDstrat(dataset, alleles, warnBelow = 21)
 }

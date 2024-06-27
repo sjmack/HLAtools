@@ -2,7 +2,7 @@
 % Please edit documentation in R/atlasMaker.R
 \name{atlasMaker}
 \alias{atlasMaker}
-\title{Identify the gene-feature boundaries in HLA loci.}
+\title{Identify the Gene-Feature Boundaries in HLA Region Genes}
 \usage{
 atlasMaker(loci, source, version = "Latest")
 }
