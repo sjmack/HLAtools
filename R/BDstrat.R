@@ -22,6 +22,8 @@
 #'
 #'@export
 #'
+#'@references \href{https://CRAN.R-project.org/package=BIGDAWG/vignette/BIGDAWG.html#input-data}{BIGDAWG Data Format}
+#' 
 BDstrat <- function(dataset,alleles,warnBelow = 21){  
   
    ## loading the dataset if it is a path

@@ -86,7 +86,7 @@ multiGLStoUNI <- function(GLstringArray, prefix = "HLA-", pre = FALSE) {
 
 ################
 ##GLtoUN
-#'Translates GL Strings to UNIFORMAT Strings
+#'Translate GL Strings to UNIFORMAT Strings
 #'
 #'A function that translates strings from GL String format to UNIFORMAT format.
 #'

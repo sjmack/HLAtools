@@ -25,7 +25,7 @@
 #' library(BIGDAWG)
 #' rr <- relRisk(HLA_data[,1:4])
 #' }
-#' @references \href{https://cran.r-project.org/web/packages/BIGDAWG/vignettes/BIGDAWG.html#input-data}{BIGDAWG Data Format}
+#' @references \href{https://CRAN.R-project.org/package=BIGDAWG/vignette/BIGDAWG.html#input-data}{BIGDAWG Data Format}
 #' 
 relRisk <- function(dataset,return=TRUE,save.path = tempdir()){ ## if return == TRUE, a list object is returned; if return==FALSE, two tab-delimited text files are written for each locus; one for alleles and one for genotypes
 

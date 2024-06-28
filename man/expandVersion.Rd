@@ -2,7 +2,7 @@
 % Please edit documentation in R/VersionValidation.R
 \name{expandVersion}
 \alias{expandVersion}
-\title{Adds 'Dot' Delimiters to a Numeric Release Version}
+\title{Add 'Dot' Delimiters to a Numeric Release Version}
 \usage{
 expandVersion(ver)
 }

@@ -1,7 +1,17 @@
 ### HLAtools
 
+### Version 1.0.2
+
+- June 28, 2024
+- Removed GPL license document.
+- Adopted canonical URL to BIGDAWG input format in relRisk() and BDStrat().
+- Added URL to HLAtools GitHub repository.
+- Correct titles for ExpandVersion() and GLtoUN() functions.
+- Submission to CRAN.
+
 ### Version 1.0.1
 
+- June 27, 2024
 - Wrapped individual authors in c() in DESCRIPTION.
 - Limited 'cre' role to the package Maintainer.
 - Submission to CRAN.

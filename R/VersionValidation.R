@@ -110,7 +110,7 @@ squashVersion <- function(ver,num = FALSE){
 
 ################
 ##ExpandVersion
-#'Adds 'Dot' Delimiters to a Numeric Release Version
+#'Add 'Dot' Delimiters to a Numeric Release Version
 #'
 #'Adds the '.' delimiters to a 'squashed' IPD-IMGT/HLA Database Release Version name
 #'
