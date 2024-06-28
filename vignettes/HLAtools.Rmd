@@ -743,7 +743,7 @@ The functions described in this section either perform data analyses or generate
 
 ### relRisk
 
-The relRisk() function calculates relative risk (RR) for individual alleles and genotypes in [BIGDAWG-formatted datasets](https://CRAN.R-project.org/package=BIGDAWG/vignette/BIGDAWG.html#input-data). RR analysis is intended for *non-case-control* datasets. While two subject categories (0 and 1) are required in the **Subject** column of the BIGDAWG-formatted datafile, the categories should *not* be patients and controls. Instead, the categories may be, e.g., two groups of patients with the same disease, where one group has more severe symptoms (coded as 1), and other has mild symptoms (coded as 0). In this case, relRisk() identifies the risk of severity associated with a given allele or genotype.
+The relRisk() function calculates relative risk (RR) for individual alleles and genotypes in [BIGDAWG-formatted datasets](https://CRAN.R-project.org/package=BIGDAWG/vignettes/BIGDAWG.html#input-data). RR analysis is intended for *non-case-control* datasets. While two subject categories (0 and 1) are required in the **Subject** column of the BIGDAWG-formatted datafile, the categories should *not* be patients and controls. Instead, the categories may be, e.g., two groups of patients with the same disease, where one group has more severe symptoms (coded as 1), and other has mild symptoms (coded as 0). In this case, relRisk() identifies the risk of severity associated with a given allele or genotype.
 
 relrisk() returns a list object of two lists ("alleles" and "genotypes"), each of which contains relative risk, confidence interval and p-value data for the individual alleles and individual genotypes at each locus in a BIGDAWG-formatted non-case-control genotype data frame or tab-delimited text file. 
 
@@ -766,7 +766,7 @@ Column headers in each returned data frame are, Locus, Variant, Status_1, Status
 
 ### BDstrat: Multilocus Allele Stratificaiton for BIGDAWG Datasets
 
-The BDstrat() function divides a [BIGDAWG-formatted](https://CRAN.R-project.org/package=BIGDAWG/vignette/BIGDAWG.html#input-data)] dataset into two strata, one of which contains all subjects with any of a set of specified alleles, while the other contains all subjects without any of the specified alleles. If the positive-stratum and negative-stratum datasets have sufficient numbers of case and control (or exposed and unexposed) subjects, each stratum can be analyzed via BIGDAWG. Sample size is an important consideration when determining how many alleles on which to stratify. 
+The BDstrat() function divides a [BIGDAWG-formatted](https://CRAN.R-project.org/package=BIGDAWG/vignettes/BIGDAWG.html#input-data)] dataset into two strata, one of which contains all subjects with any of a set of specified alleles, while the other contains all subjects without any of the specified alleles. If the positive-stratum and negative-stratum datasets have sufficient numbers of case and control (or exposed and unexposed) subjects, each stratum can be analyzed via BIGDAWG. Sample size is an important consideration when determining how many alleles on which to stratify. 
 
 **Parameters**
 
@@ -791,7 +791,7 @@ for(i in 1:2) {BIGDAWG(HLA_data.multi.strat[[i]],HLA = TRUE,Run.Tests = "L")}
 
 #### BDtoPyPop : Enabling Population Genetic Analyses of Case and Control Datasets
 
-- BDtoPyPop() converts a [BIGDAWG-formatted](https://CRAN.R-project.org/package=BIGDAWG/vignette/BIGDAWG.html#input-data) case-control dataset into two [PyPop version 1.\*.\*](http://pypop.org/docs/guide-chapter-usage.html) datasets -- one for all 'case' subjects and one for all 'control' subjects. PyPop can be exported as a pair of ".pop" files for analysis, or can be generated as a list object containing two data frames for additional manipulation before analysis.
+- BDtoPyPop() converts a [BIGDAWG-formatted](https://CRAN.R-project.org/package=BIGDAWG/vignettes/BIGDAWG.html#input-data) case-control dataset into two [PyPop version 1.\*.\*](http://pypop.org/docs/guide-chapter-usage.html) datasets -- one for all 'case' subjects and one for all 'control' subjects. PyPop can be exported as a pair of ".pop" files for analysis, or can be generated as a list object containing two data frames for additional manipulation before analysis.
 
 **Parameters**
 

@@ -27,7 +27,7 @@ rr <- relRisk(HLA_data[,1:4])
 }
 }
 \references{
-\href{https://CRAN.R-project.org/package=BIGDAWG/vignette/BIGDAWG.html#input-data}{BIGDAWG Data Format}
+\href{https://CRAN.R-project.org/package=BIGDAWG/vignettes/BIGDAWG.html#input-data}{BIGDAWG Data Format}
 }
 \keyword{allele}
 \keyword{genotype}

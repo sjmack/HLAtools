@@ -28,5 +28,5 @@ for(i in 1:2) {BIGDAWG(HLA_data.strat[[i]],HLA = TRUE,Run.Tests = "L")}
 
 }
 \references{
-\href{https://CRAN.R-project.org/package=BIGDAWG/vignette/BIGDAWG.html#input-data}{BIGDAWG Data Format}
+\href{https://CRAN.R-project.org/package=BIGDAWG/vignettes/BIGDAWG.html#input-data}{BIGDAWG Data Format}
 }
