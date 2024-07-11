@@ -7,14 +7,14 @@
 UNtoGL(uniformat, prefix = "HLA-", pre = TRUE)
 }
 \arguments{
-\item{uniformat}{A string of HLA allele names and operators in the UNIFORMAT format signifying their relation with one another.}
+\item{uniformat}{A character string of HLA allele names and operators in the UNIFORMAT format signifying their relation with one another.}
 
-\item{prefix}{A string of the desired prefix (default is "HLA-").}
+\item{prefix}{A character string of the desired prefix (default is "HLA-").}
 
 \item{pre}{A logical that indicates whether user would like all allele names to contain the prefix of their choice (TRUE), or if the prefix should not be appended to allele names (FALSE).}
 }
 \value{
-An altered version of the input string, converted to GL String format.
+An altered version of the input character string, converted to GL String format.
 }
 \description{
 A function that translates strings from UNIFORMAT format to GL String format.

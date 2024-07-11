@@ -10,14 +10,12 @@ checkSource(source)
 \item{source}{A vector of character values specifying sequence alignment file sources to be used for a function.}
 }
 \value{
-A vector that includes only allowed 'source' values.
+A character vector that includes only allowed 'source' values.
 }
 \description{
 Evaluates 'source' values to ensure that only "AA", "cDNA", and "gDNA" are passed to downstream functions. If any other values are entered, a message describing excluded values is generated.
 }
 \examples{
-\dontrun{
 checkSource(c("AA","cDNA","codon")) 
-}
 
 }

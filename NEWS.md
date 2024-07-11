@@ -1,5 +1,24 @@
 ### HLAtools
 
+### Version 1.0.3
+
+- July 10, 2024
+- Corrected typo in queryRelease() documentation.
+- Expanded acronyms in DESCRIPTION.
+- Added 'value' lines to addCodonLine(), getField(), typeToSource() and updateAll().
+- Minor edits to other function descriptions.
+- Replaced 'dontrun' with 'donttest' in function documentations, or remove 'dontrun' in some cases.
+- Removed note for atlasFull().
+- Removed pseudo.codon global variable and zzz.R file.
+- Updated GLVhelper() for full release versions 1.*, 2.* and 3.* functionality. 
+- Streamlined updateGL() functionality and include informative examples.
+- Updated documentation and examples for GLupdate(),  GLV(), GLV2, redec(). 
+- Updated GLVhelper() functoinality, documention and messaging.
+- Added 'namespace' parameter to GLvalidate(), supporting HLA and KIR GLSC namespaces, although KIR is not supported in the HLAtools package.
+- Added BIGDAWG-formatted sHLAdata synthetic dataset for use with BDstrat(), BDtoPyPop() and relRisk().
+- Added calls to sHLAdata in  BDstrat(), BDtoPyPop() and relRisk() examples.
+- Updated ReadMe and Vignette.
+
 ### Version 1.0.2
 
 - June 28, 2024

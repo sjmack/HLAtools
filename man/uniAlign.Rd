@@ -23,7 +23,7 @@ Generates a peptide, codon, coding or genomic nucleotide alignment at a single s
 For internal HLAtools use only.
 }
 \examples{
-\dontrun{
+\donttest{
 uniAlign("codon","DQA1*01:01:01:01",c(32:58))
 }
 }

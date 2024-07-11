@@ -45,7 +45,7 @@ The $map element does not distinguish the order of the DRB3, DRB4 and DRB5 genes
 This function requires internet access to function.
 }
 \examples{
-\dontrun{
+\donttest{
 HLAgazeteer <- buildGazeteer("3.34.0")
 }
 

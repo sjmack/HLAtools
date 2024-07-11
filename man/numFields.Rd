@@ -7,10 +7,10 @@
 numFields(allele)
 }
 \arguments{
-\item{allele}{A colon-delimited HLA allele name.}
+\item{allele}{A character string of a colon-delimited HLA allele name.}
 }
 \value{
-The number of fields in the allele name.
+A numeric value describing the number of fields in the allele name.
 }
 \description{
 Returns the number of fields in a colon-delimited HLA allele name. A value of 1 is returned for digit-delimited HLA allele names.

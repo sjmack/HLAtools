@@ -7,7 +7,7 @@
 checkVersion(version)
 }
 \arguments{
-\item{version}{A release version (branch) of the ANHIG/IMGTHLA Github repository (e.g. '3.53.0'). The value 'Latest' refers to the most recent release.}
+\item{version}{A character string identifying the release version (branch) of the ANHIG/IMGTHLA Github repository (e.g. '3.53.0'). The value 'Latest' refers to the most recent release.}
 }
 \value{
 A logical. TRUE indicates that data for 'version' is available to the local HLAtools package. FALSE means that data for 'version' is not available.
@@ -19,9 +19,7 @@ Determines if allele name data for a given IPD-IMGT/HLA Release Version is prese
 For internal HLAtools use.
 }
 \examples{
-\dontrun{
 checkVersion(version = "3.25.0")
 checkVersion(version = "Latest")
-}
 
 }

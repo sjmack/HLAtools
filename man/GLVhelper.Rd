@@ -7,10 +7,10 @@
 GLVhelper(Version)
 }
 \arguments{
-\item{Version}{A string of the desired version to which the alleles should be updated, going back to version 1.05.0.}
+\item{Version}{A character string of the desired version to which the alleles should be updated, going back to version 1.05.0.}
 }
 \value{
-Returns possible matches to a given incomplete input.
+A list of character strings of possible matches to a given incomplete input.
 }
 \description{
 Uses the provided version information to locate and return possible matches for an incompletely defined IPD-IMGT/HLA Database release version.
@@ -19,10 +19,9 @@ Uses the provided version information to locate and return possible matches for 
 For internal use only.
 }
 \examples{
-\dontrun{
 GLVhelper("2.25")
 GLVhelper("3.9.0")
-}
+
 
 }
 \references{

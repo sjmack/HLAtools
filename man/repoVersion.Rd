@@ -7,7 +7,7 @@
 repoVersion(version)
 }
 \arguments{
-\item{version}{A validated IPD-IMGT/HLA Database release version.}
+\item{version}{A character string of a validated IPD-IMGT/HLA Database release version.}
 }
 \value{
 A character string of the release version suitable for use in an IMGT/HLA GitHub repository URL.

@@ -7,7 +7,7 @@
 UNItoGLS(uniformat, prefix = "HLA-", pre = TRUE)
 }
 \arguments{
-\item{uniformat}{A string of HLA allele names and operators in the UNIFORMAT format signifying their relation with one another.}
+\item{uniformat}{A character string of HLA allele names and operators in the UNIFORMAT format signifying their relation with one another.}
 
 \item{prefix}{A character string of the desired gene-system prefix (default is "HLA-").}
 

@@ -19,10 +19,12 @@ Checks the position of the first feature boundary (the 5' UTR - Exon 1 boundary 
 This function reviews the gDNA atlases in the HLAatlas object and returns a data frame of the first feature boundary position for each locus. For expressed genes and some pseudogenes, this is the position of the start of Exon 1.
 }
 \note{
+This function requires that the HLAalignments object has been populated with alignments via the alignmentFull() function.
+
 For internal HLAtools use.
 }
 \examples{
-\dontrun{
+\donttest{
 gDNAStartPositions <- checkgDNAstart()
 }
 

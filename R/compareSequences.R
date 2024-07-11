@@ -6,15 +6,15 @@
 #'
 #'Compares the sequences of two alleles at a locus, and identifies the differences between them at specific positions
 #'
-#'@param alignType The type of alignment being searched. Allowed values are "codon","gen", nuc" and "prot". Only one 'alignType' value is permitted.
-#'@param alleles A vector containing two full-length names for alleles at the same locus.
+#'@param alignType A character string identifying the type of alignment being searched. Allowed values are "codon","gen", nuc" and "prot". Only one 'alignType' value is permitted.
+#'@param alleles A character vector containing two full-length names for alleles at the same locus.
 #'
 #'@return A two-row data frame identifying the positions and sequences at which the two alleles differ. Positions for which the sequence of either allele is unknown are ignored. 
 #'
 #'@export
 #'
 #'@examples
-#'\dontrun{
+#'\donttest{
 #'compareSequences(alignType = "gen", alleles = c("DPA1*01:03:38:01","DPA1*01:03:38:02"))
 #'}
 compareSequences <- function(alignType,alleles) {

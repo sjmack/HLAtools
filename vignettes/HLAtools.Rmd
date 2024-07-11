@@ -8,7 +8,7 @@ author:
 - Vinh Luu -- vinhluu864@berkeley.edu
 - Josh Bredeweg
 - Steven J. Mack, PhD -- steven.mack@ucsf.edu
-date: "2024-07-28"
+date: "2024-07-10"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{HLAtools}
@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(HLAtools)
 ```
--   Package Version: 1.0.2
+-   Package Version: 1.0.3
 
 # Overview
 The *HLAtools* package contains a set of computable resources and a suite of tools intended to facilitate the effective application and analysis of the named genes in the HLA region.
@@ -739,6 +739,9 @@ DRB1*07:01~DQB1*02:02~DPB1*17:01"
 
 The functions described in this section either perform data analyses or generate specific data sets suitable for additional analyses. All consume BIGDAWG-formatted datasets.
 
+### Example Data
+To facilitate testing and experimentation with these functions, the 'sHLAdata' data object is included in the package. This BIGDAWG-formatted HLA genotype data object represents completely synthetic IPD-IMGT/HLA release 3.56.0 HLA-A, -C, -B, -DRB1, -DQA1, -DQB1, -DPA1, and -DPB1 genotype data for 24 control subjects and 23 case subjects, and does not represent any true human population.
+
 ## Calculating Relative Risk with BIGDAWG-formatted Datasets
 
 ### relRisk
@@ -755,8 +758,7 @@ relrisk() returns a list object of two lists ("alleles" and "genotypes"), each o
 
 
 ```
-library(BIGDAWG)
-rr <- relRisk(HLA_data[,1:4])
+rr <- relRisk(sHLAdata[,1:4])
 ```
 
 Column headers in each returned data frame are, Locus, Variant, Status_1, Status_0, RelativeRisk, CI.low, CI.high, p.value, and Significant.
@@ -777,13 +779,13 @@ The BDstrat() function divides a [BIGDAWG-formatted](https://CRAN.R-project.org/
 **Return** A list-object of two BIGDAWG-formatted data frames titled 'dataset'\$'alleles'-positive' and 'dataset'\$'alleles'-negative`. The positive list element includes all subjects with the specified alleles, and the negative list element includes all subjects without those specified alleles.
 
 ```
-Stratifying on a single allele in the HLA_data dataset bundled with BIGDAWG
-HLA_data.single.strat <- BDstrat(BIGDAWG::HLA_data,"DRB1*15:01:01:01") 
+Stratify on a single allele in the HLA_data dataset bundled with BIGDAWG
+HLA_data.single.strat <- BDstrat(sHLAdata,"DRB1*08:02:01:01") 
 
-Stratifying on three alleles at two loci in the HLA_data dataset bundled with BIGDAWG
-HLA_data.multi.strat <- BDstrat(BIGDAWG::HLA_data,c("DRB1*08:01:03","DRB1*03:01:02","A*26:08"))
+Stratify on three alleles at two loci in the HLA_data dataset bundled with BIGDAWG
+HLA_data.multi.strat <- BDstrat(sHLAdata,c("DRB1*04:02:01","DRB1*04:07:01:01","A*32:04"))
 
-Running BIGDAWG() on both multi-allele strata
+Run BIGDAWG() on both multi-allele strata
 for(i in 1:2) {BIGDAWG(HLA_data.multi.strat[[i]],HLA = TRUE,Run.Tests = "L")}
 
 ```
@@ -810,10 +812,10 @@ When save.file = FALSE, a list-object of two PyPop-formatted data frames titled 
 
 ```
 Generating a list object of two PyPop datasets from the HLA_data dataset bundled with BIGDAWG.
-HLAdata.PP <- BDtoPyPop(BIGDAWG::HLA_data,"BDHLA",FALSE)
+HLAdata.PP <- BDtoPyPop(sHLAdata,"BDHLA",FALSE)
 
 Generating a pair PyPop data files from the HLA_data dataset bundled with BIGDAWG.
-BDtoPyPop(BIGDAWG::HLA_data,"BDHLA",TRUE)
+BDtoPyPop(sHLAdata,"BDHLA",TRUE)
 ```
 
 ---

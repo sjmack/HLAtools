@@ -9,12 +9,12 @@ posSort(posVec, alignType, locus)
 \arguments{
 \item{posVec}{A character vector of variant positions.}
 
-\item{alignType}{The type of alignment the positions are found in. The values 'prot', 'codon', 'nuc' and 'gen' are valid options. Only one 'alignType' value is allowed.}
+\item{alignType}{A character string describing the type of alignment the positions are found in. The values 'prot', 'codon', 'nuc' and 'gen' are valid options. Only one 'alignType' value is allowed.}
 
-\item{locus}{A locus in the HLAalignments object for the specified alignType.}
+\item{locus}{A character string describing a locus in the HLAalignments object for the specified alignType.}
 }
 \value{
-A correctly sorted sequence.
+A character string of the correctly sorted sequence.
 }
 \description{
 Sorts sequence alignment positions that contain indels in numerical order; e.g., three indels following position X are are identified as X.1, X.2 and X.3.
@@ -25,8 +25,9 @@ Positions are validated against a specified locus for a specified alignment type
 Indel positions must be text-formatted (e.g. "607.12"), as illustrated in the the examples.
 }
 \examples{
-\dontrun{
+\donttest{
 posSort(c(2,4,3,1,5), "nuc","DRB1")
 posSort(c("607.23","607.10","607.3","607.4"),"nuc","DRB1")
 }
+
 }

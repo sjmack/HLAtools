@@ -7,10 +7,10 @@
 redec(Cname)
 }
 \arguments{
-\item{Cname}{Version name in AlleleListHistory column format.}
+\item{Cname}{A character string describing a version name in AlleleListHistory column format.}
 }
 \value{
-Version name with decimals in appropriate places according to the IPD-IMGT/HLA Database.
+A character string describing a version name with decimals in appropriate places according to the IPD-IMGT/HLA Database.
 }
 \description{
 Correctly put decimals back into an AlleleListHistory column-formatted version name.

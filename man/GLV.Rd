@@ -7,10 +7,10 @@
 GLV(GLString)
 }
 \arguments{
-\item{GLString}{A string of HLA allele names and operators in GL String Code format, signifying their relation with one another and the pertinent IPD-IMGT/HLA Database release version.}
+\item{GLString}{A character string of HLA allele names and operators in GL String Code format, signifying their relation with one another and the pertinent IPD-IMGT/HLA Database release version.}
 }
 \value{
-Returns the version of the release as it appears in the pertinent alleleListHistory$AlleleListHistory-column-header.
+Returns A character string of the version of the release as it appears in the pertinent alleleListHistory$AlleleListHistory-column-header.
 }
 \description{
 Extracts the version data from an input GL String Code, or provides appropriate options if version input is not present in the IPD-IMGT/HLA Database.
@@ -19,9 +19,8 @@ Extracts the version data from an input GL String Code, or provides appropriate 
 For internal use only.
 }
 \examples{
-\dontrun{
 GLV("hla#3.25.0#HLA-B15:35")
-}
+
 }
 \references{
 Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126

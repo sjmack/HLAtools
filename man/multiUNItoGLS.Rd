@@ -9,7 +9,7 @@ multiUNItoGLS(UniformatArray, prefix = "HLA-", pre = TRUE)
 \arguments{
 \item{UniformatArray}{A data frame or vector of UNIFORMAT formatted strings. If 'UniformatArray' is a data frame with more than one column, the first column should contain only identifiers. If 'UniformatgArray' is a vector, it should contain only UNIFORMAT strings.}
 
-\item{prefix}{A string of the desired locus prefix (default is "HLA-").}
+\item{prefix}{A character string of the desired locus prefix (default is "HLA-").}
 
 \item{pre}{A logical. If 'pre' is TRUE, all allele names will be prefixed with 'prefix'. If 'pre' is FALSE, no allele names will be prefixed.}
 }

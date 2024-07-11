@@ -10,14 +10,14 @@ https://github.com/ANHIG/IMGTHLA/blob/Latest/Allelelist_history.txt
 GLupdate(GLString, Version, expand = FALSE)
 }
 \arguments{
-\item{GLString}{A string of HLA allele names and operators in GL String Code format signifying their relation with one another and the pertinent HLA Allele List version.}
+\item{GLString}{A character string of HLA allele names and operators in GL String Code format signifying their relation with one another and the pertinent HLA Allele List version.}
 
-\item{Version}{A string of the desired version to which the alleles to be updated, going back to version 1.05.0.}
+\item{Version}{A character string of the desired version to which the alleles to be updated, going back to version 1.05.0.}
 
 \item{expand}{A logical that determines whether to return only the direct HLA ID allele match or all possible HLA allele matches.}
 }
 \value{
-An updated version the GL String Code input (in the form of a string) updated to the input desired version.
+An updated version the GL String Code input (in the form of a character string) updated to the input desired version.
 }
 \description{
 Updates the allele names in a Genotype List (GL) String Code to the desired reference database version using the IPD-IMGT/HLA Database's Allele List History table.
@@ -26,15 +26,14 @@ Updates the allele names in a Genotype List (GL) String Code to the desired refe
 For internal use only.
 }
 \examples{
-\dontrun{
-GLupdate("hla#3.1.0#HLA-A*02:01+HLA-A*01:01:01:01", Version = "3.53.0")
 GLupdate("hla#3.36.0#HLA-B*15:35", "3.52.0")
-
-GLupdate("hla#3.45.0#HLA-DPA1*02:01:01:05", "3.52.0")
-GLupdate("hla#3.45.0#HLA-A*02:01:05", "3.52.0", expand = TRUE)
-
 GLupdate("hla#3.45.0#HLA-A*02:08", "3.52.0")
 GLupdate("hla#3.45.0#HLA-A*02:08", "3.52.0", expand = TRUE)
+\donttest{
+GLupdate("hla#3.1.0#HLA-A*02:01+HLA-A*01:01:01:01", Version = "3.53.0")
+GLupdate("hla#3.44.0#HLA-DPA1*02:01:01:05", "3.45.0")
+GLupdate("hla#3.45.0#HLA-DPA1*02:01:01:05", "3.46.0")
+GLupdate("hla#3.37.0#HLA-A*01:02", "3.52.0", expand = TRUE)
 }
 
 }

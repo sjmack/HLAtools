@@ -7,29 +7,26 @@
 updateGL(GLStringCode, Version, expand = FALSE)
 }
 \arguments{
-\item{GLStringCode}{A string of HLA allele names and operators in GL String Code format, signifying their relation with one another and the associated IMGT/HLA Database release version.}
+\item{GLStringCode}{A character string of HLA allele names and operators in GL String Code format, signifying their relation with one another and the associated IMGT/HLA Database release version.}
 
-\item{Version}{A string identifying of the desired IPD-IMGT/HLA Database release version to which the alleles should be updated, going back to version 1.05.0}
+\item{Version}{A character string identifying of the desired IPD-IMGT/HLA Database release version to which the alleles should be updated, going back to version 1.05.0}
 
 \item{expand}{A logical that indicates whether user would like to return all allele names that contain the input allele name (TRUE), or if only the direct HLA ID match should be returned (FALSE).}
 }
 \value{
-A version of the input GL String code (in the form of a string) updated to the desired version.
+A version of the input GL String code (in the form of a character string) updated to the desired version.
 }
 \description{
 A quality control wrapper for GLupdate, which updates a GL String Code to a desired reference database version.
 }
 \examples{
-\dontrun{
+updateGL("hla#1.05.0#HLA-DPA1*0106", "3.52.0")
 updateGL("hla#3.36.0#HLA-B*15:35", "3.52.0")
-
-updateGL("hla#3.45.0#HLA-DPA1*02:01:01:05", "3.52.0")
-
+updateGL("hla#3.45.0#HLA-DPA1*02:01:01:04", "3.52.0")
+\donttest{
 updateGL("hla#3.45.0#HLA-A*02:08", "3.52.0", expand = TRUE)
-
 updateGL("hla#1.05.0#HLA-DPA1*0106", "3.52.0", expand = TRUE)
 updateGL("hla#1.05.0#HLA-DPA1*0106", "2.27.0", expand = TRUE)
-updateGL("hla#1.05.0#HLA-DPA1*0106", "3.52.0")
 }
 }
 \references{

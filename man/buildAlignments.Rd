@@ -7,11 +7,11 @@
 buildAlignments(loci, source, version = "Latest")
 }
 \arguments{
-\item{loci}{A vector of HLA gene names (e.g., "DRB1", c("A","C")).}
+\item{loci}{A character vector of HLA gene names (e.g., "DRB1", c("A","C")).}
 
-\item{source}{A vector of alignment types. The allowed values are "AA", "cDNA", and "gDNA". If 'source' is "cDNA", both codon and cDNA nucleotide alignments are generated. If source is 'AA' or 'gDNA', a single peptide or genomic nucleotide alignment is generated. Up to four alignments will be returned for a locus, as determined by its ability to be transcribed or translated.}
+\item{source}{A character vector of alignment types. The allowed values are "AA", "cDNA", and "gDNA". If 'source' is "cDNA", both codon and cDNA nucleotide alignments are generated. If source is 'AA' or 'gDNA', a single peptide or genomic nucleotide alignment is generated. Up to four alignments will be returned for a locus, as determined by its ability to be transcribed or translated.}
 
-\item{version}{The desired release version (branch) of the ANHIG/IMGTHLA Github repository (e.g. '3.53.0'). The default value ('Latest') returns alignments for the most recent release.}
+\item{version}{A character string describing the desired release version (branch) of the ANHIG/IMGTHLA Github repository (e.g. '3.53.0'). The default value ('Latest') returns alignments for the most recent release.}
 }
 \value{
 A list object with a data frame of all allele names (and trimmed allele names) and their corresponding sequences (Amino Acid, codon, cDNA, or gDNA) for a specific locus, as well as version details for the returned information. These alignments identify locations of feature boundaries in relation to amino acid, codon, cDNA, and gDNA sequences.
@@ -20,8 +20,8 @@ A list object with a data frame of all allele names (and trimmed allele names) a
 Returns a list of data frames of amino acid, codon, nucleotide and genomic alignments, with version information.
 }
 \examples{
-\dontrun{
-buildAlignments(loci = "DRB1", source = "AA")
-buildAlignments(loci = "DRB1", source = c("AA", "cDNA"))
+\donttest{
+HLAalignments <- buildAlignments(loci = "DRB1", source = "AA")
+HLAalignments <- buildAlignments(loci = "DRB1", source = c("AA", "cDNA"))
 }
 }

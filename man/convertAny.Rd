@@ -24,8 +24,6 @@ Convert Values Across an Entire Data Frame or Vector
 Converts all instances of a value in a data frame or vector to a specified value.
 }
 \examples{
-\dontrun{
-dataset <- convertAny(BIGDAWG::HLA_data)
-}
+dataset <- convertAny(sHLAdata)
 
 }

@@ -7,7 +7,7 @@
 parseAlignmentHead(version)
 }
 \arguments{
-\item{version}{A validated IPD-IMGT/HLA Database release version (e.g., '3.25.0' or '3250').}
+\item{version}{A character string of a validated IPD-IMGT/HLA Database release version (e.g., '3.25.0' or '3250').}
 }
 \value{
 Either FALSE if the version is not valid, or two-value numerical vector describing (1) the header line in which alignment version data appears and (2) the length of the character string in that line preceding version data.
@@ -16,7 +16,6 @@ Either FALSE if the version is not valid, or two-value numerical vector describi
 Returns a vector describing the location of key information in the header blocks of alignment files.
 }
 \examples{
-\dontrun{
-parseAlignmentHeader("3.25.0")
-}
+parseAlignmentHead("3.25.0")
+
 }

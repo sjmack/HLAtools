@@ -7,9 +7,9 @@
 compareSequences(alignType, alleles)
 }
 \arguments{
-\item{alignType}{The type of alignment being searched. Allowed values are "codon","gen", nuc" and "prot". Only one 'alignType' value is permitted.}
+\item{alignType}{A character string identifying the type of alignment being searched. Allowed values are "codon","gen", nuc" and "prot". Only one 'alignType' value is permitted.}
 
-\item{alleles}{A vector containing two full-length names for alleles at the same locus.}
+\item{alleles}{A character vector containing two full-length names for alleles at the same locus.}
 }
 \value{
 A two-row data frame identifying the positions and sequences at which the two alleles differ. Positions for which the sequence of either allele is unknown are ignored.
@@ -18,7 +18,7 @@ A two-row data frame identifying the positions and sequences at which the two al
 Compares the sequences of two alleles at a locus, and identifies the differences between them at specific positions
 }
 \examples{
-\dontrun{
+\donttest{
 compareSequences(alignType = "gen", alleles = c("DPA1*01:03:38:01","DPA1*01:03:38:02"))
 }
 }

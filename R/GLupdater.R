@@ -1,7 +1,4 @@
-#GLupdater v0.4.0 7FEB24 R. Nickens
-
-#library('dplyr')
-#library('stringr')
+#GLupdater v0.6.0 9JUL24 R. Nickens & S.J. Mack
 
 ################
 ##updateGL
@@ -9,36 +6,37 @@
 #'
 #'A quality control wrapper for GLupdate, which updates a GL String Code to a desired reference database version.
 #'
-#'@param GLStringCode A string of HLA allele names and operators in GL String Code format, signifying their relation with one another and the associated IMGT/HLA Database release version.
-#'@param Version A string identifying of the desired IPD-IMGT/HLA Database release version to which the alleles should be updated, going back to version 1.05.0
+#'@param GLStringCode A character string of HLA allele names and operators in GL String Code format, signifying their relation with one another and the associated IMGT/HLA Database release version.
+#'@param Version A character string identifying of the desired IPD-IMGT/HLA Database release version to which the alleles should be updated, going back to version 1.05.0
 #'@param expand A logical that indicates whether user would like to return all allele names that contain the input allele name (TRUE), or if only the direct HLA ID match should be returned (FALSE).
 #'
-#'@return A version of the input GL String code (in the form of a string) updated to the desired version.
-#'
+#'@return A version of the input GL String code (in the form of a character string) updated to the desired version.
 #'
 #'@export
 #'
 #'@examples
-#'\dontrun{
+#'updateGL("hla#1.05.0#HLA-DPA1*0106", "3.52.0")
 #'updateGL("hla#3.36.0#HLA-B*15:35", "3.52.0")
-#'
-#'updateGL("hla#3.45.0#HLA-DPA1*02:01:01:05", "3.52.0")
-#'
+#'updateGL("hla#3.45.0#HLA-DPA1*02:01:01:04", "3.52.0")
+#'\donttest{
 #'updateGL("hla#3.45.0#HLA-A*02:08", "3.52.0", expand = TRUE)
-#'
 #'updateGL("hla#1.05.0#HLA-DPA1*0106", "3.52.0", expand = TRUE)
 #'updateGL("hla#1.05.0#HLA-DPA1*0106", "2.27.0", expand = TRUE)
-#'updateGL("hla#1.05.0#HLA-DPA1*0106", "3.52.0")
 #'}
 #'@references Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
 #'@references Mack et al. HLA 05 July 2023 https://doi.org/10.1111/tan.15145
 updateGL <- function(GLStringCode, Version, expand = FALSE) {
   #making sure desired version is possible
   outpos <- GLV2(Version)
+  if(substr(outpos[1],1,1) == "X") {
   #checking GL String code input, making changes if necessary
   GLString <- GLvalidate(GLStringCode)
   #if code is not stopped by previous two lines of code, call GLupdate
-  GLupdate(GLString = GLStringCode, Version = Version, expand = expand)
+  if(!GLString == FALSE){
+    return(GLupdate(GLString = GLString, Version = Version, expand = expand))
+            } 
+  } else {
+    return(outpos) }
 }
 
 ################
@@ -48,7 +46,7 @@ updateGL <- function(GLStringCode, Version, expand = FALSE) {
 #'Updates columns from a data frame in GL String Code format to a desired reference database version.
 #'
 #'@param GLstringArray An array of HLA allele names and operators in GL String code format identifying their relation with one another and the pertinent IPD-IMGT/HLA Database release version.
-#'@param Version A text string identifying the desired version to which for the alleles should be updated, going back to version 1.05.0.
+#'@param Version A character string identifying the desired version to which the alleles should be updated, going back to version 1.05.0.
 #'@param expand A logical to determine whether to include only the direct HLA ID match, or all possible allele matches.
 #'
 #'@return A version of the input array of GL String Codes (in a data frame) updated to the desired version.
@@ -56,8 +54,10 @@ updateGL <- function(GLStringCode, Version, expand = FALSE) {
 #'@export
 #'
 #'@examples
-#'\dontrun{
-#'multiUpdateGL(GLSC.ex[[2]][1:5], Version = "3.53.0")
+#'\donttest{
+#' # Example update of two GL Strings Codes containing truncated alleles from version 3.1.0 to 3.53.0.
+#'GLSC.ex[[2]][1:2] 
+#'multiUpdateGL(GLSC.ex[[2]][1:2], Version = "3.53.0")
 #'}
 #'
 #'@references Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
@@ -84,7 +84,6 @@ multiUpdateGL <- function(GLstringArray, Version, expand = FALSE) {
       }
     }
   }
-  #View(GLstringArray)
   GLstringArray
 }
 
@@ -95,11 +94,11 @@ multiUpdateGL <- function(GLstringArray, Version, expand = FALSE) {
 #'
 #'Updates the allele names in a Genotype List (GL) String Code to the desired reference database version using the IPD-IMGT/HLA Database's Allele List History table.
 #'
-#'@param GLString A string of HLA allele names and operators in GL String Code format signifying their relation with one another and the pertinent HLA Allele List version.
-#'@param Version A string of the desired version to which the alleles to be updated, going back to version 1.05.0.
+#'@param GLString A character string of HLA allele names and operators in GL String Code format signifying their relation with one another and the pertinent HLA Allele List version.
+#'@param Version A character string of the desired version to which the alleles to be updated, going back to version 1.05.0.
 #'@param expand A logical that determines whether to return only the direct HLA ID allele match or all possible HLA allele matches.
 #'
-#'@return An updated version the GL String Code input (in the form of a string) updated to the input desired version.
+#'@return An updated version the GL String Code input (in the form of a character string) updated to the input desired version.
 #'
 #'@note For internal use only.
 #'
@@ -108,21 +107,20 @@ multiUpdateGL <- function(GLstringArray, Version, expand = FALSE) {
 #'@export
 #'
 #'@examples
-#'\dontrun{
-#'GLupdate("hla#3.1.0#HLA-A*02:01+HLA-A*01:01:01:01", Version = "3.53.0")
 #'GLupdate("hla#3.36.0#HLA-B*15:35", "3.52.0")
-#'
-#'GLupdate("hla#3.45.0#HLA-DPA1*02:01:01:05", "3.52.0")
-#'GLupdate("hla#3.45.0#HLA-A*02:01:05", "3.52.0", expand = TRUE)
-#'
 #'GLupdate("hla#3.45.0#HLA-A*02:08", "3.52.0")
 #'GLupdate("hla#3.45.0#HLA-A*02:08", "3.52.0", expand = TRUE)
+#'\donttest{
+#'GLupdate("hla#3.1.0#HLA-A*02:01+HLA-A*01:01:01:01", Version = "3.53.0")
+#'GLupdate("hla#3.44.0#HLA-DPA1*02:01:01:05", "3.45.0")
+#'GLupdate("hla#3.45.0#HLA-DPA1*02:01:01:05", "3.46.0")
+#'GLupdate("hla#3.37.0#HLA-A*01:02", "3.52.0", expand = TRUE)
 #'}
 #'
 #'@references Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
 #'@references Mack et al. HLA 05 July 2023 https://doi.org/10.1111/tan.15145
 #'@source https://github.com/ANHIG/IMGTHLA/blob/Latest/Allelelist_history.txt
-
+#'
 GLupdate <- function(GLString, Version, expand = FALSE) {
   #getting input and output versions formatted correctly
   inpos <- GLV(GLString)
@@ -283,21 +281,20 @@ GLupdate <- function(GLString, Version, expand = FALSE) {
 #'
 #'Extracts the version data from an input GL String Code, or provides appropriate options if version input is not present in the IPD-IMGT/HLA Database.
 #'
-#'@param GLString A string of HLA allele names and operators in GL String Code format, signifying their relation with one another and the pertinent IPD-IMGT/HLA Database release version.
+#'@param GLString A character string of HLA allele names and operators in GL String Code format, signifying their relation with one another and the pertinent IPD-IMGT/HLA Database release version.
 #'
-#'@return Returns the version of the release as it appears in the pertinent alleleListHistory$AlleleListHistory-column-header.
+#'@return Returns A character string of the version of the release as it appears in the pertinent alleleListHistory$AlleleListHistory-column-header.
 #'
 #'@export
 #'
 #'@note For internal use only.
 #'
 #'@examples
-#'\dontrun{
 #'GLV("hla#3.25.0#HLA-B15:35")
-#'}
+#'
 #'@references Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
 #'@references Mack et al. HLA 05 July 2023 https://doi.org/10.1111/tan.15145
-
+#'
 GLV <- function(GLString) {
   ve1 <-""
   ve2 <- ""
@@ -327,27 +324,25 @@ GLV <- function(GLString) {
 ##GLV2
 #'Format GL String Code version number.
 #'
-#'Returns the AlleleListHistory-formatted version of a dot-delimited IPD-IMGT/HLA Database release, or provides appropriate options if version input is not present in the IPD-IMGT/HLA Database.
+#'Returns a compressed IPD-IMGT/HLA Database release version or a vector of dot-delimited release version options if the specified version is not present in the alleleListHistory object.
 #'
-#'@param Version  A string of the desired version to which the alleles to be updated, going back to version 1.05.0.
+#'@param Version A character string of the desired IPD-IMGT/HLA Database version, going back to version 1.05.0.
 #'
-#'@return Returns alleleListHistory$AlleleListHistory-column-formatted version.
+#'@return Returns either a single, compressed character string-formatted release version, or a character vector of potential release versions.
 #'
 #'@export
 #'
 #'@note For internal use only.
 #'
 #'@examples
-#'\dontrun{
 #'GLV2("3.34.0")
 #'GLV2("3.0.0")
-#'}
+#'
 #'@references Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
 #'@references Mack et al. HLA 05 July 2023 https://doi.org/10.1111/tan.15145
 
 GLV2 <- function(Version) {
-  ve1 <-""
-  ve2 <- ""
+  ve1 <- ve2 <- ""
   version <- strsplit(Version, "[.]")[[1]]
   long <- strsplit(gsub("[.]", "", Version), "")
   for(i in 1:length(version)) {
@@ -360,10 +355,10 @@ GLV2 <- function(Version) {
     ve2 <- paste0(ve2, collapse = "")
     ve1 <- ve2
   }
+  
   if (!ve1 %in% names(alleleListHistory$AlleleListHistory)) {
     GLVhelper(Version)
-  }
-  else {
+  } else {
     ve1
   }
 }
@@ -374,26 +369,26 @@ GLV2 <- function(Version) {
 #'
 #' Uses the provided version information to locate and return possible matches for an incompletely defined IPD-IMGT/HLA Database release version.
 #'
-#'@param Version  A string of the desired version to which the alleles should be updated, going back to version 1.05.0.
+#'@param Version A character string of the desired version to which the alleles should be updated, going back to version 1.05.0.
 #'
-#'@return Returns possible matches to a given incomplete input.
+#'@return A list of character strings of possible matches to a given incomplete input.
 #'
 #'@export
 #'
 #'@note For internal use only.
 #'
 #'@examples
-#'\dontrun{
 #'GLVhelper("2.25")
 #'GLVhelper("3.9.0")
-#'}
+#'
 #'
 #'@references Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
 #'@references Mack et al. HLA 05 July 2023 https://doi.org/10.1111/tan.15145
-
+#'
 GLVhelper <- function(Version) {
   ve5 <-ve4 <-ve3 <-ve2 <- ""
   vte1 <- vte3 <- vector("list", 1)
+  fin <- FALSE
   #making list of only the numbers
   version <- strsplit(gsub("[.]","",Version), "")[[1]]
   #check all names second letter, if its same as input, format with decimals and return options to choose from
@@ -404,36 +399,30 @@ GLVhelper <- function(Version) {
       }
     }
     if (!is.null(vte1[[1]])) {
-      message("Returning all HLA Allele List versions with ", version, " as its first number, please re-enter one of these options into the function.")
+      message("Returning all version ", version, " releases. Please re-enter one of these options.")
       for (i in 1:length(vte1[[1]])) {
         vte1[[1]][i] <- redec(vte1[[1]][i])
       }
-      print(vte1)
-      stop()
-    }
-    else {
-      message(version, " is not a valid first number for an HLA Allele List Version.")
-      stop()
+      return(vte1[[1]])
+      fin <- TRUE
+    }  else {
+      message(version, " is not a valid major release version.")
+      fin <- TRUE
     }
   }
   #add 1 zero to the end, test for multiple other options
   if (length(version) == 2) {
-    message("Version is too short, searching for matches by adding zero to the end.")
-    version <- append(version, "0")
-    for (i in 1:length(version)) {
-      ve2 <- paste0(ve2,version[i])
-    }
-    ve2 <- paste0("X", ve2)
-    ve2 <-redec(ve2)
-    GLVhelper(ve2)
+    message("Version is truncated. Searching for matches by appending '0'.")
+ 
+    ve2 <- redec(paste0("X",paste(append(version, "0"),collapse="")))
+
+     return(GLVhelper(ve2))
+     fin <- TRUE
   }
   if (length(version) == 3) {
     tte3 <- vector("list", 1)
-    vv3 <- ""
-    for(i in 1:length(version)) {
-      vv3 <- paste0(vv3,version[[i]])
-    }
-    #print(vv3)
+
+    vv3 <- paste(version,collapse="")
     for(i in 1:length(version)) {
       xt <- append(version, "0", i)
       for (n in 1:length(xt)) {
@@ -442,45 +431,60 @@ GLVhelper <- function(Version) {
       vte3[[1]][i] <- paste0("X",ve3)
       ve3 <- ""
     }
-    for (i in 1: length(vte3[[1]])) {
+    for (i in 1:length(vte3[[1]])) {
       if(vte3[[1]][i] %in% names(alleleListHistory$AlleleListHistory)) {
         #message about what it is returning (its returning earliest version of input)
         tte3[[1]] <- append(tte3[[1]], vte3[[1]][i])
       }
-    }
+    } 
+    if(!is.null(tte3[[1]])) { # added 7/7
     for (i in 2:(length(names(alleleListHistory$AlleleListHistory)))) {
       yy <-names(alleleListHistory$AlleleListHistory)[i]
       yy <- substr(yy, start = 2, stop = 4)
       if(yy == vv3) {
         tte3[[1]] <- append(tte3[[1]], names(alleleListHistory$AlleleListHistory)[i])
-      }
-    }
+          }
+        }
+    } else { ## when TTE is null, then none of the options exist
+      
+      message("No direct matches were found for release version '", Version, "', please try one of these options:")
+      return(as.vector(sapply(names(alleleListHistory$AlleleListHistory)[substr(names(alleleListHistory$AlleleListHistory)[1:length(alleleListHistory$AlleleListHistory)],2,2) == version[1]],redec)))
+         }
+    
     if (!is.null(tte3[[1]])) {
-      message("No direct matches were found for an input containing the digits '", vv3, "', please re-enter one of these options into the function.")
+
       tte3[[1]] <- unique(tte3[[1]])
       for (i in 1:length(tte3[[1]])) {
         tte3[[1]][i] <- redec(tte3[[1]][i])
       }
-      print(tte3)
-      stop()
-    }
-    else {
-      GLVhelper(version[1])
+      message("No direct matches were found for release version '", vv3, "', please try one of these options:")
+      return(tte3[[1]])
+
+      fin <- TRUE
+    } else {    
+      return(GLVhelper(version[1]))
+      fin <- TRUE
     }
   }
-
+  
+  if(!fin) {
   #remove last element from list, and see if that works
   if (length(version) > 3) {
-    xnames <- names(alleleListHistory$AlleleListHistory)[-1]
-    for (i in 1:length(xnames)) {
-      xnames[i] <- redec(xnames[i])
-    }
-    message("Please re-enter a version from this list of names. \n" )
-    print(xnames)
-    stop()
-  }
+    
+    xnames <- as.vector(sapply(names(alleleListHistory$AlleleListHistory)[-1],redec,simplify = TRUE))
+    
+    if(Version %in% xnames) {
+      
+      return(Version)
+      
+    } else {
+      message("No direct matches were found for release version '", Version, "', please try one of these options:")
 
-}
+         return(GLVhelper(version[1]))
+              }
+          }
+      }
+  }
 
 ################
 ##redec
@@ -488,9 +492,9 @@ GLVhelper <- function(Version) {
 #'
 #'Correctly put decimals back into an AlleleListHistory column-formatted version name.
 #'
-#'@param Cname Version name in AlleleListHistory column format.
+#'@param Cname A character string describing a version name in AlleleListHistory column format.
 #'
-#'@return Version name with decimals in appropriate places according to the IPD-IMGT/HLA Database.
+#'@return A character string describing a version name with decimals in appropriate places according to the IPD-IMGT/HLA Database.
 #'
 #'@export
 #'
@@ -520,41 +524,42 @@ redec <- function(Cname) {
 
 ################
 ##GLvalidate
-#'Validate a GL String Code.
+#'Validates a GL String Code.
 #'
-#'A lightweight validator to protect from incorrectly formatted GL String Codes.
+#'A lightweight validator that inspects a GL String Code for correct structure. If the namespace field contains a value other than value of 'namespace', the namespace is changed to 'hla'. The version and GL String fields are not evaluated.
 #'
-#'@param GLString A string formatted to GL String Code specifications.
+#'@param GLString A character string describing a string formatted to GL String Code specifications.
+#'@param namespace A character vector of allowed namespace strings. The default value is 'c("hla","kir")'.
 #'
-#'@return A well-formatted GL String Code, or an error message.
+#'@return A character string describing wither a well-formatted GL String Code or the value FALSE.
 #'
 #'@note For internal use only.
 #'
 #'@export
 #'
 #'@examples
-#'GLvalidate("ha#3.25.0#hla-B15:35")
+#'GLvalidate("ha#3.25.0#hla-B15:35") 
 #'
 #'@references Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
 #'@references Mack et al. HLA 05 July 2023 https://doi.org/10.1111/tan.15145
-
-GLvalidate <- function(GLString) {
+#'
+GLvalidate <- function(GLString,namespace = c("hla","kir")) {
   GLcopy <- GLString
   GLret <- ""
   if (length(strsplit(GLString, "#")[[1]]) > 3) {
     message("The input GL String code is formatted incorrectly, there are too many '#' delimited sections.")
-    stop()
+    return(FALSE)
       }
       if (length(strsplit(GLString, "#")[[1]]) < 3) {
         message("The input GL String code is formatted incorrectly, there are too few '#' delimited sections.")
-        stop()
+        return(FALSE)
       }
   if (length(strsplit(GLcopy, "#")[[1]]) == 3) {
     whole <- strsplit(GLcopy, '#')[[1]]
     first <- strsplit(GLcopy, '#')[[1]][1]
     se <- GLV(GLString)
     third <- strsplit(GLcopy, "#")[[1]][3]
-        if (first != "hla") {
+        if (!first %in% namespace) {
           whole[1] <- "hla"
         }
     third <- gsub("hla-", "HLA-", third)

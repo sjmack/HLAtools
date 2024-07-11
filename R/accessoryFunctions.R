@@ -10,20 +10,21 @@
 #'Positions are validated against a specified locus for a specified alignment type. Positions that do not exist for that locus-alignment combination are not returned.
 #'
 #'@param posVec A character vector of variant positions.
-#'@param alignType The type of alignment the positions are found in. The values 'prot', 'codon', 'nuc' and 'gen' are valid options. Only one 'alignType' value is allowed.
-#'@param locus A locus in the HLAalignments object for the specified alignType.
+#'@param alignType A character string describing the type of alignment the positions are found in. The values 'prot', 'codon', 'nuc' and 'gen' are valid options. Only one 'alignType' value is allowed.
+#'@param locus A character string describing a locus in the HLAalignments object for the specified alignType.
 #'
-#'@return A correctly sorted sequence.
+#'@return A character string of the correctly sorted sequence.
 #'
 #'@note Indel positions must be text-formatted (e.g. "607.12"), as illustrated in the the examples.
 #'
 #'@export
 #'
 #'@examples
-#'\dontrun{
+#'\donttest{
 #'posSort(c(2,4,3,1,5), "nuc","DRB1")
 #'posSort(c("607.23","607.10","607.3","607.4"),"nuc","DRB1")
 #'}
+#'
 posSort <- function(posVec,alignType, locus){
   
     alignType <- checkAlignType(alignType)  
@@ -44,9 +45,9 @@ posSort <- function(posVec,alignType, locus){
 #'
 #'Returns the number of fields in a colon-delimited HLA allele name. A value of 1 is returned for digit-delimited HLA allele names.
 #'
-#'@param allele A colon-delimited HLA allele name.
+#'@param allele A character string of a colon-delimited HLA allele name.
 #'
-#'@return The number of fields in the allele name.
+#'@return A numeric value describing the number of fields in the allele name.
 #'
 #'@export
 #'
@@ -64,7 +65,7 @@ numFields <- function(allele) {
 #'
 #'Returns TRUE if an allele name is found in HLAalignments in either the 'allele_name' column of full-length allele names or the 'trimmed_allele' column of two-field allele names in the pertinent genomic alignment. Returns FALSE if the allele name is not properly formed, or if the allele name is not found in HLAalignments.
 #'
-#'@param allele A colon-delimited HLA allele name.
+#'@param allele A character string of the colon-delimited HLA allele name.
 #'
 #'@return A logical identifying if the allele name is present in the alignments (TRUE) or, if it is not in the alignments or is not valid not (FALSE).
 #'
@@ -74,11 +75,12 @@ numFields <- function(allele) {
 #'@export
 #'
 #'@examples
-#'\dontrun{
+#'\donttest{
 #'validateAllele("A*01:01:01:117")
 #'validateAllele("A*01:01:01")
 #'validateAllele("A*01:01")
 #'}
+#'
 validateAllele <- function(allele) {
   alleleParts <- strsplit(allele,"*",fixed=TRUE)[[1]]
   if(length(alleleParts) != 2) {
@@ -107,7 +109,7 @@ validateAllele <- function(allele) {
 #'
 #'Returns TRUE if an allele name is present in AlleleListHistory or FALSE it is absent, or c(TRUE,version), where 'version' is the most recent IPD-IMGT/HLA Database release in which that name appeared, when version = TRUE.
 #'
-#'@param allele An HLA allele name. Colon-delimited and field-delimited names are both accepted.
+#'@param allele A character string of an HLA allele name. Colon-delimited and field-delimited names are both accepted.
 #'@param version A logical that indicates if the most recent nomenclature release version in which that name was valid should be returned. 
 #'
 #'@return A logical identifying if the allele name is found in AlleleListHistory (TRUE) or not (FALSE), or c(TRUE,version) if version = TRUE.
@@ -115,12 +117,11 @@ validateAllele <- function(allele) {
 #'@export
 #'
 #'@examples
-#'\dontrun{
 #'verifyAllele("A*01:01:01:01")
 #'verifyAllele("A*01:01:01:01",TRUE)
 #'verifyAllele("A*010101",TRUE)
 #'verifyAllele("A*0101",TRUE)
-#'}
+#'
 verifyAllele <- function(allele, version=FALSE){
 
     resArray <- which(alleleListHistory$AlleleListHistory == allele,arr.ind = TRUE)
@@ -139,16 +140,15 @@ verifyAllele <- function(allele, version=FALSE){
 #'
 #'Returns a vector describing the location of key information in the header blocks of alignment files.
 #'
-#'@param version A validated IPD-IMGT/HLA Database release version (e.g., '3.25.0' or '3250').
+#'@param version A character string of a validated IPD-IMGT/HLA Database release version (e.g., '3.25.0' or '3250').
 #'
 #'@return Either FALSE if the version is not valid, or two-value numerical vector describing (1) the header line in which alignment version data appears and (2) the length of the character string in that line preceding version data.
 #'
 #'@export
 #'
 #'@examples
-#'\dontrun{
-#'parseAlignmentHeader("3.25.0")
-#'}
+#'parseAlignmentHead("3.25.0")
+#'
 parseAlignmentHead <- function(version){
   
   if(validateVersion(version) ) { version <- squashVersion(version)
@@ -186,19 +186,17 @@ parseAlignmentHead <- function(version){
 #'
 #'@param all A logical. When 'all' = TRUE, a vector of all instances of 'variant' in 'rel' is returned.  When 'all' = FALSE, the number of instances of 'var' in 'rel' is returned. 
 #
-#'@return A vector all matches to 'variant' in 'rel' or the number of all matches to 'variant' in 'rel'.
+#'@return A character vector of all matches to 'variant' in 'rel' or the number of all matches to 'variant' in 'rel'.
 #'
 #'@export
 #'
 #'@examples
-#'\dontrun{
-#' # Indentify the number of DRB9 alleles in releases 3.30.0 and 3.31.0.
+#' # Identify the number of DRB9 alleles in releases 3.30.0 and 3.31.0.
 #'queryRelease("3.30.0","DRB9",FALSE) 
 #'queryRelease("3.31.0","DRB9",FALSE)
 #'
 #' # Identify the total number of alleles in release 3.56.0.
 #' queryRelease(3560)
-#'}
 #'
 queryRelease <- function(rel, variant="", all= FALSE){
   
@@ -239,14 +237,12 @@ queryRelease <- function(rel, variant="", all= FALSE){
 #'
 #'@param alignType A vector of character values specifying sequence alignment types to be used for a function.
 #'
-#'@return A vector that includes only allowed 'alignType' values.
+#'@return A character vector that includes only allowed 'alignType' values.
 #'
 #'@export
 #'
 #'@examples
-#'\dontrun{
 #'checkAlignType(c("nuc","prot","gDNA")) 
-#'}
 #'
 checkAlignType <- function(alignType) {
   
@@ -272,14 +268,12 @@ checkAlignType <- function(alignType) {
 #'
 #'@param source A vector of character values specifying sequence alignment file sources to be used for a function.
 #'
-#'@return A vector that includes only allowed 'source' values.
+#'@return A character vector that includes only allowed 'source' values.
 #'
 #'@export
 #'
 #'@examples
-#'\dontrun{
 #'checkSource(c("AA","cDNA","codon")) 
-#'}
 #'
 checkSource <- function(source) {
   
@@ -307,12 +301,12 @@ checkSource <- function(source) {
 #'
 #'@param toSource A logical. If 'toSource' is true, 'alignType' values are converted to 'source' values. If 'toSource' is false, 'source' values are concerted to 'alignType' values
 #'
+#'@return A character string of the converted 'align' or 'source' value.  
+#'
 #'@export
 #'
 #'@examples
-#'\dontrun{
 #'typeToSource(c("nuc","prot","gen"),TRUE) 
-#'}
 #'
 typeToSource <- function(alignVector,toSource=TRUE){
   
@@ -345,12 +339,14 @@ typeToSource <- function(alignVector,toSource=TRUE){
 ##AddCodonLine
 #'Add an 'AA codon' Line to Alignments When Missing.
 #'
-#'Modifies cDNA alignment files that are missing "AA codon" lines to include these lines in the correct location with the correct codon position information.
+#'Modifies cDNA alignment objects that are missing "AA codon" lines to include these lines in the correct location with the correct codon position information.
 #'
 #'@param cDNAalign A matrix of cDNA alignment lines, generated from an alignment file that is missing "AA codon" lines.
 #'@param firstPos A numeric value identifying the position number of the transcript's N-terminal codon, based on a complete cDNA alignment in another release.
-#'@param afterLine The number of the line below the first "cDNA" line in the alignment. The default value is 8.
-#'@param codons The number of codons in each line of the nucleotide alignment. The default value is 25.
+#'@param afterLine A numeric value identifying the number of the line below the first "cDNA" line in the alignment. The default value is 8.
+#'@param codons A numeric value identifying the number of codons in each line of the nucleotide alignment. The default value is 25.
+#'
+#'@return A complete cDNA alignment data frame that includes "AA codon" rows.
 #'
 #'@export
 #'

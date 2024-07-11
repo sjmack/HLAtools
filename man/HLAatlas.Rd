@@ -5,7 +5,7 @@
 \alias{HLAatlas}
 \title{Boundary Positions of Exons, Introns and UTRs in Amino Acid, cDNA and gDNA Alignments}
 \format{
-A list of 4 elements that include the gene features boundaries in each ANHIG/IMGTHLA sequence alingment.
+A list of 4 elements that include the gene features boundaries in each ANHIG/IMGTHLA sequence alignment.
 \itemize{
 \item(prot: peptide-alignment atlases)
 \item(nuc: cDNA-alignment atlases)

@@ -7,9 +7,9 @@
 validateLocus(loci, source)
 }
 \arguments{
-\item{loci}{A vector of HLA gene names (ex. "DRB1", c("DRB1","DQB1")).}
+\item{loci}{A character vector of HLA gene names (ex. "DRB1", c("DRB1","DQB1")).}
 
-\item{source}{A vector of alignment source types. "AA", "cDNA", and "gDNA" are allowed types.}
+\item{source}{A character vector of alignment source types. "AA", "cDNA", and "gDNA" are allowed types.}
 }
 \value{
 A logical value. TRUE indicates that all of the names and source types are valid. FALSE indicates that at least one locus name or alignment source type is invalid.

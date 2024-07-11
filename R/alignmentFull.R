@@ -6,14 +6,14 @@
 #'
 #'Applies buildAlignments() to build a set of alignments for loci supported in the ANHIG/IMGTHLA GitHub repository.
 #'
-#'@param loci A vector of the locus names for which alignments should be built. The default value ("all") generates alignments for all loci. 
-#'@param alignType A vector of alignment types. The allowed values are "all", "prot", "codon", "nuc", and "gen", which specify either all available alignments for a given locus or the respective protein, codon, nucleotide and genomic alignments, as determined by the HLAgazeteer.
-#'@param version The version of the ANHIG/IMGTHLA Github repository from which alignments are obtained. The default value, 'HLAgazeteer$version', generates alignments for the IPD-IMGT/HLA Database release under which the HLAgazeteer was built.
+#'@param loci A characer vector of the locus names for which alignments should be built. The default value ("all") generates alignments for all loci. 
+#'@param alignType A character vector of alignment types. The allowed values are "all", "prot", "codon", "nuc", and "gen", which specify either all available alignments for a given locus or the respective protein, codon, nucleotide and genomic alignments, as determined by the HLAgazeteer.
+#'@param version A character string describing the version of the ANHIG/IMGTHLA Github repository from which alignments are obtained. The default value, 'HLAgazeteer$version', generates alignments for the IPD-IMGT/HLA Database release under which the HLAgazeteer was built.
 #'
 #'@return A list object containing data frames of protein (prot), codon (codon), coding nucleotide (nuc), or genomic nucleotide (gen) alignments, for specified genes in the specified IPD-IMGT/HLA Database release, along with the pertinent reference database release.
 #'
 #'@examples
-#'\dontrun{
+#'\donttest{
 #' HLAalignments <- alignmentFull()
 #'}
 #'

@@ -24,10 +24,12 @@ A character string containing the corresponding peptide, codon or nucleotide seq
 Searches ANHIG/IMGT-HLA alignments and returns protein, codons or nucleotide sequences for a submitted allele name and position(s).
 }
 \note{
+This function requires that the HLAalignments object has been populated with alignments via the alignmentFull() function.
+
 Indel positions must be text-formatted (e.g. "607.12"), as illustrated in the the examples.
 }
 \examples{
-\dontrun{
+\donttest{
 alignmentSearch("codon","DRB1*15:07:01",11:22)
 alignmentSearch("prot","DRB1*15:07:01",11:22)
 alignmentSearch("gen","DRB1*15:07:01",11:22)

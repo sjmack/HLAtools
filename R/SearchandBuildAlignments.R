@@ -17,10 +17,11 @@
 #'@importFrom xfun numbers_to_words
 #'@export
 #'
+#'@note This function requires that the HLAalignments object has been populated with alignments via the alignmentFull() function.
 #'@note Indel positions must be text-formatted (e.g. "607.12"), as illustrated in the the examples.
 #'
 #'@examples
-#'\dontrun{
+#'\donttest{
 #'alignmentSearch("codon","DRB1*15:07:01",11:22)
 #'alignmentSearch("prot","DRB1*15:07:01",11:22)
 #'alignmentSearch("gen","DRB1*15:07:01",11:22)
@@ -112,7 +113,7 @@ alignmentSearch <- function(alignType,allelename,positions,prefix=TRUE,sep="~"){
 #'@export
 #'
 #'@examples
-#'\dontrun{
+#'\donttest{
 #'multiSearch("gen", "DRB1", "15:07",c(23:26), trimmed=TRUE)
 #'multiSearch("prot", "DRB1", "15:07:01",c(23:26))
 #'multiSearch("nuc", "DRB1", "15:07:01",c(23:26))
@@ -175,7 +176,7 @@ multiSearch <- function(alignType, locus, allele, positions, prefix=TRUE,sep="~"
 #'@export
 #'
 #'@examples
-#'\dontrun{
+#'\donttest{
 #'uniSearch("codon","DRB1", "15:07", 57, trimmed=TRUE)
 #'uniSearch("codon","DRB1", "15:07:01", 57)
 #'uniSearch("codon","HFE", "001:01:02", 57)
@@ -236,10 +237,12 @@ uniSearch <- function(alignType, locus, allele, position, prefix=TRUE, trimmed=F
 #'
 #'@return A data frame of allele names and the corresponding nucleotide sequences for each desired nucleotide position. an error message is returned if input locus is not available in the ANHIG/IMGTHLA Github Repository.
 #'
+#'@note This function requires that the HLAalignments object has been populated with alignments via the alignmentFull() function.
+#'
 #'@export
 #'
 #'@examples
-#'\dontrun{
+#'\donttest{
 #'customAlign("codon",c("DRB1*01:01","DQB1*02:01","DPB1*01:01"),c(1,2,3,7,8,9,13,14,15))
 #'customAlign("codon",c("DPB1*01:01:01:01","DQA1*01:01:01:01","DQB1*05:01:01:01"),list(19:35,1:4,6:9))
 #'}
@@ -277,7 +280,7 @@ customAlign <- function(alignType,alleles,positions){
 #'@export
 #'
 #'@examples
-#'\dontrun{
+#'\donttest{
 #'uniAlign("codon","DQA1*01:01:01:01",c(32:58))
 #'}
 uniAlign <- function(alignType, alleles,positions){
@@ -329,7 +332,7 @@ uniAlign <- function(alignType, alleles,positions){
 #'@export
 #'
 #'@examples
-#'\dontrun{
+#'\donttest{
 #'multiAlign("gen",c("DQA1*01:01:01:01", "DRB1*01:01:01:01"),list(32:58, 33:59))
 #'}
 multiAlign <- function(alignType,alleles,positions){

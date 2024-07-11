@@ -7,7 +7,7 @@
 BDstrat(dataset, alleles, warnBelow = 21)
 }
 \arguments{
-\item{dataset}{A BIGDAWG-formatted data.frame or a path to a BIGDAWG-formatted, tab-delimited text file.}
+\item{dataset}{A BIGDAWG-formatted data frame or a path to a BIGDAWG-formatted, tab-delimited text file.}
 
 \item{alleles}{A vector of allele names in the locus-asterisk-allele_name format (e.g., "A*01:01:01:01").}
 
@@ -20,11 +20,8 @@ A list-object of two BIGDAWG-formatted data frames titled dataset$\verb{<alleles
 Divides a BIGDAWG-formatted dataset into two subsets (strata) that do and do not include specified alleles.
 }
 \examples{
-\dontrun{
-HLA_data.multi.strat <- BDstrat(BIGDAWG::HLA_data,c("DRB1*08:01:03","DRB1*03:01:02","A*26:08"))
-HLA_data.single.strat <- BDstrat(BIGDAWG::HLA_data,"DRB1*15:01:01:01")
-for(i in 1:2) {BIGDAWG(HLA_data.strat[[i]],HLA = TRUE,Run.Tests = "L")}
-}
+HLA_data.multi.strat <- BDstrat(sHLAdata,c("DRB1*16:02:01:01","DRB1*04:07:01:01","A*25:01:01:01"))
+HLA_data.single.strat <- BDstrat(sHLAdata,"DRB1*16:02:01:01")
 
 }
 \references{

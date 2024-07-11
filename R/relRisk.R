@@ -1,11 +1,11 @@
-## HLA RRisk Calculation -- Steven J Mack April 26, 2024 v 1.4.0
+## HLA RRisk Calculation -- Steven J Mack July 10, 2024 v 1.4.1
 
 #######################
 #' Calculate Relative Risk for Individual Alleles and Genotypes in BIGDAWG-formatted Non-Case-Control Datasets
 #' 
 #' This function returns a list object containing relative risk, confidence interval and p-value data for the individual alleles and individual genotypes at each locus in a BIGDAWG-formatted non-case-control genotype data frame or file. 
 #' 
-#' @param dataset The name of a non-case-control genotype dataset using the BIGDAWG format. Here, "non-case-control" means that while two subject categories are required, the categories should not be patients and controls; instead, the categories may be, e.g., for a dataset of patients, either of two disease states, where one disease state is coded as 0 and the other is coded as 1 in the second column of the dataset. Either a tab-delimited file or a data frame can be specified. 
+#' @param dataset A character string describing the name of a non-case-control genotype dataset using the BIGDAWG format. Here, "non-case-control" means that while two subject categories are required, the categories should not be patients and controls; instead, the categories may be, e.g., for a dataset of patients, either of two disease states, where one disease state is coded as 0 and the other is coded as 1 in the second column of the dataset. Either a tab-delimited file or a data frame can be specified. 
 #' @param return A logical identifying if the list object should be returned (return=TRUE), or if pairs of tab-delimited text files of results (one for alleles and one for genotypes) should be written to the working directory for each locus.
 #' @param save.path A character string identifying the path in which to write the pair of files when return is FALSE. The default value is tempdir().
 #' 
@@ -20,11 +20,8 @@
 #' @export
 #' 
 #' @examples
-#'\dontrun{
-#' # Analyzing the BIGDAWG::HLA_data dataset
-#' library(BIGDAWG)
-#' rr <- relRisk(HLA_data[,1:4])
-#' }
+#' rr <- relRisk(sHLAdata)
+#' 
 #' @references \href{https://CRAN.R-project.org/package=BIGDAWG/vignettes/BIGDAWG.html#input-data}{BIGDAWG Data Format}
 #' 
 relRisk <- function(dataset,return=TRUE,save.path = tempdir()){ ## if return == TRUE, a list object is returned; if return==FALSE, two tab-delimited text files are written for each locus; one for alleles and one for genotypes

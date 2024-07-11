@@ -7,7 +7,7 @@
 verifyAllele(allele, version = FALSE)
 }
 \arguments{
-\item{allele}{An HLA allele name. Colon-delimited and field-delimited names are both accepted.}
+\item{allele}{A character string of an HLA allele name. Colon-delimited and field-delimited names are both accepted.}
 
 \item{version}{A logical that indicates if the most recent nomenclature release version in which that name was valid should be returned.}
 }
@@ -18,10 +18,9 @@ A logical identifying if the allele name is found in AlleleListHistory (TRUE) or
 Returns TRUE if an allele name is present in AlleleListHistory or FALSE it is absent, or c(TRUE,version), where 'version' is the most recent IPD-IMGT/HLA Database release in which that name appeared, when version = TRUE.
 }
 \examples{
-\dontrun{
 verifyAllele("A*01:01:01:01")
 verifyAllele("A*01:01:01:01",TRUE)
 verifyAllele("A*010101",TRUE)
 verifyAllele("A*0101",TRUE)
-}
+
 }

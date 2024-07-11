@@ -7,9 +7,9 @@
 validateMotif(motif, alignType)
 }
 \arguments{
-\item{motif}{A sequence variant motif in the following format: Locus*#$~#$~#$, where ## identifies a variant position, and $ identifies the sequence variant. Both nucleotide and peptide motifs can be provided, and any number of variants can be specified.}
+\item{motif}{A character string identifying a sequence variant motif in the following format: Locus*#$~#$~#$, where ## identifies a variant position, and $ identifies the sequence variant. Both nucleotide and peptide motifs can be provided, and any number of variants can be specified.}
 
-\item{alignType}{The type of alignment being searched. Allowed values are "codon","gen", nuc" and "prot". Only one 'alignType' value is allowed.}
+\item{alignType}{A character string identifying the type of alignment being searched. Allowed values are "codon","gen", nuc" and "prot". Only one 'alignType' value is allowed.}
 }
 \value{
 If the motif is valid, TRUE is returned. If the locus or body of the motif is invalid, FALSE is returned along with a brief message.
@@ -18,9 +18,7 @@ If the motif is valid, TRUE is returned. If the locus or body of the motif is in
 Evaluates a motif to determine if the locus is valid and variants are valid.
 }
 \examples{
-\dontrun{
 validateMotif("A*-21M~2P","prot")
 validateMotif("A*196G~301A~3046T","gen")
-}
 
 }

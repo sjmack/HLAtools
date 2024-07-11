@@ -8,7 +8,7 @@
 #'
 #'A wrapper function for UNtoGL() which translates strings from UNIFORMAT format to GL String format.
 #'
-#'@param uniformat A string of HLA allele names and operators in the UNIFORMAT format signifying their relation with one another.
+#'@param uniformat A character string of HLA allele names and operators in the UNIFORMAT format signifying their relation with one another.
 #'@param prefix A character string of the desired gene-system prefix (default is "HLA-").
 #'@param pre A logical that indicates whether returned allele names should contain 'prefix' (TRUE), or if 'prefix' should be excluded from returned names (FALSE).
 #'
@@ -39,7 +39,7 @@ UNItoGLS <- function(uniformat, prefix = "HLA-", pre = TRUE) {
 #'Translate a data frame or vector of UNIFORMAT strings to GL Strings.
 #'
 #'@param UniformatArray A data frame or vector of UNIFORMAT formatted strings. If 'UniformatArray' is a data frame with more than one column, the first column should contain only identifiers. If 'UniformatgArray' is a vector, it should contain only UNIFORMAT strings.
-#'@param prefix A string of the desired locus prefix (default is "HLA-").
+#'@param prefix A character string of the desired locus prefix (default is "HLA-").
 #'@param pre A logical. If 'pre' is TRUE, all allele names will be prefixed with 'prefix'. If 'pre' is FALSE, no allele names will be prefixed.
 #'
 #'@return A version of 'UniformatArray' in which the UNIFORMAT data have been converted to GL String format. If a 'UniformatArray' was a data frame, a data frame is returned. If 'UniformatArray' was a vector, a vector is returned. 
@@ -89,11 +89,11 @@ multiUNItoGLS <- function(UniformatArray, prefix = "HLA-", pre = TRUE) {
 #'
 #'A function that translates strings from UNIFORMAT format to GL String format.
 #'
-#'@param uniformat A string of HLA allele names and operators in the UNIFORMAT format signifying their relation with one another.
-#'@param prefix A string of the desired prefix (default is "HLA-").
+#'@param uniformat A character string of HLA allele names and operators in the UNIFORMAT format signifying their relation with one another.
+#'@param prefix A character string of the desired prefix (default is "HLA-").
 #'@param pre A logical that indicates whether user would like all allele names to contain the prefix of their choice (TRUE), or if the prefix should not be appended to allele names (FALSE).
 #'
-#'@return An altered version of the input string, converted to GL String format.
+#'@return An altered version of the input character string, converted to GL String format.
 #'
 #'@note For internal use only.
 #'@note This function does not return the "?" operator, as the "?" operator has no cognate in UNIFORMAT.

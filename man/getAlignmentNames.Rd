@@ -7,7 +7,7 @@
 getAlignmentNames(URL)
 }
 \arguments{
-\item{URL}{A URL identifying of the desired IPD-IMGT/HLA Database release version from which the alignment filenames should be retrieved.}
+\item{URL}{A chararacter string containing a Uniform Resource Locator (URL) identifying of the desired IPD-IMGT/HLA Database release version from which the alignment filenames should be retrieved.}
 }
 \value{
 A character vector of all of the filenames.
@@ -16,7 +16,7 @@ A character vector of all of the filenames.
 Retrieves the filenames of the protein, nucleotide and genomic alignments available a specific branch of the IMGTHLA GitHub Repository
 }
 \examples{
-\dontrun{
+\donttest{
 getAlignmentNames("https://github.com/ANHIG/IMGTHLA/tree/3240/alignments")
 }
 

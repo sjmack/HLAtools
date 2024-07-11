@@ -2,24 +2,26 @@
 % Please edit documentation in R/GLupdater.R
 \name{GLvalidate}
 \alias{GLvalidate}
-\title{Validate a GL String Code.}
+\title{Validates a GL String Code.}
 \usage{
-GLvalidate(GLString)
+GLvalidate(GLString, namespace = c("hla", "kir"))
 }
 \arguments{
-\item{GLString}{A string formatted to GL String Code specifications.}
+\item{GLString}{A character string describing a string formatted to GL String Code specifications.}
+
+\item{namespace}{A character vector of allowed namespace strings. The default value is 'c("hla","kir")'.}
 }
 \value{
-A well-formatted GL String Code, or an error message.
+A character string describing wither a well-formatted GL String Code or the value FALSE.
 }
 \description{
-A lightweight validator to protect from incorrectly formatted GL String Codes.
+A lightweight validator that inspects a GL String Code for correct structure. If the namespace field contains a value other than value of 'namespace', the namespace is changed to 'hla'. The version and GL String fields are not evaluated.
 }
 \note{
 For internal use only.
 }
 \examples{
-GLvalidate("ha#3.25.0#hla-B15:35")
+GLvalidate("ha#3.25.0#hla-B15:35") 
 
 }
 \references{

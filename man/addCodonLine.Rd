@@ -11,12 +11,15 @@ addCodonLine(cDNAalign, firstPos, afterLine = 8, codons = 25)
 
 \item{firstPos}{A numeric value identifying the position number of the transcript's N-terminal codon, based on a complete cDNA alignment in another release.}
 
-\item{afterLine}{The number of the line below the first "cDNA" line in the alignment. The default value is 8.}
+\item{afterLine}{A numeric value identifying the number of the line below the first "cDNA" line in the alignment. The default value is 8.}
 
-\item{codons}{The number of codons in each line of the nucleotide alignment. The default value is 25.}
+\item{codons}{A numeric value identifying the number of codons in each line of the nucleotide alignment. The default value is 25.}
+}
+\value{
+A complete cDNA alignment data frame that includes "AA codon" rows.
 }
 \description{
-Modifies cDNA alignment files that are missing "AA codon" lines to include these lines in the correct location with the correct codon position information.
+Modifies cDNA alignment objects that are missing "AA codon" lines to include these lines in the correct location with the correct codon position information.
 }
 \note{
 For internal HLAtools use.

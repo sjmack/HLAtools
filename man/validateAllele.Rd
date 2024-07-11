@@ -7,7 +7,7 @@
 validateAllele(allele)
 }
 \arguments{
-\item{allele}{A colon-delimited HLA allele name.}
+\item{allele}{A character string of the colon-delimited HLA allele name.}
 }
 \value{
 A logical identifying if the allele name is present in the alignments (TRUE) or, if it is not in the alignments or is not valid not (FALSE).
@@ -21,9 +21,10 @@ Messages will be returned to the console if the allele name is malformed, or the
 The locus being evaluated must be included in HLAalignments.
 }
 \examples{
-\dontrun{
+\donttest{
 validateAllele("A*01:01:01:117")
 validateAllele("A*01:01:01")
 validateAllele("A*01:01")
 }
+
 }

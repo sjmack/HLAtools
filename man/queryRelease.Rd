@@ -14,19 +14,17 @@ queryRelease(rel, variant = "", all = FALSE)
 \item{all}{A logical. When 'all' = TRUE, a vector of all instances of 'variant' in 'rel' is returned.  When 'all' = FALSE, the number of instances of 'var' in 'rel' is returned.}
 }
 \value{
-A vector all matches to 'variant' in 'rel' or the number of all matches to 'variant' in 'rel'.
+A character vector of all matches to 'variant' in 'rel' or the number of all matches to 'variant' in 'rel'.
 }
 \description{
 Searches specific release versions in the AlleleListHistory object for user-defined allele variants.
 }
 \examples{
-\dontrun{
-# Indentify the number of DRB9 alleles in releases 3.30.0 and 3.31.0.
+# Identify the number of DRB9 alleles in releases 3.30.0 and 3.31.0.
 queryRelease("3.30.0","DRB9",FALSE) 
 queryRelease("3.31.0","DRB9",FALSE)
 
 # Identify the total number of alleles in release 3.56.0.
 queryRelease(3560)
-}
 
 }

@@ -1,4 +1,4 @@
-##data v1.1.0 15MAR2024
+##data v2.0.0 10JUL2024
 
 ##alleleListHistory
 #'Allele Names Across All Release Versions
@@ -141,7 +141,7 @@
 #' @docType data
 #' @name HLAatlas
 #' @usage data(HLAatlas)
-#' @format A list of 4 elements that include the gene features boundaries in each ANHIG/IMGTHLA sequence alingment. 
+#' @format A list of 4 elements that include the gene features boundaries in each ANHIG/IMGTHLA sequence alignment. 
 #' \itemize{
 #'    \item(prot: peptide-alignment atlases)
 #'    \item(nuc: cDNA-alignment atlases)
@@ -150,3 +150,15 @@
 #'    }
 #' @source https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments
 "HLAatlas"
+
+##sHLAdata
+#'Synthetic HLA Data for use with Package Examples
+#'
+#'A BIGDAWG-formatted data frame of 18 columns and 47 rows containing synthetic HLA-A, -C, -B, -DRB1, -DQA1, -DQB1, -DPA1, and -DPB1 genotype data for 24 control subjects and 23 case subjects. Allele name data were recorded under IPD-IMGT/HLA Database release version 3.56.0. These are synthetic data generated for the imaginary UchiTelle population, and do not represent biologically-derived HLA genotypes. 
+#'
+#' @docType data
+#' @name sHLAdata
+#' @usage data(sHLAdata)
+#' @format A data frame of 18 columns and 47 rows.
+#' @source These synthetic data were generated as part of the 13th International HLA Workshop to demonstrate PyPop functions. See <http://pypop.org/docs/guide-chapter-usage.html#data-minimal-noheader> for additional details.
+"sHLAdata"

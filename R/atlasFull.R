@@ -6,14 +6,14 @@
 #'
 #'Applies atlasMaker() to build a set of 'atlases' identifying the gene-feature (exon, intron, and UTR) boundaries in the protein, coding nucleotide, and genomic nucleotide alignments of all HLA loci.
 #'
-#'@param version The version of the ANHIG/IMGTHLA Github repository used to generate atlases. The default value, "Latest", generates an atlas for the most recent IPD-IMGT/HLA Database release.
+#'@param version A character string identifying the version of the ANHIG/IMGTHLA Github repository used to generate atlases. The default value, "Latest", generates an atlas for the most recent IPD-IMGT/HLA Database release.
 #'
 #'@return A list object containing a list of data frames of protein (prot), coding nucleotide (nuc), and genomic nucleotide (gen) atlases for all genes in the IPD-IMGT/HLA Database release, along with a character vector identifying the pertinent IPD-IMGT/HLA Database release.
 #'
 #'@note Data informing the atlases were downloaded from the ANHIG/IMGTHLA Github repository.
 #'
 #'@examples
-#'\dontrun{
+#'\donttest{
 #' HLAatlas <- atlasFull()
 #'}
 #'

@@ -36,7 +36,7 @@
 #'@source Alexandrov et al. HLA-OLI: A new MHC class I pseudogene and HLA-Y are located on a 60 kb indel in the human MHC between HLA-W and HLA-J. HLA 2023 Nov; 102(5):599-606.
 #'
 #'@examples
-#'\dontrun{
+#'\donttest{
 #'HLAgazeteer <- buildGazeteer("3.34.0")
 #'}
 #'
@@ -138,14 +138,14 @@ buildGazeteer <- function(version = getLatestVersion()) {
 #'
 #'Retrieves the filenames of the protein, nucleotide and genomic alignments available a specific branch of the IMGTHLA GitHub Repository
 #'
-#'@param URL A URL identifying of the desired IPD-IMGT/HLA Database release version from which the alignment filenames should be retrieved.
+#'@param URL A chararacter string containing a Uniform Resource Locator (URL) identifying of the desired IPD-IMGT/HLA Database release version from which the alignment filenames should be retrieved.
 #'
 #'@return A character vector of all of the filenames. 
 #'
 #'@importFrom stringr str_detect
 #'
 #'@examples
-#'\dontrun{
+#'\donttest{
 #'getAlignmentNames("https://github.com/ANHIG/IMGTHLA/tree/3240/alignments")
 #'}
 #'

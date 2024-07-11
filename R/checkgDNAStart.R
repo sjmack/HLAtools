@@ -8,14 +8,16 @@
 #'
 #'This function reviews the gDNA atlases in the HLAatlas object and returns a data frame of the first feature boundary position for each locus. For expressed genes and some pseudogenes, this is the position of the start of Exon 1.
 #'
+#'@param verbose A logical indicating if loci with first feature boundary positions that are not 1 should be reported in the console (verbose = TRUE).
+#'
 #'@return A one-row data frame with one column for each locus with a gDNA alignment.
 #'
-#'@param verbose A logical indicating if loci with first feature boundary positions that are not 1 should be reported in the console (verbose = TRUE).
+#'@note This function requires that the HLAalignments object has been populated with alignments via the alignmentFull() function.
 #'
 #'@export
 #'
 #'@examples
-#'\dontrun{
+#'\donttest{
 #'gDNAStartPositions <- checkgDNAstart()
 #'}
 #'

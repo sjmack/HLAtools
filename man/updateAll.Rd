@@ -7,9 +7,12 @@
 updateAll(updateType = "all", version = getLatestVersion())
 }
 \arguments{
-\item{updateType}{A vector of the names of data objects to be updated. By default, updateAll() builds all five data objects (updateType="all"). Alternatively specific data objects can be updated; e.g., updateType="alleleListHistory" or updateType=c("alleleListHistory","fragmentFeatureNames").}
+\item{updateType}{A character vector of the names of data objects to be updated. By default, updateAll() builds all five data objects (updateType="all"). Alternatively specific data objects can be updated; e.g., updateType="alleleListHistory" or updateType=c("alleleListHistory","fragmentFeatureNames").}
 
-\item{version}{The version of the ANHIG/IMGTHLA Github repository to build these objects from. By default, updateAll() calls the getLatestVersion() function to identify the most recent IPD-IMGT/HLA Database release.}
+\item{version}{A numeric value or character string identifying the version of the ANHIG/IMGTHLA Github repository to build these objects from. By default, updateAll() calls the getLatestVersion() function to identify the most recent IPD-IMGT/HLA Database release.}
+}
+\value{
+No value is returned. The desired versions of the specified data objects are built into the current R environment.
 }
 \description{
 Applies updateAlleleListHistory(), atlasFull(), buildGazeteer(), extractGeneTypes(), and ffN() to update the alleleListHistory, HLAatlas, HLAgazeteer, IMGTHLAGeneTypes and fragmentFeatureNames data objects.
@@ -20,7 +23,7 @@ A new alleleListHistory data object should be generated with each IPD-IMGT/HLA D
 Generating a new HLAatlas can take 5 minutes or more to complete.
 }
 \examples{
-\dontrun{
+\donttest{
 updateAll()
 }
 

@@ -7,22 +7,21 @@
 GLV2(Version)
 }
 \arguments{
-\item{Version}{A string of the desired version to which the alleles to be updated, going back to version 1.05.0.}
+\item{Version}{A character string of the desired IPD-IMGT/HLA Database version, going back to version 1.05.0.}
 }
 \value{
-Returns alleleListHistory$AlleleListHistory-column-formatted version.
+Returns either a single, compressed character string-formatted release version, or a character vector of potential release versions.
 }
 \description{
-Returns the AlleleListHistory-formatted version of a dot-delimited IPD-IMGT/HLA Database release, or provides appropriate options if version input is not present in the IPD-IMGT/HLA Database.
+Returns a compressed IPD-IMGT/HLA Database release version or a vector of dot-delimited release version options if the specified version is not present in the alleleListHistory object.
 }
 \note{
 For internal use only.
 }
 \examples{
-\dontrun{
 GLV2("3.34.0")
 GLV2("3.0.0")
-}
+
 }
 \references{
 Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126

@@ -1,19 +1,14 @@
 #BuildAlignments v1.5.0 21JUN2024 - LT/SM
 
-#library(stringr)
-#library(BIGDAWG)
-#library(dplyr)
-#library(tibble)
-
 ################
 ##BuildAlignments
 #'Build Amino Acid, cDNA and gDNA Alignments
 #'
 #'Returns a list of data frames of amino acid, codon, nucleotide and genomic alignments, with version information.
 #'
-#'@param loci A vector of HLA gene names (e.g., "DRB1", c("A","C")).
-#'@param source A vector of alignment types. The allowed values are "AA", "cDNA", and "gDNA". If 'source' is "cDNA", both codon and cDNA nucleotide alignments are generated. If source is 'AA' or 'gDNA', a single peptide or genomic nucleotide alignment is generated. Up to four alignments will be returned for a locus, as determined by its ability to be transcribed or translated.
-#'@param version The desired release version (branch) of the ANHIG/IMGTHLA Github repository (e.g. '3.53.0'). The default value ('Latest') returns alignments for the most recent release.
+#'@param loci A character vector of HLA gene names (e.g., "DRB1", c("A","C")).
+#'@param source A character vector of alignment types. The allowed values are "AA", "cDNA", and "gDNA". If 'source' is "cDNA", both codon and cDNA nucleotide alignments are generated. If source is 'AA' or 'gDNA', a single peptide or genomic nucleotide alignment is generated. Up to four alignments will be returned for a locus, as determined by its ability to be transcribed or translated.
+#'@param version A character string describing the desired release version (branch) of the ANHIG/IMGTHLA Github repository (e.g. '3.53.0'). The default value ('Latest') returns alignments for the most recent release.
 #'
 #'@return A list object with a data frame of all allele names (and trimmed allele names) and their corresponding sequences (Amino Acid, codon, cDNA, or gDNA) for a specific locus, as well as version details for the returned information. These alignments identify locations of feature boundaries in relation to amino acid, codon, cDNA, and gDNA sequences.
 #'
@@ -25,9 +20,9 @@
 #'@export
 #'
 #'@examples
-#'\dontrun{
-#'buildAlignments(loci = "DRB1", source = "AA")
-#'buildAlignments(loci = "DRB1", source = c("AA", "cDNA"))
+#'\donttest{
+#'HLAalignments <- buildAlignments(loci = "DRB1", source = "AA")
+#'HLAalignments <- buildAlignments(loci = "DRB1", source = c("AA", "cDNA"))
 #'}
 buildAlignments<-function(loci, source, version = "Latest"){
   

@@ -11,12 +11,13 @@ typeToSource(alignVector, toSource = TRUE)
 
 \item{toSource}{A logical. If 'toSource' is true, 'alignType' values are converted to 'source' values. If 'toSource' is false, 'source' values are concerted to 'alignType' values}
 }
+\value{
+A character string of the converted 'align' or 'source' value.
+}
 \description{
 Converts between 'alignType' values, identifying four types of sequence alignments and 'source' values, identifying three kinds of alignment files.
 }
 \examples{
-\dontrun{
 typeToSource(c("nuc","prot","gen"),TRUE) 
-}
 
 }

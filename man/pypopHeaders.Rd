@@ -10,18 +10,17 @@ pypopHeaders(colHead)
 \item{colHead}{A vector of column names. BIGDAWG format requires that the first two header values are the sample identifier character string and the subject status (0 or 1). All other header values should be paired locus/gene names.}
 }
 \value{
-A PyPop-formatted column header.
+A PyPop-formatted column header vector.
 }
 \description{
-Convert the header of a BIGDAWG-formatted data frame into a PyPop-formatted header.
+Convert the header of a BIGDAWG-formatted data frame into a Python for Population Genomics (PyPop) formatted header.
 }
 \note{
 This function returns unique locus names for each column. For example, "A_1" and "A_2" headers will be returned for two "A" locus columns. PyPop configuration (.ini) files allow this format to be customized.
 }
 \examples{
-\dontrun{
-pypopHeaders(colnames(BIGDAWG::HLA_data))
-}
+pyHead <- pypopHeaders(colnames(sHLAdata))
+
 }
 \references{
 Lancaster et al. Front Immunol. 2024 Apr 2;15:1378512. https://pubmed.ncbi.nlm.nih.gov/38629078/

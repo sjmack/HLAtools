@@ -7,7 +7,7 @@
 validateVersion(version)
 }
 \arguments{
-\item{version}{A release version (branch) of the ANHIG/IMGTHLA Github repository (e.g. '3.53.0'). The value 'Latest' refers to the most recent release.}
+\item{version}{A character string identifying the release version (branch) of the ANHIG/IMGTHLA Github repository (e.g. '3.53.0'). The value 'Latest' refers to the most recent release.}
 }
 \value{
 A logical. TRUE indicates that data for 'version' is available in the ANHIG/IMGTHLA GitHub repository. FALSE means that data for 'version' is not available.
@@ -19,9 +19,7 @@ Determines if an IPD-IMGT/HLA Release Version is referenced in the AlleleListHis
 For internal HLAtools use.
 }
 \examples{
-\dontrun{
 validateVersion(version = "3.31.1")
 validateVersion(version = "3.13.0")
-}
 
 }

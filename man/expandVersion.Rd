@@ -10,7 +10,7 @@ expandVersion(ver)
 \item{ver}{A four character/numeral IPD-IMGT/HLA Database Release Version name (e.g., '3540' or 3450).}
 }
 \value{
-A charachter vector of the expanded IPD-IMGT/HLA Database Release Version name
+A character vector of the expanded IPD-IMGT/HLA Database Release Version name.
 }
 \description{
 Adds the '.' delimiters to a 'squashed' IPD-IMGT/HLA Database Release Version name

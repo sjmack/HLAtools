@@ -23,9 +23,7 @@ Format the header of a PyPop-formatted data frame.
 This function assumes that the first two elements the 'colHead' vector are not locus/gene names.
 }
 \examples{
-\dontrun{
-formatHead(colHead = colnames(BIGDAWG::HLA_data))
-}
+formatHead(colHead = colnames(sHLAdata))
 
 }
 \references{

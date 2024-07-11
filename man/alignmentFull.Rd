@@ -7,11 +7,11 @@
 alignmentFull(loci = "all", alignType = "all", version = HLAgazeteer$version)
 }
 \arguments{
-\item{loci}{A vector of the locus names for which alignments should be built. The default value ("all") generates alignments for all loci.}
+\item{loci}{A characer vector of the locus names for which alignments should be built. The default value ("all") generates alignments for all loci.}
 
-\item{alignType}{A vector of alignment types. The allowed values are "all", "prot", "codon", "nuc", and "gen", which specify either all available alignments for a given locus or the respective protein, codon, nucleotide and genomic alignments, as determined by the HLAgazeteer.}
+\item{alignType}{A character vector of alignment types. The allowed values are "all", "prot", "codon", "nuc", and "gen", which specify either all available alignments for a given locus or the respective protein, codon, nucleotide and genomic alignments, as determined by the HLAgazeteer.}
 
-\item{version}{The version of the ANHIG/IMGTHLA Github repository from which alignments are obtained. The default value, 'HLAgazeteer$version', generates alignments for the IPD-IMGT/HLA Database release under which the HLAgazeteer was built.}
+\item{version}{A character string describing the version of the ANHIG/IMGTHLA Github repository from which alignments are obtained. The default value, 'HLAgazeteer$version', generates alignments for the IPD-IMGT/HLA Database release under which the HLAgazeteer was built.}
 }
 \value{
 A list object containing data frames of protein (prot), codon (codon), coding nucleotide (nuc), or genomic nucleotide (gen) alignments, for specified genes in the specified IPD-IMGT/HLA Database release, along with the pertinent reference database release.
@@ -25,7 +25,7 @@ This function requires internet access. Depending on local download speeds, buil
 Prior to IPD-IMGT/HLA Database release version 3.24.0, the HLA-DP and HLA-DQ sequence alignment files in the IPD-IMGT/HLA GitHub Repository did not all include a numerical suffix in the gene name (e.g., the protein sequence alignment file for the DQA1 gene was named 'DQA_prot.txt') because alignment files for the DPA2, DPB2, DQA2 and DQB2 genes had not been made available. Building DPA1, DPB1, DQA1, and DQB1 sequence alignments from releases prior to 3.24.0 require using a gene name that does not include the numerical suffix.
 }
 \examples{
-\dontrun{
+\donttest{
 HLAalignments <- alignmentFull()
 }
 

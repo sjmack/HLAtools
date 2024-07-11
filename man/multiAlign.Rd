@@ -23,7 +23,7 @@ Generates a peptide, codon, coding nucleotide or genomic alignment for HLA allel
 For internal HLAtools use only.
 }
 \examples{
-\dontrun{
+\donttest{
 multiAlign("gen",c("DQA1*01:01:01:01", "DRB1*01:01:01:01"),list(32:58, 33:59))
 }
 }

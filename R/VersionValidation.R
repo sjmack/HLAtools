@@ -6,17 +6,15 @@
 #'
 #'Determines if allele name data for a given IPD-IMGT/HLA Release Version is present in the local HLAtools package.
 #'
-#'@param version A release version (branch) of the ANHIG/IMGTHLA Github repository (e.g. '3.53.0'). The value 'Latest' refers to the most recent release.
+#'@param version A character string identifying the release version (branch) of the ANHIG/IMGTHLA Github repository (e.g. '3.53.0'). The value 'Latest' refers to the most recent release.
 #'
 #'@return A logical. TRUE indicates that data for 'version' is available to the local HLAtools package. FALSE means that data for 'version' is not available.
 #'
 #'@export
 #'
 #'@examples
-#'\dontrun{
 #'checkVersion(version = "3.25.0")
 #'checkVersion(version = "Latest")
-#'}
 #'
 #'@note
 #'For internal HLAtools use.
@@ -33,17 +31,15 @@ checkVersion <- function(version){
 #'
 #'Determines if an IPD-IMGT/HLA Release Version is referenced in the AlleleListHistory file.
 #'
-#'@param version A release version (branch) of the ANHIG/IMGTHLA Github repository (e.g. '3.53.0'). The value 'Latest' refers to the most recent release.
+#'@param version A character string identifying the release version (branch) of the ANHIG/IMGTHLA Github repository (e.g. '3.53.0'). The value 'Latest' refers to the most recent release.
 #'
 #'@return A logical. TRUE indicates that data for 'version' is available in the ANHIG/IMGTHLA GitHub repository. FALSE means that data for 'version' is not available.
 #'
 #'@export
 #'
 #'@examples
-#'\dontrun{
 #'validateVersion(version = "3.31.1")
 #'validateVersion(version = "3.13.0")
-#'}
 #'
 #'@note
 #'For internal HLAtools use.
@@ -72,7 +68,7 @@ validateVersion <- function(version) {
 #'@export
 #'
 #'@examples
-#'\dontrun{
+#'\donttest{
 #'getLatestVersion()
 #'}
 #'
@@ -93,7 +89,7 @@ getLatestVersion <- function() {
 #'@param ver A character vector-formatted IPD-IMGT/HLA Database Release Version name (e.g., '3.54.0').
 #'@param num A Logial. A numeric value is returned when num = TRUE. A character vector is returned when num = FALSE. The default value is FALSE.
 #'
-#'@return A 4-digit value, as either a character string or a number
+#'@return A 4-digit value, as either a character string or a number.
 #'
 #'@export
 #'
@@ -116,7 +112,7 @@ squashVersion <- function(ver,num = FALSE){
 #'
 #'@param ver A four character/numeral IPD-IMGT/HLA Database Release Version name (e.g., '3540' or 3450).
 #'
-#'@return A charachter vector of the expanded IPD-IMGT/HLA Database Release Version name
+#'@return A character vector of the expanded IPD-IMGT/HLA Database Release Version name.
 #'
 #'@export
 #'
@@ -141,7 +137,7 @@ expandVersion <- function(ver){
 #'
 #'Removes periods from IMGT/HLA Database release versions, and converts release versions '3.00.0'-'3.09.0' to '300'-'390' to facilitate working with these GitHub repo branches.
 #'
-#'@param version A validated IPD-IMGT/HLA Database release version.
+#'@param version A character string of a validated IPD-IMGT/HLA Database release version.
 #'
 #'@return A character string of the release version suitable for use in an IMGT/HLA GitHub repository URL.
 #' 

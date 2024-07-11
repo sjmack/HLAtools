@@ -6,11 +6,11 @@
 #'
 #'Trims an HLA allele name to a specified number of fields or number of digits, depending on the nomenclature version.
 #'
-#'@param allele A full HLA allele name formatted as locus*allele_name, or including the "HLA-" prefix.
+#'@param allele A character string of an HLA allele name formatted as locus*allele_name, optionally including the "HLA-" prefix.
 #'@param resolution A number identifying the number of fields to trim the allele down to.
-#'@param version the HLA nomenclature version under which the allele was named. Version 1 allele names are found in IPD-IMGT/HLA Database releases 1.0.0 to 1.16.0. Version 2 allele names are found in IPD-IMGT/HLA Database releases 2.0.0 to 2.28.0. Version 3 allele names are found in IPD_IMGT/HLA Database releases 3.0.0 and onward.
+#'@param version A character string identifying the HLA nomenclature version under which the allele was named. Version 1 allele names are found in IPD-IMGT/HLA Database releases 1.0.0 to 1.16.0. Version 2 allele names are found in IPD-IMGT/HLA Database releases 2.0.0 to 2.28.0. Version 3 allele names are found in IPD_IMGT/HLA Database releases 3.0.0 and onward.
 #'
-#'@return a trimmed allele name, shortened according to the input parameters.
+#'@return A character string of the trimmed allele name, shortened according to the input parameters.
 #'
 #'@export
 #'
@@ -72,11 +72,13 @@ alleleTrim <- function(allele,resolution,version=3){
 #' 
 #' If an allele name with an expression-variant suffix is truncated, the suffix can be appended to the end of the truncated allele name. If a resolution value greater then the number of fields in the submitted field is specified, the original allele is returned.
 #'
-#' @param allele HLA allele.
-#' @param res Resolution desired.
+#' @param allele A character string representing an HLA allele.
+#' @param res A numeric describing the resolution desired.
 #' @param append A logical that, when TRUE, appends the expression variant suffix of a full-length allele name to a truncated allele name. The default value is FALSE.
 #'
 #' @note For internal HLAtools use.
+#' 
+#' @return A version of the 'allele' character string that has been trimmed to 'res' resolution.
 #'
 #' @export
 #'

@@ -1,20 +1,14 @@
 #atlasMaker v1.5.0 10 April 2024
 
-#library(stringr)
-#library(BIGDAWG)
-#library(dplyr)
-#library(tibble)
-#library(DescTools)
-
 ################
 ##atlasMaker
 #'Identify the Gene-Feature Boundaries in HLA Region Genes
 #'
 #'Builds an 'atlas' of the gene-feature (exon, intron and UTR) boundaries for IPD-IMGT/HLA loci, using IPD-IMGT/HLA Database alignments.
 #'
-#'@param loci A specific HLA gene (ex. "DRB1"). More than one gene can be specified (e.g., c("DRB1","DQB1")).
-#'@param source The type of alignment used to build the atlas. The allowed options are "AA", for protein alignments, "cDNA", for nucleotide alignments, and "gDNA", for genomic alignments. More than one alignment type can be specified (e.g., c("AA","gDNA")).
-#'@param version The release version of the IPD-IMGT/HLA Github repository for which alignments should be generated.
+#'@param loci A character string identifying a specific HLA gene (ex. "DRB1"). More than one gene can be specified (e.g., c("DRB1","DQB1")).
+#'@param source A character string identifying the type of alignment used to build the atlas. The allowed options are "AA", for protein alignments, "cDNA", for nucleotide alignments, and "gDNA", for genomic alignments. More than one alignment type can be specified (e.g., c("AA","gDNA")).
+#'@param version A character string identifying the release version of the IPD-IMGT/HLA Github repository for which alignments should be generated.
 #'
 #'@return A list object of 'atlas' dataframes and a 'release version' character string for each locus and alignment type.
 #'
@@ -36,7 +30,7 @@
 #'@export
 #'
 #'@examples
-#'\dontrun{
+#'\donttest{
 #'atlasMaker(loci = "DRB1", source = "AA")
 #'}
 atlasMaker<-function(loci, source, version = "Latest"){
@@ -311,7 +305,7 @@ atlasMaker<-function(loci, source, version = "Latest"){
           alignment[[loci[i]]] <- tail(alignment[[loci[i]]],-6)
         }
 
-        if(loci[[i]] %in% pseudo.codon) { # In release version 3.53.0 and earlier these pseudogenes had 'AA codon' positions in their cDNA alignments, but in 3.54.0 those rows have been removed; similarly the HLA-Y pseudogene had an AA codon line prior to version 3.36.0 
+        if(loci[[i]] %in%  c("DPA2","DPB2","Y")) { # In release version 3.53.0 and earlier these pseudogenes had 'AA codon' positions in their cDNA alignments, but in 3.54.0 those rows have been removed; similarly the HLA-Y pseudogene had an AA codon line prior to version 3.36.0 
           alignment[[loci[i]]] <- alignment[[loci[[i]]]][!substr(alignment[[loci[[i]]]][],1,9) == " AA codon"]
         }
 

@@ -7,20 +7,23 @@
 motifMatch(motif, alignType, full = TRUE)
 }
 \arguments{
-\item{motif}{A sequence variant motif in the following format: Locus*#$~#$~#$, where ## identifies a variant position, and $ identifies the sequence variant. Both nucleotide and peptide motifs can be provided, and any number of variants can be specified.}
+\item{motif}{A character string identifying a sequence variant motif in the following format: Locus*#$~#$~#$, where ## identifies a variant position, and $ identifies the sequence variant. Both nucleotide and peptide motifs can be provided, and any number of variants can be specified.}
 
-\item{alignType}{The type of alignment being searched. Allowed values are "codon","gen", nuc" and "prot". Only one 'alignType' value is allowed.}
+\item{alignType}{A character string identifying the type of alignment being searched. Allowed values are "codon","gen", nuc" and "prot". Only one 'alignType' value is allowed.}
 
 \item{full}{A logical value that specifies if full (TRUE) or truncated (FALSE) allele names should be returned.}
 }
 \value{
-A vector of allele names that contain the motif, or NA when no alleles contain the motif, NULL when no alignment is available for specified locus, and FALSE when the locus or motif is invalid.
+A character vector of allele names that contain the motif, or NA when no alleles contain the motif, NULL when no alignment is available for specified locus, and FALSE when the locus or motif is invalid.
 }
 \description{
-Searches alignments for alleles that share a specifc sequence motif.
+Searches alignments for alleles that share a specific sequence motif.
+}
+\note{
+This function requires an HLAalignments object that has been populated with alignments via alignmentFull().
 }
 \examples{
-\dontrun{
+\donttest{
 motifMatch("A*-21M~2P","prot")
 motifMatch("A*196G~301A~3046T","gen")
 motifMatch("A*196G~301A~3046T","gen",FALSE)

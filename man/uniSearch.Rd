@@ -29,7 +29,7 @@ Generates a character string of the peptide, codon or nucleotide sequence at the
 For internal HLAtools use.
 }
 \examples{
-\dontrun{
+\donttest{
 uniSearch("codon","DRB1", "15:07", 57, trimmed=TRUE)
 uniSearch("codon","DRB1", "15:07:01", 57)
 uniSearch("codon","HFE", "001:01:02", 57)

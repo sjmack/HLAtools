@@ -12,7 +12,7 @@ squashVersion(ver, num = FALSE)
 \item{num}{A Logial. A numeric value is returned when num = TRUE. A character vector is returned when num = FALSE. The default value is FALSE.}
 }
 \value{
-A 4-digit value, as either a character string or a number
+A 4-digit value, as either a character string or a number.
 }
 \description{
 Removes the '.' delimiters from an IPD-IMGT/HLA Database Release Version name

@@ -7,7 +7,7 @@
 atlasFull(version = "Latest")
 }
 \arguments{
-\item{version}{The version of the ANHIG/IMGTHLA Github repository used to generate atlases. The default value, "Latest", generates an atlas for the most recent IPD-IMGT/HLA Database release.}
+\item{version}{A character string identifying the version of the ANHIG/IMGTHLA Github repository used to generate atlases. The default value, "Latest", generates an atlas for the most recent IPD-IMGT/HLA Database release.}
 }
 \value{
 A list object containing a list of data frames of protein (prot), coding nucleotide (nuc), and genomic nucleotide (gen) atlases for all genes in the IPD-IMGT/HLA Database release, along with a character vector identifying the pertinent IPD-IMGT/HLA Database release.
@@ -21,7 +21,7 @@ Data informing the atlases were downloaded from the ANHIG/IMGTHLA Github reposit
 For internal HLAtools use.
 }
 \examples{
-\dontrun{
+\donttest{
 HLAatlas <- atlasFull()
 }
 

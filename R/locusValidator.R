@@ -6,8 +6,8 @@
 #'
 #'Checks a vector of HLA locus names against the HLA gazeteer to determine if the locus name is valid for a specific type of alignment.
 #'
-#'@param loci A vector of HLA gene names (ex. "DRB1", c("DRB1","DQB1")).
-#'@param source A vector of alignment source types. "AA", "cDNA", and "gDNA" are allowed types.
+#'@param loci A character vector of HLA gene names (ex. "DRB1", c("DRB1","DQB1")).
+#'@param source A character vector of alignment source types. "AA", "cDNA", and "gDNA" are allowed types.
 #'
 #'@return A logical value. TRUE indicates that all of the names and source types are valid. FALSE indicates that at least one locus name or alignment source type is invalid.
 #'
@@ -56,13 +56,13 @@ validateLocus<-function(loci, source){
 #'
 #'Applies validateLocus() to a vector of locus names, validates them against HLAgazeteer$gen, and returns a vector of validated locus names. 
 #'
-#'@param loci A vector of locus names found in the current HLAgazeteer. 
+#'@param loci A character vector of locus names found in the current HLAgazeteer. 
 #'
-#'@param source The type of alignment 'loci' should be validated against. Allowed options are 'AA' (protein), 'cDNA' (nucleotide) and 'gDNA' (genomic). Only a single value should be provided. The default value is 'gen'.
+#'@param source A character vector describing the type of alignment 'loci' should be validated against. Allowed options are 'AA' (protein), 'cDNA' (nucleotide) and 'gDNA' (genomic). Only a single value should be provided. The default value is 'gen'.
 #'
 #'@param verbose A logical value. If 'verbose' = TRUE, messages describing invalid 'loci' or 'source' values are generated. If 'verbose' = FALSE, no messages are generated.
 #'
-#'@return A vector of locus names that are present in HLAgazeteer$gen.
+#'@return A character vector of locus names that are present in HLAgazeteer$gen.
 #'
 #'@export
 #'

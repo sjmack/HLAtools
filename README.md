@@ -1,8 +1,8 @@
-## HLAtools: Functions and Datasets for Human Leukocyte Antigen Informatics
+## HLAtools: Functions and Datasets for HLA Informatics
 
-## Version 1.0.2
+## Version 1.0.3
 
-The Human Leukocyte Antigen (HLA) region is the most polymorphic section of the human genome, with 39,886 allelic variants identified across 46 loci. The key roles played by the class I and class II HLA genes in stem-cell therapy and transplantation, HLA and disease association research, evolutionary biology, and population genetics results in constant discovery of new allele variants. These data are curated and maintained by the [IPD-IMGT/HLA Database](https://www.ebi.ac.uk/ipd/imgt/hla/) and made available on the [ANHIG/IMGTHLA GitHub repository](https://github.com/ANHIG/IMGTHLA) as static text files, which are updated every three months. Standardized use of the data in this key resource can be challenging. To address this, we have developed HLAtools, an R package that automates the consumption of IPD-IMGT/HLA resources, renders them computable, and makes them available alongside tools for data analysis, visualization and investigation. This version of the package is compatible with all IPD-IMGT/HLA Database release versions up to release 3.56.0.
+The "Human Leukocyte Antigen" (HLA) region is the most polymorphic section of the human genome, with 39,886 allelic variants identified across 46 loci. The key roles played by the class I and class II HLA genes in stem-cell therapy and transplantation, HLA and disease association research, evolutionary biology, and population genetics results in constant discovery of new allele variants. These data are curated and maintained by the [ImmunoPolymorphism Database-IMmunoGeneTics/HLA (IPD-IMGT/HLA) Database](https://www.ebi.ac.uk/ipd/imgt/hla/) and made available on the [Anthony Nolan HLA Informatics Group (ANHIG)/IMGTHLA GitHub repository](https://github.com/ANHIG/IMGTHLA) as static text files, which are updated every three months. Standardized use of the data in this key resource can be challenging. To address this, we have developed HLAtools, an R package that automates the consumption of IPD-IMGT/HLA resources, renders them computable, and makes them available alongside tools for data analysis, visualization and investigation. This version of the package is compatible with all IPD-IMGT/HLA Database release versions up to release 3.56.0.
 
 ### Data Resources
 The package includes five data objects that foster computation on IPD-IMGT/HLA resources. 
@@ -144,56 +144,60 @@ UNItoGLS("A*02:01,A*03:01|A*02:01,A*03:02|A*02:02,A*03:01|A*02:02,A*03:02")
 ```
 
 ### Data Analysis Functions
-The package includes three data-analysis functions that accept BIGDAWG-formatted genotype datasets as input. 
+The package includes three data-analysis functions that accept Bridging ImmunoGenomic Data-Analysis Workflow Gaps (BIGDAWG)-formatted genotype datasets as input.
+
+To facilitate testing and experimentation with these functions, the 'sHLAdata' data object is included in the package. This BIGDAWG-formatted HLA genotype data object represents completely synthetic IPD-IMGT/HLA release 3.56.0 HLA-A, -C, -B, -DRB1, -DQA1, -DQB1, -DPA1, and -DPB1 genotype data for 24 control subjects and 23 case subjects, and does not represent any true human population.
 
 - relRisk() calculates relative risk (RR) values, confidence interval (CI) values and p-values for BIGDAWG-formatted non-case-control genotype datasets. For these analyses, two subject categories are required, but should not be affected/patient and unaffected/control categories; instead, the categories may be, e.g., either of two disease states, where one disease state is coded as 0 and the other is coded as 1 in the second column of the dataset.
 
 ```
-library(BIGDAWG)
-rr <- relRisk(HLA_data[,1:4])
+rr <- relRisk(sHLAdata)
 
 rr$alleles[[1]][c(1,3),]
-  Locus     Variant Status_1 Status_0  RelativeRisk        CI.low      CI.high       p.value Significant
-1     A 01:01:01:01      176      166  1.0343294132 0.92848272156 1.1522425892 0.54580794275          
-3     A    02:05:01      105      142 0.84368316144 0.72728310379 0.9787127917 0.01649632817           *
+  Locus     Variant Status_1 Status_0      RelativeRisk            CI.low          CI.high    p.value Significant
+1     A 01:01:01:01        5        7 0.833333333333333 0.411641930809013 1.68701094924813 0.59291160            
+2     A 02:01:01:01        8       11 0.830409356725146 0.467284553053116  1.4757168736504 0.50779167            
+3     A       02:10        4        5               0.9 0.419645026972693 1.93020278553833 0.77978869            
 
-rr$genotypes[[1]][c(1,52),]
-   Locus                 Variant Status_1 Status_0 RelativeRisk        CI.low      CI.high    p.value Significant
-1      A 01:01:01:01+01:01:01:01        8        7 1.0693602693 0.66473577000 1.7202796017 0.789560336
-52     A       02:05:01+26:01:01        1        7 0.2497492477 0.03990709706 1.5629973447 0.034058218          *
+rr$genotypes[[1]][c(1:3),]
+  Locus                 Variant Status_1 Status_0 RelativeRisk     CI.low     CI.high      p.value Significant
+1     A 01:01:01:01+02:01:01:01        0        2            0          0         NaN  0.161777420            
+2     A       01:01:01:01+02:10        1        0   2.0952380   1.5379358  2.85449005  0.306556273            
+3     A       01:01:01:01+02:18        0        4            0          0         NaN  0.042730188           *
 ```
 
 - BDstrat() stratifies BIGDAWG-formatted case-control datasets for individual alleles or multiple alleles at multiple loci, and generates two BIGDAWG-formatted datasets; one for the case and control subjects that have those alleles, and one for the case and control subjects that do not.
 
 ```
-HLA_data.multi.strat <- BDstrat(BIGDAWG::HLA_data,c("DRB1*08:01:03","DRB1*03:01:02","A*26:08"))
+HLA_data.multi.strat <- BDstrat(sHLAdata,c("DRB1*16:02:01:01","DRB1*04:07:01:01","A*25:01:01:01"),15)
 
-HLA_data.multi.strat$`DRB1*08:01:03+DRB1*03:01:02+A*26:08-positive`[1:2,1:6]
-  SampleID Disease           A   A.1        DRB1      DRB1.1
-2  SCo0002       0 03:01:01:01 68:06    08:01:03 15:01:01:01
-3  SCo0003       0       26:08 32:02 07:01:01:01 15:01:01:01
+HLA_data.multi.strat$`DRB1*16:02:01:01+DRB1*04:07:01:01+A*25:01:01:01-positive`[1:2,1:8]
+   Subject Status           A         A.1           C      C.1           B         B.1
+1 UT900-23      0        <NA>        <NA> 01:02:01:01 02:10:06 13:01:01:01    18:01:02
+2 UT900-24      0 01:01:01:01 02:01:01:01 03:07:01:01    06:05 14:01:01:01 39:02:01:01
 
-HLA_data.multi.strat$`DRB1*08:01:03+DRB1*03:01:02+A*26:08-negative`[1:2,1:6]
-  SampleID Disease           A         A.1     DRB1   DRB1.1
-1  SCo0001       0 01:01:01:01 01:01:01:01 01:01:01 01:01:01
-4  SCo0004       0 01:01:01:01    32:01:01 01:01:01 11:04:01
+HLA_data.multi.strat$`DRB1*16:02:01:01+DRB1*04:07:01:01+A*25:01:01:01-negative`[1:2,1:8]
+   Subject Status           A   A.1           C         C.1           B         B.1
+4 UT900-26      0 01:01:01:01 02:18 08:04:01:01    12:02:01 35:09:01:01 40:05:01:01
+6 UT910-02      0       02:10 32:04 18:01:01:01 01:02:01:01    78:02:01 13:01:01:01
 ```
 
 - BDtoPyPop() converts a BIGDAWG-formatted case-control dataset into two PyPop version 1.\*.\* formatted datasets -- one for all 'case' subjects and one for all 'control' subjects.  
 
 ```
-HLAdata.PP <- BDtoPyPop(BIGDAWG::HLA_data,"BDHLA",FALSE)
+HLAdata.PP <- BDtoPyPop(sHLAdata,"sHLA",FALSE)
 
-HLAdata.PP$BDHLA.neagtive[1:3,]
-     SampleID Disease         A_1         A_2      DRB1_1      DRB1_2      DQB1_1      DQB1_2 DRB3_1 DRB3_2
-1     SCo0001       0 01:01:01:01 01:01:01:01    01:01:01    01:01:01 05:03:01:01 05:03:01:01  00:00  00:00
-2     SCo0002       0 03:01:01:01       68:06    08:01:03 15:01:01:01    03:02:12 03:01:01:01  00:00  00:00
-3     SCo0003       0       26:08       32:02 07:01:01:01 15:01:01:01    03:02:01 03:01:01:01  00:00  00:00
+HLAdata.PP$sHLA.neagtive[1:3,1:10]
+   Subject Status         A_1         A_2         C_1         C_2         B_1         B_2      DRB1_1      DRB1_2
+1 UT900-23      0        ****        **** 01:02:01:01    02:10:06 13:01:01:01    18:01:02 16:02:01:01 04:04:01:01
+2 UT900-24      0 01:01:01:01 02:01:01:01 03:07:01:01       06:05 14:01:01:01 39:02:01:01    04:02:01 16:02:01:01
+3 UT900-25      0       02:10    03:01:02       07:12 01:02:01:01       15:20 13:01:01:01 08:02:01:01 04:07:01:01
 
-HLAdata.PP$BDHLA.positive[1:3,]
-     SampleID Disease         A_1         A_2   DRB1_1      DRB1_2      DQB1_1   DQB1_2      DRB3_1   DRB3_2
-1003  SCa0001       1 01:01:01:01 11:01:01:01 01:01:01    04:01:01 05:03:01:01 03:02:01       00:00    00:00
-1004  SCa0002       1       32:02    68:01:01 03:01:02    11:01:01    06:02:01 05:02:01 01:01:02:01 03:01:01
-1005  SCa0003       1       32:02 11:01:01:02 01:01:01 07:01:01:01 05:03:01:01 02:02:01       00:00    00:00
+HLAdata.PP$sHLA.positive[1:3,1:10]
+    Subject Status      A_1      A_2         C_1         C_2         B_1         B_2      DRB1_1      DRB1_2
+25 UT910-30      1    02:18    02:18 01:02:01:01 03:07:01:01 40:05:01:01 14:01:01:01 11:01:01:01 04:07:01:01
+26 UT910-31      1     ****     **** 03:07:01:01        **** 14:01:01:01    78:02:01    04:02:01 08:02:01:01
+27 UT910-32      1 03:01:02 03:01:02       06:05 03:07:01:01 39:02:01:01 14:01:01:01 08:02:01:01 08:02:01:01
+
 ```
 

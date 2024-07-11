@@ -1,4 +1,4 @@
-## BDtoPyPop v1.0 3 May 2024
+## BDtoPyPop v1.0.1 10 Jul 2024
 
 ################
 ##FormatHead
@@ -18,9 +18,7 @@
 #'@export
 #'
 #'@examples
-#'\dontrun{
-#' formatHead(colHead = colnames(BIGDAWG::HLA_data))
-#'}
+#'formatHead(colHead = colnames(sHLAdata))
 #'
 formatHead <- function(colHead) {
   
@@ -49,9 +47,7 @@ formatHead <- function(colHead) {
 #' @export
 #' 
 #' @examples
-#' \dontrun{
-#' dataset <- convertAny(BIGDAWG::HLA_data)
-#' }
+#' dataset <- convertAny(sHLAdata)
 #'
 convertAny <- function(dataset,change.from=NA,change.to="****") {
   
@@ -67,11 +63,11 @@ convertAny <- function(dataset,change.from=NA,change.to="****") {
 ##pypopHeaders
 #'Convert BIGDAWG File Headers to PyPop Format 
 #'
-#'Convert the header of a BIGDAWG-formatted data frame into a PyPop-formatted header.
+#'Convert the header of a BIGDAWG-formatted data frame into a Python for Population Genomics (PyPop) formatted header.
 #'
 #'@param colHead A vector of column names. BIGDAWG format requires that the first two header values are the sample identifier character string and the subject status (0 or 1). All other header values should be paired locus/gene names.
 #'
-#'@return A PyPop-formatted column header.
+#'@return A PyPop-formatted column header vector.
 #'
 #'@export
 #'
@@ -82,9 +78,8 @@ convertAny <- function(dataset,change.from=NA,change.to="****") {
 #'@seealso [PyPop Configuration File](http://pypop.org/docs/guide-chapter-usage.html#a-minimal-configuration-file)
 #'
 #'@examples
-#'\dontrun{
-#'pypopHeaders(colnames(BIGDAWG::HLA_data))
-#'}
+#'pyHead <- pypopHeaders(colnames(sHLAdata))
+#'
 pypopHeaders <- function(colHead) {
   
   if(length(grep("[_][1]|[_][2]",colHead)) == 0) { ## no underscores
@@ -142,9 +137,8 @@ pypopHeaders <- function(colHead) {
 #'@export
 #'
 #'@examples
-#'\dontrun{
-#' HLAdata.PP <- BDtoPyPop(BIGDAWG::HLA_data,"BDHLA",FALSE)
-#'}
+#' HLAdata.PP <- BDtoPyPop(sHLAdata,"BDHLA",FALSE)
+#'
 BDtoPyPop <- function(dataset, filename, save.file=TRUE,save.path = tempdir()) {
   
   colnames(dataset) <- pypopHeaders(colnames(dataset))

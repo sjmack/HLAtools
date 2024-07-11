@@ -39,7 +39,7 @@ Generates a character string of multiple protein, codon or nucleotide or genomic
 For internal HLAtools use only.
 }
 \examples{
-\dontrun{
+\donttest{
 multiSearch("gen", "DRB1", "15:07",c(23:26), trimmed=TRUE)
 multiSearch("prot", "DRB1", "15:07:01",c(23:26))
 multiSearch("nuc", "DRB1", "15:07:01",c(23:26))

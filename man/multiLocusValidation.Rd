@@ -7,14 +7,14 @@
 multiLocusValidation(loci, source = "gDNA", verbose = TRUE)
 }
 \arguments{
-\item{loci}{A vector of locus names found in the current HLAgazeteer.}
+\item{loci}{A character vector of locus names found in the current HLAgazeteer.}
 
-\item{source}{The type of alignment 'loci' should be validated against. Allowed options are 'AA' (protein), 'cDNA' (nucleotide) and 'gDNA' (genomic). Only a single value should be provided. The default value is 'gen'.}
+\item{source}{A character vector describing the type of alignment 'loci' should be validated against. Allowed options are 'AA' (protein), 'cDNA' (nucleotide) and 'gDNA' (genomic). Only a single value should be provided. The default value is 'gen'.}
 
 \item{verbose}{A logical value. If 'verbose' = TRUE, messages describing invalid 'loci' or 'source' values are generated. If 'verbose' = FALSE, no messages are generated.}
 }
 \value{
-A vector of locus names that are present in HLAgazeteer$gen.
+A character vector of locus names that are present in HLAgazeteer$gen.
 }
 \description{
 Applies validateLocus() to a vector of locus names, validates them against HLAgazeteer$gen, and returns a vector of validated locus names.

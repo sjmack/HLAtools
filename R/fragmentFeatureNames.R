@@ -29,7 +29,8 @@
 #'#'
 #'@export
 #'
-#'@examples fragmentFeatureNames <- ffN("3.35.0")
+#'@examples 
+#'fragmentFeatureNames <- ffN("3.35.0")
 #'
 #'@note Features and their annotations have been identified manually. Feature annotations will not change unless a new pseudogene or gene fragment is added in a future release, in which case new annotations will be generated.
 #'@note No annotations are included for the DRB2, DRB6, DRB7, and DRB9 genes, as genomic alignments for these genes are not available.

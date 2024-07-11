@@ -7,11 +7,11 @@
 atlasMaker(loci, source, version = "Latest")
 }
 \arguments{
-\item{loci}{A specific HLA gene (ex. "DRB1"). More than one gene can be specified (e.g., c("DRB1","DQB1")).}
+\item{loci}{A character string identifying a specific HLA gene (ex. "DRB1"). More than one gene can be specified (e.g., c("DRB1","DQB1")).}
 
-\item{source}{The type of alignment used to build the atlas. The allowed options are "AA", for protein alignments, "cDNA", for nucleotide alignments, and "gDNA", for genomic alignments. More than one alignment type can be specified (e.g., c("AA","gDNA")).}
+\item{source}{A character string identifying the type of alignment used to build the atlas. The allowed options are "AA", for protein alignments, "cDNA", for nucleotide alignments, and "gDNA", for genomic alignments. More than one alignment type can be specified (e.g., c("AA","gDNA")).}
 
-\item{version}{The release version of the IPD-IMGT/HLA Github repository for which alignments should be generated.}
+\item{version}{A character string identifying the release version of the IPD-IMGT/HLA Github repository for which alignments should be generated.}
 }
 \value{
 A list object of 'atlas' dataframes and a 'release version' character string for each locus and alignment type.
@@ -28,7 +28,7 @@ Nucleotide atlases for pseudogenes will include a 'codon' row populated with NA 
 Some HLA-DQB1*05 and \emph{06 alleles include a 5th exon that is not present in the DQB1}05:01:01:01 reference allele. In this case, the Exon 4 to Exon 5 boundary is defined as 'Ins' (insertion). For all other alleles there is no E.4-5 boundary.
 }
 \examples{
-\dontrun{
+\donttest{
 atlasMaker(loci = "DRB1", source = "AA")
 }
 }
