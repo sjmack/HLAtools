@@ -1,4 +1,4 @@
-#buildGazeteer v5.0.0 10MAY2024
+#buildGazeteer v6.0.0 10JUL2024
 
 ##############
 ##buildGazeteer
@@ -125,7 +125,7 @@ buildGazeteer <- function(version = getLatestVersion()) {
   locList$classical <- sort(c("A","B","C","DRA","DRB1","DRB3","DRB4","DRB5","DQA1","DQB1","DPA1","DPB1"))
   locList$nonclassical <- sort(c("F","G","E","DQA2","DQB2","DOB","DMB","DMA","DOA","DPA2","DPB2"))
   
-  locList$map <- c("HFE","F","MICE","V","P","G","H","T","K","U","A","W","MICD","Y","J","L","N","MICC","E","C","B","S","MICA","X","MICB","DRA","DRB9","DRB3/4/5","DRB8","DRB6/7","DRB2","DRB1","DQA1","DQB1","DQB3","DQA2","DQB2","DOB","TAP2","PSMB8","TAP1","PSMB9","Z","DMB","DMA","DOA","DPA1","DPB1","DPA2","DPB2","DPA3")
+  locList$map <- c("HFE","F","MICE","V","P","G","H","T","K","U","A","W","MICD","Y","R","J","L","N","MICC","E","C","B","S","MICA","X","MICB","DRA","DRB9","DRB3/4/5","DRB8","DRB6/7","DRB2","DRB1","DQA1","DQB1","DQB3","DQA2","DQB2","DOB","TAP2","PSMB8","TAP1","PSMB9","Z","DMB","DMA","DOA","DPA1","DPB1","DPA2","DPB2","DPA3")
 
   locList$version <- version
     

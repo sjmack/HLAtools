@@ -1,7 +1,7 @@
 Package: HLAtools
 Type: Package
 Title: Toolkit for HLA Immunogenomics
-Version: 1.0.3
+Version: 1.0.4
 Authors@R: 
     c(person("Livia", "Tran", , "livia.tran@ucsf.edu", role = c("aut")),
     person("Ryan", "Nickens", , "rynickens@gmail.com", role = c("aut")),

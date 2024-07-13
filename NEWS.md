@@ -1,5 +1,12 @@
 ### HLAtools
 
+### Version 1.0.4
+
+- July 12, 2024
+- Modified functions to support and incorporate the new HLA-R gene.
+- Corrected fragmentFeaturesNames annotations for HLA-P and -W.
+- Updated the alleleListHistory, fragmentFeatureNames, HLAgazeteer and HLAatlas data objects to version 3.57.0, and IMGTHLAGeneTypes to version 09-07-2024, and aded these versions to the package.
+
 ### Version 1.0.3
 
 - July 10, 2024

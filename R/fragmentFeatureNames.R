@@ -1,4 +1,4 @@
-##Fragment Feature Names v3.6 January 21, 2024
+##Fragment Feature Names v4.0 July 12, 2024
 
 ################
 ##FragmentFeatureNames (ffN)
@@ -33,6 +33,7 @@
 #'fragmentFeatureNames <- ffN("3.35.0")
 #'
 #'@note Features and their annotations have been identified manually. Feature annotations will not change unless a new pseudogene or gene fragment is added in a future release, in which case new annotations will be generated.
+#'@note The H and J features are described for class I pseudogenes and gene fragment sequences, all of which are described relative to the HLA-C reference sequence. Feature length differences for DPA2 and DPB2, relative to the DPA1 and DPB1 references, are noted in annotations of standard feature abbreviations (E, I and U).
 #'@note No annotations are included for the DRB2, DRB6, DRB7, and DRB9 genes, as genomic alignments for these genes are not available.
 #'@note For internal HLAtools use.
 #'
@@ -44,8 +45,8 @@ ffN <- function(version){ #Fragment Feature Names
 
   if(paste("X",gsub("\\.","",as.character(version)),sep="") %in% colnames(alleleListHistory$AlleleListHistory)) {
 
-  featureNames <- rep(list(list()), length(HLAgazeteer$align[HLAgazeteer$align %in% unique(c(HLAgazeteer$pseudo,HLAgazeteer$frag))]))
-  names(featureNames) <-sort(HLAgazeteer$align[HLAgazeteer$align %in% unique(c(HLAgazeteer$pseudo,HLAgazeteer$frag))])
+  featureNames <- rep(list(list()), length(HLAgazeteer$align[HLAgazeteer$align %in% unique(c(HLAgazeteer$pseudo,HLAgazeteer$frag))][!HLAgazeteer$align[HLAgazeteer$align %in% unique(c(HLAgazeteer$pseudo,HLAgazeteer$frag))] %in% HLAgazeteer$nogen]))
+  names(featureNames) <-sort(HLAgazeteer$align[HLAgazeteer$align %in% unique(c(HLAgazeteer$pseudo,HLAgazeteer$frag))][!HLAgazeteer$align[HLAgazeteer$align %in% unique(c(HLAgazeteer$pseudo,HLAgazeteer$frag))] %in% HLAgazeteer$nogen])
 
 
   featureNames$DPA2$features <- c("U.5","E.1","I.1","E.2","I.2","E.3","I.3","E.4","U.3") #  8 boundaries -- **Unconfirmed
@@ -55,12 +56,13 @@ ffN <- function(version){ #Fragment Feature Names
   featureNames$K$features <- c("U.5","E.1","I.1","E.2","I.2","E.3","I.3","E.4","I.4","E.5","I.5","E.6","I.6","E.7","I.7","E.8","U.3") # 16 boundaries full length
   featureNames$L$features <- c("U.5","E.1","I.1","E.2","I.2","E.3","I.3","E.4","I.4","E.5","I.5","E.6","I.6","E.7","I.7","E.8","U.3") # 16 boundaries full length
   featureNames$N$features <- c("N.1","H.1","N.2") #  2 boundaries
-  featureNames$P$features <- c("J.1","E.3","I.3","E.4","I.4","E.5","I.5","E.6","I.6","E.7","I.7","U.3") #11 boundaries
+  featureNames$P$features <- c("H.1","E.3","I.3","E.4","I.4","E.5","I.5","E.6","I.6","E.7","I.7","U.3") # 11 boundaries
+  featureNames$R$features <- c("H.1","E.3","I.3","E.4","I.4","E.5","I.5","E.6","I.6","J.1","U.3") # 10 boundaries
   featureNames$S$features <- c("H.1","S.1","J.1","E.7","I.7","E.9","S.2") #  6 boundaries
   featureNames$T$features <- c("H.1","E.4","I.4","E.5","I.5","E.6","I.6","E.7","U.3") #  8 boundaries
   featureNames$U$features <- c("N.1","J.1","S.1") #  2 boundaries
   featureNames$V$features <- c("U.5","E.1","I.1","E.2","I.2","S.1","N.1") #6 boundaries
-  featureNames$W$features <- c("J.1","E.3","I.3","E.4","I4","E.5","I.5","E.6","I.6","E.7","I.7","N.1","S.1") #12 boundaries
+  featureNames$W$features <- c("H.1","E.3","I.3","E.4","I4","E.5","I.5","E.6","I.6","E.7","I.7","N.1","S.1") #12 boundaries
   featureNames$Y$features <- c("U.5","E.1","I.1","E.2","I.2","E.3","I.3","E.4","I.4","E.5","I.5","E.6","I.6","E.7","I.7","E.8","U.3") #16 boundaries full length
 
   featureNames$DPA2$annotation <- "All of the reference gene features are present. E.1 starts 28 nucleotides before the reference, and ends 88 nucleotides before the reference."
@@ -69,14 +71,15 @@ ffN <- function(version){ #Fragment Feature Names
   featureNames$J$annotation <- "All of the reference gene features are present."
   featureNames$K$annotation <- "All of the reference gene features are present."
   featureNames$L$annotation <- "All of the reference gene features are present."
-  featureNames$N$annotation <- "N.1 is 51 nucleotides of novel sequence that does not align to Exon 3. (the last 40 nucleotides align poorly). The first 34 nucleotides of H.1 do not align to the Exon 4 reference; the last 135 nucleotides align to Exon 4. N.2 does not align to Exon 4 or Intron 4."
-  featureNames$P$annotation <- "J.1 is ~350 nucleotides of novel sequence followed by ~120 nucleotides from the 5' end of Intron 2. Exon 8 is absent."
+  featureNames$N$annotation <- "N.1 is 51 nucleotides of novel sequence that does not align to Exon 3. The last 40 nucleotides align poorly. The first 34 nucleotides of H.1 do not align to the Exon 4 reference; the last 135 nucleotides align to Exon 4. N.2 does not align to Exon 4 or Intron 4."
+  featureNames$P$annotation <- "H.1 is 287 nucleotides of novel sequence followed by 168 nucleotides of the 5' end of Intron 2, which include a 15 nucleotide section of novel sequence. Exon 8 is absent."
+  featureNames$R$annotation <- "H.1 is 287 nucleotides of novel sequence followed by 156 nucleotides of the 5'end of Intron 2, which include a 5 nucleotide section of novel sequence. Exon 8 is absent."
   featureNames$S$annotation <- "H.1 is 37 nucleotides of novel sequence, followed by the last 185 nucleotides of Intron 5. S.1 is the first 27 nucleotides of Exon 6. J.1 is the last 4 nucleotides of Exon 6 (2 nucleotides in the reference have been deleted), followed by the last 100 nucleotides of Intron 6 (6 nucleotides in the reference have been deleted). E.9 in a 191 nucleotide long Exon in what is the 5' end of the 3' UTR in the reference. S.2 is the 3' end of the 3' UTR."
   featureNames$T$annotation <- "H.1 is 31 nucleotides of novel sequence, followed the last 93 nucleotides of Exon 3, and all of Intron 3."
-  featureNames$U$annotation <- "N.1 is 54 nucleotides of novel sequence. J.1 includes 196 nucleotdes that align to Exon 3, and the first 10 nucleotides of Intron 3. S.1 is 301 nucleotides of Intron 3. HLA-U*01:01:01:02, *01:02, 01:03 and 01:04 include a 41 nucleotide novel sequence insertion. U*01:04 includes an additional 145 nucleotides of novel sequence at the 3' end of S.1."
+  featureNames$U$annotation <- "N.1 is 54 nucleotides of novel sequence. J.1 includes 196 nucleoitdes that align to Exon 3, and the first 10 nucleotides of Intron 3. S.1 is 301 nucleotides of Intron 3. HLA-U*01:01:01:02, *01:02, 01:03 and 01:04 include a 41 nucleotide novel sequence insertion. U*01:04 includes an additional 145 nucleotides of novel sequence at the 3' end of S.1."
   featureNames$V$annotation <- "S.1 is the first 195 nucleotides of Exon 3. N.1 is 524 nucleotides of novel sequence that does not align to Exon or Intron 3."
-  featureNames$W$annotation <- "J.1 is ~365 nucleotides of novel sequence followed by ~120 nucleotides from the 5' end of Intron 2. N1 is a novel exon that follows the deletion of Exon 8. S1 is the remainder of the 3' UTR"
-  featureNames$Y$annotation <- "U.5 is a single nucleotide, and the U.3 is 171 nucleotides long in HLA-Y*02:01. There is no 5' or 3' UTR in HLA-Y*01:01 or *03:01."
+  featureNames$W$annotation <- "H.1 is 327 nucleotides of novel sequence followed by 148 nucleotides of the 5' end of Intron 2, which include a 15 nucleotide section of novel sequence. N1 is a novel exon that follows the deletion of Exon 8. S1 is the remainder of the 3' UTR"
+  featureNames$Y$annotation <- "U.5 is a single nucleotide, and U.3 is 171 nucleotides long in HLA-Y*02:01. There is no 5' or 3' UTR in HLA-Y*01:01 or *03:01."
 
   featureNames$version <- version
 
