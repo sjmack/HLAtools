@@ -20,10 +20,5 @@ A data frame of allele names and the corresponding codon sequence for specified 
 Generates a peptide, codon, coding or genomic nucleotide alignment at a single set of positions for HLA alleles at one or more loci.
 }
 \note{
-For internal HLAtools use only.
-}
-\examples{
-\donttest{
-uniAlign("codon","DQA1*01:01:01:01",c(32:58))
-}
+For internal HLAtools use.
 }

@@ -14,13 +14,6 @@
 #'
 #'@note This function requires an HLAalignments object that has been populated with alignments via alignmentFull().
 #'
-#'@examples
-#'\donttest{
-#' motifMatch("A*-21M~2P","prot")
-#' motifMatch("A*196G~301A~3046T","gen")
-#' motifMatch("A*196G~301A~3046T","gen",FALSE)
-#'}
-#'
 #'@export
 #'
 motifMatch <- function(motif,alignType,full=TRUE){  

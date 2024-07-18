@@ -9,14 +9,10 @@
 #'@param alignType A character string identifying the type of alignment being searched. Allowed values are "codon","gen", nuc" and "prot". Only one 'alignType' value is permitted.
 #'@param alleles A character vector containing two full-length names for alleles at the same locus.
 #'
-#'@return A two-row data frame identifying the positions and sequences at which the two alleles differ. Positions for which the sequence of either allele is unknown are ignored. 
+#'@return A two-row data frame identifying the positions and sequences at which the two alleles differ. E.g., compareSequences(alignType = "gen", alleles = c("DPA1*01:03:38:01","DPA1*01:03:38:02"). Positions for which the sequence of either allele is unknown are ignored. 
 #'
 #'@export
 #'
-#'@examples
-#'\donttest{
-#'compareSequences(alignType = "gen", alleles = c("DPA1*01:03:38:01","DPA1*01:03:38:02"))
-#'}
 compareSequences <- function(alignType,alleles) {
 # Data checks
   if(length(alleles)!=2) {stop(paste("Please include exactly two alleles."))}

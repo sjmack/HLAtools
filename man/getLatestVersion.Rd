@@ -16,8 +16,6 @@ Identifies the most recent version of the IPD-IMGT/HLA Database available in the
 For internal HLAtools use.
 }
 \examples{
-\donttest{
 getLatestVersion()
-}
 
 }

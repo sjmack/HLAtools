@@ -12,7 +12,7 @@ updateAll(updateType = "all", version = getLatestVersion())
 \item{version}{A numeric value or character string identifying the version of the ANHIG/IMGTHLA Github repository to build these objects from. By default, updateAll() calls the getLatestVersion() function to identify the most recent IPD-IMGT/HLA Database release.}
 }
 \value{
-No value is returned. The desired versions of the specified data objects are built into the current R environment.
+No value is returned. The desired versions of the specified data objects are built into the current R environment when updateAll() is run.
 }
 \description{
 Applies updateAlleleListHistory(), atlasFull(), buildGazeteer(), extractGeneTypes(), and ffN() to update the alleleListHistory, HLAatlas, HLAgazeteer, IMGTHLAGeneTypes and fragmentFeatureNames data objects.
@@ -21,10 +21,4 @@ A new alleleListHistory data object should be generated with each IPD-IMGT/HLA D
 }
 \note{
 Generating a new HLAatlas can take 5 minutes or more to complete.
-}
-\examples{
-\donttest{
-updateAll()
-}
-
 }

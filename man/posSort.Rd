@@ -22,12 +22,5 @@ Sorts sequence alignment positions that contain indels in numerical order; e.g.,
 Positions are validated against a specified locus for a specified alignment type. Positions that do not exist for that locus-alignment combination are not returned.
 }
 \note{
-Indel positions must be text-formatted (e.g. "607.12"), as illustrated in the the examples.
-}
-\examples{
-\donttest{
-posSort(c(2,4,3,1,5), "nuc","DRB1")
-posSort(c("607.23","607.10","607.3","607.4"),"nuc","DRB1")
-}
-
+Indel positions must be text-formatted (e.g. "607.12"). C.f., posSort(c(2,4,3,1,5), "nuc","DRB1") vs posSort(c("607.23","607.10","607.3","607.4"),"nuc","DRB1").
 }

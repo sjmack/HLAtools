@@ -15,11 +15,9 @@
 #'@description
 #'The 'AA' atlas identifies the amino acid (AA) positions encoded by codons that span each exon (E) boundary. The 'cDNA' atlas describes the 3' nucleotide position in the cDNA sequence that follows each exon boundary, as well as the codon that spans each exon boundary. The 'gDNA' atlas describes first 3' nucleotide position following each UTR (U), exon or intron (I) boundary. Each feature is followed by its rank (e.g U3 is the 3' UTR).
 #'
-#'@note
-#'Nucleotide atlases for pseudogenes will include a 'codon' row populated with NA values.
-#'
-#'@note
-#'Some HLA-DQB1*05 and *06 alleles include a 5th exon that is not present in the DQB1*05:01:01:01 reference allele. In this case, the Exon 4 to Exon 5 boundary is defined as 'Ins' (insertion). For all other alleles there is no E.4-5 boundary.
+#'@note For internal HLAtools use.
+#'@note Nucleotide atlases for pseudogenes will include a 'codon' row populated with NA values.
+#'@note Some HLA-DQB1*05 and *06 alleles include a 5th exon that is not present in the DQB1*05:01:01:01 reference allele. In this case, the Exon 4 to Exon 5 boundary is defined as 'Ins' (insertion). For all other alleles there is no E.4-5 boundary.
 #'
 #'@importFrom DescTools StrLeft IsOdd
 #'@importFrom dplyr filter
@@ -29,10 +27,6 @@
 #'
 #'@export
 #'
-#'@examples
-#'\donttest{
-#'atlasMaker(loci = "DRB1", source = "AA")
-#'}
 atlasMaker<-function(loci, source, version = "Latest"){
 
   if(version != "Latest"){ #

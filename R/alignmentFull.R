@@ -12,16 +12,9 @@
 #'
 #'@return A list object containing data frames of protein (prot), codon (codon), coding nucleotide (nuc), or genomic nucleotide (gen) alignments, for specified genes in the specified IPD-IMGT/HLA Database release, along with the pertinent reference database release.
 #'
-#'@examples
-#'\donttest{
-#' HLAalignments <- alignmentFull()
-#'}
-#'
-#'@note
-#'This function requires internet access. Depending on local download speeds, building all available alignments for all loci can take several minutes.
-#'
-#'@note
-#'Prior to IPD-IMGT/HLA Database release version 3.24.0, the HLA-DP and HLA-DQ sequence alignment files in the IPD-IMGT/HLA GitHub Repository did not all include a numerical suffix in the gene name (e.g., the protein sequence alignment file for the DQA1 gene was named 'DQA_prot.txt') because alignment files for the DPA2, DPB2, DQA2 and DQB2 genes had not been made available. Building DPA1, DPB1, DQA1, and DQB1 sequence alignments from releases prior to 3.24.0 require using a gene name that does not include the numerical suffix.
+#'@note AlignmentFull() must be run to build the 'HLAalignments' object (HLAalignments <- alignmentFull()) before other functions that use alignments can be used, and therefore requires internet access.
+#'@note Depending on local download speeds, building all available alignments for all loci can take several minutes.
+#'@note Prior to IPD-IMGT/HLA Database release version 3.24.0, the HLA-DP and HLA-DQ sequence alignment files in the IPD-IMGT/HLA GitHub Repository did not all include a numerical suffix in the gene name (e.g., the protein sequence alignment file for the DQA1 gene was named 'DQA_prot.txt') because alignment files for the DPA2, DPB2, DQA2 and DQB2 genes had not been made available. Building DPA1, DPB1, DQA1, and DQB1 sequence alignments from releases prior to 3.24.0 require using a gene name that does not include the numerical suffix.
 #'
 #'@export
 #'

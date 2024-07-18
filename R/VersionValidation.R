@@ -68,9 +68,7 @@ validateVersion <- function(version) {
 #'@export
 #'
 #'@examples
-#'\donttest{
 #'getLatestVersion()
-#'}
 #'
 #'@note
 #'For internal HLAtools use.

@@ -15,9 +15,6 @@ A character vector of all of the filenames.
 \description{
 Retrieves the filenames of the protein, nucleotide and genomic alignments available a specific branch of the IMGTHLA GitHub Repository
 }
-\examples{
-\donttest{
-getAlignmentNames("https://github.com/ANHIG/IMGTHLA/tree/3240/alignments")
-}
-
+\note{
+For internal HLAtools use.
 }

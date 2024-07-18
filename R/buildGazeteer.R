@@ -24,23 +24,20 @@
 #'
 #'@return A list object of vectors organizing the genes in the IPD-IMGT/HLA Database into specific categories.
 #'
-#'@importFrom stringr fixed
-#'@importFrom utils read.table
-#'
+#'@note For interal HLAtools use.
 #'@note These elements are constructed using data compiled from hla.alleles.org/genes/, github.com/ANHIG/IMGTHLA/tree/Latest/alignments, DOI:10.2741/a317, DOI:10.1111/tan.15180, and Human Genome Assembly GRCh38.p14 reference assembly NC_000006.12.
 #'@note Additional information about these genes can be found in HLAtools::IMGTHLAGeneTypes.
 #'@note The $map element does not distinguish the order of the DRB3, DRB4 and DRB5 genes (DRB3/4/5) or the DR6 and DR7 (DR6/7) genes, as the individual elements of these gene sets are found on different DRB haplotypes. 
 #'@note This function requires internet access to function.
 #'
+#'@importFrom stringr fixed
+#'@importFrom utils read.table
+#'
 #'@source Andersson G. Evolution of the human HLA-DR region. Front. Biosci. 1998 Jul 27:3:d739-45.
 #'@source Alexandrov et al. HLA-OLI: A new MHC class I pseudogene and HLA-Y are located on a 60 kb indel in the human MHC between HLA-W and HLA-J. HLA 2023 Nov; 102(5):599-606.
 #'
-#'@examples
-#'\donttest{
-#'HLAgazeteer <- buildGazeteer("3.34.0")
-#'}
-#'
 #'@export
+#'
 buildGazeteer <- function(version = getLatestVersion()) {
   
   if(!validateVersion(version)) {stop(paste(version,"is not a valid IPD-IMGT/HLA Database release.",sep=" "))}
@@ -144,10 +141,7 @@ buildGazeteer <- function(version = getLatestVersion()) {
 #'
 #'@importFrom stringr str_detect
 #'
-#'@examples
-#'\donttest{
-#'getAlignmentNames("https://github.com/ANHIG/IMGTHLA/tree/3240/alignments")
-#'}
+#'@note For internal HLAtools use.
 #'
 #'@export
 #'

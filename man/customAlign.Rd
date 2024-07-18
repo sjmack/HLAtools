@@ -20,11 +20,5 @@ A data frame of allele names and the corresponding nucleotide sequences for each
 Generates a peptide, codon, coding or genomic nucleotide alignment table for user-specified HLA alleles at user-specified positions.
 }
 \note{
-This function requires that the HLAalignments object has been populated with alignments via the alignmentFull() function.
-}
-\examples{
-\donttest{
-customAlign("codon",c("DRB1*01:01","DQB1*02:01","DPB1*01:01"),c(1,2,3,7,8,9,13,14,15))
-customAlign("codon",c("DPB1*01:01:01:01","DQA1*01:01:01:01","DQB1*05:01:01:01"),list(19:35,1:4,6:9))
-}
+This function requires that the HLAalignments object has been populated with alignments via the alignmentFull() function. C.f., customAlign("codon",c("DRB1\emph{01:01","DQB1}02:01","DPB1\emph{01:01"),c(1,2,3,7,8,9,13,14,15)) and customAlign("codon",c("DPB1}01:01:01:01","DQA1\emph{01:01:01:01","DQB1}05:01:01:01"),list(19:35,1:4,6:9)).
 }

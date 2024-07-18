@@ -18,16 +18,8 @@
 #'@export
 #'
 #'@note This function requires that the HLAalignments object has been populated with alignments via the alignmentFull() function.
-#'@note Indel positions must be text-formatted (e.g. "607.12"), as illustrated in the the examples.
+#'@note Indel positions must be text-formatted (e.g. "607.12"). C.f., alignmentSearch("nuc","DRB1*15:07:01",11:22) vs alignmentSearch("nuc","DRB1*11:250N",c(605,"607.1","607.12",608)).
 #'
-#'@examples
-#'\donttest{
-#'alignmentSearch("codon","DRB1*15:07:01",11:22)
-#'alignmentSearch("prot","DRB1*15:07:01",11:22)
-#'alignmentSearch("gen","DRB1*15:07:01",11:22)
-#'alignmentSearch("nuc","DRB1*15:07:01",11:22)
-#'alignmentSearch("nuc","DRB1*11:250N",c(605,"607.1","607.12",608))
-#'}
 alignmentSearch <- function(alignType,allelename,positions,prefix=TRUE,sep="~"){
 
   alignType <- checkAlignType(alignType)
@@ -112,14 +104,6 @@ alignmentSearch <- function(alignType,allelename,positions,prefix=TRUE,sep="~"){
 #'
 #'@export
 #'
-#'@examples
-#'\donttest{
-#'multiSearch("gen", "DRB1", "15:07",c(23:26), trimmed=TRUE)
-#'multiSearch("prot", "DRB1", "15:07:01",c(23:26))
-#'multiSearch("nuc", "DRB1", "15:07:01",c(23:26))
-#'multiSearch("codon", "TAP2", "01:03",c(23:26), trimmed=TRUE)
-#'multiSearch("codon", "TAP2", "01:03:02:01",c(23:26))
-#'}
 multiSearch <- function(alignType, locus, allele, positions, prefix=TRUE,sep="~",trimmed=FALSE){
 
     alignType <- checkAlignType(alignType)
@@ -175,13 +159,6 @@ multiSearch <- function(alignType, locus, allele, positions, prefix=TRUE,sep="~"
 #'
 #'@export
 #'
-#'@examples
-#'\donttest{
-#'uniSearch("codon","DRB1", "15:07", 57, trimmed=TRUE)
-#'uniSearch("codon","DRB1", "15:07:01", 57)
-#'uniSearch("codon","HFE", "001:01:02", 57)
-#'uniSearch("gen","HFE", "001:01:02", 57)
-#'}
 uniSearch <- function(alignType, locus, allele, position, prefix=TRUE, trimmed=FALSE){
 
     alignType <- checkAlignType(alignType)
@@ -237,15 +214,10 @@ uniSearch <- function(alignType, locus, allele, position, prefix=TRUE, trimmed=F
 #'
 #'@return A data frame of allele names and the corresponding nucleotide sequences for each desired nucleotide position. an error message is returned if input locus is not available in the ANHIG/IMGTHLA Github Repository.
 #'
-#'@note This function requires that the HLAalignments object has been populated with alignments via the alignmentFull() function.
+#'@note This function requires that the HLAalignments object has been populated with alignments via the alignmentFull() function. C.f., customAlign("codon",c("DRB1*01:01","DQB1*02:01","DPB1*01:01"),c(1,2,3,7,8,9,13,14,15)) and customAlign("codon",c("DPB1*01:01:01:01","DQA1*01:01:01:01","DQB1*05:01:01:01"),list(19:35,1:4,6:9)).
 #'
 #'@export
 #'
-#'@examples
-#'\donttest{
-#'customAlign("codon",c("DRB1*01:01","DQB1*02:01","DPB1*01:01"),c(1,2,3,7,8,9,13,14,15))
-#'customAlign("codon",c("DPB1*01:01:01:01","DQA1*01:01:01:01","DQB1*05:01:01:01"),list(19:35,1:4,6:9))
-#'}
 customAlign <- function(alignType,alleles,positions){
 
   alignType <- checkAlignType(alignType)
@@ -275,14 +247,10 @@ customAlign <- function(alignType,alleles,positions){
 #'
 #'@return A data frame of allele names and the corresponding codon sequence for specified position. a codon sequence is not returned for a specific allele if input allele is not available in the ANHIG/IMGTHLA Github Repository. position will be left empty if specific allele does not have a codon at the input position.
 #'
-#'@note For internal HLAtools use only.
+#'@note For internal HLAtools use.
 #'
 #'@export
 #'
-#'@examples
-#'\donttest{
-#'uniAlign("codon","DQA1*01:01:01:01",c(32:58))
-#'}
 uniAlign <- function(alignType, alleles,positions){
 
   alignType <- checkAlignType(alignType)
@@ -327,14 +295,10 @@ uniAlign <- function(alignType, alleles,positions){
 #'
 #'@return A data frame of 'allele' and the corresponding nucleotide sequence for specified positions designated for an allele. a nucleotide sequence is not returned for a specific allele if input allele is not available in the ANHIG/IMGTHLA Github Repository. position will be left empty if specific allele does not have a nucleotide at the input position.
 #'
-#'@note For internal HLAtools use only.
+#'@note For internal HLAtools use.
 #'
 #'@export
 #'
-#'@examples
-#'\donttest{
-#'multiAlign("gen",c("DQA1*01:01:01:01", "DRB1*01:01:01:01"),list(32:58, 33:59))
-#'}
 multiAlign <- function(alignType,alleles,positions){
 
   alignType <- checkAlignType(alignType)

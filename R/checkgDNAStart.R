@@ -16,11 +16,6 @@
 #'
 #'@export
 #'
-#'@examples
-#'\donttest{
-#'gDNAStartPositions <- checkgDNAstart()
-#'}
-#'
 #'@note For internal HLAtools use.
 #'
 checkgDNAstart <- function(verbose=FALSE){

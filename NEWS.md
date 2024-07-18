@@ -5,6 +5,8 @@
 - July 17, 2024
 - Added the GIANT() function for translating vectors and data frames of HLA allele names across IPD-IMGT/HLA Database release versions.
 - Updates to ReadMe and Vignette.
+- Updates to function examples.
+- Submission to CRAN.
 
 ### Version 1.0.4
 

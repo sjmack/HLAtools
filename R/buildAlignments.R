@@ -17,13 +17,10 @@
 #'@importFrom dplyr filter %>%
 #'@importFrom utils head tail capture.output
 #'
+#'@note For internal HLAtools use.
+#'
 #'@export
 #'
-#'@examples
-#'\donttest{
-#'HLAalignments <- buildAlignments(loci = "DRB1", source = "AA")
-#'HLAalignments <- buildAlignments(loci = "DRB1", source = c("AA", "cDNA"))
-#'}
 buildAlignments<-function(loci, source, version = "Latest"){
   
   if(version != "Latest"){ #

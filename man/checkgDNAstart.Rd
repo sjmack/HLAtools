@@ -23,9 +23,3 @@ This function requires that the HLAalignments object has been populated with ali
 
 For internal HLAtools use.
 }
-\examples{
-\donttest{
-gDNAStartPositions <- checkgDNAstart()
-}
-
-}

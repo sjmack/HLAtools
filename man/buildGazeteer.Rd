@@ -36,6 +36,8 @@ The twentieth element ($version) identifies the IPD-IMGT/HLA Database version us
 \note{
 The \emph{$prot} and \emph{$nuc} vectors include a 'DRB' "gene". While 'DRB' is not a gene name, the DRB_prot.txt file includes combined alignments for the DRB1, DRB3, DRB4, and DRB5 genes, and the DRB_nuc.txt file includes combined alignments for the DRB1, DRB2, DRB3, DRB4, DRB5, DRB6, DRB7, DRB8, and DRB9 genes. 'DRB' is included in these vectors for the purpose of validation when these combined alignments are desired.
 
+For interal HLAtools use.
+
 These elements are constructed using data compiled from hla.alleles.org/genes/, github.com/ANHIG/IMGTHLA/tree/Latest/alignments, DOI:10.2741/a317, DOI:10.1111/tan.15180, and Human Genome Assembly GRCh38.p14 reference assembly NC_000006.12.
 
 Additional information about these genes can be found in HLAtools::IMGTHLAGeneTypes.
@@ -43,10 +45,4 @@ Additional information about these genes can be found in HLAtools::IMGTHLAGeneTy
 The $map element does not distinguish the order of the DRB3, DRB4 and DRB5 genes (DRB3/4/5) or the DR6 and DR7 (DR6/7) genes, as the individual elements of these gene sets are found on different DRB haplotypes.
 
 This function requires internet access to function.
-}
-\examples{
-\donttest{
-HLAgazeteer <- buildGazeteer("3.34.0")
-}
-
 }

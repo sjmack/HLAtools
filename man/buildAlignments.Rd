@@ -19,9 +19,6 @@ A list object with a data frame of all allele names (and trimmed allele names) a
 \description{
 Returns a list of data frames of amino acid, codon, nucleotide and genomic alignments, with version information.
 }
-\examples{
-\donttest{
-HLAalignments <- buildAlignments(loci = "DRB1", source = "AA")
-HLAalignments <- buildAlignments(loci = "DRB1", source = c("AA", "cDNA"))
-}
+\note{
+For internal HLAtools use.
 }

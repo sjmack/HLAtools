@@ -20,9 +20,3 @@ Data informing the atlases were downloaded from the ANHIG/IMGTHLA Github reposit
 
 For internal HLAtools use.
 }
-\examples{
-\donttest{
-HLAatlas <- atlasFull()
-}
-
-}

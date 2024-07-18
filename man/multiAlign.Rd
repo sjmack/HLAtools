@@ -20,10 +20,5 @@ A data frame of 'allele' and the corresponding nucleotide sequence for specified
 Generates a peptide, codon, coding nucleotide or genomic alignment for HLA alleles allowing each allele to be aligned to a different set of positions.
 }
 \note{
-For internal HLAtools use only.
-}
-\examples{
-\donttest{
-multiAlign("gen",c("DQA1*01:01:01:01", "DRB1*01:01:01:01"),list(32:58, 33:59))
-}
+For internal HLAtools use.
 }

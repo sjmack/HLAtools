@@ -15,15 +15,9 @@
 #'
 #'@return A character string of the correctly sorted sequence.
 #'
-#'@note Indel positions must be text-formatted (e.g. "607.12"), as illustrated in the the examples.
+#'@note Indel positions must be text-formatted (e.g. "607.12"). C.f., posSort(c(2,4,3,1,5), "nuc","DRB1") vs posSort(c("607.23","607.10","607.3","607.4"),"nuc","DRB1").
 #'
 #'@export
-#'
-#'@examples
-#'\donttest{
-#'posSort(c(2,4,3,1,5), "nuc","DRB1")
-#'posSort(c("607.23","607.10","607.3","607.4"),"nuc","DRB1")
-#'}
 #'
 posSort <- function(posVec,alignType, locus){
   
@@ -69,17 +63,10 @@ numFields <- function(allele) {
 #'
 #'@return A logical identifying if the allele name is present in the alignments (TRUE) or, if it is not in the alignments or is not valid not (FALSE).
 #'
-#'@note Messages will be returned to the console if the allele name is malformed, or the locus is invalid. 
+#'@note Messages will be returned to the console if the allele name is malformed, or the locus is invalid; e.g., validateAllele("C*01:01:01:01") or validateAllele("A*01:01:01:01:01").
 #'@note The locus being evaluated must be included in HLAalignments.
 #'
 #'@export
-#'
-#'@examples
-#'\donttest{
-#'validateAllele("A*01:01:01:117")
-#'validateAllele("A*01:01:01")
-#'validateAllele("A*01:01")
-#'}
 #'
 validateAllele <- function(allele) {
   alleleParts <- strsplit(allele,"*",fixed=TRUE)[[1]]

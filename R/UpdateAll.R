@@ -12,12 +12,7 @@
 #'@param updateType A character vector of the names of data objects to be updated. By default, updateAll() builds all five data objects (updateType="all"). Alternatively specific data objects can be updated; e.g., updateType="alleleListHistory" or updateType=c("alleleListHistory","fragmentFeatureNames").
 #'@param version A numeric value or character string identifying the version of the ANHIG/IMGTHLA Github repository to build these objects from. By default, updateAll() calls the getLatestVersion() function to identify the most recent IPD-IMGT/HLA Database release.
 #'
-#'@return No value is returned. The desired versions of the specified data objects are built into the current R environment.
-#'
-#'@examples
-#'\donttest{
-#' updateAll()
-#'}
+#'@return No value is returned. The desired versions of the specified data objects are built into the current R environment when updateAll() is run.
 #'
 #'@note Generating a new HLAatlas can take 5 minutes or more to complete.
 #'
