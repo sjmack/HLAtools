@@ -8,7 +8,7 @@ author:
 - Vinh Luu -- vinhluu864@berkeley.edu
 - Josh Bredeweg
 - Steven J. Mack, PhD -- steven.mack@ucsf.edu
-date: "2024-07-12"
+date: "2024-07-17"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{HLAtools}
@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(HLAtools)
 ```
--   Package Version: 1.0.4
+-   Package Version: 1.1.0
 
 # Overview
 The *HLAtools* package contains a set of computable resources and a suite of tools intended to facilitate the effective application and analysis of the named genes in the HLA region.
@@ -36,7 +36,7 @@ HLAtools includes:
 - Reference datasets that describe the genes supported by the IPD-IMGT/HLA Database, organize them into useful categories, and identify their gene feature boundaries.
 - The ability to build local amino acid, codon, coding nucleotide, and genomic nucleotide sequence alignments for HLA genes of interest.
 - Advanced tools of the comparison and dissection of allele sequences, and the construction of customized multi-gene sequence alignments.
-- Functions that translate allele names and Genotype List (GL) String Code messages across IPD-IMGT/HLA database release versions, and inter-convert between GL String and UNIFORMAT formats.
+- Functions that translate allele names, vectors and data frames of allele names, and Genotype List (GL) String Code messages across IPD-IMGT/HLA database release versions, and inter-convert between GL String and UNIFORMAT formats.
 - Data-analysis tools that extend the utility of Bridging Immunogenomic Data-Analysis Workflow Gaps (BIGDAWG) formatted datasets by performing mutliallele and multilocus stratification, calculating Relative Risk measures, and converting BIGDAWG datasets to PyPop datasets. 
 
 ---
@@ -555,6 +555,59 @@ GLstringArray
 multiUpdateGL(GLSC.ex[[2]][1], Version = "3.53.0")
 1 hla#3.53.0#HLA-A*02:01:01:01~HLA-C*07:02:01:01~HLA-B*07:02:01:01~HLA-DRB1*15:01:01:01~HLA-DQB1*06:02:01:01~HLA-DPB1*04:02:01:01+HLA-A*01:01:01:01~HLA-C*06:02:01:01~HLA-B*57:01:01:01~HLA-DRB1*07:01:01:01~HLA-DQB1*03:03:02:01~HLA-DPB1*04:01:01:01
 ```
+
+## Translate vectors and data frames of HLA allele name data across IPD-IMGT/HLA Database releases
+
+The GIANT() function applies GLupdate() to translate HLA allele name data across IPD-IMGT/HLA Database release versions, back to version 1.05.0, and functions on both vectors and data frames of HLA allele name data, including BIGDAWG-formatted HLA datasets. Data frames that are not BIGDAWG-formatted must be entirely composed of columns of HLA allele name data. 
+
+*Translation of vectors of HLA allele names*
+
+``` 
+GIANT(c("A*01:01:01:01","DQA1*01:01:01:01"),"3.56.0","2.20.0")
+[1] "A*01010101"  "DQA1*010101"
+GIANT(c("A*01:01:01:01","DQA1*01:01:01:01"),"3.56.0","3.00.0")
+[1] "A*01:01:01:01" "DQA1*01:01:01"
+GIANT(c("A*01:01:01:01","DQA1*01:01:01:01"),"3.56.0","1.09.0")
+[1] "A*01011"   "DQA1*0101"
+``` 
+
+*Translation of BIGDAWG-formatted HLA data*
+
+``` 
+sHLAdata[1:5,c(1:8,15:18)]
+   Subject Status           A         A.1           C         C.1           B         B.1
+1 UT900-23      0        <NA>        <NA> 01:02:01:01    02:10:06 13:01:01:01    18:01:02
+2 UT900-24      0 01:01:01:01 02:01:01:01 03:07:01:01       06:05 14:01:01:01 39:02:01:01
+3 UT900-25      0       02:10    03:01:02       07:12 01:02:01:01       15:20 13:01:01:01
+4 UT900-26      0 01:01:01:01       02:18 08:04:01:01    12:02:01 35:09:01:01 40:05:01:01
+5 UT910-01      0 25:01:01:01 02:01:01:01 15:07:01:01 03:07:01:01    51:01:03 14:01:01:01
+
+         DPA1      DPA1.1        DPB1      DPB1.1
+1 02:01:01:01 02:01:01:01      103:01 14:01:01:01
+2 01:03:01:01    02:01:03 14:01:01:01 14:01:01:01
+3 01:03:01:01 01:03:01:01      103:01       58:01
+4 01:03:01:01 01:03:01:01 14:01:01:01      103:01
+5 01:03:01:01 02:01:01:01 14:01:01:01       58:01
+
+GIANT(sHLAdata,"3.56.0","2.10.0")[1:5,c(1:8,15:18)]
+   Subject Status        A      A.1      C    C.1      B    B.1   DPA1 DPA1.1 DPB1 DPB1.1
+1 UT900-23      0     <NA>     <NA> 010201 020205   1301 180102 020101 020101 0403   1401
+2 UT900-24      0 01010101 02010101   0307   0605   1401 390201 010301 020103 1401   1401
+3 UT900-25      0     0210   030102   0712 010201   1520   1301 010301 010301 0403   5801
+4 UT900-26      0 01010101     0218   0804 120201 350901   4005 010301 010301 1401   0403
+5 UT910-01      0   250101 02010101   1507   0307 510103   1401 010301 020101 1401   5801
+
+GIANT(sHLAdata,"3.56.0","1.15.0")[1:5,c(1:8,15:18)]
+DPB1*103:01 has been removed from the Allele List or has had its name changed.
+DPB1*103:01 has been removed from the Allele List or has had its name changed.
+   Subject Status     A   A.1    C   C.1     B   B.1  DPA1 DPA1.1 DPB1 DPB1.1
+1 UT900-23      0  <NA>  <NA> 0102 02025  1301 18012 02011  02011 <NA>   1401
+2 UT900-24      0 01011 02011 0307  0605  1401 39021 01031  02013 1401   1401
+3 UT900-25      0  0210 03012 0712  0102  1520  1301 01031  01031 <NA>   5801
+4 UT900-26      0 01011  0218 0804 12021 35091  4005 01031  01031 1401   <NA>
+5 UT910-01      0  2501 02011 1507  0307 51013  1401 01031  02011 1401   5801
+``` 
+In these examples, the DPB1\*103:01 allele was originally named DPB1*04:03, but this allele was not identified until release version 2.0.0.
 
 ## Convert GL String-formatted data to UNIFORMAT-formatted data
 

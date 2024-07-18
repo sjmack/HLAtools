@@ -1,6 +1,6 @@
 ## HLAtools: Functions and Datasets for HLA Informatics
 
-## Version 1.0.4
+## Version 1.1.0
 
 The "Human Leukocyte Antigen" (HLA) region is the most polymorphic section of the human genome, with 39,886 allelic variants identified across 46 loci. The key roles played by the class I and class II HLA genes in stem-cell therapy and transplantation, HLA and disease association research, evolutionary biology, and population genetics results in constant discovery of new allele variants. These data are curated and maintained by the [ImmunoPolymorphism Database-IMmunoGeneTics/HLA (IPD-IMGT/HLA) Database](https://www.ebi.ac.uk/ipd/imgt/hla/) and made available on the [Anthony Nolan HLA Informatics Group (ANHIG)/IMGTHLA GitHub repository](https://github.com/ANHIG/IMGTHLA) as static text files, which are updated every three months. Standardized use of the data in this key resource can be challenging. To address this, we have developed HLAtools, an R package that automates the consumption of IPD-IMGT/HLA resources, renders them computable, and makes them available alongside tools for data analysis, visualization and investigation. This version of the package is compatible with all IPD-IMGT/HLA Database release versions up to release 3.57.0.
 
@@ -112,8 +112,8 @@ verifyAllele("A*0101",TRUE)
 [1] "TRUE"   "1.06.0"
 ```
 
-### Data Format Conversion Funtions
-The package includes functions that convert [Genotype List (GL) String Codes](https://glstring.org) across IPD/IMGT-HLA Database release versions and nomenclature epochs, and that inter-convert between [GL String](https://glstring.org) and [UNIFORMAT](https://hla-net.eu/tools/uniformate/) formats.  
+### Data Format Conversion and Translation Funtions
+The package includes functions that convert [Genotype List (GL) String Codes](https://glstring.org) across IPD/IMGT-HLA Database release versions and nomenclature epochs, inter-convert between [GL String](https://glstring.org) and [UNIFORMAT](https://hla-net.eu/tools/uniformate/) formats, and translate data frames and vectors of HLA allele name data across IPD-IMGT/HLA Database release versions.  
 
 - GLudpdate() converts HLA allele names in GL String Code objects across IPD/IMGT-HLA Database release versions. 
 
@@ -141,6 +141,26 @@ GLStoUNI("HLA-A*02:01/HLA-A*02:02+HLA-A*03:01/HLA-A*03:02")
 
 UNItoGLS("A*02:01,A*03:01|A*02:01,A*03:02|A*02:02,A*03:01|A*02:02,A*03:02")
 [1] "HLA-A*02:01/HLA-A*02:02+HLA-A*03:01/HLA-A*03:02"
+```
+
+- GIANT() translates vectors and data frames of HLA allele names across specified IPD-IMGT/HLA Database release versions. 
+```
+GIANT(c("A*01:01:01:01","DQA1*01:01:01:01"),"3.56.0","3.00.0")
+[1] "A*01:01:01:01" "DQA1*01:01:01"
+
+GIANT(c("A*01:01:01:01","DQA1*01:01:01:01"),"3.56.0","2.20.0")
+[1] "A*01010101"  "DQA1*010101"
+
+GIANT(c("A*01:01:01:01","DQA1*01:01:01:01"),"3.56.0","1.09.0")
+[1] "A*01011"   "DQA1*0101"
+
+GIANT(sHLAdata,"3.56.0","2.23.0")[1:5,1:14]
+   Subject Status        A      A.1      C    C.1      B    B.1   DRB1 DRB1.1   DQA1 DQA1.1   DQB1 DQB1.1
+1 UT900-23      0     <NA>     <NA> 010201 020205   1301 180102 160201   0404 050101 050102 030101   0202
+2 UT900-24      0 01010101 02010101   0307   0605   1401 390201   0402 160201 040101 050101 060101 030101
+3 UT900-25      0     0210   030102   0712 010201   1520   1301 080201 040701   0201 050102 030302   0202
+4 UT900-26      0 01010101     0218   0804 120201 350901   4005 090102 080201 030101   0201   0304 030302
+5 UT910-01      0   250101 02010101   1507   0307 510103   1401 110101 090102 050102 030101 050301   0304
 ```
 
 ### Data Analysis Functions

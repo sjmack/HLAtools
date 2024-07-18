@@ -2,6 +2,7 @@
 
 export(BDstrat)
 export(BDtoPyPop)
+export(GIANT)
 export(GLStoUNI)
 export(GLV)
 export(GLV2)
