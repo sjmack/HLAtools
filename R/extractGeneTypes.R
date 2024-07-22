@@ -8,15 +8,9 @@
 #'
 #'@return A list object of two elements -- 'version' and 'GeneTypes'. The 'version' element identifies the date that the source table was generated. The 'GeneTypes' element is a data frame of three columns, identifying each gene supported by the IPD-IMGT/HLA Database, along with its molecular characteristics and its status as either a pseudogene or a gene fragment.
 #'
-#'@examples
-#'\dontrun{ 
-#'IMGTHLAGeneTypes <- buildIMGTHLAGeneTypes()
-#'}
-#'
 #'@export
 #'
 #'@note For internal HLAtools use.
-#'
 #'
 buildIMGTHLAGeneTypes <- function(){
   rawPage <- readLines("https://hla.alleles.org/genes/index.html",-1,warn = FALSE)

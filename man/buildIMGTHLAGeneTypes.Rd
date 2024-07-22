@@ -15,9 +15,3 @@ buildIMGTHLAGeneTypes() scrapes 'hla.alleles.org/genes/index.html' and generates
 \note{
 For internal HLAtools use.
 }
-\examples{
-\dontrun{ 
-IMGTHLAGeneTypes <- buildIMGTHLAGeneTypes()
-}
-
-}

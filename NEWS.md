@@ -1,5 +1,13 @@
 ### HLAtools
 
+### Version 1.1.1
+
+- July 21, 2024
+- Added link to ANHIG/IMGTHLA GitHub repo in Description.
+- Removed example from BuildIMGTHLAGeneTypes().
+- Modified updateAll() to load new objects into the parent.frame() environment, rather than .GlobalEnv.
+- Submission to CRAN.
+
 ### Version 1.1.0
 
 - July 17, 2024

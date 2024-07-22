@@ -1,4 +1,4 @@
-## UpdateAll v02.0.0 19 March 2024
+## UpdateAll v02.1.0 21 July 2024
 
 ################
 ##updateAll
@@ -12,7 +12,7 @@
 #'@param updateType A character vector of the names of data objects to be updated. By default, updateAll() builds all five data objects (updateType="all"). Alternatively specific data objects can be updated; e.g., updateType="alleleListHistory" or updateType=c("alleleListHistory","fragmentFeatureNames").
 #'@param version A numeric value or character string identifying the version of the ANHIG/IMGTHLA Github repository to build these objects from. By default, updateAll() calls the getLatestVersion() function to identify the most recent IPD-IMGT/HLA Database release.
 #'
-#'@return No value is returned. The desired versions of the specified data objects are built into the current R environment when updateAll() is run.
+#'@return No value is returned. The desired versions of the specified data objects are built into the environment that called updateAll().
 #'
 #'@note Generating a new HLAatlas can take 5 minutes or more to complete.
 #'
@@ -34,14 +34,14 @@ updateAll <-function(updateType="all",version = getLatestVersion()){
       } else { 
         
         if(file.exists(paste(HLTDpath,paste(IHGTversion,"IMGTHLAGeneTypes.rda",sep="."),sep="/"))) {
-        load(paste(HLTDpath,paste(IHGTversion,"IMGTHLAGeneTypes.rda",sep="."),sep="/"),envir = .GlobalEnv)
+        load(paste(HLTDpath,paste(IHGTversion,"IMGTHLAGeneTypes.rda",sep="."),sep="/"),envir = parent.frame())
         message(paste("IMGTHLAGeneTypes for version",IHGTversion,"has been loaded.",sep=" "))
       } else { 
         
       IMGTHLAGeneTypes <- buildIMGTHLAGeneTypes() # has version, no version argument
         IHGTversion <- IMGTHLAGeneTypes$version
       save(IMGTHLAGeneTypes,file=paste(HLTDpath,paste(IHGTversion,"IMGTHLAGeneTypes.rda",sep="."),sep="/"))
-      load(paste(HLTDpath,paste(IHGTversion,"IMGTHLAGeneTypes.rda",sep="."),sep="/"),envir = .GlobalEnv)
+      load(paste(HLTDpath,paste(IHGTversion,"IMGTHLAGeneTypes.rda",sep="."),sep="/"),envir = parent.frame())
       message(paste("IMGTHLAGeneTypes for version",IHGTversion,"has been built and loaded.",sep=" "))
           }
        }
@@ -53,14 +53,14 @@ updateAll <-function(updateType="all",version = getLatestVersion()){
         message(paste("HLAgazeteer for version",version,"is already loaded.",sep=" "))
       } else {
         if(file.exists(paste(HLTDpath,paste(version,"HLAgazeteer.rda",sep="."),sep="/"))) {
-          load(paste(HLTDpath,paste(version,"HLAgazeteer.rda",sep="."),sep="/"),envir = .GlobalEnv)
+          load(paste(HLTDpath,paste(version,"HLAgazeteer.rda",sep="."),sep="/"),envir = parent.frame())
           message(paste("HLAgazetter for version",version,"has been loaded.",sep=" "))
         } else { 
         
       HLAgazeteer <- buildGazeteer(version) ## has version, takes version
         HGversion <- HLAgazeteer$version
       save(HLAgazeteer,file=paste(HLTDpath,paste(HGversion,"HLAgazeteer.rda",sep="."),sep="/"))
-      load(paste(HLTDpath,paste(HGversion,"HLAgazeteer.rda",sep="."),sep="/"),envir = .GlobalEnv)
+      load(paste(HLTDpath,paste(HGversion,"HLAgazeteer.rda",sep="."),sep="/"),envir = parent.frame())
       message(paste("HLAgazeteer for version",version,"has been built and loaded.",sep=" "))
         }
        }
@@ -71,14 +71,14 @@ updateAll <-function(updateType="all",version = getLatestVersion()){
         message(paste("alleleListHistory for version",version,"is already loaded.",sep=" "))
       } else {
         if(file.exists(paste(HLTDpath,paste(version,"alleleListHistory.rda",sep="."),sep="/"))) {
-          load(paste(HLTDpath,paste(version,"alleleListHistory.rda",sep="."),sep="/"),envir = .GlobalEnv)
+          load(paste(HLTDpath,paste(version,"alleleListHistory.rda",sep="."),sep="/"),envir = parent.frame())
           message(paste("alleleListHistory for version",version,"has been loaded",sep=" "))
         } else { 
           
       alleleListHistory <- updateAlleleListHistory() ## has version, takes no versiomn argument
         ALHversion <- alleleListHistory$Version$Version
       save(alleleListHistory,file=paste(HLTDpath,paste(ALHversion,"alleleListHistory.rda",sep="."),sep="/"))
-      load(paste(HLTDpath,paste(ALHversion,"alleleListHistory.rda",sep="."),sep="/"),envir = .GlobalEnv)
+      load(paste(HLTDpath,paste(ALHversion,"alleleListHistory.rda",sep="."),sep="/"),envir = parent.frame())
       message(paste("alleleListHistory for version",version,"has been built and loaded",sep=" "))
         }
       }
@@ -89,14 +89,14 @@ updateAll <-function(updateType="all",version = getLatestVersion()){
         message(paste("fragmentFeatureNames for version",version,"is already loaded.",sep=" "))
       } else {      
         if(file.exists(paste(HLTDpath,paste(version,"fragmentfeatureNames.rda",sep="."),sep="/"))) {
-          load(paste(HLTDpath,paste(version,"fragmentFeatureNames.rda",sep="."),sep="/"),envir = .GlobalEnv)
+          load(paste(HLTDpath,paste(version,"fragmentFeatureNames.rda",sep="."),sep="/"),envir = parent.frame())
           message(paste("fragmentFeatureNames for version",version,"has been loaded.",sep=" "))
         } else {  
         
       fragmentFeatureNames <- ffN(version) ## has version, takes version
         FFNversion <- fragmentFeatureNames$version
       save(fragmentFeatureNames,file=paste(HLTDpath,paste(FFNversion,"fragmentFeatureNames.rda",sep="."),sep="/"))
-      load(paste(HLTDpath,paste(FFNversion,"fragmentFeatureNames.rda",sep="."),sep="/"),envir = .GlobalEnv)
+      load(paste(HLTDpath,paste(FFNversion,"fragmentFeatureNames.rda",sep="."),sep="/"),envir = parent.frame())
       message(paste("fragmentFeatureNames for version",version,"has been built and loaded.",sep=" "))
         }
       }
@@ -107,14 +107,14 @@ updateAll <-function(updateType="all",version = getLatestVersion()){
         message(paste("HLAatlas for version",version,"is already loaded.",sep=" "))
       } else {      
         if(file.exists(paste(HLTDpath,paste(version,"HLAatlas.rda",sep="."),sep="/"))) {
-          load(paste(HLTDpath,paste(version,"HLAatlas.rda",sep="."),sep="/"),envir = .GlobalEnv)
+          load(paste(HLTDpath,paste(version,"HLAatlas.rda",sep="."),sep="/"),envir = parent.frame())
           message(paste("HLAatlas for version",version,"has been loaded.",sep=" "))
         } else {  
           
       HLAatlas <- atlasFull(version) ## has version, takes version
         HAversion <- HLAatlas$version
       save(HLAatlas,file=paste(HLTDpath,paste(HAversion,"HLAatlas.rda",sep="."),sep="/"))
-      load(paste(HLTDpath,paste(HAversion,"HLAatlas.rda",sep="."),sep="/"),envir = .GlobalEnv)
+      load(paste(HLTDpath,paste(HAversion,"HLAatlas.rda",sep="."),sep="/"),envir = parent.frame())
       message(paste("HLAatlas for version",version,"has been built and loaded.",sep=" "))
         }
       }
