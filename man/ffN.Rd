@@ -30,7 +30,10 @@ Additional Features used in these annotations, based on boundaries indicated in 
 \item J - Join, a sequence that includes two or more features that are separated by a feature boundary in the reference
 \item N - Novel, a novel sequence that does correspond to a known feature sequence
 \item S - Segment, a subset of a longer feature sequence
+}
+
 Reference Genes
+\itemize{
 \item HLA-C genomic sequence is used as the reference for class I pseudogenes and gene fragments.
 \item HLA-DPA1 and -DPB1 genomic sequences are used as the references for class II pseudogenes -DPA2 and -DPB2, respectively.
 }

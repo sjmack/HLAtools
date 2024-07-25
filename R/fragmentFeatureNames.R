@@ -18,7 +18,7 @@
 #'* J - Join, a sequence that includes two or more features that are separated by a feature boundary in the reference
 #'* N - Novel, a novel sequence that does correspond to a known feature sequence
 #'* S - Segment, a subset of a longer feature sequence
-#
+#'
 #'Reference Genes
 #'* HLA-C genomic sequence is used as the reference for class I pseudogenes and gene fragments.
 #'* HLA-DPA1 and -DPB1 genomic sequences are used as the references for class II pseudogenes -DPA2 and -DPB2, respectively.

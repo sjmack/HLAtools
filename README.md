@@ -1,6 +1,6 @@
 ## HLAtools: Functions and Datasets for HLA Informatics
 
-## Version 1.1.1
+## Version 1.1.2
 
 The "Human Leukocyte Antigen" (HLA) region is the most polymorphic section of the human genome, with 39,886 allelic variants identified across 46 loci. The key roles played by the class I and class II HLA genes in stem-cell therapy and transplantation, HLA and disease association research, evolutionary biology, and population genetics results in constant discovery of new allele variants. These data are curated and maintained by the [ImmunoPolymorphism Database-IMmunoGeneTics/HLA (IPD-IMGT/HLA) Database](https://www.ebi.ac.uk/ipd/imgt/hla/) and made available on the [Anthony Nolan HLA Informatics Group (ANHIG)/IMGTHLA GitHub repository](https://github.com/ANHIG/IMGTHLA) as static text files, which are updated every three months. Standardized use of the data in this key resource can be challenging. To address this, we have developed HLAtools, an R package that automates the consumption of IPD-IMGT/HLA resources, renders them computable, and makes them available alongside tools for data analysis, visualization and investigation. This version of the package is compatible with all IPD-IMGT/HLA Database release versions up to release 3.57.0.
 
@@ -9,7 +9,7 @@ The package includes five data objects that foster computation on IPD-IMGT/HLA r
 
 - 'IMGTHLAGeneTypes' describes the [named genes in the HLA region](https://hla.alleles.org/genes/index.html).
 - 'HLAgazetteer' defines specific categories of genes supported by the IPD-IMGT/HLA Database. For example:
-   - gene fragments (HLAgazeteer$frag : "N" "P" "S" "T" "U" "V" "W" "X" "Z") 
+   - gene fragments (HLAgazeteer$frag : "N" "P" "R" "S" "T" "U" "V" "W" "X" "Z") 
    - non-classical HLA genes (HLAgazeteer$nonclassical : "DMA"  "DMB"  "DOA"  "DOB"  "DPA2" "DPB2" "DQA2" "DQB2" "E"    "F"    "G")
 - 'HLAatlas' identifies the boundaries between gene features (exons, introns and untranslated regions) at each gene, pseudogene and gene fragment.
 - 'fragmentFeatureNames' identifies and annotates the non-standard features found in some gene fragments, based on the positions of feature boundaries ("|") in the sequence.

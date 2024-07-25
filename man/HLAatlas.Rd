@@ -20,7 +20,7 @@ https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments
 data(HLAatlas)
 }
 \description{
-A list object of sub-lists of R dataframes (atlases) for each locus with a protein (prot), cDNA (nuc), and gDNA (gen) alignment. Each atlas identifies the position of the exon, intron or UTR boundaries in an alignment.
+A list object of sub-lists of R dataframes (atlases) for each locus with a protein (prot), cDNA (nuc), and gDNA (gen) alignment. Each atlas identifies the position of the exon (E), intron (I) or UTR (U) gene-feature boundaries in an alignment. Boundaries for non-standard hybrid (H), join (J), novel (N) and segment (S) features may be included in gene fragment and pseudogene atlases.
 This object is built by the atlasFull() function.
 }
 \keyword{datasets}

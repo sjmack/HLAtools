@@ -8,7 +8,7 @@ author:
 - Vinh Luu -- vinhluu864@berkeley.edu
 - Josh Bredeweg
 - Steven J. Mack, PhD -- steven.mack@ucsf.edu
-date: "2024-07-21"
+date: "2024-07-25"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{HLAtools}
@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(HLAtools)
 ```
--   Package Version: 1.1.1
+-   Package Version: 1.1.2
 
 # Overview
 The *HLAtools* package contains a set of computable resources and a suite of tools intended to facilitate the effective application and analysis of the named genes in the HLA region.
@@ -79,7 +79,7 @@ gDNA|1|74|204|474|715|991|1570|1846|1948|2065|2507|2540|2682|2730|2899|2904|
 
 ## Historical Catalogue of HLA Allele Names
 
-The *alleleListHistory* data object is a data frame that identifies all HLA and MIC allele names and their accession identifiers (HLA_IDs) for all IPD-IMGT/HLA Database release versions (e.g., "X3350" represents version 3.35.0) going back to version 1.05.0 (January of 2000), and includes allele names that have been changed or deleted. A new *alleleListHistory* can be built after each IPD-IMGT/HLA Database release using the *updateAll()* function. 
+The *alleleListHistory* data object is a data frame that identifies all HLA, MIC and TAP allele names and their accession identifiers (HLA_IDs) for all IPD-IMGT/HLA Database release versions (e.g., "X3350" represents version 3.35.0) going back to version 1.05.0 (January of 2000), and includes allele names that have been changed or deleted. A new *alleleListHistory* can be built after each IPD-IMGT/HLA Database release using the *updateAll()* function. 
 
 ```
 alleleListHistory$AlleleListHistory[1:5,1:5]
@@ -134,7 +134,7 @@ HLAgazeteer$prot
 
 Note that the *\$prot* and *\$nuc* vectors include a 'DRB' "gene". While 'DRB' is not a gene name, the DRB_prot.txt file includes combined alignments for the DRB1, DRB3, DRB4, and DRB5 genes, and the DRB_nuc.txt file includes combined alignments for the DRB1, DRB2, DRB3, DRB4, DRB5, DRB6, DRB7, DRB8, and DRB9 genes. 'DRB' is included in these vectors for the purpose of validation when these combined alignments are desired.
 
-## Annotation of Pseudogene and Gene Fragement Features
+## Annotation of Pseudogene and Gene Fragment Features
 
 The *fragmentFeatureNames* object identifies and annotates the non-standard gene features found in pseudogenes and gene fragments, based on the positions of feature boundaries ("|") in the pertinent genomic alignment sequence. Where the features of functional genes are limited to Introns (I), Exons (E) and Untranslated Regions (U), the non-standard features in pseudogenes and gene fragments are described as:
 
@@ -145,9 +145,9 @@ The *fragmentFeatureNames* object identifies and annotates the non-standard gene
 
 For each pseudogene or gene fragment, the *fragmentFeatureNames* element contains a \$features element identifying the gene features in the 5' to 3' direction, and an \$annotation element that provides some detail about the feature.
 
-These non-standard gene features are included the feature boundaries of the gene fragments and pseudogenes in the *HLAatlas*.
+These non-standard gene features are included in the feature boundaries of the gene fragments and pseudogenes in the *HLAatlas*.
 
-The current annotations should not change across IPD-IMGT/HLA Database releases. Wen a new pseudogene or gene-fragment is added to the IPD-IMGT/HLA Database, a new annotation will be added as part of a package update.
+The current annotations should not change across IPD-IMGT/HLA Database releases. When a new pseudogene or gene-fragment is added to the IPD-IMGT/HLA Database, a new annotation will be added as part of a package update.
 
 ```
 fragmentFeatureNames$DPA2

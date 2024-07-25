@@ -1,4 +1,4 @@
-#atlasMaker v1.5.0 10 April 2024
+#atlasMaker v1.6.0 25 July 2024
 
 ################
 ##atlasMaker
@@ -13,11 +13,12 @@
 #'@return A list object of 'atlas' dataframes and a 'release version' character string for each locus and alignment type.
 #'
 #'@description
-#'The 'AA' atlas identifies the amino acid (AA) positions encoded by codons that span each exon (E) boundary. The 'cDNA' atlas describes the 3' nucleotide position in the cDNA sequence that follows each exon boundary, as well as the codon that spans each exon boundary. The 'gDNA' atlas describes first 3' nucleotide position following each UTR (U), exon or intron (I) boundary. Each feature is followed by its rank (e.g U3 is the 3' UTR).
+#'The 'AA' atlas identifies the amino acid (AA) positions encoded by codons that span each exon (E) boundary. The 'cDNA' atlas describes the 3' nucleotide position in the cDNA sequence that follows each exon boundary, as well as the codon that spans each exon boundary. The 'gDNA' atlas describes first 3' nucleotide position following each UTR (U), exon or intron (I) boundary. Each feature is followed by its rank (e.g U3 is the 3' UTR). Non-standard gene-features (H, J, N, and S) are detailed in the documentation for the ffN() function. 
 #'
 #'@note For internal HLAtools use.
 #'@note Nucleotide atlases for pseudogenes will include a 'codon' row populated with NA values.
 #'@note Some HLA-DQB1*05 and *06 alleles include a 5th exon that is not present in the DQB1*05:01:01:01 reference allele. In this case, the Exon 4 to Exon 5 boundary is defined as 'Ins' (insertion). For all other alleles there is no E.4-5 boundary.
+#'@note Boundaries for non-standard hybrid (H), join (J), novel (N) and segment (S) features may be included in gene fragment and pseudogene atlases.
 #'
 #'@importFrom DescTools StrLeft IsOdd
 #'@importFrom dplyr filter
@@ -228,13 +229,13 @@ atlasMaker<-function(loci, source, version = "Latest"){
           
           divide <- 3
           sequence_name <- "cDNAsequence"
-        } else if(source[j]=="gDNA"){
+        } else { if(source[j]=="gDNA"){
           suffix <- "_gen.txt"
           type <- "gDNA"
           delete_lines <- c(1,2)
           divide <- 1
           sequence_name <- "gDNAsequence"
-        }
+        } }
 
         if(version == 3131) {version <- 3130} ## Fix for downloading the alignments, as the repo URL includes "3130", but the files use "3131".
         
@@ -242,9 +243,9 @@ atlasMaker<-function(loci, source, version = "Latest"){
         # finding where the alignment sequence starts
         if(source[j] == "AA"|source[j] == "cDNA"){
           alignment[[loci[i]]] <- readLines(paste("https://raw.githubusercontent.com/ANHIG/IMGTHLA/", repoVersion(version), "/alignments/",paste(ifelse(loci[[i]]=="DRB1"|loci[[i]]=="DRB3"|loci[[i]]=="DRB4"|loci[[i]]=="DRB5","DRB",loci[[i]]),suffix,sep=""),sep=""),-1,ok=TRUE,skipNul = FALSE)
-        } else if(source[j] == "gDNA"){
+        } else { if(source[j] == "gDNA"){
           alignment[[loci[i]]] <- readLines(paste("https://raw.githubusercontent.com/ANHIG/IMGTHLA/", repoVersion(version), "/alignments/",paste(loci[[i]],suffix,sep=""),sep=""),-1,ok=TRUE,skipNul = FALSE)
-        }
+        } }
 
         ### Fix for extraneous block of allele name rows in HLA-B cDNA alignment in 3.44.0 and 3.43.0.
         if(loci[i] == "B" && version == 3440 && source == "cDNA"){ alignment[[loci[i]]] <- alignment[[loci[i]]][-c(127540:135510)] } # 3.44.0
@@ -730,6 +731,21 @@ atlasMaker<-function(loci, source, version = "Latest"){
         } # close cDNA & gDNA creation code
 
         }
+      
+      if(source[j]=="cDNA" && loci[i] %in% c("R","S","T","V","W")) { ## post-hoc update of cDNA feature names for fragments and pseudogenes 
+        
+        repLen <- length(colnames(atlas[[loci[i]]]$cDNA))
+        featNames <- fragmentFeatureNames[[names(fragmentFeatureNames)[names(fragmentFeatureNames) %in% loci[i]]]]$feature
+        featRep <- featNames[which(1:length(featNames)%%2==0)]
+        newPairs <- rep(NA,length(featRep)-1)
+        
+            for(g in 1:length(newPairs)){
+              newPairs[g] <- paste(featRep[g],featRep[g+1],sep="-")
+            }
+        
+        colnames(atlas[[loci[i]]]$cDNA) <- newPairs
+      }
+      
     } # end of the loop if j source values
   } # end of main loop of i length values
 

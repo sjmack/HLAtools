@@ -1,5 +1,15 @@
 ### HLAtools
 
+### Version 1.1.2
+
+- July 24 to July 25, 2024
+- Updated the bundled HLAatlas object to include non-standard features for the HLA-R gDNA atlas.
+- Changed the date on the IMGTHLAGeneTypes object from "09-07-2024" to "08-07-2024" to reflect the date on the updated hla.alleles.org/genes/index.html page.
+- Corrected a typo in documentation for ffn().
+- Updated atlasMaker() to return non-standard gene feature names for the HLA-R, -S, -T, -V, and -W cDNA atlases.
+- Noted non-standard features in HLAatlas and atlasMaker documentation.
+- Updated data/HLAatlas.rda file to reflect these changes.
+
 ### Version 1.1.1
 
 - July 21, 2024
