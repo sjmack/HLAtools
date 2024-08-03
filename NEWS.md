@@ -1,5 +1,14 @@
 ### HLAtools
 
+### Version 1.1.3
+
+- August 2, 2024
+- Package version 1.1.1 published on CRAN Repository on July 26, 2024.
+- Updated the feature names for HLA-R in fragmentFeatureNames. 
+- Described all four non-standardard features in ffN() documentation.
+- Minor corrections to vignette.
+- Updated package Description.
+
 ### Version 1.1.2
 
 - July 24 to July 25, 2024
@@ -16,7 +25,7 @@
 - Added link to ANHIG/IMGTHLA GitHub repo in Description.
 - Removed example from BuildIMGTHLAGeneTypes().
 - Modified updateAll() to load new objects into the parent.frame() environment, rather than .GlobalEnv.
-- Submission to CRAN.
+- Submission to CRAN. 
 
 ### Version 1.1.0
 
