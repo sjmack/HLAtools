@@ -1,4 +1,4 @@
-#GLupdater v0.6.0 9JUL24 R. Nickens & S.J. Mack
+#GLupdater v1.0.0 17AUG24 R. Nickens & S.J. Mack
 
 ################
 ##updateGL
@@ -41,15 +41,15 @@ updateGL <- function(GLStringCode, Version, expand = FALSE) {
 
 ################
 ##multiUpdateGL
-#'Update columns of GL String Code data to a desired IPD-IMGT/HLA Database version.
+#'Update a column of GL String Code data to a desired IPD-IMGT/HLA Database version.
 #'
-#'Updates columns from a data frame in GL String Code format to a desired reference database version.
+#'Updates a column from a data frame in GL String Code format to a desired reference database version.
 #'
 #'@param GLstringArray An array of HLA allele names and operators in GL String code format identifying their relation with one another and the pertinent IPD-IMGT/HLA Database release version.
 #'@param Version A character string identifying the desired version to which the alleles should be updated, going back to version 1.05.0.
 #'@param expand A logical to determine whether to include only the direct HLA ID match, or all possible allele matches.
 #'
-#'@return A version of the input array of GL String Codes (in a data frame) updated to the desired version.
+#'@return A version of the input array of GL String Codes (in a data frame) updated to the desired version. NA values are returned in place of alleles that are not present in Version.
 #'
 #'@export
 #'
@@ -64,27 +64,75 @@ updateGL <- function(GLStringCode, Version, expand = FALSE) {
 #'@references Mack et al. HLA 05 July 2023 https://doi.org/10.1111/tan.15145
 multiUpdateGL <- function(GLstringArray, Version, expand = FALSE) {
   #making sure desired version is possible
-  outpos <- GLV2(Version)
-  names <- colnames(GLstringArray)
-  if (is.null(names)) {
-    GLstringArray <-as.data.frame(GLstringArray)
-  }
-  names <- colnames(GLstringArray)
-  if (length(GLstringArray) == 1) {
-    nn <- names[1]
-    for (i in 1:length(GLstringArray[[1]])) {
-      GLstringArray[[nn]][i] <- updateGL(GLstringArray[[nn]][i], Version = Version, expand = expand)
-    }
-  }
-  else {
-    for (x in 2:length(GLstringArray)) {
-      nn <- names[x]
-      for (i in 1:length(GLstringArray[[1]])) {
-        GLstringArray[[nn]][i] <- updateGL(GLstringArray[[nn]][i], Version = Version, expand = expand)
-      }
-    }
-  }
-  GLstringArray
+      outpos <- GLV2(Version)
+      names <- colnames(GLstringArray)
+      retArray <- data.frame(y = 1:nrow(as.data.frame(GLstringArray)))
+      colnames(retArray) <- colnames(as.data.frame(GLstringArray))
+          
+      if (is.null(names)) {
+            GLstringArray <-as.data.frame(GLstringArray)
+        }
+          names <- colnames(GLstringArray)
+  
+          codeSplit <- as.data.frame(do.call(rbind,strsplit(GLstringArray[,1],"#",fixed = TRUE)))
+          allVersions <- unique(codeSplit$V2)
+          
+          stringBlocks <- as.list(rep("",length(allVersions))) ## 1 list element for each release version 1-N
+          names(stringBlocks) <- allVersions ## new; each list element is named for the version 
+          uniqueVec <- vector()
+  
+          for(i in 1:length(allVersions)){ ## a vector of the release version names; each i is a relesae vesion
+            
+              stringBlocks[[i]] <- as.numeric(rownames(codeSplit[codeSplit$V2 == allVersions[i],]))
+    
+                for(j in 1:length(stringBlocks[[i]])) {
+                                                                                                               ## vvvv 1 instead of j    
+                  uniqueVec <- unique(c(uniqueVec,strsplit(codeSplit$V3[stringBlocks[[i]][j]],split="[+?~+/^\\|]")[[1]])) 
+                }
+
+              uniqueVec <- sort(uniqueVec)
+              
+              vers <- allVersions[i] ## fixing improperly structured vers values e.g., 3.1.0 instead of 3.01.0
+              if(!validateVersion(vers)) {
+                vers <- expandVersion(substr(GLV2(vers),2,stop = nchar(GLV2(vers))))
+              }
+              
+              if(expand){ ## creating the lookup table for returned strings
+                    lookUp <- as.data.frame(cbind(uniqueVec,paste("HLA-",suppressMessages(GIANT(uniqueVec,vers,Version)),sep=""))) ## silently call GIANT when expand = TRUE
+                    } else {
+                    lookUp <- as.data.frame(cbind(uniqueVec,paste("HLA-",GIANT(uniqueVec,vers,Version),sep=""))) 
+                }
+              colnames(lookUp) <- c("from","to")
+              
+              ### When expand = TRUE; apply queryRelease() to find all of the names that match in release X
+              if(expand){
+                    lookUp <- cbind(lookUp,as.data.frame(rep(NA,nrow(lookUp))))
+                    colnames(lookUp)[3] <- "multi"
+                    
+                    for(j in 1:nrow(lookUp)) {
+                      
+                            only <- queryRelease(Version,gsub("HLA-","",lookUp$from[j],fixed = TRUE),TRUE) ## all of the string-matches in that release
+                            locPre <- strsplit(gsub("HLA-","",lookUp$from[j],fixed = TRUE),split = "*",fixed = TRUE)[[1]][1] # target locus, for length and match
+                            lookUp$multi[j] <- paste(only[substr(only,1,nchar(locPre)+1) == paste(locPre,"*",sep="")],collapse="/") # exclude non-locus matches
+                            message("Returning all matches for ", strsplit(lookUp$from[j],"-")[[1]][2],".",sep="")
+                            lookUp$multi[j] <- str_replace_all(lookUp$multi[j],"/",paste("/HLA-",sep=""))
+                            lookUp$multi[j] <- paste("HLA-",lookUp$multi[j],sep="")
+                    }
+                }
+              
+             for(j in 1:length(stringBlocks[[i]])) { ## translating for each set of stringBlocks
+                 for(k in 1:nrow(lookUp)) {
+                                                                                                          # switch between multi or single lookup 
+                        codeSplit$V3[stringBlocks[[i]][j]] <- gsub(pattern = lookUp$from[k],replacement = ifelse(expand, lookUp$multi[k],lookUp$to[k]), x = codeSplit$V3[stringBlocks[[i]][j]],fixed = TRUE)
+                                }
+                        codeSplit$V2[stringBlocks[[i]][j]] <- Version
+  
+                        retArray$GLstringArray[stringBlocks[[i]][j]] <- paste(unlist(codeSplit[stringBlocks[[i]][j],]),collapse="#") 
+                      }
+                 }
+          
+ return(retArray$GLstringArray)
+  
 }
 
 
@@ -141,7 +189,7 @@ GLupdate <- function(GLString, Version, expand = FALSE) {
   #ensuring no replicates
   nameList <- unique(nameList)
 
-  if (expand) {
+  if(expand) {
     for (i in 1:length(nameList)) {
       #list to put all name matches in for an allele
       nameOp <- vector("list", 1)
@@ -228,13 +276,14 @@ GLupdate <- function(GLString, Version, expand = FALSE) {
       }
       #editing string to return
       if (!is.null(nameOp[[1]])) {
+        message("Returning all matches for ", nameList[i],".",sep="")
         gBack <- str_replace_all(gBack, fixed(backBack), rTU)
       }
 
     }
     #changing version to reflect the update
-    gBack <- gsub(origV,Version,gBack)
-    gBack
+    gBack <- gsub(origV,Version,gBack, fixed = TRUE) ### v1.1.4 adding fixed = TRUE fixes the issue
+    gBack #### this should be a return 1.1.4
   } else {
     for (i in 1:length(nameList)) {
       if(nameList[i] %in% alleleListHistory$AlleleListHistory[[inpos]]){
@@ -243,7 +292,7 @@ GLupdate <- function(GLString, Version, expand = FALSE) {
         #getting value of allele from desired version column
         valtemp <- alleleListHistory$AlleleListHistory[ytemp,outpos]
         #avoiding issues with NA
-        if (is.na(valtemp)|is.null(valtemp)) {
+        if(is.na(valtemp)|is.null(valtemp)) {
           message(nameList[i], " has been removed from the Allele List or has had its name changed.")
           gBack <- str_replace_all(gBack, fixed(nameList[i]), "NA")
         }
@@ -255,21 +304,21 @@ GLupdate <- function(GLString, Version, expand = FALSE) {
       }  else {
         message(nameList[i], " is not present in IPD-IMGT/HLA Database Version ", strsplit(GLString, "#")[[1]][[2]], ".")
         tempFind <- paste0(c("hla", origV, nameList[i]), collapse = "#")
-        lastEffort <- GLupdate(tempFind, Version = origV, expand = TRUE)
-        cOne <- strsplit(lastEffort, split = "#")[[1]][3]
-        cOne <- strsplit(cOne, "[/]")[[1]][1]
+        suppressMessages(lastEffort <- GLupdate(tempFind, Version = origV, expand = TRUE))
+        cOne <- strsplit(lastEffort, split = "#",fixed=FALSE)[[1]][3] ### 1.1.4 fix - explicitly set fixed = FALSE
+        cOne <- strsplit(cOne, "[/]",fixed = FALSE)[[1]][1] ### 1.1.4 fix - explicitly set fixed = FALSE
         if (cOne != "NA") {
-          message("returning match for ", cOne)
+          message("Returning first match for ", nameList[i],".",sep="")
           Q <- paste0(c("hla", origV, cOne), collapse = "#")
           temp <- GLupdate(Q, Version = Version)
-          temp <- strsplit(temp, split = "#")[[1]][3]
+          temp <- strsplit(temp, split = "#",fixed=FALSE)[[1]][3] ### 1.1.4 fix - explicitly set fixed = FALSE
           gBack <- str_replace_all(gBack, fixed(nameList[i]), temp)
         }
         else { gBack <- str_replace_all(gBack, fixed(nameList[i]), "NA")
         }
       }
     }
-    gBack <- gsub(origV,Version,gBack)
+    gBack <- gsub(origV,Version,gBack, fixed = TRUE) ### v1.1.4 adding fixed = TRUE fixes the issue
     gBack
 
   }

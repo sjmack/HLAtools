@@ -1,34 +1,44 @@
-#alleleTrim v1.2.0 3/20/2024 -- Steven J. Mack
+#alleleTrim v2.0.0 8/16/2024 -- Steven J. Mack
 
 ################
 ##alleleTrim
 #'Trim All Versions of Allele Names
 #'
-#'Trims an HLA allele name to a specified number of fields or number of digits, depending on the nomenclature version.
+#'Trims an HLA allele name to a specified number of fields or number of digits, depending on the nomenclature version. Expression variant suffixes in full-length allele names can be appended to truncated allele names.
 #'
 #'@param allele A character string of an HLA allele name formatted as locus*allele_name, optionally including the "HLA-" prefix.
 #'@param resolution A number identifying the number of fields to trim the allele down to.
-#'@param version A character string identifying the HLA nomenclature version under which the allele was named. Version 1 allele names are found in IPD-IMGT/HLA Database releases 1.0.0 to 1.16.0. Version 2 allele names are found in IPD-IMGT/HLA Database releases 2.0.0 to 2.28.0. Version 3 allele names are found in IPD_IMGT/HLA Database releases 3.0.0 and onward.
+#'@param version A number identifying the HLA nomenclature version under which the allele was named. Version 1 allele names are found in IPD-IMGT/HLA Database releases 1.0.0 to 1.16.0. Version 2 allele names are found in IPD-IMGT/HLA Database releases 2.0.0 to 2.28.0. Version 3 allele names are found in IPD_IMGT/HLA Database releases 3.0.0 and onward.
+#'@param append A logical. When append = TRUE, the expression variant suffix of a full-length allele name is appended to a truncated allele name. The default value is FALSE.
 #'
 #'@return A character string of the trimmed allele name, shortened according to the input parameters.
+#'
+#'@note Expression variant suffixes will not be removed from full-length allele names that have fewer than four fields or eight digits.
 #'
 #'@export
 #'
 #'@examples
 #'alleleTrim(allele = "A*03:01:01", resolution = 2)
 #'alleleTrim(allele = "A*030101", resolution = 2,version = 2)
+#'alleleTrim(allele = "A*0303N",resolution = 1,version = 1, append = TRUE)
+#'alleleTrim("A*24020102L",resolution = 3,version = 2, append = TRUE)
 #'
-alleleTrim <- function(allele,resolution,version=3){
+alleleTrim <- function(allele,resolution,version=3,append = FALSE){
 
   if(!resolution %in% c(1,2,3,4)) {
-    message("Resolution must be between 1 and 4.")
+    message("Resolution must range from 1 and 4.")
     return(allele)
   }
 
+  if(!version %in% c(1,2,3)) { 
+    message("Version must range from 1 and 3.")
+    return(allele)
+    }
+  
   if(version == 3){
   currRes <- lengths(regmatches(allele,gregexpr(":",allele)))+1
 
-  if(currRes > resolution) {allele <- getField(allele,resolution)}
+  if(currRes > resolution) {allele <- getField(allele,resolution,append)}
 
   }
 
@@ -37,6 +47,13 @@ alleleTrim <- function(allele,resolution,version=3){
   if(version %in% c(1,2)) {
     suffix <- strsplit(allele,"*",fixed=TRUE)[[1]][2]
     prefix <- strsplit(allele,"*",fixed=TRUE)[[1]][1]
+    
+      expVar <- ""
+      if(append){
+         if(substr(allele,nchar(allele),nchar(allele)) %in% c("N","L","S","C","A","Q")) {
+                expVar <- substr(allele,nchar(allele),nchar(allele))
+             }
+       }
   }
 
   if(version == 2){
@@ -49,7 +66,7 @@ alleleTrim <- function(allele,resolution,version=3){
      if(suffixLen == 5 || suffixLen == 6) {currRes <- 3} ## Here and in the next line, the second option is due to the presence of an expression variant (e.g. "N")
      if(suffixLen == 7 || suffixLen == 8) {currRes <- 4}
      if(suffixLen == 9) {
-       return(alleleTrim(allele,resolution,version=2))
+       return(alleleTrim(allele,resolution,version=2, append=append))
         } ## This is for the last version 1 release (1.16.0), which frustratingly used 2 digits for each field
 
      if(suffixLen < 8 && substr(suffix,nchar(suffix),nchar(suffix)) %in% LETTERS) {currRes <- currRes-1}
@@ -60,6 +77,14 @@ alleleTrim <- function(allele,resolution,version=3){
 
      }
   }
+  
+  if(version %in% c(1,2) && append && expVar != "") {
+    
+      if(!substr(allele,nchar(allele),nchar(allele)) %in% c("N","L","S","C","A","Q")) {
+        allele <- paste(allele,expVar,sep="")
+            }
+      }
+  
   allele
 }
 

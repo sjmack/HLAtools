@@ -2,7 +2,7 @@
 % Please edit documentation in R/GLupdater.R
 \name{multiUpdateGL}
 \alias{multiUpdateGL}
-\title{Update columns of GL String Code data to a desired IPD-IMGT/HLA Database version.}
+\title{Update a column of GL String Code data to a desired IPD-IMGT/HLA Database version.}
 \usage{
 multiUpdateGL(GLstringArray, Version, expand = FALSE)
 }
@@ -14,10 +14,10 @@ multiUpdateGL(GLstringArray, Version, expand = FALSE)
 \item{expand}{A logical to determine whether to include only the direct HLA ID match, or all possible allele matches.}
 }
 \value{
-A version of the input array of GL String Codes (in a data frame) updated to the desired version.
+A version of the input array of GL String Codes (in a data frame) updated to the desired version. NA values are returned in place of alleles that are not present in Version.
 }
 \description{
-Updates columns from a data frame in GL String Code format to a desired reference database version.
+Updates a column from a data frame in GL String Code format to a desired reference database version.
 }
 \examples{
 \donttest{

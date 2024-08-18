@@ -4,23 +4,30 @@
 \alias{alleleTrim}
 \title{Trim All Versions of Allele Names}
 \usage{
-alleleTrim(allele, resolution, version = 3)
+alleleTrim(allele, resolution, version = 3, append = FALSE)
 }
 \arguments{
 \item{allele}{A character string of an HLA allele name formatted as locus*allele_name, optionally including the "HLA-" prefix.}
 
 \item{resolution}{A number identifying the number of fields to trim the allele down to.}
 
-\item{version}{A character string identifying the HLA nomenclature version under which the allele was named. Version 1 allele names are found in IPD-IMGT/HLA Database releases 1.0.0 to 1.16.0. Version 2 allele names are found in IPD-IMGT/HLA Database releases 2.0.0 to 2.28.0. Version 3 allele names are found in IPD_IMGT/HLA Database releases 3.0.0 and onward.}
+\item{version}{A number identifying the HLA nomenclature version under which the allele was named. Version 1 allele names are found in IPD-IMGT/HLA Database releases 1.0.0 to 1.16.0. Version 2 allele names are found in IPD-IMGT/HLA Database releases 2.0.0 to 2.28.0. Version 3 allele names are found in IPD_IMGT/HLA Database releases 3.0.0 and onward.}
+
+\item{append}{A logical. When append = TRUE, the expression variant suffix of a full-length allele name is appended to a truncated allele name. The default value is FALSE.}
 }
 \value{
 A character string of the trimmed allele name, shortened according to the input parameters.
 }
 \description{
-Trims an HLA allele name to a specified number of fields or number of digits, depending on the nomenclature version.
+Trims an HLA allele name to a specified number of fields or number of digits, depending on the nomenclature version. Expression variant suffixes in full-length allele names can be appended to truncated allele names.
+}
+\note{
+Expression variant suffixes will not be removed from full-length allele names that have fewer than four fields or eight digits.
 }
 \examples{
 alleleTrim(allele = "A*03:01:01", resolution = 2)
 alleleTrim(allele = "A*030101", resolution = 2,version = 2)
+alleleTrim(allele = "A*0303N",resolution = 1,version = 1, append = TRUE)
+alleleTrim("A*24020102L",resolution = 3,version = 2, append = TRUE)
 
 }

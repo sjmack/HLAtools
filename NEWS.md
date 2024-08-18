@@ -1,5 +1,12 @@
 ### HLAtools
 
+### Version 1.1.4
+
+- August 16, 2024
+- Revised multiUpdateGL() to avoid collisions between allele names and version identifiers, improve messaging and efficiency, update sets of GL String Codes generated under different release versions, and append "HLA-" to allele names in returned GLSCs.
+- Changed release version in GLSC.ex dataset from 3.1.0 to 3.01.0.
+- Updated alleleTrim() to optionally include expression variants in truncated allele names.
+
 ### Version 1.1.3
 
 - August 2, 2024
