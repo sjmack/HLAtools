@@ -11,7 +11,7 @@ getField(allele, res, append = FALSE)
 
 \item{res}{A numeric describing the resolution desired.}
 
-\item{append}{A logical that, when TRUE, appends the expression variant suffix of a full-length allele name to a truncated allele name. The default value is FALSE.}
+\item{append}{A logical. When append = TRUE, the expression variant suffix of a full-length allele name is appended to a truncated allele name. The default value is FALSE.}
 }
 \value{
 A version of the 'allele' character string that has been trimmed to 'res' resolution.

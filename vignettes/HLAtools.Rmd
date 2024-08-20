@@ -8,7 +8,6 @@ author:
 - Vinh Luu -- vinhluu864@berkeley.edu
 - Josh Bredeweg
 - Steven J. Mack, PhD -- steven.mack@ucsf.edu
-date: "2024-08-16"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{HLAtools}
@@ -26,7 +25,7 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(HLAtools)
 ```
--   Package Version: 1.1.4
+-   Package Version: 1.2.0
 
 # Overview
 The *HLAtools* package contains a set of computable resources and a suite of tools intended to facilitate the effective application and analysis of the named genes in the HLA region.
@@ -35,7 +34,7 @@ HLAtools includes:
 
 - Reference datasets that describe the genes supported by the IPD-IMGT/HLA Database, organize them into useful categories, and identify their gene feature boundaries.
 - The ability to build local amino acid, codon, coding nucleotide, and genomic nucleotide sequence alignments for HLA genes of interest.
-- Advanced tools of the comparison and dissection of allele sequences, and the construction of customized multi-gene sequence alignments.
+- Advanced tools of the comparison and dissection of allele names and allele sequences, and the construction of customized multi-gene sequence alignments.
 - Functions that translate allele names, vectors and data frames of allele names, and Genotype List (GL) String Code messages across IPD-IMGT/HLA database release versions, and inter-convert between GL String and UNIFORMAT formats.
 - Data-analysis tools that extend the utility of Bridging Immunogenomic Data-Analysis Workflow Gaps (BIGDAWG) formatted datasets by performing mutliallele and multilocus stratification, calculating Relative Risk measures, and converting BIGDAWG datasets to PyPop datasets. 
 
@@ -365,7 +364,50 @@ HLAalignments <- alignmentFull(c("C","DQB"),alignType = c("nuc","gen"),version =
 
 ---
 
-# 3. Search and Query Functions
+# 3. Trim, Search and Query Functions
+
+## Trimming HLA Allele Names by Digits or Fields
+
+The *alleleTrim()* function shortens an HLA allele name to a specified number of fields or digits, depending on the pertinent nomenclature epoch. Epoch 1 allele names are found in IPD-IMGT/HLA Database releases 1.0.0 to 1.16.0, epoch 2 allele names are found in releases 2.0.0 to 2.28.0, and epoch 3 allele names are found in releases 3.0.0 and onward. Expression variant suffixes in full-length allele names can be appended to truncated allele names, but will not be removed from full-length allele names that have fewer than four fields or eight digits.
+
+**Parameters**
+
+  - *allele*: An HLA allele name formatted as locus*allele_name, optionally including the "HLA-" prefix.
+  - *resolution*: A number identifying the number of fields to trim the allele name to.
+  - *version*: A number identifying the HLA nomenclature epoch under which the allele was named. The default value is 3.
+  - *append*: A logical. When append = TRUE, the expression variant suffix of a full-length allele name is appended to a truncated allele name. The default value is FALSE.
+
+**Return** The trimmed allele name, shortened according to the input parameters, is returned.
+
+```
+alleleTrim(allele = "A*03:01:01", resolution = 2)
+[1] "A*03:01"
+
+alleleTrim(allele = "A*0303N",resolution = 1,version = 1, append = TRUE)
+[1] "A*03N
+
+alleleTrim("HLA-A*24020102L",resolution = 3,version = 2, append = TRUE)
+[1] "HLA-A*240201L"
+```
+
+## Trimming Multiple HLA Allele Names by Digits or Fields 
+ 
+The *multiAlleleTrim()* function applies *alleleTrim()* to a vector to allele names. The vector must contain only allele names, and all allele names in the vector must belong to the same nomenclature epoch.
+
+  - *alleles*: A vector of HLA allele names from a single nomenclature epoch.
+  - *resolution*: A number identifying the number of fields to which the alleles should be trimmed.
+  - *version*: A number identifying the HLA nomenclature epoch under which the allele was named. The default value is 3.
+  - *append*: A logical. When append = TRUE, the expression variant suffix of a full-length allele name is appended to a truncated allele name. The default value is FALSE.
+
+**Return** A vector of trimmed allele names, shortened according to the input parameters, is returned.
+
+```
+alleles <- c("A*02:01:01:02L","DRB1*08:07", "DQB1*04:02:01:16Q")
+multiAlleleTrim(alleles,2)
+[1] "A*02:01"    "DRB1*08:07" "DQB1*04:02"
+multiAlleleTrim(alleles,2,append = TRUE)
+[1] "A*02:01L"    "DRB1*08:07"  "DQB1*04:02Q"
+```
 
 ## Identifying Differences Between Alleles at a Locus
 

@@ -1,5 +1,10 @@
 ### HLAtools
 
+### Version 1.2.0
+
+- August 20, 2024
+- Added multiAlleleTrim() for trimming vectors of allele names in a single nomenclature epoch.
+
 ### Version 1.1.4
 
 - August 16, 2024

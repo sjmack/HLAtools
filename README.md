@@ -1,6 +1,6 @@
 ## HLAtools: Functions and Datasets for HLA Informatics
 
-## Version 1.1.4
+## Version 1.2.0
 
 The HLA, or so-called "Human Leukocyte Antigen", region is the most polymorphic section of the human genome, with 40,623 allelic variants identified across 46 loci. The key roles played by the class I and class II HLA genes in stem-cell therapy and transplantation, disease association research, evolutionary biology, and population genetics result in constant discovery of new allele variants. These data are curated and maintained by the [ImmunoPolymorphism Database-IMmunoGeneTics/HLA (IPD-IMGT/HLA) Database](https://www.ebi.ac.uk/ipd/imgt/hla/) and made available on the [Anthony Nolan HLA Informatics Group (ANHIG)/IMGTHLA GitHub repository](https://github.com/ANHIG/IMGTHLA) as static text files, which are updated every three months. Standardized use of the data in this key resource can be challenging. To address this, we have developed HLAtools, an R package that automates the consumption of IPD-IMGT/HLA resources, renders them computable, and makes them available alongside tools for data analysis, visualization and investigation. Tthe package is compatible with all IPD-IMGT/HLA Database release versions up to release 3.57.0. 
 
@@ -24,9 +24,22 @@ HLAgazeteer, HLAatlas, and alleleListHistory can be updated with each IPD-IMGT/H
 
 In addition, the _alignmentFull()_ function builds the 'HLAalignments' object, which includes computable versions of the protein, codon, coding nucleotide and genomic alignments available in the [IMGTHLA GitHub repository](https://github.com/anhig/IMGTHLA), as specified by the user. 'HLAalignments' is not included the package, but can be built for IPD-IMGT/HLA Database releases 3.00.0 to 3.57.0.
 
-### Search and Query Functions
+### Trim, Search and Query Functions
 The package includes a suite of functions for dissecting and describing similarities and differences between alleles and across loci.
 
+- alleleTrim() trims HLA allele-names by fields or digits, with the option to include expression variant suffixes in truncated versions of full-length allele names that include these suffixes. multiAlleleTrim() extends alleleTrim() to a vector of allele names in the same nomenclature epoch.
+
+```
+alleleTrim(allele = "A*03:01:01", resolution = 2)
+[1] "A*03:01"
+
+alleleTrim(allele = "A*030101", resolution = 2,version = 2)
+[1] "A*0301"
+
+alleles <- c("A*01010102L","DRB1*1613N","HLA-Cw*0322Q")
+multiAlleleTrim(alleles,1,2,TRUE)
+[1] "A*01L"      "DRB1*16N"   "HLA-Cw*03Q"
+```
 - compareSequences() identifies the positions that differ between a pair of alleles at a locus.
 ```
 compareSequences(alignType = "gen", alleles = c("DPA1*01:03:01:04","DPA1*01:03:38:01"))
@@ -87,15 +100,9 @@ queryRelease("1.05.0","304",TRUE)
 [1] "A*0304"    "A*3304"    "B*1304"    "Cw*03041"  "Cw*03042"  "DQB1*0304" "DRB1*0304" "DRB1*1304" "B*5304"    "A*2304"   
 ```
 
-- Additional functions include *alleleTrim()*, which trims HLA allele-names by fields or digits, with the option to include expression variant suffixes in truncated versions of full-length allele names that include these suffixes, *validateAllele()*, which determines if the specified allele-name is present in the 'HLAalignments' object that has been loaded in the R environment, and *verifyAllele()*, which determines if the specified allele-name is present in the 'AlleleListHistory' object, and optionally identifies the most recent IPD-IMGT/HLA Database release including that allele.
+- Additional functions include *validateAllele()*, which determines if the specified allele-name is present in the 'HLAalignments' object that has been loaded in the R environment, and *verifyAllele()*, which determines if the specified allele-name is present in the 'AlleleListHistory' object, and optionally identifies the most recent IPD-IMGT/HLA Database release including that allele.
 
 ```
-alleleTrim(allele = "A*03:01:01", resolution = 2)
-[1] "A*03:01"
-
-alleleTrim(allele = "A*030101", resolution = 2,version = 2)
-[1] "A*0301"
-
 validateAllele("A*01:01:01:117")
 [1] TRUE
 
