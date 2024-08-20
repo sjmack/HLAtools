@@ -6,7 +6,7 @@ The HLA, or so-called "Human Leukocyte Antigen", region is the most polymorphic 
 
 HLAtools version 1.1.1 is available on the CRAN repository at [https://cran.r-project.org/package=HLAtools](https://cran.r-project.org/package=HLAtools). 
 
-Developmental version 1.1.4 of the package (in this repository) can be installed using the *[xfun](https://CRAN.R-project.org/package=xfun)::install_github(sjmack/HLAtools)* command.
+Developmental version 1.2.0 of the package (in this repository) can be installed using the *[xfun](https://CRAN.R-project.org/package=xfun)::install_github(sjmack/HLAtools)* command.
 
 ### Data Resources
 The package includes five data objects that foster computation on IPD-IMGT/HLA resources. 
