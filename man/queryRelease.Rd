@@ -7,9 +7,9 @@
 queryRelease(rel, variant = "", all = FALSE)
 }
 \arguments{
-\item{rel}{An IPD-IMGT/HLA Database release version, represented as either a character (e.g. "3.56.0") or a numeric (e.g., 3560) value.}
+\item{rel}{An IPD-IMGT/HLA Database release version, represented as either a character (e.g., "3.56.0") or a numeric (e.g., 3560) value.}
 
-\item{variant}{A character string. The value of 'var' can be any part of a locus or allele name (e.g., "DR", "02:01", "DRB1*08:07"). The default ("") specifies all alleles in 'rel'.}
+\item{variant}{A character string. The value of 'variant' can be any part of a locus or allele name (e.g., "DR", "02:01", "DRB1*08:07"). The default ("") specifies all alleles in 'rel'.}
 
 \item{all}{A logical. When 'all' = TRUE, a vector of all instances of 'variant' in 'rel' is returned.  When 'all' = FALSE, the number of instances of 'var' in 'rel' is returned.}
 }

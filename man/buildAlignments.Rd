@@ -14,7 +14,7 @@ buildAlignments(loci, source, version = "Latest")
 \item{version}{A character string describing the desired release version (branch) of the ANHIG/IMGTHLA Github repository (e.g. '3.53.0'). The default value ('Latest') returns alignments for the most recent release.}
 }
 \value{
-A list object with a data frame of all allele names (and trimmed allele names) and their corresponding sequences (Amino Acid, codon, cDNA, or gDNA) for a specific locus, as well as version details for the returned information. These alignments identify locations of feature boundaries in relation to amino acid, codon, cDNA, and gDNA sequences.
+A list object with a data frame of all allele names (and trimmed, two-field allele names) and their corresponding sequences (Amino Acid, codon, cDNA, or gDNA) for a specific locus, as well as version details for the returned information. These alignments identify locations of feature boundaries in relation to amino acid, codon, cDNA, and gDNA sequences. When a three- or four-field allele name includes an expression variant suffix, that suffix is appended to the trimmed name.
 }
 \description{
 Returns a list of data frames of amino acid, codon, nucleotide and genomic alignments, with version information.

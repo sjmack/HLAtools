@@ -1,4 +1,4 @@
-#BuildAlignments v1.5.0 21JUN2024 - LT/SM
+#BuildAlignments v1.5.2 5NOV2024 - LT/SM
 
 ################
 ##BuildAlignments
@@ -10,7 +10,7 @@
 #'@param source A character vector of alignment types. The allowed values are "AA", "cDNA", and "gDNA". If 'source' is "cDNA", both codon and cDNA nucleotide alignments are generated. If source is 'AA' or 'gDNA', a single peptide or genomic nucleotide alignment is generated. Up to four alignments will be returned for a locus, as determined by its ability to be transcribed or translated.
 #'@param version A character string describing the desired release version (branch) of the ANHIG/IMGTHLA Github repository (e.g. '3.53.0'). The default value ('Latest') returns alignments for the most recent release.
 #'
-#'@return A list object with a data frame of all allele names (and trimmed allele names) and their corresponding sequences (Amino Acid, codon, cDNA, or gDNA) for a specific locus, as well as version details for the returned information. These alignments identify locations of feature boundaries in relation to amino acid, codon, cDNA, and gDNA sequences.
+#'@return A list object with a data frame of all allele names (and trimmed, two-field allele names) and their corresponding sequences (Amino Acid, codon, cDNA, or gDNA) for a specific locus, as well as version details for the returned information. These alignments identify locations of feature boundaries in relation to amino acid, codon, cDNA, and gDNA sequences. When a three- or four-field allele name includes an expression variant suffix, that suffix is appended to the trimmed name. 
 #'
 #'@importFrom stringr str_squish
 #'@importFrom tibble add_column
@@ -35,17 +35,17 @@ buildAlignments<-function(loci, source, version = "Latest"){
     if(loci[j]=="DRB1"|loci[j]=="DRB3"|loci[j]=="DRB4"|loci[j]=="DRB5") next
     for(x in 1:length(source)) {
       if(source[x] == "cDNA") {
-        if(loci[j]%in% HLAgazeteer$nuc == FALSE) {
+        if(loci[j]%in% HLAtools::HLAgazeteer$nuc == FALSE) {
           return(warning(paste(loci[j], "is not currently supported for", source[x])))
         }
       }
       if(source[x] == "gDNA") {
-        if(loci[j]%in% HLAgazeteer$gen == FALSE) {
+        if(loci[j]%in% HLAtools::HLAgazeteer$gen == FALSE) {
           return(warning(paste(loci[j], "is not currently supported for", source[x])))
         }
       }
       if(source[x] == "AA") {
-        if(loci[j] %in% HLAgazeteer$prot == FALSE) {
+        if(loci[j] %in% HLAtools::HLAgazeteer$prot == FALSE) {
           return(warning(paste(loci[j], "is not currently supported for", source[x])))
         }
       }
@@ -85,7 +85,7 @@ buildAlignments<-function(loci, source, version = "Latest"){
         type <- "cDNA"
 
         #change delete lines to first and second lines if locus does not have protein sequence ## LT
-        if(loci[i] %in% HLAgazeteer$nuc[!HLAgazeteer$nuc %in% HLAgazeteer$prot]){
+        if(loci[i] %in% HLAtools::HLAgazeteer$nuc[!HLAtools::HLAgazeteer$nuc %in% HLAtools::HLAgazeteer$prot]){
           delete_lines<-c(1,2)
                               #### Fix: DPA2, DPB2 and HLA-N cDNA alignments included an 'AA codon' row in several releases, through they are both pseudogenes
                               if(loci[i] == "DPA2" && version %in% c(3530,3520,3510,3500,3490,3480,3470,
@@ -227,7 +227,7 @@ buildAlignments<-function(loci, source, version = "Latest"){
         }
       }  else if(source[j]=="cDNA"){
         #these loci do not have protein sequences; set alignment start to 1
-        if(loci[i] %in% HLAgazeteer$nuc[!HLAgazeteer$nuc %in% HLAgazeteer$prot]){
+        if(loci[i] %in% HLAtools::HLAgazeteer$nuc[!HLAtools::HLAgazeteer$nuc %in% HLAtools::HLAgazeteer$prot]){
           alignment_start[[loci[i]]] <- 1
         } else{
         #determines the alignment start by finding the second vector in second list and removing "codon"
@@ -366,8 +366,8 @@ buildAlignments<-function(loci, source, version = "Latest"){
       aligned[[loci[i]]]<- as.matrix(do.call(rbind,strsplit(HLAalignments[[loci[i]]][,1],"[*]")))
 
       #adds a new column of pasted locus and trimmed two field alleles to aligned
-      aligned[[loci[i]]]<- cbind(aligned[[loci[i]]], paste(aligned[[loci[i]]][,1], apply(aligned[[loci[i]]],MARGIN=c(1,2),FUN=getField,res=2)[,2], sep="*"))
-
+      aligned[[loci[i]]]<- cbind(aligned[[loci[i]]], paste(aligned[[loci[i]]][,1], unlist(apply(aligned[[loci[i]]],MARGIN=c(1,2),FUN=alleleTrim,resolution=2,append=TRUE)[,2]), sep="*"))
+      
       #binds aligned and HLAalignments -- renames columns
       HLAalignments[[loci[i]]] <- cbind(aligned[[loci[i]]], HLAalignments[[loci[i]]])
  

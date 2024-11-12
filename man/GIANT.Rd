@@ -9,7 +9,7 @@ GIANT(data, transFrom, transTo)
 \arguments{
 \item{data}{A data frame or vector of HLA allele name character string data. Allele names in vectors must include locus prefixes. Data frames must include column headers identifying a single locus for the allele names in that column.}
 
-\item{transFrom}{A dot-formatted character string identifying the IPD-IMGT/HLA Database version (e.g. 3.57.0) under which the HLA data were generated.}
+\item{transFrom}{A dot-formatted character string identifying the IPD-IMGT/HLA Database version (e.g. 3.58.0) under which the HLA data were generated.}
 
 \item{transTo}{A dot-formatted character string identifying the IPD-IMGT/HLA Database version (e.g. 2.25.0) to which which the HLA data are to be translated.}
 }

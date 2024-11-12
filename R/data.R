@@ -18,7 +18,7 @@
 "alleleListHistory"
 
 ##fragmentFeatureNames
-#'Gene Features of HLA Pseduogenes and Gene Fragments
+#'Gene Features of HLA Pseudogenes and Gene Fragments
 #'
 #'A list object of 15 elements. Each of the 15 elements corresponds to one of the 15 HLA pseudogenes and gene fragments, and contains two items. The first item identifies the gene features for that locus. The second item contains an annotation detailing information regarding non-standard gene structures.
 #'This object is built by the ffN() function.

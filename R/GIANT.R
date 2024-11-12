@@ -7,7 +7,7 @@
 #'Calls GLupdate() to translate the HLA allele names in a vector or data frame between two IPD-IMGT/HLA Database release versions.
 #'
 #'@param data A data frame or vector of HLA allele name character string data. Allele names in vectors must include locus prefixes. Data frames must include column headers identifying a single locus for the allele names in that column. 
-#'@param transFrom A dot-formatted character string identifying the IPD-IMGT/HLA Database version (e.g. 3.57.0) under which the HLA data were generated.
+#'@param transFrom A dot-formatted character string identifying the IPD-IMGT/HLA Database version (e.g. 3.58.0) under which the HLA data were generated.
 #'@param transTo A dot-formatted character string identifying the IPD-IMGT/HLA Database version (e.g. 2.25.0) to which which the HLA data are to be translated.
 #'
 #'@return A data frame or vector of HLA allele name data in the 'transTo' release. 

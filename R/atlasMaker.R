@@ -460,7 +460,7 @@ atlasMaker<-function(loci, source, version = "Latest"){
         } # closing AA/cDNA
 
         if(expressed[[i]]) {
-        # triple alignment to account for codons (cDNA table only) # Does not pertain to pseduogenes and fragments
+        # triple alignment to account for codons (cDNA table only) # Does not pertain to pseudogenes and fragments
         if(source[j]=="cDNA"){
           for(n in 1:length(alignment_positions[[loci[i]]])){
             alignment_positionsx3[[loci[i]]]<-c(alignment_positionsx3[[loci[i]]],alignment_positions[[loci[i]]][n],alignment_positions[[loci[i]]][n],alignment_positions[[loci[i]]][n])

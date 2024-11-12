@@ -1,5 +1,15 @@
 ### HLAtools
 
+### Version 1.3.0
+
+- November 11, 2024
+- HLAatlas, HLAgazeteer, alleleListHistory and fragmentFeatureNames updated to IPD-IMGT/HLA Database release 3.58.0.
+- Exported HLAgazeteer for use in validateLocus(), multiLocusValidation(), and buildAlignments().
+- Updated buildAlignments() to append expression suffixes to the truncated names of 3- and 4-field alleles with expression variant suffixes.
+- Added multiQueryRelase(), extending queryRelease() to search for multiple allele-name elements.
+- Updated the package vignette.
+- Spelling corrections in fragmentFeatureNames documentation.
+
 ### Version 1.2.0
 
 - August 20, 2024

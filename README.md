@@ -1,12 +1,12 @@
 ## HLAtools: Functions and Datasets for HLA Informatics
 
-## Version 1.2.0
+## Version 1.3.0
 
-The HLA, or so-called "Human Leukocyte Antigen", region is the most polymorphic section of the human genome, with 40,623 allelic variants identified across 46 loci. The key roles played by the class I and class II HLA genes in stem-cell therapy and transplantation, disease association research, evolutionary biology, and population genetics result in constant discovery of new allele variants. These data are curated and maintained by the [ImmunoPolymorphism Database-IMmunoGeneTics/HLA (IPD-IMGT/HLA) Database](https://www.ebi.ac.uk/ipd/imgt/hla/) and made available on the [Anthony Nolan HLA Informatics Group (ANHIG)/IMGTHLA GitHub repository](https://github.com/ANHIG/IMGTHLA) as static text files, which are updated every three months. Standardized use of the data in this key resource can be challenging. To address this, we have developed HLAtools, an R package that automates the consumption of IPD-IMGT/HLA resources, renders them computable, and makes them available alongside tools for data analysis, visualization and investigation. Tthe package is compatible with all IPD-IMGT/HLA Database release versions up to release 3.57.0. 
+The HLA, or so-called "Human Leukocyte Antigen", region is the most polymorphic section of the human genome, with 40,623 allelic variants identified across 46 loci. The key roles played by the class I and class II HLA genes in stem-cell therapy and transplantation, disease association research, evolutionary biology, and population genetics result in constant discovery of new allele variants. These data are curated and maintained by the [ImmunoPolymorphism Database-IMmunoGeneTics/HLA (IPD-IMGT/HLA) Database](https://www.ebi.ac.uk/ipd/imgt/hla/) and made available on the [Anthony Nolan HLA Informatics Group (ANHIG)/IMGTHLA GitHub repository](https://github.com/ANHIG/IMGTHLA) as static text files, which are updated every three months. Standardized use of the data in this key resource can be challenging. To address this, we have developed HLAtools, an R package that automates the consumption of IPD-IMGT/HLA resources, renders them computable, and makes them available alongside tools for data analysis, visualization and investigation. Tthe package is compatible with all IPD-IMGT/HLA Database release versions up to release 3.58.0. 
 
 HLAtools version 1.2.0 is available on the CRAN repository at [https://cran.r-project.org/package=HLAtools](https://cran.r-project.org/package=HLAtools). 
 
-Developmental versions of the package (in this repository) can be installed using the *[xfun](https://CRAN.R-project.org/package=xfun)::install_github(sjmack/HLAtools)* command.
+Developmental version 1.3.0 of the package (in this repository) can be installed using the *[xfun](https://CRAN.R-project.org/package=xfun)::install_github(sjmack/HLAtools)* command.
 
 ### Data Resources
 The package includes five data objects that foster computation on IPD-IMGT/HLA resources. 
@@ -22,7 +22,7 @@ The package includes five data objects that foster computation on IPD-IMGT/HLA r
 
 HLAgazeteer, HLAatlas, and alleleListHistory can be updated with each IPD-IMGT/HLA Database release. 
 
-In addition, the _alignmentFull()_ function builds the 'HLAalignments' object, which includes computable versions of the protein, codon, coding nucleotide and genomic alignments available in the [IMGTHLA GitHub repository](https://github.com/anhig/IMGTHLA), as specified by the user. 'HLAalignments' is not included the package, but can be built for IPD-IMGT/HLA Database releases 3.00.0 to 3.57.0.
+In addition, the _alignmentFull()_ function builds the 'HLAalignments' object, which includes computable versions of the protein, codon, coding nucleotide and genomic alignments available in the [IMGTHLA GitHub repository](https://github.com/anhig/IMGTHLA), as specified by the user. 'HLAalignments' is not included the package, but can be built for IPD-IMGT/HLA Database releases 3.00.0 to 3.58.0.
 
 ### Trim, Search and Query Functions
 The package includes a suite of functions for dissecting and describing similarities and differences between alleles and across loci.
@@ -84,7 +84,7 @@ motifMatch("A*196G~301A~3046T","gen",TRUE)
 [1] "A*01:09:01:01" "A*01:09:01:02"
 ```
 
-- queryRelease() searches the alleleListHistory object for user-defined allele name variants in a specific IPD-IMGT/HLA release, identifying the number of alleles that match the query term, or a vector of allele names that match the query term. 
+- queryRelease() searches the alleleListHistory object for user-defined allele name elements in a specific IPD-IMGT/HLA release, identifying the number of alleles that match the query term, or a vector of allele names that match the query term. 
 
 ```
 queryRelease("3.30.0","DRB9",FALSE) 
@@ -98,6 +98,13 @@ queryRelease("3.31.0","DRB9",FALSE)
 
 queryRelease("1.05.0","304",TRUE) 
 [1] "A*0304"    "A*3304"    "B*1304"    "Cw*03041"  "Cw*03042"  "DQB1*0304" "DRB1*0304" "DRB1*1304" "B*5304"    "A*2304"   
+```
+
+- multiQueryRelease() extends queryRelease() to search for multiple allele name elements in a specific IPD-IMGT/HLA release.
+
+```
+multiQueryRelease("3.58.0",c("DPB","2N"),TRUE)
+[1] "DPB1*786:01:02N" "DPB1*401:01:02N"
 ```
 
 - Additional functions include *validateAllele()*, which determines if the specified allele-name is present in the 'HLAalignments' object that has been loaded in the R environment, and *verifyAllele()*, which determines if the specified allele-name is present in the 'AlleleListHistory' object, and optionally identifies the most recent IPD-IMGT/HLA Database release including that allele.

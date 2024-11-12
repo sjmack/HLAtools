@@ -167,9 +167,9 @@ parseAlignmentHead <- function(version){
 #'
 #'Searches specific release versions in the AlleleListHistory object for user-defined allele variants. 
 #'
-#'@param rel An IPD-IMGT/HLA Database release version, represented as either a character (e.g. "3.56.0") or a numeric (e.g., 3560) value.
+#'@param rel An IPD-IMGT/HLA Database release version, represented as either a character (e.g., "3.56.0") or a numeric (e.g., 3560) value.
 #'
-#'@param variant A character string. The value of 'var' can be any part of a locus or allele name (e.g., "DR", "02:01", "DRB1*08:07"). The default ("") specifies all alleles in 'rel'.
+#'@param variant A character string. The value of 'variant' can be any part of a locus or allele name (e.g., "DR", "02:01", "DRB1*08:07"). The default ("") specifies all alleles in 'rel'.
 #'
 #'@param all A logical. When 'all' = TRUE, a vector of all instances of 'variant' in 'rel' is returned.  When 'all' = FALSE, the number of instances of 'var' in 'rel' is returned. 
 #
@@ -215,6 +215,44 @@ queryRelease <- function(rel, variant="", all= FALSE){
     
              }
   }
+
+##################
+##multiQueryRelease
+#'Search Multiple Elements of Allele Names Across Release Versions 
+#'
+#'Searches specific release versions in the AlleleListHistory object for a set of user-defined allele-name elements. 
+#'
+#'@param rel An IPD-IMGT/HLA Database release version, represented as either a character (e.g., "3.58.0") or a numeric (e.g., 3580) value.
+#'
+#'@param variants A vector of character strings. The values in 'variants' can be any part of a locus or allele name (e.g., "DR", "02:01", "DRB1*08:07"). The default ("") specifies all alleles in 'rel'.
+#'
+#'@param all A logical. When 'all' = TRUE, a vector of all alleles in 'rel' that share all elements of 'variants' is returned.  When 'all' = FALSE, the number of alleles that share all elements of 'variants' in 'rel' is returned. 
+#
+#'@return A character vector of all alleles that share all 'variants' in 'rel' or the number of alleles that share all 'variants' in 'rel'.
+#'
+#'@export
+#'
+#'@examples
+#' # Identify DRB1 allele names that include a 'Q' character in release 3.58.0.
+#' multiQueryRelease("3.58.0",c("DRB1","Q"),TRUE) 
+#' # Identify the number of null (N) DRB1 alleles.
+#' multiQueryRelease("3.58.0",c("DRB1","N"),FALSE)
+#'
+multiQueryRelease <- function(rel,variants = "", all = TRUE) {
+  
+  if(length(variants) == 1) {return(queryRelease(rel,variants,all))}
+  
+  result <- NA
+  
+  for(i in 1:length(variants)) {
+    if(i == 1) { result <- queryRelease(rel,variants[i],TRUE) 
+    } else {
+      result <- result[grep(variants[i],result)]
+      }
+   }
+  ifelse(all,return(result),return(length(result))) 
+}
+
 
 ##################
 ##checkAlignType

@@ -25,44 +25,48 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(HLAtools)
 ```
--   Package Version: 1.2.0
+
+-   Package Version: 1.3.0
 
 # Overview
+
 The *HLAtools* package contains a set of computable resources and a suite of tools intended to facilitate the effective application and analysis of the named genes in the HLA region.
 
 HLAtools includes:
 
-- Reference datasets that describe the genes supported by the IPD-IMGT/HLA Database, organize them into useful categories, and identify their gene feature boundaries.
-- The ability to build local amino acid, codon, coding nucleotide, and genomic nucleotide sequence alignments for HLA genes of interest.
-- Advanced tools of the comparison and dissection of allele names and allele sequences, and the construction of customized multi-gene sequence alignments.
-- Functions that translate allele names, vectors and data frames of allele names, and Genotype List (GL) String Code messages across IPD-IMGT/HLA database release versions, and inter-convert between GL String and UNIFORMAT formats.
-- Data-analysis tools that extend the utility of Bridging Immunogenomic Data-Analysis Workflow Gaps (BIGDAWG) formatted datasets by performing mutliallele and multilocus stratification, calculating Relative Risk measures, and converting BIGDAWG datasets to PyPop datasets. 
+-   Reference datasets that describe the genes supported by the IPD-IMGT/HLA Database, organize them into useful categories, and identify their gene feature boundaries.
+-   The ability to build local amino acid, codon, coding nucleotide, and genomic nucleotide sequence alignments for HLA genes of interest.
+-   Advanced tools of the comparison and dissection of allele names and allele sequences, and the construction of customized multi-gene sequence alignments.
+-   Functions that translate allele names, vectors and data frames of allele names, and Genotype List (GL) String Code messages across IPD-IMGT/HLA database release versions, and inter-convert between GL String and UNIFORMAT formats.
+-   Data-analysis tools that extend the utility of Bridging Immunogenomic Data-Analysis Workflow Gaps (BIGDAWG) formatted datasets by performing mutliallele and multilocus stratification, calculating Relative Risk measures, and converting BIGDAWG datasets to PyPop datasets.
 
----
-  
+------------------------------------------------------------------------
+
 # 1. Reference Datasets
 
 ## Atlas of Gene Feature Boundaries
 
-The *HLAatlas* data object is a list object of sub-lists of R data frames identifying the location of boundary positions between gene-features (exons, introns and untranslated regions [UTRs]) identified in the protein, nucleotide and genomic alignments for each gene supported in the [ANHIG/IMGTHLA GitHub Repository](https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments). Example protein (*prot*), nucleotide (*nuc*) and genomic (*gen*) atlases for HLA-A are shown below. A new *HLAatlas* can be built after each IPD-IMGT/HLA Database release using the *updateAll()* function, although the atlases are not expected to change unless new genes are added to the IPD-IMGT/HLA Database. 
+The *HLAatlas* data object is a list object of sub-lists of R data frames identifying the location of boundary positions between gene-features (exons, introns and untranslated regions [UTRs]) identified in the protein, nucleotide and genomic alignments for each gene supported in the [ANHIG/IMGTHLA GitHub Repository](https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments). Example protein (*prot*), nucleotide (*nuc*) and genomic (*gen*) atlases for HLA-A are shown below. A new *HLAatlas* can be built after each IPD-IMGT/HLA Database release using the *updateAll()* function, although the atlases are not expected to change unless new genes are added to the IPD-IMGT/HLA Database.
 
 Building the *HLAatlas* object requires internet access, and it can take several minutes to build a full complement of atlases. For example, building all of the atlases for IPD-IMGT/HLA Database release version 3.56.0 took 4.2 minutes on a 3.3 GHz 12-Core Intel Xenon W 2019 Mac Pro with 288 GB of 2933 MHZ DDR4 RAM, 4.6 minutes on a 2.4 GHz 8-Core Intel Core i9 2019 MacBook Pro with 64 GB of 2667 MHZ DDR4 RAM, and 5.24 minutes on a 2.4 GHz Intel Core i9-10885H Dell Precision 5500 with 32 GB of RAM.
 
-*HLAatlas* objects can be built for all HLA region genes with available genomic, nucleotide and amino acid alignments in release versions 3.00.0 to 3.57.0. Barring changes in the structure of the source data for this object in future IPD-IMGT/HLA Database releases, it should be possible to build *HLAatlas* objects for future releases. 
+*HLAatlas* objects can be built for all HLA region genes with available genomic, nucleotide and amino acid alignments in release versions 3.00.0 to 3.58.0. Barring changes in the structure of the source data for this object in future IPD-IMGT/HLA Database releases, it should be possible to build *HLAatlas* objects for future releases.
 
-### Protein Sequence Atlases 
+### Protein Sequence Atlases
+
 The column headers for *prot* atlases identify the peptide residues encoded by codons that follow or contain an exon (E) boundary. The HLA-A *prot* atlas below illustrates that the codon encoding amino acid 1 included the Exon 1: Exon 2 boundary (E.1-2).
 
-```
+```         
 HLAatlas$prot$A
    E.1-2 E.2-3 E.3-4 E.4-5 E.5-6 E.6-7 E.7-8
 AA     1    91   183   275   314   325   341
 ```
 
 ### Nucleotide Sequence Atlases
+
 The column headers for *nuc* atlases identify the cDNA and codon positions preceded by an exon (E) boundary. The HLA-A *nuc* atlas below illustrates that the Exon 1:Exon 2 boundary (E.1-2) is between nucleotide positions 73 and 74 and within codon 1.
 
-```
+```         
 HLAatlas$nuc$A
       E.1-2 E.2-3 E.3-4 E.4-5 E.5-6 E.6-7 E.7-8
 cDNA     74   344   620   896  1013  1046  1094
@@ -70,17 +74,18 @@ codon     1    91   183   275   314   325   341
 ```
 
 ### Genomic Sequence Atlases
-The column headers for *gen* atlases identify the genomic nucleotide positions preceded by a UTR (U), exon (E) or intron (I) boundary. The HLA-A *gen* atlas below illustrates that the boundary between the 5' UTR (U.5) and Exon 1 (E.1) is between genomic positions -1 and 1, and that the boundary between Intron 3 and Exon 4 is between positions 1569 and 1570 (presented as a table for readability). 
 
-|    |U.5-E.1|E.1-I.1|I.1-E.2|E.2-I.2|I.2-E.3|E.3-I.3|I.3-E.4|E.4-I.4|I.4-E.5|E.5-I.5|I.5-E.6|E.6-I.6|I.6-E.7|E.7-I.7|I.7-E.8|E.8-U.3|
-|:--:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
-gDNA|1|74|204|474|715|991|1570|1846|1948|2065|2507|2540|2682|2730|2899|2904|
+The column headers for *gen* atlases identify the genomic nucleotide positions preceded by a UTR (U), exon (E) or intron (I) boundary. The HLA-A *gen* atlas below illustrates that the boundary between the 5' UTR (U.5) and Exon 1 (E.1) is between genomic positions -1 and 1, and that the boundary between Intron 3 and Exon 4 is between positions 1569 and 1570 (presented as a table for readability).
+
+|   | U.5-E.1 | E.1-I.1 | I.1-E.2 | E.2-I.2 | I.2-E.3 | E.3-I.3 | I.3-E.4 | E.4-I.4 | I.4-E.5 | E.5-I.5 | I.5-E.6 | E.6-I.6 | I.6-E.7 | E.7-I.7 | I.7-E.8 | E.8-U.3 |
+|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| gDNA | 1 | 74 | 204 | 474 | 715 | 991 | 1570 | 1846 | 1948 | 2065 | 2507 | 2540 | 2682 | 2730 | 2899 | 2904 |
 
 ## Historical Catalogue of HLA Allele Names
 
-The *alleleListHistory* data object is a data frame that identifies all HLA, MIC and TAP allele names and their accession identifiers (HLA_IDs) for all IPD-IMGT/HLA Database release versions (e.g., "X3350" represents version 3.35.0) going back to version 1.05.0 (January of 2000), and includes allele names that have been changed or deleted. A new *alleleListHistory* can be built after each IPD-IMGT/HLA Database release using the *updateAll()* function. 
+The *alleleListHistory* data object is a data frame that identifies all HLA, MIC and TAP allele names and their accession identifiers (HLA_IDs) for all IPD-IMGT/HLA Database release versions (e.g., "X3350" represents version 3.35.0) going back to version 1.05.0 (January of 2000), and includes allele names that have been changed or deleted. A new *alleleListHistory* can be built after each IPD-IMGT/HLA Database release using the *updateAll()* function.
 
-```
+```         
 alleleListHistory$AlleleListHistory[1:5,1:5]
     HLA_ID          X3560          X3550          X3540          X3530
 1 HLA00001  A*01:01:01:01  A*01:01:01:01  A*01:01:01:01  A*01:01:01:01
@@ -100,33 +105,36 @@ alleleListHistory$AlleleListHistory[c(65,100:105,2094),c(1,23,58:59,81,96,101,10
 105  HLA00112 A*66:01:01:01    A*66:01    A*6601 A*6601 A*6601 A*6601 A*6601
 2094 HLA02186     MICB*021N  MICB*021N MICB*021N   <NA>   <NA>   <NA>   <NA>
 ```
+
+The *alleleListHistory* data object is expected to change with each IPD-IMGT/HLA Database release. Third-party functions that reference the *alleleListHistory* data object should rely on an internal version of this data object built using the *HLAtools::updateAlleleListHistory()* function.
+
 ## Functional and Organizational Categories of Genes in the HLA Region
 
 ### Molecular Characteristics of HLA Region Genes
 
-The *IMGTHLAGeneTypes* data object describes the [named genes in the HLA region](https://hla.alleles.org/genes/index.html) curated by the IPD-IMGT/HLA Database. *IMGTHLAGeneTypes* distinguishes pseudogenes and gene fragments from expressed genes, and summarizes each gene's molecular characteristics. 
+The *IMGTHLAGeneTypes* data object describes the [named genes in the HLA region](https://hla.alleles.org/genes/index.html) curated by the IPD-IMGT/HLA Database. *IMGTHLAGeneTypes* distinguishes pseudogenes and gene fragments from expressed genes, and summarizes each gene's molecular characteristics.
 
-The information in this object can be found online at [https://hla.alleles.org/genes/index.html](https://hla.alleles.org/genes/index.html). A new *IMGTHLAGeneTypes* can be built using the *updateAll()* function, although the source data is not expected to change unless new genes are added to the IPD-IMGT/HLA Database.
+The information in this object can be found online at <https://hla.alleles.org/genes/index.html>. A new *IMGTHLAGeneTypes* can be built using the *updateAll()* function, although the source data is not expected to change unless new genes are added to the IPD-IMGT/HLA Database.
 
 ### Gazeeteer of HLA Region Genes
 
 The *HLAgazeteer* data object is a list object that organizes the HLA region genes supported by the IPD-IMGT/HLA Database in nineteen vectors describing the availability of alignments, gene functionality, group identity and map order. A new *HLAgazeteer* can be built after each IPD-IMGT/HLA Database release using the *updateAll()* function, although the *HLAgazeteer* is not expected to change unless new genes are added to the IPD-IMGT/HLA Database.
 
-```
+```         
 names(HLAgazeteer)
  [1] "align" "gen" "nuc" "prot" "nogen" "nonuc" "noprot" "pseudo" "frag" "hla" "expressed" "notexpressed" "classireg" "classihla" "classiireg" "classiihla" "classical" "nonclassical" "map" "version"     
 ```
 
-For example, the *$align* vector includes all of the genes for which **sequence alignments** are available:
+For example, the *\$align* vector includes all of the genes for which **sequence alignments** are available:
 
-```
+```         
 HLAgazeteer$align
  [1] "A" "B" "C" "DMA" "DMB" "DOA" "DOB" "DPA1" "DPA2" "DPB1" "DPB2" "DQA1" "DQA2" "DQB1" "DQB2" "DRA"  "DRB1" "DRB2" "DRB3" "DRB4" "DRB5" "DRB6" "DRB7" "DRB8" "DRB9" "E" "F" "G" "H" "HFE" "J" "K" "L" "MICA" "MICB" "N" "P" "S" "T" "TAP1" "TAP2" "U" "V" "W" "Y"     
 ```
 
-The *$prot* vector includes all of the genes with **protein** alignments:
+The *\$prot* vector includes all of the genes with **protein** alignments:
 
-```
+```         
 HLAgazeteer$prot
  [1] "A" "B" "C" "DMA" "DMB" "DOA" "DOB" "DPA1" "DPB1" "DQA1" "DQA2" "DQB1" "DQB2" "DRA" "DRB1" "DRB3" "DRB4" "DRB5" "DRB" "E" "F" "G" "HFE" "MICA" "MICB" "TAP1" "TAP2"
 ```
@@ -135,12 +143,12 @@ Note that the *\$prot* and *\$nuc* vectors include a 'DRB' "gene". While 'DRB' i
 
 ## Annotation of Pseudogene and Gene Fragment Features
 
-The *fragmentFeatureNames* object identifies and annotates the non-standard gene features found in pseudogenes and gene fragments, based on the positions of feature boundaries ("|") in the pertinent genomic alignment sequence. Where the features of functional genes are limited to Introns (I), Exons (E) and Untranslated Regions (U), the non-standard features in pseudogenes and gene fragments are described as:
+The *fragmentFeatureNames* object identifies and annotates the non-standard gene features found in pseudogenes and gene fragments, based on the positions of feature boundaries ("\|") in the pertinent genomic alignment sequence. Where the features of functional genes are limited to Introns (I), Exons (E) and Untranslated Regions (U), the non-standard features in pseudogenes and gene fragments are described as:
 
-  - Joins (J), when a feature includes sequence from two or more sequences that are separated by a boundary in the reference
-  - Segments (S), when the sequence of a feature is a subset of a longer feature sequence
-  - Novel (N), when the sequence of a feature does not correspond to a known sequence
-  - Hybrid (H), when a feature includes a sequence to belongs to a known feature as well as nucleotide sequence that does not correspond to a feature
+-   Joins (J), when a feature includes sequence from two or more sequences that are separated by a boundary in the reference
+-   Segments (S), when the sequence of a feature is a subset of a longer feature sequence
+-   Novel (N), when the sequence of a feature does not correspond to a known sequence
+-   Hybrid (H), when a feature includes a sequence to belongs to a known feature as well as nucleotide sequence that does not correspond to a feature
 
 For each pseudogene or gene fragment, the *fragmentFeatureNames* element contains a \$features element identifying the gene features in the 5' to 3' direction, and an \$annotation element that provides some detail about the feature.
 
@@ -148,7 +156,7 @@ These non-standard gene features are included in the feature boundaries of the g
 
 The current annotations should not change across IPD-IMGT/HLA Database releases. When a new pseudogene or gene-fragment is added to the IPD-IMGT/HLA Database, a new annotation will be added as part of a package update.
 
-```
+```         
 fragmentFeatureNames$DPA2
 $features
 [1] "U.5" "E.1" "I.1" "E.2" "I.2" "E.3" "I.3" "E.4" "U.3"
@@ -176,9 +184,9 @@ $annotation
 
 ## Sequence Alignments
 
-The *HLAalignments* data object is a list object of sub-lists of data frames of peptide (*prot*), codon (*codon*), coding nucleotide (*nuc*) and genomic nucleotide (*gen*) alignments for the HLA and HLA-region genes supported in the [ANHIG/IMGTHLA GitHub Repository](https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments), along with a *version* character string that identifies the IPD-IMGT/HLA Database release under which the *HLAalignments* object was built. 
+The *HLAalignments* data object is a list object of sub-lists of data frames of peptide (*prot*), codon (*codon*), coding nucleotide (*nuc*) and genomic nucleotide (*gen*) alignments for the HLA and HLA-region genes supported in the [ANHIG/IMGTHLA GitHub Repository](https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments), along with a *version* character string that identifies the IPD-IMGT/HLA Database release under which the *HLAalignments* object was built.
 
-Given the size of all the combined alignments, *HLAalignments* **is not bundled with the HLAtools package**. All alignments, or desired subsets of each type of alignment for a given gene, can be built using the *alignmentFull()* function, as described in Section 2 *Working with Sequence Alignments*, below. *HLAalignments* objects can be built for all HLA region genes with available genomic, nucleotide and amino acid alignments in IPD-IMGT/HLA release versions 3.00.0 to 3.57.0. Barring changes in the structure of the source data for this object in future IPD-IMGT/HLA Database releases, it should be possible to build *HLAalignments* objects for future releases.
+Given the size of all the combined alignments, *HLAalignments* **is not bundled with the HLAtools package**. All alignments, or desired subsets of each type of alignment for a given gene, can be built using the *alignmentFull()* function, as described in Section 2 *Working with Sequence Alignments*, below. *HLAalignments* objects can be built for all HLA region genes with available genomic, nucleotide and amino acid alignments in IPD-IMGT/HLA release versions 3.00.0 to 3.58.0. Barring changes in the structure of the source data for this object in future IPD-IMGT/HLA Database releases, it should be possible to build *HLAalignments* objects for future releases.
 
 These protein, codon, nucleotide and genomic DNA sequence alignments are described in detail below.
 
@@ -188,11 +196,11 @@ The first four columns of each alignment identify the locus, allele, two-field a
 
 The column header for the *prot* alignments identifies individual peptide positions, starting from the first peptide of the leader sequence (a negative position) or the first peptide of the native protein when there is no leader sequence. For example, as shown below, the HLA-A *prot* alignment begins at residue -24.
 
-```
+```         
 HLAalignments$prot$A[1:5,1:15]
   locus       allele trimmed_allele    allele_name -24 -23 -22 -21 -20 -19 -18 -17 -16 -15 -14
 1     A  01:01:01:01        A*01:01  A*01:01:01:01   M   A   V   M   A   P   R   T   L   L   L
-2     A 01:01:01:02N        A*01:01 A*01:01:01:02N   M   A   V   M   A   P   R   T   L   L   L
+2     A 01:01:01:02N        A*01:01N A*01:01:01:02N   M   A   V   M   A   P   R   T   L   L   L
 3     A  01:01:01:03        A*01:01  A*01:01:01:03   M   A   V   M   A   P   R   T   L   L   L
 4     A  01:01:01:04        A*01:01  A*01:01:01:04   M   A   V   M   A   P   R   T   L   L   L
 5     A  01:01:01:05        A*01:01  A*01:01:01:05   M   A   V   M   A   P   R   T   L   L   L
@@ -200,7 +208,7 @@ HLAalignments$prot$A[1:5,1:15]
 
 In contrast, the TAP *prot* alignment begins at residue 1, as shown below.
 
-```
+```         
 HLAalignments$prot$TAP1[1:5,1:15]
   locus      allele trimmed_allele      allele_name 1 2 3 4 5 6 7 8 9 10 11
 1  TAP1 01:01:01:01     TAP1*01:01 TAP1*01:01:01:01 M A S S R C P A P  R  G
@@ -212,27 +220,27 @@ HLAalignments$prot$TAP1[1:5,1:15]
 
 ### Codon and Individual Nucleotide (cDNA) Sequence Alignments
 
-Codon-triplet (*codon*) and individual nucleotide (*nuc*) alignments are included as separate data frames. 
+Codon-triplet (*codon*) and individual nucleotide (*nuc*) alignments are included as separate data frames.
 
-The column heads for the *codon* alignments identify the individual nucleotide positions within each codon, starting with the first codon. As shown below, the HLA-A *codon* alignment begins at the first nucleotide in codon position -24, which is identified as *-24*; the second nucleotide in codon -24 is identified as *-24.1* and the third nucleotide in codon -24 is identified as *-24.2*. 
+The column heads for the *codon* alignments identify the individual nucleotide positions within each codon, starting with the first codon. As shown below, the HLA-A *codon* alignment begins at the first nucleotide in codon position -24, which is identified as *-24*; the second nucleotide in codon -24 is identified as *-24.1* and the third nucleotide in codon -24 is identified as *-24.2*.
 
-```
+```         
 HLAalignments$codon$A[1:5,1:12]
   locus       allele trimmed_allele    allele_name -24 -24.1 -24.2 -23 -23.1 -23.2 -22 -22.1
 1     A  01:01:01:01        A*01:01  A*01:01:01:01   A     T     G   G     C     C   G     T
-2     A 01:01:01:02N        A*01:01 A*01:01:01:02N   A     T     G   G     C     C   G     T
+2     A 01:01:01:02N        A*01:01N A*01:01:01:02N   A     T     G   G     C     C   G     T
 3     A  01:01:01:03        A*01:01  A*01:01:01:03   A     T     G   G     C     C   G     T
 4     A  01:01:01:04        A*01:01  A*01:01:01:04   A     T     G   G     C     C   G     T
 5     A  01:01:01:05        A*01:01  A*01:01:01:05   A     T     G   G     C     C   G     T
 ```
 
-The column heads for the *nuc* aligmnents identify each individual nucleotide position, starting from the first transcribed nucleotide (1), as shown below. 
+The column heads for the *nuc* aligmnents identify each individual nucleotide position, starting from the first transcribed nucleotide (1), as shown below.
 
-```
+```         
 HLAalignments$nuc$A[1:5,1:21]
   locus       allele trimmed_allele    allele_name 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17
 1     A  01:01:01:01        A*01:01  A*01:01:01:01 A T G G C C G T C  A  T  G  G  C  G  C  C
-2     A 01:01:01:02N        A*01:01 A*01:01:01:02N A T G G C C G T C  A  T  G  G  C  G  C  C
+2     A 01:01:01:02N        A*01:01N A*01:01:01:02N A T G G C C G T C  A  T  G  G  C  G  C  C
 3     A  01:01:01:03        A*01:01  A*01:01:01:03 A T G G C C G T C  A  T  G  G  C  G  C  C
 4     A  01:01:01:04        A*01:01  A*01:01:01:04 A T G G C C G T C  A  T  G  G  C  G  C  C
 5     A  01:01:01:05        A*01:01  A*01:01:01:05 A T G G C C G T C  A  T  G  G  C  G  C  C
@@ -240,13 +248,13 @@ HLAalignments$nuc$A[1:5,1:21]
 
 ### Genomic (gDNA) Sequence Alignments
 
-The column heads for the *gen* alignments identify the individual nucleotide positions in the 'full gene' sequence, which usually starts in the 5' untranslated region (UTR) sequence for expressed genes. 
+The column heads for the *gen* alignments identify the individual nucleotide positions in the 'full gene' sequence, which usually starts in the 5' untranslated region (UTR) sequence for expressed genes.
 
-```
+```         
 HLAalignments$gen$A[1:5,1:13]
   locus       allele trimmed_allele    allele_name -300 -299 -298 -297 -296 -295 -294 -293 -292
 1     A  01:01:01:01        A*01:01  A*01:01:01:01    C    A    G    G    A    G    C    A    G
-2     A 01:01:01:02N        A*01:01 A*01:01:01:02N    *    *    *    *    *    *    *    *    *
+2     A 01:01:01:02N        A*01:01N A*01:01:01:02N    *    *    *    *    *    *    *    *    *
 3     A  01:01:01:03        A*01:01  A*01:01:01:03    C    A    G    G    A    G    C    A    G
 4     A  01:01:01:04        A*01:01  A*01:01:01:04    *    *    *    *    *    *    *    *    *
 5     A  01:01:01:05        A*01:01  A*01:01:01:05    *    *    *    *    *    *    *    *    *
@@ -256,7 +264,7 @@ HLAalignments$gen$A[1:5,1:13]
 
 Indel positions in these alignments are numbered sequentially, following the first position 5'/N-terminal of the indel, with decimal values appended to the 5' reference position in the indel positions, starting from ".1", as illustrated below.
 
-```
+```         
 HLAalignments$nuc$DQB1[c(1,1138:1140),c(1:4,57:63)]
      locus      allele trimmed_allele      allele_name 53 54 54.1 54.2 54.3 54.4 55
 1     DQB1 05:01:01:01     DQB1*05:01 DQB1*05:01:01:01  T  C    .    .    .    .  A
@@ -274,7 +282,7 @@ HLAalignments$gen$DQB1[c(1,378:380),c(1:4,589:594)]
 
 Indels in *codon* alignment positions are similarly numbered from the codon in the N-terminal direction. However, due to a peculiarity of the R environment, which generates unique column-header names, the last two positions of the N-terminal-ward codon **before** the deletion will be numbered with the decimal values following those used to identify the insertion positions, as shown below. This only occurs when indel positions are included in a selected range. In this example, the *allele* and *trimmed_allele* columns have been omitted for spacing.
 
-```
+```         
 HLAalignments$codon$DQB1[c(1,1138:1140),c(1,4,56:65)]
      locus      allele_name -15 -15.5 -15.6 -15.1 -15.2 -15.3 -15.4 -14 -14.1 -14.2
 1     DQB1 DQB1*05:01:01:01   G     T     C     .     .     .     .   A     C     C
@@ -283,49 +291,54 @@ HLAalignments$codon$DQB1[c(1,1138:1140),c(1,4,56:65)]
 1140  DQB1     DQB1*06:423N   *     *     *     .     .     .     .   *     *     *
 ```
 
----
+------------------------------------------------------------------------
 
 # 2. Working with Sequence Alignments
 
-As noted above, the **HLAtools** package includes several functions for working with sequence alignments. All of these functions require that alignments first be built, as the complete set of protein, codon, nucleotide and genomic sequence alignments is too large to include in the **HLAtools** package. <span style="color:red">**The functions that perform operations in sequence alignments expect the alignments to be in a variable named** ***HLAalignments***.</span> For example the HLA-A protein alignment is identified as *HLAalignments\$prot\$A*. If alignments are built into a different data object, they will not be accessible to the functions described below.
+As noted above, the **HLAtools** package includes several functions for working with sequence alignments. All of these functions require that alignments first be built, as the complete set of protein, codon, nucleotide and genomic sequence alignments is too large to include in the **HLAtools** package. [**The functions that perform operations in sequence alignments expect the alignments to be in a variable named** ***HLAalignments***.]{style="color:red"} For example the HLA-A protein alignment is identified as *HLAalignments\$prot\$A*. If alignments are built into a different data object, they will not be accessible to the functions described below.
 
 ## Building Alignments
 
-*alignmentFull()* is a wrapper function that applies *buildAlignments()* to populate the *HLAalignments* object. When *alignmentFull()* is run, the resulting alignments will be built using the IPD-IMGT/HLA Database release under which the *HLAgazeteer* object was built ('HLAgazeteer$version'). When alignments for a different database release are desired, *updateAll()* should be used to update the *HLAgazeteer* to the desired release version before applying *alignmentFull()*. 
+*alignmentFull()* is a wrapper function that applies *buildAlignments()* to populate the *HLAalignments* object. When *alignmentFull()* is run, the resulting alignments will be built using the IPD-IMGT/HLA Database release under which the *HLAgazeteer* object was built ('HLAgazeteer\$version'). When alignments for a different database release are desired, *updateAll()* should be used to update the *HLAgazeteer* to the desired release version before applying *alignmentFull()*.
 
 **Requirements**
 
-The *alignmentFull()* function requires internet access, and can take significant time to run to build a full complement of alignments. 
+The *alignmentFull()* function requires internet access, and can take significant time to run to build a full complement of alignments.
 
-For example, to build all of the alignments in IPD-IMGT/HLA Database release version 3.56.0, *HLAalignments <- alignmentFull()* completed in 6.2 minutes on a 3.3 GHz 12-Core Intel Xenon W 2019 Mac Pro with 288 GB of 2933 MHZ DDR4 RAM, 6.5 minutes on a 2.4 GHz 8-Core Intel Core i9 2019 MacBook Pro with 64 GB of 2667 MHZ DDR4 RAM, and 9.9 minutes on a 2.4 GHz Intel Core i9-10885H Dell Precision 5500 with 32 GB of RAM.
+For example, to build all of the alignments in IPD-IMGT/HLA Database release version 3.56.0, *HLAalignments \<- alignmentFull()* completed in 6.2 minutes on a 3.3 GHz 12-Core Intel Xenon W 2019 Mac Pro with 288 GB of 2933 MHZ DDR4 RAM, 6.5 minutes on a 2.4 GHz 8-Core Intel Core i9 2019 MacBook Pro with 64 GB of 2667 MHZ DDR4 RAM, and 9.9 minutes on a 2.4 GHz Intel Core i9-10885H Dell Precision 5500 with 32 GB of RAM.
 
 **Parameters**
 
-  - *loci*: A vector of the locus names for which alignments should be built. The default value ("all") specifies all loci. Allowed loci are listed in *HLAgazeteer\$align*.
-  - *alignType*: A vector of alignment types for which alignments should be built. Allowed values are "prot", "codon", "nuc" and "gen", which specify respective protein, codon, nucleotide and genomic alignments, as well as the default value ("all"), which specifies all four alignment types. Loci with alignments for a specific *alignType* are defined in *HLAgazeteer\$prot*, *HLAgazeteer\$nuc* and *HLAgazeteer\$gen*.
-  - *version*: A character string identifying the IPD-IMGT/HLA Database release version for which alignments should be built. The default value ("Latest") generates alignments for the most recent IPD-IMGT/HLA Database release. Other releases are identified by their IPD-IMGT/HLA Database version; e.g., "3.55.0" identifies IPD-IMGT/HLA Database version 3.55.0.
+-   *loci*: A vector of the locus names for which alignments should be built. The default value ("all") specifies all loci. Allowed loci are listed in *HLAgazeteer\$align*.
+-   *alignType*: A vector of alignment types for which alignments should be built. Allowed values are "prot", "codon", "nuc" and "gen", which specify respective protein, codon, nucleotide and genomic alignments, as well as the default value ("all"), which specifies all four alignment types. Loci with alignments for a specific *alignType* are defined in *HLAgazeteer\$prot*, *HLAgazeteer\$nuc* and *HLAgazeteer\$gen*.
+-   *version*: A character string identifying the IPD-IMGT/HLA Database release version for which alignments should be built. The default value ("Latest") generates alignments for the most recent IPD-IMGT/HLA Database release. Other releases are identified by their IPD-IMGT/HLA Database version; e.g., "3.55.0" identifies IPD-IMGT/HLA Database version 3.55.0.
 
 **Return** A list object containing data frames of protein (*prot*), codon (*codon*), coding nucleotide (*nuc*), and genomic nucleotide (*gen*) alignments for specified genes in the specified IPD-IMGT/HLA Database release, and a character string identifying the pertinent reference database version is returned.
 
 Generate a full set of all alignments for all supported genes in the current release.
-```
+
+```         
 HLAalignments <- alignmentFull()
 ```
+
 Generate all alignments for four genes in the current release.
-```
+
+```         
 HLAalignments <- alignmentFull(loci = c("C","DQB1","DPA1","DRB5")) 
 ```
+
 Generate a protein alignment for one gene in release version 3.54.0.
-```
+
+```         
 updateAll(updateType = "HLAgazeteer",version = "3.54.0")
 HLAalignments <- alignmentFull("DRB1","prot","3.54.0") 
 ```
 
 ## Working with Alignments in Past Releases
 
-As indicated above, *alignmentFull()* can be applied for any IPD-IMGT/HLA Database release version. The *updateAll()* function must be applied to build the *HLAgazeteer* for the desired release version **before** applying *alignmentFull()*. 
+As indicated above, *alignmentFull()* can be applied for any IPD-IMGT/HLA Database release version. The *updateAll()* function must be applied to build the *HLAgazeteer* for the desired release version **before** applying *alignmentFull()*.
 
-```
+```         
 > updateAll()
 IMGTHLAGeneTypes for version 12-10-2022 is already loaded.
 HLAgazeteer for version 3.56.0 has been built and loaded.
@@ -336,17 +349,17 @@ HLAatlas for version 3.56.0 has been built and loaded.
 HLAalignments <- alignmentFull()
 ```
 
-### Caveats for Alignments from Previous Releases 
+### Caveats for Alignments from Previous Releases
 
-Prior to IPD-IMGT/HLA Database release version 3.24.0, the names of the sequence alignment files for the HLA-DP and HLA-DQ genes in the IPD-IMGT/HLA GitHub Repository did not include a numerical suffix in the gene name (e.g., the protein sequence alignment file for the DQA1 gene was 'DQA_prot.txt') because sequence alignment files for the DPA2, DPB2, DQA2 and DQB2 genes had not been made available. 
+Prior to IPD-IMGT/HLA Database release version 3.24.0, the names of the sequence alignment files for the HLA-DP and HLA-DQ genes in the IPD-IMGT/HLA GitHub Repository did not include a numerical suffix in the gene name (e.g., the protein sequence alignment file for the DQA1 gene was 'DQA_prot.txt') because sequence alignment files for the DPA2, DPB2, DQA2 and DQB2 genes had not been made available.
 
 Similarly, prior to release version 3.51.0, the 'DRB_prot.txt' and 'DRB_nuc.txt' alignment files were the source of alignments for DRB1, DRB3, DRB4 and DRB5. In release versions 3.0.0 to 3.23.0, genomic DRB1 alignments are in 'DRB_gen.txt' files, and these alignments are in 'DRB1_gen.txt' files in subsequent releases. Building DPA1, DPB1, DQA1, DQB1, DRB1, DRB3, DRB4 and DRB5 sequence alignments from these earlier releases may require specifying a gene name that does not include the numerical suffix. When the *HLAgazeteer* has been updated to the desired release version, the available gene names for that release can be found in the *HLAgazeteer*.
 
-In all version 3.\*.\* releases (3.0.0 to 3.57.0), nucleotide alignments for the DRB2, DRB6, DRB7 and DRB9 genes are included in the 'DRB_nuc.txt' file. 
+In all version 3.\*.\* releases (3.0.0 to 3.58.0), nucleotide alignments for the DRB2, DRB6, DRB7 and DRB9 genes are included in the 'DRB_nuc.txt' file.
 
-As noted above, when building alignments for past releases, the *HLAgazeteer* should be updated to reflect the gene names included in that release, and consulted to determine which gene names should be provided to alignmentFull(). 
+As noted above, when building alignments for past releases, the *HLAgazeteer* should be updated to reflect the gene names included in that release, and consulted to determine which gene names should be provided to alignmentFull().
 
-```
+```         
 updateAll(version = "3.20.0")
 IMGTHLAGeneTypes for version 12-10-2022 is already loaded.
 HLAgazeteer for version 3.20.0 has been built and loaded.
@@ -362,65 +375,53 @@ HLAgazeteer$align
 HLAalignments <- alignmentFull(c("C","DQB"),alignType = c("nuc","gen"),version = "3.20.0")
 ```
 
----
+------------------------------------------------------------------------
 
 # 3. Trim, Search and Query Functions
 
 ## Trimming HLA Allele Names by Digits or Fields
 
-The *alleleTrim()* function shortens an HLA allele name to a specified number of fields or digits, depending on the pertinent nomenclature epoch. Epoch 1 allele names are found in IPD-IMGT/HLA Database releases 1.0.0 to 1.16.0, epoch 2 allele names are found in releases 2.0.0 to 2.28.0, and epoch 3 allele names are found in releases 3.0.0 and onward. Expression variant suffixes in full-length allele names can be appended to truncated allele names, but will not be removed from full-length allele names that have fewer than four fields or eight digits.
+The *multiAlleleTrim()* function shortens HLA allele names in a vector to a specified number of fields or digits, depending on the pertinent nomenclature epoch. Epoch 1 allele names are found in IPD-IMGT/HLA Database releases 1.0.0 to 1.16.0, epoch 2 allele names are found in releases 2.0.0 to 2.28.0, and epoch 3 allele names are found in releases 3.0.0 and onward. Expression variant suffixes in full-length allele names can be appended to truncated allele names, but will not be removed from full-length allele names that have fewer than four fields or eight digits.
 
-**Parameters**
+The vector must contain only allele names, and all allele names in the vector must belong to the same nomenclature epoch.
 
-  - *allele*: An HLA allele name formatted as locus*allele_name, optionally including the "HLA-" prefix.
-  - *resolution*: A number identifying the number of fields to trim the allele name to.
-  - *version*: A number identifying the HLA nomenclature epoch under which the allele was named. The default value is 3.
-  - *append*: A logical. When append = TRUE, the expression variant suffix of a full-length allele name is appended to a truncated allele name. The default value is FALSE.
-
-**Return** The trimmed allele name, shortened according to the input parameters, is returned.
-
-```
-alleleTrim(allele = "A*03:01:01", resolution = 2)
-[1] "A*03:01"
-
-alleleTrim(allele = "A*0303N",resolution = 1,version = 1, append = TRUE)
-[1] "A*03N
-
-alleleTrim("HLA-A*24020102L",resolution = 3,version = 2, append = TRUE)
-[1] "HLA-A*240201L"
-```
-
-## Trimming Multiple HLA Allele Names by Digits or Fields 
- 
-The *multiAlleleTrim()* function applies *alleleTrim()* to a vector to allele names. The vector must contain only allele names, and all allele names in the vector must belong to the same nomenclature epoch.
-
-  - *alleles*: A vector of HLA allele names from a single nomenclature epoch.
-  - *resolution*: A number identifying the number of fields to which the alleles should be trimmed.
-  - *version*: A number identifying the HLA nomenclature epoch under which the allele was named. The default value is 3.
-  - *append*: A logical. When append = TRUE, the expression variant suffix of a full-length allele name is appended to a truncated allele name. The default value is FALSE.
+-   *alleles*: A vector of HLA allele names from a single nomenclature epoch.
+-   *resolution*: A number identifying the number of fields to which the alleles should be trimmed.
+-   *version*: A number identifying the HLA nomenclature epoch under which the allele was named. The default value is 3.
+-   *append*: A logical. When append = TRUE, the expression variant suffix of a full-length allele name is appended to a truncated allele name. The default value is FALSE.
 
 **Return** A vector of trimmed allele names, shortened according to the input parameters, is returned.
 
-```
+```         
+multiAlleleTrim(alleles = "A*03:01:01", resolution = 2)
+[1] "A*03:01"
+
+multiAlleleTrim(alleles = "A*0303N",resolution = 1,version = 1, append = TRUE)
+[1] "A*03N
+
+multiAlleleTrim("HLA-A*24020102L",resolution = 3,version = 2, append = TRUE)
+[1] "HLA-A*240201L"
+
 alleles <- c("A*02:01:01:02L","DRB1*08:07", "DQB1*04:02:01:16Q")
 multiAlleleTrim(alleles,2)
 [1] "A*02:01"    "DRB1*08:07" "DQB1*04:02"
+
 multiAlleleTrim(alleles,2,append = TRUE)
 [1] "A*02:01L"    "DRB1*08:07"  "DQB1*04:02Q"
 ```
 
 ## Identifying Differences Between Alleles at a Locus
 
-The *compareSequences()* function identifies sequence differences between two alleles at a locus for a specific type of alignment. 
+The *compareSequences()* function identifies sequence differences between two alleles at a locus for a specific type of alignment.
 
 **Parameters**
 
-  - *alignType*: the alignment type of either "codon", "gen", nuc" or "prot". 
-  - *alleles*: a vector of the two alleles to be compared, e.g., "c("DPA1\*01:03:38:01","DPA1\*01:03:38:02")". The 'HLA-' prefix is excluded for HLA alleles.
+-   *alignType*: the alignment type of either "codon", "gen", nuc" or "prot".
+-   *alleles*: a vector of the two alleles to be compared, e.g., "c("DPA1\*01:03:38:01","DPA1\*01:03:38:02")". The 'HLA-' prefix is excluded for HLA alleles.
 
 **Return** If there are no differences between the alleles for the specified 'alignType', a message is returned. When there are differences, a data frame identifying the positions and sequences variants that distinguish the alleles is returned.
 
-```
+```         
 compareSequences("prot",c("DPA1*01:03:38:01","DPA1*01:03:38:02"))
 [1] "There are no differences between DPA1*01:03:38:01 and DPA1*01:03:38:02 in the protein alignment."
 
@@ -438,37 +439,40 @@ compareSequences("gen",c("DPA1*01:03:38:01","DPA1*01:03:38:02"))
 
 ## Searching Allele Names Across IPD-IMGT/HLA Database Release Versions
 
-The *queryRelease()* function searches the AlleleListHistory object for user-defined allele name variants in a specific IPD-IMGT/HLA release.
+The *multiQueryRelease()* function searches the AlleleListHistory object for user-defined allele name variants in a specific IPD-IMGT/HLA release.
 
 **Parameters**
 
- - *rel*: An IPD-IMGT/HLA Database release version, represented as either a character (e.g. "3.56.0") or a numeric (e.g., 3560) value.
- - *variant*: A character string of any part of a locus or allele name (e.g., "DR", "02:01", "DRB1\*08:07"). The default ("") specifies all alleles in 'rel'. 
- - *all*: A logical. When 'all' = TRUE, a vector of all instances of 'variant' in 'rel' is returned.  When 'all' = FALSE, the number of instances of 'var' in 'rel' is returned. 
+-   *rel*: An IPD-IMGT/HLA Database release version, represented as either a character (e.g. "3.56.0") or a numeric (e.g., 3560) value.
+-   *variants*: A vector of character strings representing any part of a locus or allele name (e.g., "DR", "02:01", "DRB1\*08:07"). The default ("") specifies all alleles in 'rel'.
+-   *all*: A logical. When 'all' = TRUE, a vector of all instances of 'variants' in 'rel' is returned. When 'all' = FALSE, the number of instances of 'variants' in 'rel' is returned.
 
-```
-queryRelease("3.30.0","DRB9",FALSE) 
+```         
+multiQueryRelease("3.30.0","DRB9",FALSE) 
 [1] 1
-queryRelease("3.30.0","DRB9",TRUE) 
+multiQueryRelease("3.30.0","DRB9",TRUE) 
 [1] "DRB9*01:01"
-queryRelease("3.31.0","DRB9",FALSE) 
+multiQueryRelease("3.31.0","DRB9",FALSE) 
 [1] 6
-queryRelease("1.05.0","304",TRUE) 
+multiQueryRelease("1.05.0","304",TRUE) 
 [1] "A*0304"    "A*3304"    "B*1304"    "Cw*03041"  "Cw*03042"  "DQB1*0304" "DRB1*0304" "DRB1*1304" "B*5304"    "A*2304"   
+multiQueryRelease("3.58.0",c("DPB","2N"),TRUE)
+[1] "DPB1*786:01:02N" "DPB1*401:01:02N"
 ```
+
 ## Searching Alignments at Specific Positions
 
 The *alignmentSearch()* function returns the variants for specific positions in a single allele for a specific type of alignment.
 
 **Parameters**
 
-  - *alignType*: The alignment type of either "codon", "gen", nuc" or "prot".
-  - *allelename*: A full-length or two-field allele name, including the locus name, but excluding the "-HLA" prefix for HLA alleles.
-  - *positions*: A vector of sequence positions (e.g., c(1,2,3,4,5), c(1:5), c(1,2,3,15:20,30)). If positions do not exist in an alignment, a message is returned.
-  - *prefix*: A logical that indicates if the position numbers should be included in the result (TRUE) or excluded (FALSE).
-  - *sep*: The value used to separate the sequences for each position. If sep="", a sequence block is returned. 
-  
-```
+-   *alignType*: The alignment type of either "codon", "gen", nuc" or "prot".
+-   *allelename*: A full-length or two-field allele name, including the locus name, but excluding the "-HLA" prefix for HLA alleles.
+-   *positions*: A vector of sequence positions (e.g., c(1,2,3,4,5), c(1:5), c(1,2,3,15:20,30)). If positions do not exist in an alignment, a message is returned.
+-   *prefix*: A logical that indicates if the position numbers should be included in the result (TRUE) or excluded (FALSE).
+-   *sep*: The value used to separate the sequences for each position. If sep="", a sequence block is returned.
+
+```         
 alignmentSearch("nuc","DPA1*01:06:03",107)
 [1] "107A"
 alignmentSearch("nuc","DPA1*01:06:03",c(3,30,130,230))
@@ -485,23 +489,24 @@ alignmentSearch("nuc","DPA1*01:06:03",c(120,125,126:128,130),prefix=FALSE,sep=":
 
 When sequences include indel-positions, all of the values in the vector of sequence positions must be characters.
 
-```
+```         
 alignmentSearch("nuc","DPA1*01:103",c(181:182),prefix=FALSE,sep="")
 [1] "GA"
 alignmentSearch("nuc","DPA1*01:103",c("181","181.1","181.2","182"),prefix=FALSE,sep="")
 [1] "G..A"
 ```
+
 ## Searching Alignments for Sequence Motifs
 
 The *motifMatch()* function returns the names of alleles that share specific nucleotide or peptide motifs.
 
 **Parameters**
 
-  - *motif*: A nucleotide or peptide sequence variant motif structured as Locus*#\$\~#\$\~#$, where \# identifies a variant position, and \$ identifies the sequence variant. Any number of variants can be specified.
-  - *alignType*: The alignment type of either "codon", "gen", nuc" or "prot". Only a single alignType can be specified.
-  - *full*: A logical value indicating if full (TRUE) or truncated (FALSE) allele names should be returned.
+-   *motif*: A nucleotide or peptide sequence variant motif structured as Locus\*#\$\~#\$\~#\$, where \# identifies a variant position, and \$ identifies the sequence variant. Any number of variants can be specified.
+-   *alignType*: The alignment type of either "codon", "gen", nuc" or "prot". Only a single alignType can be specified.
+-   *full*: A logical value indicating if full (TRUE) or truncated (FALSE) allele names should be returned.
 
-```
+```         
 motifMatch("A*-21M~2P","prot")
 [1] "A*02:774"  "A*11:284"  "A*11:417N" "A*68:216N"
 
@@ -518,11 +523,11 @@ The *customAlign()* function returns a customized peptide, codon, coding nucleot
 
 **Parameters**
 
-  - *alignType* The alignment type of either "codon", "gen", nuc" or "prot".
-  - *alleles* A vector of allele names, which can incude alleles at multiple loci. The 'HLA-' prefix is excluded for HLA alleles.
-  - *positions* Either a single vector positions, against which all loci will be aligned, or a list of vectors of positions, for which there is one vector for each allele in 'alleles'. Each allele in 'alleles' will be aligned on the basis of the corresponding vector.
+-   *alignType* The alignment type of either "codon", "gen", nuc" or "prot".
+-   *alleles* A vector of allele names, which can incude alleles at multiple loci. The 'HLA-' prefix is excluded for HLA alleles.
+-   *positions* Either a single vector positions, against which all loci will be aligned, or a list of vectors of positions, for which there is one vector for each allele in 'alleles'. Each allele in 'alleles' will be aligned on the basis of the corresponding vector.
 
-```
+```         
 customAlign("codon",c("DPB1*01:01:01:01","DQA1*01:01:01:01","DQB1*05:01:01:01"),c(1:4,6:9))
             Allele   1   2   3   4   6   7   8   9
 1 DPB1*01:01:01:01 AGG GCC ACT CCA AAT TAC GTG TAC
@@ -530,9 +535,9 @@ customAlign("codon",c("DPB1*01:01:01:01","DQA1*01:01:01:01","DQB1*05:01:01:01"),
 3 DQB1*05:01:01:01 AGA GAC TCT CCC GAT TTC GTG TAC
 ```
 
-When the length of  vectors in a 'positions' list varies, it is recommended to coordinate the values in 'alleles' and 'positions' so that the longest vector is generated first. 
+When the length of vectors in a 'positions' list varies, it is recommended to coordinate the values in 'alleles' and 'positions' so that the longest vector is generated first.
 
-```
+```         
 customAlign("codon",c("DPB1*01:01:01:01","DQA1*01:01:01:01","DQB1*05:01:01:01"),list(19:35,1:4,6:9))
               DPB1  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35
 1 DPB1*01:01:01:01 AAT GGG ACA CAG CGC TTC CTG GAG AGA TAC ATC TAC AAC CGG GAG GAG TAC
@@ -542,21 +547,21 @@ customAlign("codon",c("DPB1*01:01:01:01","DQA1*01:01:01:01","DQB1*05:01:01:01"),
 5 DQB1*05:01:01:01 GAT TTC GTG TAC
 ```
 
----
+------------------------------------------------------------------------
 
 # 4. Data Translation and Conversion Tools
 
 ## Working with Genotype List String (GL String), GL String Code (GLSC), and UNIFORMAT Data
 
-[Genotype List (GL) String](https://onlinelibrary.wiley.com/doi/10.1111/tan.15126) is a grammar for describing the relationships between allele names reported in a genotype, using a set of six case-defined “AND” and “OR” delimiters ('?', '^', '|', '+', '~', '~', and '/'). 
+[Genotype List (GL) String](https://onlinelibrary.wiley.com/doi/10.1111/tan.15126) is a grammar for describing the relationships between allele names reported in a genotype, using a set of six case-defined “AND” and “OR” delimiters ('?', '\^', '\|', '+', '\~', '\~', and '/').
 
-[UNIFORMAT](https://hla-net.eu/tools/overview/) is a parallel grammar that uses an alternate set of operators (",", "|", " ", and "~") to describe the relationships between allele names in a genotype. Additional details of UNIFORMAT can be found at [hla-net.eu](https://hla-net.eu/tools/uniformate/).
+[UNIFORMAT](https://hla-net.eu/tools/overview/) is a parallel grammar that uses an alternate set of operators (",", "\|", " ", and "\~") to describe the relationships between allele names in a genotype. Additional details of UNIFORMAT can be found at [hla-net.eu](https://hla-net.eu/tools/uniformate/).
 
 [GL String Code](https://onlinelibrary.wiley.com/doi/10.1111/tan.15145) (GLSC) is a format that encapsulates a GL String with information describing the associated gene family namespace and the nomenclature version (or date) under which the GL String was generated. Additional information about GL String and GL String Code can be found at [glstring.org](https://glstring.org).
 
 An example GLSC for an HLA GL String generated under IPD-IMGT/HLA Database release version 3.01.0 is presented below.
 
-```
+```         
 hla#3.1.0#HLA-A*02:01~HLA-C*07:02~HLA-B*07:02~HLA-DRB1*15:01~HLA-DQB1*06:02~HLA-DPB1*04:02+HLA-A*01:01~HLA-C*06:02~HLA-B*57:01~HLA-DRB1*07:01~HLA-DQB1*03:03~HLA-DPB1*04:01"
 ```
 
@@ -568,13 +573,13 @@ The *updateGL()* function translates the HLA allele names in a GL String Code ac
 
 **Parameters**
 
- - *GLStringCode* A string of HLA allele names and operators in GL String Code format, signifying their relation with one another and the associated IMGT/HLA Database release version.
- - *Version* A string identifying of the desired IPD-IMGT/HLA Database release version to which the alleles should be updated.
- - *expand* A logical that indicates whether user would like to return all allele names that match the allele name in 'GLStringCode' (TRUE), or if only the direct HLA accession ID match should be returned (FALSE).
+-   *GLStringCode* A string of HLA allele names and operators in GL String Code format, signifying their relation with one another and the associated IMGT/HLA Database release version.
+-   *Version* A string identifying of the desired IPD-IMGT/HLA Database release version to which the alleles should be updated.
+-   *expand* A logical that indicates whether user would like to return all allele names that match the allele name in 'GLStringCode' (TRUE), or if only the direct HLA accession ID match should be returned (FALSE).
 
-In the examples below, a GLSC containing a single DPB1 allele name, as recorded in release version 1.05.0, is translated to version 3.52.0. In the first example, 'expand = FALSE', and the HLA accession ID of the submitted allele is used to perform the translation to a single allele. In the second example, 'expand = TRUE' and all alleles that match the submitted allele in release 3.52.0 are returned. 
+In the examples below, a GLSC containing a single DPB1 allele name, as recorded in release version 1.05.0, is translated to version 3.52.0. In the first example, 'expand = FALSE', and the HLA accession ID of the submitted allele is used to perform the translation to a single allele. In the second example, 'expand = TRUE' and all alleles that match the submitted allele in release 3.52.0 are returned.
 
-```
+```         
 updateGL("hla#1.05.0#HLA-DPA1*0106", "3.52.0", expand = FALSE)
 [1] "hla#3.52.0#HLA-DPA1*01:06:01"
 
@@ -588,11 +593,11 @@ The *multiUpdateGL()* function translates columns of GL String Code data across 
 
 **Parameters**
 
- - *GLstringArray* An array of HLA allele names and operators in GL String code format identifying their relation with one another and the pertinent IPD-IMGT/HLA Database release version.
- - *Version* A text string identifying the desired version to which for the alleles should be updated.
- - *expand* A logical specifying whether to include only the direct HLA ID match (FALSE), or all possible allele matches (TRUE). The default value is FALSE.
+-   *GLstringArray* An array of HLA allele names and operators in GL String code format identifying their relation with one another and the pertinent IPD-IMGT/HLA Database release version.
+-   *Version* A text string identifying the desired version to which for the alleles should be updated.
+-   *expand* A logical specifying whether to include only the direct HLA ID match (FALSE), or all possible allele matches (TRUE). The default value is FALSE.
 
-```
+```         
 GLstringArray
 multiUpdateGL(GLSC.ex[[2]][1], Version = "3.53.0")
 1 hla#3.53.0#HLA-A*02:01:01:01~HLA-C*07:02:01:01~HLA-B*07:02:01:01~HLA-DRB1*15:01:01:01~HLA-DQB1*06:02:01:01~HLA-DPB1*04:02:01:01+HLA-A*01:01:01:01~HLA-C*06:02:01:01~HLA-B*57:01:01:01~HLA-DRB1*07:01:01:01~HLA-DQB1*03:03:02:01~HLA-DPB1*04:01:01:01
@@ -600,22 +605,22 @@ multiUpdateGL(GLSC.ex[[2]][1], Version = "3.53.0")
 
 ## Translate vectors and data frames of HLA allele name data across IPD-IMGT/HLA Database Release Versions
 
-The GIANT() function applies GLupdate() to translate HLA allele name data across IPD-IMGT/HLA Database release versions, back to version 1.05.0, and functions on both vectors and data frames of HLA allele name data, including BIGDAWG-formatted HLA datasets. Data frames that are not BIGDAWG-formatted must be entirely composed of columns of HLA allele name data. 
+The GIANT() function applies GLupdate() to translate HLA allele name data across IPD-IMGT/HLA Database release versions, back to version 1.05.0, and functions on both vectors and data frames of HLA allele name data, including BIGDAWG-formatted HLA datasets. Data frames that are not BIGDAWG-formatted must be entirely composed of columns of HLA allele name data.
 
 *Translation of vectors of HLA allele names*
 
-``` 
+```         
 GIANT(c("A*01:01:01:01","DQA1*01:01:01:01"),"3.56.0","2.20.0")
 [1] "A*01010101"  "DQA1*010101"
 GIANT(c("A*01:01:01:01","DQA1*01:01:01:01"),"3.56.0","3.00.0")
 [1] "A*01:01:01:01" "DQA1*01:01:01"
 GIANT(c("A*01:01:01:01","DQA1*01:01:01:01"),"3.56.0","1.09.0")
 [1] "A*01011"   "DQA1*0101"
-``` 
+```
 
 *Translation of BIGDAWG-formatted HLA data*
 
-``` 
+```         
 sHLAdata[1:5,c(1:8,15:18)]
    Subject Status           A         A.1           C         C.1           B         B.1
 1 UT900-23      0        <NA>        <NA> 01:02:01:01    02:10:06 13:01:01:01    18:01:02
@@ -648,8 +653,9 @@ DPB1*103:01 has been removed from the Allele List or has had its name changed.
 3 UT900-25      0  0210 03012 0712  0102  1520  1301 01031  01031 <NA>   5801
 4 UT900-26      0 01011  0218 0804 12021 35091  4005 01031  01031 1401   <NA>
 5 UT910-01      0  2501 02011 1507  0307 51013  1401 01031  02011 1401   5801
-``` 
-In these examples, the DPB1\*103:01 allele was originally named DPB1*04:03, but this allele was not identified until release version 2.0.0.
+```
+
+In these examples, the DPB1\*103:01 allele was originally named DPB1\*04:03, but this allele was not identified until release version 2.0.0.
 
 ## Convert GL String-formatted data to UNIFORMAT-formatted data
 
@@ -659,10 +665,10 @@ The *validateGLstring()* function evaluates version 1.0 and 1.1 GL Strings for i
 
 **Parameters**
 
- - *GLstring* A character string of GL String-formatted HLA allele names and GL String 1.0 or 1.1 operators.
- - *version* A character string of either '1.0' or '1.1' identifying the GL String version. 
+-   *GLstring* A character string of GL String-formatted HLA allele names and GL String 1.0 or 1.1 operators.
+-   *version* A character string of either '1.0' or '1.1' identifying the GL String version.
 
-```
+```         
 GLstring <- "HLA-A*02:01/HLA-A*02:02?HLA-A*03:01/HLA-A*03:02"
 validateGLstring(GLstring,"1.0")
 HLA-A*02:01/HLA-A*02:02?HLA-A*03:01/HLA-A*03:02 contains characters or operators not permitted in GL String version 1.0.
@@ -671,32 +677,32 @@ validateGLstring(GLstring,"1.1")
 [1] TRUE
 ```
 
-### GLStoUNI 
+### GLStoUNI
 
 The *GLStoUNI()* function converts genotype data from GL String format to UNIFORMAT format. Because the [GL String '?' delimiter](https://glstring.org/syntax-1.1.html) has no UNIFORMAT cognate, this function does not support the '?' delimiter or the [GL String v1.1](https://pubmed.ncbi.nlm.nih.gov/37286192) format.
 
 **Parameters**
 
- - *GLstring* A character string of GL String-formatted HLA allele names and GL String 1.0 operators.
- - *prefix* A string containing a gene-system prefix (default is "HLA-").
- - *pre* A logical that indicates whether 'prefix' should be appended to the allele names (TRUE) or not (FALSE). The default value is FALSE.
+-   *GLstring* A character string of GL String-formatted HLA allele names and GL String 1.0 operators.
+-   *prefix* A string containing a gene-system prefix (default is "HLA-").
+-   *pre* A logical that indicates whether 'prefix' should be appended to the allele names (TRUE) or not (FALSE). The default value is FALSE.
 
-```
+```         
 GLStoUNI("HLA-A*02:01/HLA-A*02:02+HLA-A*03:01/HLA-A*03:02")
 [1] "A*02:01,A*03:01|A*02:01,A*03:02|A*02:02,A*03:01|A*02:02,A*03:02"
 ```
 
 ### multiGLStoUNI
 
-The *multiGLStoUNI()* function converts GL string formatted data in data frames or vectors to uniformat format. If a vector is provided, all elements must be GL Strings. If a data frame is provided, the first column is assumed to contain identifiers and will not be converted; the remaining columns should contain GL strings. 
+The *multiGLStoUNI()* function converts GL string formatted data in data frames or vectors to uniformat format. If a vector is provided, all elements must be GL Strings. If a data frame is provided, the first column is assumed to contain identifiers and will not be converted; the remaining columns should contain GL strings.
 
 **Parameters**
 
- - *GLstringArray* A data frame or a vector of GL String 1.0 formatted data. If 'GLstringArray' is a data frame with more than one column, the first column should contain only identifiers. If 'GLstringArray' is a vector, it should contain only GL Strings.
- - *prefix* A string containing a gene-system prefix (default is "HLA-").
- - *pre* A logical that indicates whether 'prefix' should be appended to the allele names (TRUE) or not (FALSE). The default value is FALSE.
- 
-**Return** If 'GLstringArray' is a data frame, a data frame of UNIFORMAT values is returned. If 'GLstringArray' is a vector, a vector of UNIFORMAT values is returned. 
+-   *GLstringArray* A data frame or a vector of GL String 1.0 formatted data. If 'GLstringArray' is a data frame with more than one column, the first column should contain only identifiers. If 'GLstringArray' is a vector, it should contain only GL Strings.
+-   *prefix* A string containing a gene-system prefix (default is "HLA-").
+-   *pre* A logical that indicates whether 'prefix' should be appended to the allele names (TRUE) or not (FALSE). The default value is FALSE.
+
+**Return** If 'GLstringArray' is a data frame, a data frame of UNIFORMAT values is returned. If 'GLstringArray' is a vector, a vector of UNIFORMAT values is returned.
 
 *Example GL String data frame*
 
@@ -744,8 +750,7 @@ DRB1*13:02~DQB1*06:09~DPB1*04:01"
 DRB1*04:05~DQB1*03:02~DPB1*11:01"
 [5] "A*02:01~C*05:01~B*44:02~DRB1*15:01~DQB1*06:02~DPB1*02:01,A*30:01~C*06:02~B*13:02~
 DRB1*07:01~DQB1*02:02~DPB1*17:01"
-
-```      
+```
 
 ## Convert UNIFORMAT-formatted data to GL String-formatted data
 
@@ -755,9 +760,9 @@ The *validateUniformat()* function evaluates UNIFORMAT data for incorrect charac
 
 **Parameters**
 
- - *uniformat* A character string of allele names and operators in the UNIFORMAT format.
- 
-```
+-   *uniformat* A character string of allele names and operators in the UNIFORMAT format.
+
+```         
 validateUniformat("A*02:01,A*03:01|A*02:01,A*03:02|A*02:02,A*03:01|A*02:02,A*03:02")
 [1] TRUE
 
@@ -768,15 +773,15 @@ A*02:01+A*03:01|A*02:01,A*03:02|A*02:02,A*03:01|A*02:02,A*03:02 contains operato
 
 ### UNItoGLS
 
-The *UNItoGLS()* function converts a single UNIFORMAT string to GL String format. 
+The *UNItoGLS()* function converts a single UNIFORMAT string to GL String format.
 
 **Parameters**
 
- - *uniformat* A string of HLA allele names and operators in the UNIFORMAT format signifying their relation with one another.
- - *prefix* A character string of the desired gene-system prefix (default is "HLA-").
- - *pre* A logical that indicates whether returned allele names should contain 'prefix' (TRUE), or if 'prefix' should be excluded from returned names (FALSE).
+-   *uniformat* A string of HLA allele names and operators in the UNIFORMAT format signifying their relation with one another.
+-   *prefix* A character string of the desired gene-system prefix (default is "HLA-").
+-   *pre* A logical that indicates whether returned allele names should contain 'prefix' (TRUE), or if 'prefix' should be excluded from returned names (FALSE).
 
-```
+```         
 UNItoGLS("A*02:01,A*03:01|A*02:01,A*03:02|A*02:02,A*03:01|A*02:02,A*03:02")
 [1] "HLA-A*02:01/HLA-A*02:02+HLA-A*03:01/HLA-A*03:02"
 ```
@@ -802,19 +807,19 @@ The *multiUNItoGLS()* function translates columns of arrays from uniformat forma
 [1] "blank,A*02:01|A*02:01,A*02:01 blank,B*44:03|B*44:03,B*44:03 blank,DRB1*07:01|DRB1*07:01,DRB1*07:01"
 [2] "A*02:01,A*23:01|A*02:01,A*23:17 B*27:05,B*44:03|B*27:13,B*44:03 DRB1*07:01,DRB1*11:04"
 [3] "A*66:01,A*31:08|A*31:08,A*66:08 B*27:05,B*07:02|B*27:05,B*07:61|B*27:13,B*07:02|B*27:13,B*07:61 DRB1*01:01,DRB1*16:02"
-``` 
+```
 
 **Parameters**
 
- - *UniformatArray* A data frame or vector of UNIFORMAT formatted strings. 
- - *prefix* A character string of the desired gene-system prefix (default is "HLA-").
- - *pre* A logical that indicates whether returned allele names should contain 'prefix' (TRUE), or if 'prefix' should be excluded from returned names (FALSE).
+-   *UniformatArray* A data frame or vector of UNIFORMAT formatted strings.
+-   *prefix* A character string of the desired gene-system prefix (default is "HLA-").
+-   *pre* A logical that indicates whether returned allele names should contain 'prefix' (TRUE), or if 'prefix' should be excluded from returned names (FALSE).
 
-**Return** If 'uniformat'is a data frame, a data frame of GL String values is returned. If 'uniformat' is a vector, a vector of GL String values is returned. 
+**Return** If 'uniformat'is a data frame, a data frame of GL String values is returned. If 'uniformat' is a vector, a vector of GL String values is returned.
 
 *Convert UNIFORMAT to GL String*
 
-```
+```         
 multiUNItoGLS(UNIFORMAT.example[1:3,])
    sample.id                                                                                                          genotype
 1 hhrv_id195       HLA-blank/HLA-A*02:01+HLA-A*02:01^HLA-blank/HLA-B*44:03+HLA-B*44:03^HLA-blank/HLA-DRB1*07:01+HLA-DRB1*07:01
@@ -825,7 +830,6 @@ multiUNItoGLS(UNIFORMAT.example[2][1:3,])
 [1] "HLA-blank/HLA-A*02:01+HLA-A*02:01^HLA-blank/HLA-B*44:03+HLA-B*44:03^HLA-blank/HLA-DRB1*07:01+HLA-DRB1*07:01"      
 [2] "HLA-A*02:01+HLA-A*23:01/HLA-A*23:17^HLA-B*27:05/HLA-B*27:13+HLA-B*44:03^HLA-DRB1*07:01+HLA-DRB1*11:04"            
 [3] "HLA-A*66:01/HLA-A*66:08+HLA-A*31:08^HLA-B*27:05/HLA-B*27:13+HLA-B*07:02/HLA-B*07:61^HLA-DRB1*01:01+HLA-DRB1*16:02"
-
 ```
 
 *Convert GL String to UNIFORMAT*
@@ -855,15 +859,16 @@ DRB1*13:02~DQB1*06:09~DPB1*04:01"
 DRB1*04:05~DQB1*03:02~DPB1*11:01"
 [5] "A*02:01~C*05:01~B*44:02~DRB1*15:01~DQB1*06:02~DPB1*02:01,A*30:01~C*06:02~B*13:02~
 DRB1*07:01~DQB1*02:02~DPB1*17:01"
-```         
+```
 
----
+------------------------------------------------------------------------
 
 # 5. Data Analysis Tools
 
 The functions described in this section either perform data analyses or generate specific data sets suitable for additional analyses. All consume BIGDAWG-formatted datasets.
 
 ### Example Data
+
 To facilitate testing and experimentation with these functions, the 'sHLAdata' data object is included in the package. This BIGDAWG-formatted HLA genotype data object represents completely synthetic IPD-IMGT/HLA release 3.56.0 HLA-A, -C, -B, -DRB1, -DQA1, -DQB1, -DPA1, and -DPB1 genotype data for 24 control subjects and 23 case subjects, and does not represent any true human population.
 
 ## Calculating Relative Risk with BIGDAWG-formatted Datasets
@@ -872,16 +877,15 @@ To facilitate testing and experimentation with these functions, the 'sHLAdata' d
 
 The relRisk() function calculates relative risk (RR) for individual alleles and genotypes in [BIGDAWG-formatted datasets](https://CRAN.R-project.org/package=BIGDAWG/vignettes/BIGDAWG.html#input-data). RR analysis is intended for *non-case-control* datasets. While two subject categories (0 and 1) are required in the **Subject** column of the BIGDAWG-formatted datafile, the categories should *not* be patients and controls. Instead, the categories may be, e.g., two groups of patients with the same disease, where one group has more severe symptoms (coded as 1), and other has mild symptoms (coded as 0). In this case, relRisk() identifies the risk of severity associated with a given allele or genotype.
 
-relRisk() returns a list object of two lists ("alleles" and "genotypes"), each of which contains relative risk, confidence interval and p-value data for the individual alleles and individual genotypes at each locus in a BIGDAWG-formatted non-case-control genotype data frame or tab-delimited text file. 
+relRisk() returns a list object of two lists ("alleles" and "genotypes"), each of which contains relative risk, confidence interval and p-value data for the individual alleles and individual genotypes at each locus in a BIGDAWG-formatted non-case-control genotype data frame or tab-delimited text file.
 
 **Parameters**
 
- - *dataset* The name of a non-case-control genotype dataset using the BIGDAWG format.
- - *return* A logical identifying if the list object should be returned (return=TRUE), or if pairs of tab-delimited text files of results (one for alleles and one for genotypes) should be written to the working directory for each locus.
- - *save.path* A character string identifying the path in which to write the pair of files when return is FALSE. The default value is tempdir().
+-   *dataset* The name of a non-case-control genotype dataset using the BIGDAWG format.
+-   *return* A logical identifying if the list object should be returned (return=TRUE), or if pairs of tab-delimited text files of results (one for alleles and one for genotypes) should be written to the working directory for each locus.
+-   *save.path* A character string identifying the path in which to write the pair of files when return is FALSE. The default value is tempdir().
 
-
-```
+```         
 rr <- relRisk(sHLAdata[,1:4])
 ```
 
@@ -891,17 +895,17 @@ Column headers in each returned data frame are, Locus, Variant, Status_1, Status
 
 ### BDstrat: Multilocus Allele Stratification for BIGDAWG Datasets
 
-The BDstrat() function divides a [BIGDAWG-formatted](https://CRAN.R-project.org/package=BIGDAWG/vignettes/BIGDAWG.html#input-data)] dataset into two strata, one of which contains all subjects with any of a set of specified alleles, while the other contains all subjects without any of the specified alleles. If the positive-stratum and negative-stratum datasets have sufficient numbers of case and control (or exposed and unexposed) subjects, each stratum can be analyzed via the BIGDAWG package or relRisk(). Sample size is an important consideration when determining how many alleles on which to stratify. 
+The BDstrat() function divides a [BIGDAWG-formatted](https://CRAN.R-project.org/package=BIGDAWG/vignettes/BIGDAWG.html#input-data)] dataset into two strata, one of which contains all subjects with any of a set of specified alleles, while the other contains all subjects without any of the specified alleles. If the positive-stratum and negative-stratum datasets have sufficient numbers of case and control (or exposed and unexposed) subjects, each stratum can be analyzed via the BIGDAWG package or relRisk(). Sample size is an important consideration when determining how many alleles on which to stratify.
 
 **Parameters**
 
- - *dataset*: A BIGDAWG-formatted data frame or a path to a BIGDAWG-formatted, tab-delimited text file.
- - *alleles*: A vector of allele names in the <locus>\*<allele name> format (e.g., "A\*01:01:01:01" for HLA alleles or "KIR2DL1\*001" for KIR alleles).
- - *warnBelow* : An integer that defines a low number of subjects in a stratum, generating a warning message. The default value is 21.
- 
-**Return** A list-object of two BIGDAWG-formatted data frames titled 'dataset'\$'alleles'-positive' and 'dataset'\$'alleles'-negative`. The positive list element includes all subjects with the specified alleles, and the negative list element includes all subjects without those specified alleles.
+-   *dataset*: A BIGDAWG-formatted data frame or a path to a BIGDAWG-formatted, tab-delimited text file.
+-   *alleles*: A vector of allele names in the <locus>\*<allele name> format (e.g., "A\*01:01:01:01" for HLA alleles or "KIR2DL1\*001" for KIR alleles).
+-   *warnBelow* : An integer that defines a low number of subjects in a stratum, generating a warning message. The default value is 21.
 
-```
+**Return** A list-object of two BIGDAWG-formatted data frames titled 'dataset'\$'alleles'-positive' and 'dataset'\$'alleles'-negative\`. The positive list element includes all subjects with the specified alleles, and the negative list element includes all subjects without those specified alleles.
+
+```         
 Stratify on a single allele in the HLA_data dataset bundled with BIGDAWG
 HLA_data.single.strat <- BDstrat(sHLAdata,"DRB1*08:02:01:01") 
 
@@ -910,29 +914,28 @@ HLA_data.multi.strat <- BDstrat(sHLAdata,c("DRB1*04:02:01","DRB1*04:07:01:01","A
 
 Run BIGDAWG() on both multi-allele strata
 for(i in 1:2) {BIGDAWG(HLA_data.multi.strat[[i]],HLA = TRUE,Run.Tests = "L")}
-
 ```
+
 ## Conversion of BIGDAWG-formatted Datasets to *Python for Population Genetics* (PyPop)-formatted Datasets
 
 #### BDtoPyPop : Enabling Population Genetic Analyses of Case and Control Datasets
 
-- BDtoPyPop() converts a [BIGDAWG-formatted](https://CRAN.R-project.org/package=BIGDAWG/vignettes/BIGDAWG.html#input-data) case-control dataset into two [PyPop version 1.\*.\*](http://pypop.org/docs/guide-chapter-usage.html) datasets -- one for all 'case' subjects and one for all 'control' subjects. PyPop datasets can be exported as a pair of ".pop" files for analysis, or can be generated as a list object containing two data frames for additional manipulation before analysis.
+-   BDtoPyPop() converts a [BIGDAWG-formatted](https://CRAN.R-project.org/package=BIGDAWG/vignettes/BIGDAWG.html#input-data) case-control dataset into two [PyPop version 1.\*.\*](http://pypop.org/docs/guide-chapter-usage.html) datasets -- one for all 'case' subjects and one for all 'control' subjects. PyPop datasets can be exported as a pair of ".pop" files for analysis, or can be generated as a list object containing two data frames for additional manipulation before analysis.
 
 **Parameters**
 
- - *dataset* A BIGDAWG-formatted data frame containing a case-control dataset.
- - *filename* A character string identifying either the desired path and name for the generated files, or the elements of the returned list object.
- - *save.file* A logical indicating if the pair of files should be written (TRUE) or if a list object should be returned. The default value is TRUE.
- - *save.path* A character string identifying the path in which to write the pair of files when return is FALSE. The default value is tempdir().
+-   *dataset* A BIGDAWG-formatted data frame containing a case-control dataset.
+-   *filename* A character string identifying either the desired path and name for the generated files, or the elements of the returned list object.
+-   *save.file* A logical indicating if the pair of files should be written (TRUE) or if a list object should be returned. The default value is TRUE.
+-   *save.path* A character string identifying the path in which to write the pair of files when return is FALSE. The default value is tempdir().
 
-**Return** When save.file = TRUE a pair of PyPop-formatted text files named "'filename'.positive.pop" and "'filename'.negative.pop" are generated in the specified directory. The "'filename'.positive.pop" file includes all subjects with a value of 1 in the second column of the BIGDAWG data file, and the "'filename'.negative.pop" file includes all subjects with a value of 0 in the second column of the BIGDAWG data file. 
+**Return** When save.file = TRUE a pair of PyPop-formatted text files named "'filename'.positive.pop" and "'filename'.negative.pop" are generated in the specified directory. The "'filename'.positive.pop" file includes all subjects with a value of 1 in the second column of the BIGDAWG data file, and the "'filename'.negative.pop" file includes all subjects with a value of 0 in the second column of the BIGDAWG data file.
 
 When save.file = FALSE, a list-object of two PyPop-formatted data frames titled "'filename'.positive" and "'filename'-negative" is returned. The positive list element includes all subjects a value of 1 in the second column of the BIGDAWG data file, and the negative list element includes all subjects with a value of 0 in the second column of the BIGDAWG data file.
 
 **Note** PyPop is not an R package. In order to analyze the files generated by this function with PyPop version 1.\*.\*, [the pypop-genomics package must be installed](http://pypop.org/docs/guide-chapter-install.html) on your system, and a [PyPop configuration file](http://pypop.org/docs/guide-chapter-usage.html#the-configuration-file), detailing the analyses to be performed, is required. A PyPop configuration file is not generated by BDtoPyPop().
 
-
-```
+```         
 Generating a list object of two PyPop datasets from the HLA_data dataset bundled with BIGDAWG.
 HLAdata.PP <- BDtoPyPop(sHLAdata,"BDHLA",FALSE)
 
@@ -940,7 +943,8 @@ Generating a pair PyPop data files from the HLA_data dataset bundled with BIGDAW
 BDtoPyPop(sHLAdata,"BDHLA",TRUE)
 ```
 
----
+------------------------------------------------------------------------
 
-<div align="center">END OF VIGNETTE
-
+::: {align="center"}
+END OF VIGNETTE
+:::
