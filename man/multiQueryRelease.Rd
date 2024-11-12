@@ -20,7 +20,7 @@ A character vector of all alleles that share all 'variants' in 'rel' or the numb
 Searches specific release versions in the AlleleListHistory object for a set of user-defined allele-name elements.
 }
 \examples{
-# Identify DRB1 allele names that include a 'Q' in release 3.58.0.
+# Identify DRB1 allele names that include a 'Q' character in release 3.58.0.
 multiQueryRelease("3.58.0",c("DRB1","Q"),TRUE) 
 # Identify the number of null (N) DRB1 alleles.
 multiQueryRelease("3.58.0",c("DRB1","N"),FALSE)
