@@ -938,7 +938,7 @@ When save.file = FALSE, a list-object of two PyPop-formatted data frames titled 
 ```         
 Generating a list object of two PyPop datasets from the HLA_data dataset bundled with BIGDAWG.
 HLAdata.PP <- BDtoPyPop(sHLAdata,"BDHLA",FALSE)
-
+ 
 Generating a pair PyPop data files from the HLA_data dataset bundled with BIGDAWG.
 BDtoPyPop(sHLAdata,"BDHLA",TRUE)
 ```
