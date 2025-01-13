@@ -38,7 +38,7 @@ HLAtools includes:
 -   The ability to build local amino acid, codon, coding nucleotide, and genomic nucleotide sequence alignments for HLA genes of interest.
 -   Advanced tools of the comparison and dissection of allele names and allele sequences, and the construction of customized multi-gene sequence alignments.
 -   Functions that translate allele names, vectors and data frames of allele names, and Genotype List (GL) String Code messages across IPD-IMGT/HLA database release versions, and inter-convert between GL String and UNIFORMAT formats.
--   Data-analysis tools that extend the utility of Bridging Immunogenomic Data-Analysis Workflow Gaps (BIGDAWG) formatted datasets by performing mutliallele and multilocus stratification, calculating Relative Risk measures, and converting BIGDAWG datasets to PyPop datasets.
+-   Data-analysis tools that extend the utility of Bridging Immunogenomic Data-Analysis Workflow Gaps (BIGDAWG) formatted datasets by performing multiallele and multilocus stratification, calculating Relative Risk measures, and converting BIGDAWG datasets to PyPop datasets.
 
 ------------------------------------------------------------------------
 
