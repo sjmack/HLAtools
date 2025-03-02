@@ -2,7 +2,7 @@
 
 ################
 ##validateLocus
-#'Determine if a locus name is in the HLAgazeteer
+#'Determine if a Locus Name is in the HLAgazeteer
 #'
 #'Checks a vector of HLA locus names against the HLAgazeteer to determine if the locus name is valid for a specific type of alignment.
 #'

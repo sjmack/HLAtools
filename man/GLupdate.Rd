@@ -2,43 +2,30 @@
 % Please edit documentation in R/GLupdater.R
 \name{GLupdate}
 \alias{GLupdate}
-\title{Update a GL String Code.}
-\source{
-https://github.com/ANHIG/IMGTHLA/blob/Latest/Allelelist_history.txt
-}
+\title{Update a GL String Code to a Specified IPD-IMGT/HLA Database Version}
 \usage{
-GLupdate(GLString, Version, expand = FALSE)
+GLupdate(GLSC, to, expand = FALSE, verbose = FALSE)
 }
 \arguments{
-\item{GLString}{A character string of HLA allele names and operators in GL String Code format signifying their relation with one another and the pertinent HLA Allele List version.}
+\item{GLSC}{A GL String Code containing HLA allele names.}
 
-\item{Version}{A character string of the desired version to which the alleles to be updated, going back to version 1.05.0.}
+\item{to}{A character string identifying the IPD-IMGT/HLA Database release version to translate 'GLSC' to. Values can range from version 1.05.0 to the loaded version of the alleleListHistory object.}
 
-\item{expand}{A logical that determines whether to return only the direct HLA ID allele match or all possible HLA allele matches.}
+\item{expand}{A logical that indicates if the lowest-numbered truncated allele names that match truncated allele names in 'GLSC' should be returned (expand = FALSE), or if a slash-delimited string of all matching full-length allele names should be returned (expand = TRUE). The default value is FALSE.}
+
+\item{verbose}{A logical that indicates if messages regarding the update process should be sent to the console (TRUE) or not (FALSE). The default value is FALSE.}
 }
 \value{
-An updated version the GL String Code input (in the form of a character string) updated to the input desired version.
+A GL String Code updated the 'to' release version.
 }
 \description{
-Updates the allele names in a Genotype List (GL) String Code to the desired reference database version using the IPD-IMGT/HLA Database's Allele List History table.
+Updates the elements of a GLString Code across IPD-IMGT/HLA Database release versions. Truncated allele names can be expanded to the list of all allele names that contain the truncated name.
 }
 \note{
-For internal use only.
+This function is maintained for compatibility with previous releases, and will be removed in a future release. HLAtools users are advised to use updateGL().
 }
 \examples{
-GLupdate("hla#3.36.0#HLA-B*15:35", "3.52.0")
-GLupdate("hla#3.45.0#HLA-A*02:08", "3.52.0")
-GLupdate("hla#3.45.0#HLA-A*02:08", "3.52.0", expand = TRUE)
-\donttest{
-GLupdate("hla#3.1.0#HLA-A*02:01+HLA-A*01:01:01:01", Version = "3.53.0")
-GLupdate("hla#3.44.0#HLA-DPA1*02:01:01:05", "3.45.0")
-GLupdate("hla#3.45.0#HLA-DPA1*02:01:01:05", "3.46.0")
-GLupdate("hla#3.37.0#HLA-A*01:02", "3.52.0", expand = TRUE)
-}
+GLupdate(GLSC.ex$GL.String.Code[1],"2.15.0",FALSE,FALSE)
+GLupdate(GLSC.ex$GL.String.Code[1],"2.15.0",TRUE,FALSE)
 
-}
-\references{
-Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
-
-Mack et al. HLA 05 July 2023 https://doi.org/10.1111/tan.15145
 }

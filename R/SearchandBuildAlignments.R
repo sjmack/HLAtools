@@ -18,7 +18,11 @@
 #'@export
 #'
 #'@note This function requires that the HLAalignments object has been populated with alignments via the alignmentFull() function.
-#'@note Indel positions must be text-formatted (e.g. "607.12"). C.f., alignmentSearch("nuc","DRB1*15:07:01",11:22) vs alignmentSearch("nuc","DRB1*11:250N",c(605,"607.1","607.12",608)).
+#'@note Indel positions must be text-formatted (e.g. "607.12").
+#'
+#'@examples
+#'alignmentSearch("nuc","DRB1*15:07:01",11:22)
+#'alignmentSearch("nuc","DRB1*11:250N",c(605,"607.1","607.12",608))
 #'
 alignmentSearch <- function(alignType,allelename,positions,prefix=TRUE,sep="~"){
 
@@ -214,7 +218,11 @@ uniSearch <- function(alignType, locus, allele, position, prefix=TRUE, trimmed=F
 #'
 #'@return A data frame of allele names and the corresponding nucleotide sequences for each desired nucleotide position. an error message is returned if input locus is not available in the ANHIG/IMGTHLA Github Repository.
 #'
-#'@note This function requires that the HLAalignments object has been populated with alignments via the alignmentFull() function. C.f., customAlign("codon",c("DRB1*01:01","DQB1*02:01","DPB1*01:01"),c(1,2,3,7,8,9,13,14,15)) and customAlign("codon",c("DPB1*01:01:01:01","DQA1*01:01:01:01","DQB1*05:01:01:01"),list(19:35,1:4,6:9)).
+#'@note This function requires that the HLAalignments object has been populated with alignments via the alignmentFull() function.
+#'
+#'@examples
+#'customAlign("codon",c("DRB1*01:01","DQB1*02:01","DPB1*01:01"),c(1,2,3,7,8,9,13,14,15))
+#'customAlign("codon",c("DPB1*01:01:01:01","DQA1*01:01:01:01","DQB1*05:01:01:01"),list(19:35,1:4,6:9))
 #'
 #'@export
 #'

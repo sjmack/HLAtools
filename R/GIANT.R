@@ -2,9 +2,9 @@
 
 ################
 ##GIANT
-#'GLupdate-Integrated Allele Name Translation
+#'GL string code-Integrated Allele Name Translation
 #'
-#'Calls GLupdate() to translate the HLA allele names in a vector or data frame between two IPD-IMGT/HLA Database release versions.
+#'Calls updateGL() to translate the HLA allele names in a vector or data frame between two IPD-IMGT/HLA Database release versions.
 #'
 #'@param data A data frame or vector of HLA allele name character string data. Allele names in vectors must include locus prefixes. Data frames must include column headers identifying a single locus for the allele names in that column. 
 #'@param transFrom A dot-formatted character string identifying the IPD-IMGT/HLA Database version (e.g. 3.58.0) under which the HLA data were generated.
@@ -22,8 +22,8 @@
 #'
 GIANT <- function(data,transFrom,transTo) {
 
-if(!validateVersion(transFrom)) {return(paste(transFrom,"is not a valid release version. Please provide a valid release version for 'transFrom'.",sep=" "))}
-if(!validateVersion(transTo)) {return(paste(transTo,"is not a valid release version. Please provide a valid release version for 'transTo'.",sep=" "))}
+if(!checkVersion(transFrom)) {return(paste("Release version", transFrom,"is not loaded in the HLAtools package. Please provide a valid release version for 'transFrom'.",sep=" "))}
+if(!checkVersion(transTo)) {return(paste("Release version", transTo,"is not loaded in the HLAtools package. Please provide a valid release version for 'transTo'.",sep=" "))}
 
 ### figure out data parameters 
         if(is.data.frame(data)) { ## determine type of data 
@@ -43,10 +43,15 @@ if(!validateVersion(transTo)) {return(paste(transTo,"is not a valid release vers
                   
             fullframe <- data.frame(matrix(NA,nrow=nrow(data),ncol=ncol(data))) ## this dataframe contains full (suffixed) allele names 
             fullframe[,1:2] <- data[,1:2] ## if this is a BIGDAWG formatted dataset, otherwise it gets overwritten anyway when startCol = 1, below
-                  
+            
+                dots <-  grep(".",colnames(data),fixed=TRUE) ## strip off the .# suffixes if they persisted
+                if(length(dots) != 0) {
+                  colnames(data)[dots] <- substr(colnames(data)[dots],1,nchar(colnames(data)[dots])-2) } 
+                
                   for(i in startCol:ncol(data)){
                     
                         if(!prefix) {   # Add prefixes if necessary
+                          
                             fullframe[,i] <- paste(colnames(data)[i],data[,i],sep="*")
                                 } else {
                            fullframe[,i] <- data[,i]
@@ -60,12 +65,14 @@ if(!validateVersion(transTo)) {return(paste(transTo,"is not a valid release vers
                                 }
                             } else {
                               fullframe[,i] <- updVec
-                            }
-                                      
-                        colnames(fullframe) <- colnames(data)
-                     
-                    } 
-            
+                              }
+                        } 
+
+                  if(strsplit(transTo,".",fixed=TRUE)[[1]][1] %in% c(1,2)) { colnames(data)[colnames(data) == "C"] <- "Cw"}
+                  if(strsplit(transTo,".",fixed=TRUE)[[1]][1] %in% c(1,2)) { colnames(data)[colnames(data) == "HLA-C"] <- "HLA-Cw"}
+                  if(strsplit(transTo,".",fixed=TRUE)[[1]][1] %in% c(3)) { colnames(data)[colnames(data) == "Cw"] <- "C"}
+                  if(strsplit(transTo,".",fixed=TRUE)[[1]][1] %in% c(3)) { colnames(data)[colnames(data) == "HLA-Cw"] <- "HLA-C"}
+                colnames(fullframe) <- colnames(data)
             return(fullframe)
             
             # end of data frame section

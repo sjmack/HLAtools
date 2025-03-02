@@ -9,7 +9,7 @@
 #'
 #'@param x A character string.
 #'
-#'@return A numeric value representing the number of spaces (' ') in x.
+#'@return A vector of numeric values identifying the number of instances of spaces (' ') in x, and the number of consecutive spaces in an instance.
 #'
 #'@author Josh Bredeweg, Reddit user jbraids1421
 #'
@@ -19,6 +19,7 @@
 #'
 #'@examples
 #'countSpaces("abc def")
+#'countSpaces("abc def  ghi   jkl mno")
 #'
 countSpaces <- function(x){
   counter <- 0

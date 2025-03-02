@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 library(HLAtools)
 ```
 
--   Package Version: 1.3.0
+-   Package Version: 1.4.0
 
 # Overview
 
@@ -50,7 +50,7 @@ The *HLAatlas* data object is a list object of sub-lists of R data frames identi
 
 Building the *HLAatlas* object requires internet access, and it can take several minutes to build a full complement of atlases. For example, building all of the atlases for IPD-IMGT/HLA Database release version 3.56.0 took 4.2 minutes on a 3.3 GHz 12-Core Intel Xenon W 2019 Mac Pro with 288 GB of 2933 MHZ DDR4 RAM, 4.6 minutes on a 2.4 GHz 8-Core Intel Core i9 2019 MacBook Pro with 64 GB of 2667 MHZ DDR4 RAM, and 5.24 minutes on a 2.4 GHz Intel Core i9-10885H Dell Precision 5500 with 32 GB of RAM.
 
-*HLAatlas* objects can be built for all HLA region genes with available genomic, nucleotide and amino acid alignments in release versions 3.00.0 to 3.58.0. Barring changes in the structure of the source data for this object in future IPD-IMGT/HLA Database releases, it should be possible to build *HLAatlas* objects for future releases.
+*HLAatlas* objects can be built for all HLA region genes with available genomic, nucleotide and amino acid alignments in release versions 3.00.0 to 3.59.0. Barring changes in the structure of the source data for this object in future IPD-IMGT/HLA Database releases, it should be possible to build *HLAatlas* objects for future releases.
 
 ### Protein Sequence Atlases
 
@@ -186,7 +186,7 @@ $annotation
 
 The *HLAalignments* data object is a list object of sub-lists of data frames of peptide (*prot*), codon (*codon*), coding nucleotide (*nuc*) and genomic nucleotide (*gen*) alignments for the HLA and HLA-region genes supported in the [ANHIG/IMGTHLA GitHub Repository](https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments), along with a *version* character string that identifies the IPD-IMGT/HLA Database release under which the *HLAalignments* object was built.
 
-Given the size of all the combined alignments, *HLAalignments* **is not bundled with the HLAtools package**. All alignments, or desired subsets of each type of alignment for a given gene, can be built using the *alignmentFull()* function, as described in Section 2 *Working with Sequence Alignments*, below. *HLAalignments* objects can be built for all HLA region genes with available genomic, nucleotide and amino acid alignments in IPD-IMGT/HLA release versions 3.00.0 to 3.58.0. Barring changes in the structure of the source data for this object in future IPD-IMGT/HLA Database releases, it should be possible to build *HLAalignments* objects for future releases.
+Given the size of all the combined alignments, *HLAalignments* **is not bundled with the HLAtools package**. All alignments, or desired subsets of each type of alignment for a given gene, can be built using the *alignmentFull()* function, as described in Section 2 *Working with Sequence Alignments*, below. *HLAalignments* objects can be built for all HLA region genes with available genomic, nucleotide and amino acid alignments in IPD-IMGT/HLA release versions 3.00.0 to 3.59.0. Barring changes in the structure of the source data for this object in future IPD-IMGT/HLA Database releases, it should be possible to build *HLAalignments* objects for future releases.
 
 These protein, codon, nucleotide and genomic DNA sequence alignments are described in detail below.
 
@@ -355,7 +355,7 @@ Prior to IPD-IMGT/HLA Database release version 3.24.0, the names of the sequence
 
 Similarly, prior to release version 3.51.0, the 'DRB_prot.txt' and 'DRB_nuc.txt' alignment files were the source of alignments for DRB1, DRB3, DRB4 and DRB5. In release versions 3.0.0 to 3.23.0, genomic DRB1 alignments are in 'DRB_gen.txt' files, and these alignments are in 'DRB1_gen.txt' files in subsequent releases. Building DPA1, DPB1, DQA1, DQB1, DRB1, DRB3, DRB4 and DRB5 sequence alignments from these earlier releases may require specifying a gene name that does not include the numerical suffix. When the *HLAgazeteer* has been updated to the desired release version, the available gene names for that release can be found in the *HLAgazeteer*.
 
-In all version 3.\*.\* releases (3.0.0 to 3.58.0), nucleotide alignments for the DRB2, DRB6, DRB7 and DRB9 genes are included in the 'DRB_nuc.txt' file.
+In all version 3.\*.\* releases (3.0.0 to 3.59.0), nucleotide alignments for the DRB2, DRB6, DRB7 and DRB9 genes are included in the 'DRB_nuc.txt' file.
 
 As noted above, when building alignments for past releases, the *HLAgazeteer* should be updated to reflect the gene names included in that release, and consulted to determine which gene names should be provided to alignmentFull().
 
@@ -576,6 +576,7 @@ The *updateGL()* function translates the HLA allele names in a GL String Code ac
 -   *GLStringCode* A string of HLA allele names and operators in GL String Code format, signifying their relation with one another and the associated IMGT/HLA Database release version.
 -   *Version* A string identifying of the desired IPD-IMGT/HLA Database release version to which the alleles should be updated.
 -   *expand* A logical that indicates whether user would like to return all allele names that match the allele name in 'GLStringCode' (TRUE), or if only the direct HLA accession ID match should be returned (FALSE).
+-   *verbose* A logical that indicates if messages regarding the update process should be sent to the console (TRUE) or not (FALSE). The default value is FALSE.
 
 In the examples below, a GLSC containing a single DPB1 allele name, as recorded in release version 1.05.0, is translated to version 3.52.0. In the first example, 'expand = FALSE', and the HLA accession ID of the submitted allele is used to perform the translation to a single allele. In the second example, 'expand = TRUE' and all alleles that match the submitted allele in release 3.52.0 are returned.
 
@@ -596,6 +597,7 @@ The *multiUpdateGL()* function translates columns of GL String Code data across 
 -   *GLstringArray* An array of HLA allele names and operators in GL String code format identifying their relation with one another and the pertinent IPD-IMGT/HLA Database release version.
 -   *Version* A text string identifying the desired version to which for the alleles should be updated.
 -   *expand* A logical specifying whether to include only the direct HLA ID match (FALSE), or all possible allele matches (TRUE). The default value is FALSE.
+-   *verbose* A logical that indicates if messages regarding the update process should be sent to the console (TRUE) or not (FALSE). The default value is FALSE.
 
 ```         
 GLstringArray
@@ -605,7 +607,13 @@ multiUpdateGL(GLSC.ex[[2]][1], Version = "3.53.0")
 
 ## Translate vectors and data frames of HLA allele name data across IPD-IMGT/HLA Database Release Versions
 
-The GIANT() function applies GLupdate() to translate HLA allele name data across IPD-IMGT/HLA Database release versions, back to version 1.05.0, and functions on both vectors and data frames of HLA allele name data, including BIGDAWG-formatted HLA datasets. Data frames that are not BIGDAWG-formatted must be entirely composed of columns of HLA allele name data.
+The GIANT() function applies translateGLstring() to translate HLA allele name data across IPD-IMGT/HLA Database release versions, back to version 1.05.0, and functions on both vectors and data frames of HLA allele name data, including BIGDAWG-formatted HLA datasets. Data frames that are not BIGDAWG-formatted must be entirely composed of columns of HLA allele name data.
+
+**Parameters**
+
+- *data* A data frame or vector of HLA allele name character string data. Allele names in vectors must include locus prefixes. Data frames must include column headers identifying a single locus for the allele names in that column.
+- *transFrom* A dot-formatted character string identifying the IPD-IMGT/HLA Database version (e.g. 3.59.0) under which the HLA data were generated.
+- *transTo*	A dot-formatted character string identifying the IPD-IMGT/HLA Database version (e.g. 2.25.0) to which which the HLA data are to be translated.
 
 *Translation of vectors of HLA allele names*
 
@@ -875,7 +883,7 @@ To facilitate testing and experimentation with these functions, the 'sHLAdata' d
 
 ### relRisk
 
-The relRisk() function calculates relative risk (RR) for individual alleles and genotypes in [BIGDAWG-formatted datasets](https://CRAN.R-project.org/package=BIGDAWG/vignettes/BIGDAWG.html#input-data). RR analysis is intended for *non-case-control* datasets. While two subject categories (0 and 1) are required in the **Subject** column of the BIGDAWG-formatted datafile, the categories should *not* be patients and controls. Instead, the categories may be, e.g., two groups of patients with the same disease, where one group has more severe symptoms (coded as 1), and other has mild symptoms (coded as 0). In this case, relRisk() identifies the risk of severity associated with a given allele or genotype.
+The relRisk() function calculates relative risk (RR) for individual alleles and genotypes in [BIGDAWG-formatted datasets](https://CRAN.R-project.org/package=BIGDAWG/vignettes/BIGDAWG.html#input-data). RR analysis is intended for *non-case-control* datasets. While two subject categories (0 and 1) are required in the **Subject** column of the BIGDAWG-formatted datafile, the categories should *not* be patients and controls. Instead, the categories may be, e.g., two groups of patients with the same disease, where one group has more severe symptoms (coded as 1), and other has mild symptoms (coded as 0). In this case, relRisk() identifies the risk of sefverity associated with a given allele or genotype.
 
 relRisk() returns a list object of two lists ("alleles" and "genotypes"), each of which contains relative risk, confidence interval and p-value data for the individual alleles and individual genotypes at each locus in a BIGDAWG-formatted non-case-control genotype data frame or tab-delimited text file.
 

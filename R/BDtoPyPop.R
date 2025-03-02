@@ -3,7 +3,7 @@
 ################
 ##FormatHead
 #'Format PyPop Data Frame Headers
-#'  
+#'
 #'Format the header of a PyPop-formatted data frame.
 #'
 #'@param colHead A vector of column names. PyPop format requires that paired locus/gene names should end in '_1' and '_2', respectively.
@@ -33,7 +33,7 @@ formatHead <- function(colHead) {
 ################
 ##convertAny
 #' Convert Values Across an Entire Data Frame or Vector
-#'  
+#'
 #' Converts all instances of a value in a data frame or vector to a specified value.
 #'
 #' @param dataset A data frame or vector of values.

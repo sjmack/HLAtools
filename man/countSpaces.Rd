@@ -13,13 +13,14 @@ countSpaces(x)
 \item{x}{A character string.}
 }
 \value{
-A numeric value representing the number of spaces (' ') in x.
+A vector of numeric values identifying the number of instances of spaces (' ') in x, and the number of consecutive spaces in an instance.
 }
 \description{
 Counts the number of spaces in a character string.
 }
 \examples{
 countSpaces("abc def")
+countSpaces("abc def  ghi   jkl mno")
 
 }
 \author{

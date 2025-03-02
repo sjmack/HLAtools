@@ -2,7 +2,7 @@
 % Please edit documentation in R/GIANT.R
 \name{GIANT}
 \alias{GIANT}
-\title{GLupdate-Integrated Allele Name Translation}
+\title{GL string code-Integrated Allele Name Translation}
 \usage{
 GIANT(data, transFrom, transTo)
 }
@@ -17,7 +17,7 @@ GIANT(data, transFrom, transTo)
 A data frame or vector of HLA allele name data in the 'transTo' release.
 }
 \description{
-Calls GLupdate() to translate the HLA allele names in a vector or data frame between two IPD-IMGT/HLA Database release versions.
+Calls updateGL() to translate the HLA allele names in a vector or data frame between two IPD-IMGT/HLA Database release versions.
 }
 \note{
 GIANT() will ignore the first two columns of BIGDAWG-formatted data frames, which include non-HLA data. All columns in non-BIGDAWG-formatted data frames are expected to contain HLA allele names.

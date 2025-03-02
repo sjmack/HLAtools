@@ -2,7 +2,7 @@
 % Please edit documentation in R/locusValidator.R
 \name{validateLocus}
 \alias{validateLocus}
-\title{Determine if a locus name is in the HLAgazeteer}
+\title{Determine if a Locus Name is in the HLAgazeteer}
 \usage{
 validateLocus(loci, source)
 }

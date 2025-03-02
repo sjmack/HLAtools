@@ -2,7 +2,7 @@
 % Please edit documentation in R/GLupdater.R
 \name{GLV}
 \alias{GLV}
-\title{Retrieve version from input GL String.}
+\title{Retrieve Version from Input GL String}
 \usage{
 GLV(GLString)
 }

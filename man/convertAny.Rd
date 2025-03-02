@@ -2,9 +2,7 @@
 % Please edit documentation in R/BDtoPyPop.R
 \name{convertAny}
 \alias{convertAny}
-\title{Convert Values Across an Entire Data Frame or Vector
-
-Converts all instances of a value in a data frame or vector to a specified value.}
+\title{Convert Values Across an Entire Data Frame or Vector}
 \usage{
 convertAny(dataset, change.from = NA, change.to = "****")
 }
@@ -19,8 +17,6 @@ convertAny(dataset, change.from = NA, change.to = "****")
 A data frame or vector in which 'change.from' has been converted to 'change.to'.
 }
 \description{
-Convert Values Across an Entire Data Frame or Vector
-
 Converts all instances of a value in a data frame or vector to a specified value.
 }
 \examples{

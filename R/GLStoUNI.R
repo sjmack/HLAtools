@@ -190,11 +190,11 @@ validateGLstring <- function(GLstring, version) {
   if(!version %in% c("1.0","1.1")) {return(FALSE)}
   
     if(version == "1.0") {
-      badOperate <- all(strsplit(GLstring,split="")[[1]] %in% c("/","|","+","^","~",0:9,LETTERS, "b", "l", "a", "n", "k", "g","*","-",":"))
+      badOperate <- all(strsplit(GLstring,split="")[[1]] %in% c("/","|","+","^","~",0:9,LETTERS, "w", "b", "l", "a", "n", "k", "g","*","-",":"))
         } 
   
     if(version == "1.1") {
-      badOperate <- all(strsplit(GLstring,split="")[[1]] %in% c("/","|","+","^","~","?",0:9,LETTERS, "b", "l", "a", "n", "k", "g","*","-",":"))
+      badOperate <- all(strsplit(GLstring,split="")[[1]] %in% c("/","|","+","^","~","?",0:9,LETTERS, "w", "b", "l", "a", "n", "k", "g","*","-",":"))
     }
     
      if (!badOperate) { message(paste(GLstring," contains characters or operators not permitted in GL String version ",version,".",sep="")) }

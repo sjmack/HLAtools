@@ -2,7 +2,7 @@
 % Please edit documentation in R/GLupdater.R
 \name{redec}
 \alias{redec}
-\title{Reintroduce version decimals.}
+\title{Reintroduce Version Decimals}
 \usage{
 redec(Cname)
 }

@@ -26,5 +26,10 @@ Searches ANHIG/IMGT-HLA alignments and returns protein, codons or nucleotide seq
 \note{
 This function requires that the HLAalignments object has been populated with alignments via the alignmentFull() function.
 
-Indel positions must be text-formatted (e.g. "607.12"). C.f., alignmentSearch("nuc","DRB1\emph{15:07:01",11:22) vs alignmentSearch("nuc","DRB1}11:250N",c(605,"607.1","607.12",608)).
+Indel positions must be text-formatted (e.g. "607.12").
+}
+\examples{
+alignmentSearch("nuc","DRB1*15:07:01",11:22)
+alignmentSearch("nuc","DRB1*11:250N",c(605,"607.1","607.12",608))
+
 }

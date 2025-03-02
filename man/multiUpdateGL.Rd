@@ -2,33 +2,26 @@
 % Please edit documentation in R/GLupdater.R
 \name{multiUpdateGL}
 \alias{multiUpdateGL}
-\title{Update a column of GL String Code data to a desired IPD-IMGT/HLA Database version.}
+\title{Update a Vector of GL String Code Data to a Desired IPD-IMGT/HLA Database Version}
 \usage{
-multiUpdateGL(GLstringArray, Version, expand = FALSE)
+multiUpdateGL(GLSCs, to, expand = FALSE, verbose = FALSE)
 }
 \arguments{
-\item{GLstringArray}{An array of HLA allele names and operators in GL String code format identifying their relation with one another and the pertinent IPD-IMGT/HLA Database release version.}
+\item{GLSCs}{A vector of GL String codes.}
 
-\item{Version}{A character string identifying the desired version to which the alleles should be updated, going back to version 1.05.0.}
+\item{to}{A character string identifying the IPD-IMGT/HLA Database release version to translate 'GLSCs' to. Values can range from version 1.05.0 to the loaded version of the alleleListHistory object.}
 
-\item{expand}{A logical to determine whether to include only the direct HLA ID match, or all possible allele matches.}
+\item{expand}{A logical that indicates if the lowest-numbered truncated allele names that match truncated allele names in 'GLSCs' should be returned (expand = FALSE), or if a slash-delimited string of all matching full-length allele names should be returned (expand = TRUE). The default value is FALSE.}
+
+\item{verbose}{A logical that indicates if messages regarding the update process should be sent to the console (TRUE) or not (FALSE). The default value is FALSE.}
 }
 \value{
-A version of the input array of GL String Codes (in a data frame) updated to the desired version. NA values are returned in place of alleles that are not present in Version.
+A version GLSCs (in a data frame) updated to the desired version. NA values are returned in place of alleles that are not present in 'to'.
 }
 \description{
 Updates a column from a data frame in GL String Code format to a desired reference database version.
 }
 \examples{
-\donttest{
-# Example update of two GL Strings Codes containing truncated alleles from version 3.1.0 to 3.53.0.
-GLSC.ex[[2]][1:2] 
-multiUpdateGL(GLSC.ex[[2]][1:2], Version = "3.53.0")
-}
-
-}
-\references{
-Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
-
-Mack et al. HLA 05 July 2023 https://doi.org/10.1111/tan.15145
+multiUpdateGLs <- multiUpdateGL(GLSC.ex$GL.String.Code[1:50],"2.25.0")
+multiUpdateGLs <- multiUpdateGL(GLSC.ex$GL.String.Code[1:50],"3.58.0")
 }

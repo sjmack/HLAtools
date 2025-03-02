@@ -1,5 +1,22 @@
 ### HLAtools
 
+### Version 1.4.0
+
+- March 1, 2025
+- Updated verifyAllele() to identify all releases in which an allele name appears or the first (oldest) release in which that name appeared. 
+- Updated getField() to eliminate duplication of expression variant suffixes, and exit gracefully when 'append' is not a logical value. 
+- Added the translateAllele(), translateGLstring(), multiTranslateGLstring() functions. 
+- Refactored updateGL(), GLupdate() and multiUpdateGL() for efficiency, and to ensure translation across all IPD-IMGT/HLA Release Versions. Replaced the 'GLstring' parameter in these functions with the 'GLSC' parameter.
+- Added the verbose parameter to updateGL(), GLupdate() and multiUpdateGL().
+- Updated validateGLstring() and translateAllele() to account for the "w" in "Cw.
+- Updated GIANT() to interchange the "C" and "Cw" locus names when HLA-C data are translated across nomnenclature epoch 1 or 2 allele names and epoch 3 allele names.
+- Updated GIANT(), updateGL() and multiUpdateGL() to use checkVersion() rather than validateVersion().
+- Updated the description of the vector returned by countSpaces().
+- Added examples for customAlign() and alignmentSearch().
+- Corrected formatting errors in documentation for several functions.  
+- NOTE: GLupdate() is maintained in this release for compatibility with previous releases, but will be removed in a future release.
+- Updated News and Vignette.
+
 ### Version 1.3.0
 
 - November 11, 2024
@@ -119,7 +136,7 @@
 - Updated atlasMaker() to build atlases for HLA-Y in releases 3.32.0-3.20.0.
 - Updated atlasMaker() to build atlases for HLA-W and -T in release 3.27.0.
 - Updated atlasMaker() to build atlases for All loci in release 3.13.0/3.13.1.
-- Updated atlasMaker() to build atlases for  HLA-C in release 3.02.0.
+- Updated atlasMaker() to build atlases for HLA-C in release 3.02.0.
 - Updated atlasMaker() to build atlases for DPA, DPB, TAP1 and TAP2 in release 3.00.0.
 - Stopped atlasMaker() writing correspondence_tables to tempdir.
 

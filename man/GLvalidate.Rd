@@ -2,7 +2,7 @@
 % Please edit documentation in R/GLupdater.R
 \name{GLvalidate}
 \alias{GLvalidate}
-\title{Validates a GL String Code.}
+\title{Validate a GL String Code}
 \usage{
 GLvalidate(GLString, namespace = c("hla", "kir"))
 }

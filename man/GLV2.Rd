@@ -2,7 +2,7 @@
 % Please edit documentation in R/GLupdater.R
 \name{GLV2}
 \alias{GLV2}
-\title{Format GL String Code version number.}
+\title{Format GL String Code Version Number}
 \usage{
 GLV2(Version)
 }
