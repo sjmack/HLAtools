@@ -82,9 +82,9 @@ getLatestVersion <- function() {
 ##SquashVersion
 #'Reduce a Release Version to Numerals
 #'
-#'Removes the '.' delimiters from an IPD-IMGT/HLA Database Release Version name
+#'Removes the '.' delimiters from an IPD-IMGT/HLA Database release version name.
 #'
-#'@param ver A character vector-formatted IPD-IMGT/HLA Database Release Version name (e.g., '3.54.0').
+#'@param ver A character vector-formatted IPD-IMGT/HLA Database release version name (e.g., '3.54.0').
 #'@param num A Logial. A numeric value is returned when num = TRUE. A character vector is returned when num = FALSE. The default value is FALSE.
 #'
 #'@return A 4-digit value, as either a character string or a number.
@@ -133,11 +133,11 @@ expandVersion <- function(ver){
 ##RepoVersion
 #'Convert an AlleleListHistory Release Version to the GitHub Repository Version
 #'
-#'Removes periods from IMGT/HLA Database release versions, and converts release versions '3.00.0'-'3.09.0' to '300'-'390' to facilitate working with these GitHub repo branches.
+#'Removes periods from IMGT/HLA Database release versions and converts release versions '3.00.0'-'3.09.0' to '300'-'390' to facilitate working with these GitHub repo branches.
 #'
 #'@param version A character string of a validated IPD-IMGT/HLA Database release version.
 #'
-#'@return A character string of the release version suitable for use in an IMGT/HLA GitHub repository URL.
+#'@return A character string of the release version appropriate for use in an IMGT/HLA GitHub repository URL.
 #' 
 #'@examples
 #'repoVersion("3.05.0")

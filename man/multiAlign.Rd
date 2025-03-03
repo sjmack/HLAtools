@@ -17,7 +17,7 @@ multiAlign(alignType, alleles, positions)
 A data frame of 'allele' and the corresponding nucleotide sequence for specified positions designated for an allele. a nucleotide sequence is not returned for a specific allele if input allele is not available in the ANHIG/IMGTHLA Github Repository. position will be left empty if specific allele does not have a nucleotide at the input position.
 }
 \description{
-Generates a peptide, codon, coding nucleotide or genomic alignment for HLA alleles allowing each allele to be aligned to a different set of positions.
+Generates a peptide, codon, coding nucleotide or genomic alignment for HLA alleles, allowing each allele to be aligned to a different set of positions.
 }
 \note{
 For internal HLAtools use.

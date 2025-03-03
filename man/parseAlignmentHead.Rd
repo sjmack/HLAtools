@@ -2,7 +2,7 @@
 % Please edit documentation in R/accessoryFunctions.R
 \name{parseAlignmentHead}
 \alias{parseAlignmentHead}
-\title{Guides For Parsing the Header Blocks of Alignment Files}
+\title{Guides for Parsing the Header Blocks of Alignment Files}
 \usage{
 parseAlignmentHead(version)
 }

@@ -30,3 +30,6 @@ translateGLstring(GLstring.ex$Gl.String[1],"3.01.0","2.15.0",FALSE,TRUE)
 translateGLstring(GLstring.ex$Gl.String[1],"3.01.0","2.15.0",TRUE,TRUE)
 
 }
+\references{
+Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
+}

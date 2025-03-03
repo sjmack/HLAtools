@@ -17,7 +17,7 @@ relRisk(dataset, return = TRUE, save.path = tempdir())
 A list object of two lists ("alleles" and "genotypes"), each of which contains a list of nine-column data frames containing results for each unique allele or genotype (in rows) at each locus. Column headers in each dataframe are, \emph{Locus}, \emph{Variant}, \emph{Status_1}, \emph{Status_0}, \emph{RelativeRisk}, \emph{CI.low}, \emph{CI.high}, \emph{p.value}, and \emph{Significant}.
 }
 \description{
-This function returns a list object containing relative risk, confidence interval and p-value data for the individual alleles and individual genotypes at each locus in a BIGDAWG-formatted non-case-control genotype data frame or file.
+Returns a list object containing relative risk, confidence interval and p-value data for the individual alleles and individual genotypes at each locus in a BIGDAWG-formatted non-case-control genotype data frame or file.
 }
 \examples{
 rr <- relRisk(sHLAdata)

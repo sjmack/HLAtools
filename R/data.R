@@ -34,7 +34,7 @@
 ##GLSC.ex
 #'Example Data Frame of Genotype List String Code Data
 #'
-#'A two-column data frame (modified from pould::hla.hap.demo) including GL String data in Gl String Code format.
+#'A two-column data frame (modified from pould::hla.hap.demo) including GL String data in GL String Code format.
 #'Column one identifies each subject's status, while column two identifies each subject's HLA genotype in GL String Code format.
 #'This data is provided for use in examples and demonstrations.
 #'
@@ -144,7 +144,7 @@
 #' @format A list of 4 elements that include the gene features boundaries in each ANHIG/IMGTHLA sequence alignment. 
 #' \itemize{
 #'    \item(prot: peptide-alignment atlases)
-#'    \item(nuc: cDNA-alignment atlases)
+#'    \item(nuc: cDNA- and codon-alignment atlases)
 #'    \item(gen: gDNA-alignment atlases)
 #'    \item(version: The IPD-IMGT/HLA Database release version under which these data were generated)
 #'    }

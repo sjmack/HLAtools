@@ -21,8 +21,13 @@
 #'@note Indel positions must be text-formatted (e.g. "607.12").
 #'
 #'@examples
+#'\dontrun{
+#'alignmentSearch("gen","DRB1*15:07:01",11:22)
 #'alignmentSearch("nuc","DRB1*15:07:01",11:22)
+#'alignmentSearch("prot","DRB1*15:07:01",11:22)
+#'alignmentSearch("codon","DRB1*15:07:01",11:22)
 #'alignmentSearch("nuc","DRB1*11:250N",c(605,"607.1","607.12",608))
+#'}
 #'
 alignmentSearch <- function(alignType,allelename,positions,prefix=TRUE,sep="~"){
 
@@ -221,8 +226,11 @@ uniSearch <- function(alignType, locus, allele, position, prefix=TRUE, trimmed=F
 #'@note This function requires that the HLAalignments object has been populated with alignments via the alignmentFull() function.
 #'
 #'@examples
+#'\dontrun{
 #'customAlign("codon",c("DRB1*01:01","DQB1*02:01","DPB1*01:01"),c(1,2,3,7,8,9,13,14,15))
 #'customAlign("codon",c("DPB1*01:01:01:01","DQA1*01:01:01:01","DQB1*05:01:01:01"),list(19:35,1:4,6:9))
+#'customAlign("prot",c("DRB1*08:07","DPB1*14:01"),list(c(12,27,30,39,57,84),c(15,16,39,60,67,81)))
+#'}
 #'
 #'@export
 #'
@@ -253,7 +261,7 @@ customAlign <- function(alignType,alleles,positions){
 #'@param alleles A vector of un-prefixed HLA locus names.
 #'@param positions A vector of codon positions, against which all loci will be aligned.
 #'
-#'@return A data frame of allele names and the corresponding codon sequence for specified position. a codon sequence is not returned for a specific allele if input allele is not available in the ANHIG/IMGTHLA Github Repository. position will be left empty if specific allele does not have a codon at the input position.
+#'@return A data frame of allele names and the corresponding codon sequence for specified position. A codon sequence is not returned for alleles that are not present in the loaded HLAalignments object. A sequence position will be populated with whitespace if a specific allele has no sequence at the specified position.
 #'
 #'@note For internal HLAtools use.
 #'
@@ -295,7 +303,7 @@ uniAlign <- function(alignType, alleles,positions){
 ##multiAlign
 #'Generate an Alignment for Specific Alleles at Different Positions
 #'
-#'Generates a peptide, codon, coding nucleotide or genomic alignment for HLA alleles allowing each allele to be aligned to a different set of positions.
+#'Generates a peptide, codon, coding nucleotide or genomic alignment for HLA alleles, allowing each allele to be aligned to a different set of positions.
 #'
 #'@param alignType The type of alignment being searched. Allowed values are "prot", codon", "nuc" and "gen".  Only one 'alignType' value is allowed.
 #'@param alleles A vector of un-prefixed HLA locus names.
@@ -303,7 +311,7 @@ uniAlign <- function(alignType, alleles,positions){
 #'
 #'@return A data frame of 'allele' and the corresponding nucleotide sequence for specified positions designated for an allele. a nucleotide sequence is not returned for a specific allele if input allele is not available in the ANHIG/IMGTHLA Github Repository. position will be left empty if specific allele does not have a nucleotide at the input position.
 #'
-#'@note For internal HLAtools use.
+#'@note For internal HLAtools use. 
 #'
 #'@export
 #'

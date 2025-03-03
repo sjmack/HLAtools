@@ -61,9 +61,9 @@ numFields <- function(allele) {
 #'
 #'@param allele A character string of the colon-delimited HLA allele name.
 #'
-#'@return A logical identifying if the allele name is present in the alignments (TRUE) or, if it is not in the alignments or is not valid not (FALSE).
+#'@return A logical identifying if the allele name is present in the alignments (TRUE) or, if it is not in the alignments or is not valid (FALSE).
 #'
-#'@note Messages will be returned to the console if the allele name is malformed, or the locus is invalid; e.g., validateAllele("C*01:01:01:01") or validateAllele("A*01:01:01:01:01").
+#'@note Messages will be returned to the console if the allele name is malformed, or the locus is invalid; e.g., 'validateAllele("C\*01:01:01:01")' or 'validateAllele("A\*01:01:01:01:01")'.
 #'@note The locus being evaluated must be included in HLAalignments.
 #'
 #'@export
@@ -136,7 +136,7 @@ verifyAllele <- function(allele, version=FALSE,all=FALSE,first=FALSE){
 
 #################
 ##parseAlignmentHead
-#'Guides For Parsing the Header Blocks of Alignment Files
+#'Guides for Parsing the Header Blocks of Alignment Files
 #'
 #'Returns a vector describing the location of key information in the header blocks of alignment files.
 #'

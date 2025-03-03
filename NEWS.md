@@ -13,7 +13,7 @@
 - Updated GIANT(), updateGL() and multiUpdateGL() to use checkVersion() rather than validateVersion().
 - Updated the description of the vector returned by countSpaces().
 - Added examples for customAlign() and alignmentSearch().
-- Corrected formatting errors in documentation for several functions.  
+- Corrected formatting, spelling and grammatical errors in the documentation of several functions.  
 - NOTE: GLupdate() is maintained in this release for compatibility with previous releases, but will be removed in a future release.
 - Updated News and Vignette.
 

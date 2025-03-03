@@ -12,7 +12,7 @@ compareSequences(alignType, alleles)
 \item{alleles}{A character vector containing two full-length names for alleles at the same locus.}
 }
 \value{
-A two-row data frame identifying the positions and sequences at which the two alleles differ. E.g., compareSequences(alignType = "gen", alleles = c("DPA1\emph{01:03:38:01","DPA1}01:03:38:02"). Positions for which the sequence of either allele is unknown are ignored.
+A two-row data frame identifying the positions and sequences at which the two alleles differ. E.g., compareSequences(alignType = "gen", alleles = c("DPA1\*01:03:38:01","DPA1\*01:03:38:02"). Positions for which the sequence of either allele is unknown are ignored.
 }
 \description{
 Compares the sequences of two alleles at a locus, and identifies the differences between them at specific positions

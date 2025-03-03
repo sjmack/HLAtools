@@ -7,7 +7,7 @@
 squashVersion(ver, num = FALSE)
 }
 \arguments{
-\item{ver}{A character vector-formatted IPD-IMGT/HLA Database Release Version name (e.g., '3.54.0').}
+\item{ver}{A character vector-formatted IPD-IMGT/HLA Database release version name (e.g., '3.54.0').}
 
 \item{num}{A Logial. A numeric value is returned when num = TRUE. A character vector is returned when num = FALSE. The default value is FALSE.}
 }
@@ -15,7 +15,7 @@ squashVersion(ver, num = FALSE)
 A 4-digit value, as either a character string or a number.
 }
 \description{
-Removes the '.' delimiters from an IPD-IMGT/HLA Database Release Version name
+Removes the '.' delimiters from an IPD-IMGT/HLA Database release version name.
 }
 \note{
 For internal HLAtools use.

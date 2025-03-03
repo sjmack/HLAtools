@@ -12,7 +12,7 @@ GLvalidate(GLString, namespace = c("hla", "kir"))
 \item{namespace}{A character vector of allowed namespace strings. The default value is 'c("hla","kir")'.}
 }
 \value{
-A character string describing wither a well-formatted GL String Code or the value FALSE.
+A character string describing either a well-formatted GL String Code or the value FALSE.
 }
 \description{
 A lightweight validator that inspects a GL String Code for correct structure. If the namespace field contains a value other than value of 'namespace', the namespace is changed to 'hla'. The version and GL String fields are not evaluated.
@@ -27,5 +27,5 @@ GLvalidate("ha#3.25.0#hla-B15:35")
 \references{
 Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
 
-Mack et al. HLA 05 July 2023 https://doi.org/10.1111/tan.15145
+Mack et al. HLA 2023;102(4):501-507 https://doi.org/10.1111/tan.15145
 }

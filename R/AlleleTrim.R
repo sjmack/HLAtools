@@ -95,7 +95,7 @@ alleleTrim <- function(allele,resolution,version=3,append = FALSE){
 #'@description
 #' Trims a properly formatted colon-delimited HLA allele name to a desired number of fields.
 #' 
-#' If an allele name with an expression-variant suffix is truncated, the suffix can be appended to the end of the truncated allele name. If a resolution value greater then the number of fields in the submitted field is specified, the original allele is returned.
+#' If an allele name with an expression-variant suffix is truncated, the suffix can be appended to the end of the truncated allele name. If a resolution value greater than the number of fields in the submitted field is specified, the original allele is returned.
 #'
 #' @param allele A character string representing an HLA allele.
 #' @param res A numeric describing the resolution desired.

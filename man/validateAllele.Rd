@@ -10,13 +10,13 @@ validateAllele(allele)
 \item{allele}{A character string of the colon-delimited HLA allele name.}
 }
 \value{
-A logical identifying if the allele name is present in the alignments (TRUE) or, if it is not in the alignments or is not valid not (FALSE).
+A logical identifying if the allele name is present in the alignments (TRUE) or, if it is not in the alignments or is not valid (FALSE).
 }
 \description{
 Returns TRUE if an allele name is found in HLAalignments in either the 'allele_name' column of full-length allele names or the 'trimmed_allele' column of two-field allele names in the pertinent genomic alignment. Returns FALSE if the allele name is not properly formed, or if the allele name is not found in HLAalignments.
 }
 \note{
-Messages will be returned to the console if the allele name is malformed, or the locus is invalid; e.g., validateAllele("C\emph{01:01:01:01") or validateAllele("A}01:01:01:01:01").
+Messages will be returned to the console if the allele name is malformed, or the locus is invalid; e.g., 'validateAllele("C\*01:01:01:01")' or 'validateAllele("A\*01:01:01:01:01")'.
 
 The locus being evaluated must be included in HLAalignments.
 }

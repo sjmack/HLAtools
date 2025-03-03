@@ -8,7 +8,7 @@
 A list of 4 elements that include the gene features boundaries in each ANHIG/IMGTHLA sequence alignment.
 \itemize{
 \item(prot: peptide-alignment atlases)
-\item(nuc: cDNA-alignment atlases)
+\item(nuc: cDNA- and codon-alignment atlases)
 \item(gen: gDNA-alignment atlases)
 \item(version: The IPD-IMGT/HLA Database release version under which these data were generated)
 }

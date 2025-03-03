@@ -7,7 +7,7 @@
 multiUpdateGL(GLSCs, to, expand = FALSE, verbose = FALSE)
 }
 \arguments{
-\item{GLSCs}{A vector of GL String codes.}
+\item{GLSCs}{A vector of GL String Codes.}
 
 \item{to}{A character string identifying the IPD-IMGT/HLA Database release version to translate 'GLSCs' to. Values can range from version 1.05.0 to the loaded version of the alleleListHistory object.}
 
@@ -24,4 +24,10 @@ Updates a column from a data frame in GL String Code format to a desired referen
 \examples{
 multiUpdateGLs <- multiUpdateGL(GLSC.ex$GL.String.Code[1:50],"2.25.0")
 multiUpdateGLs <- multiUpdateGL(GLSC.ex$GL.String.Code[1:50],"3.58.0")
+
+}
+\references{
+Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
+
+Mack et al. HLA 2023;102(4):501-507 https://doi.org/10.1111/tan.15145
 }

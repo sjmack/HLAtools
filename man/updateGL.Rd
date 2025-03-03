@@ -26,3 +26,8 @@ updateGL(GLSC.ex$GL.String.Code[1],"2.15.0",FALSE,FALSE)
 updateGL(GLSC.ex$GL.String.Code[1],"2.15.0",TRUE,FALSE)
 
 }
+\references{
+Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
+
+Mack et al. HLA 2023;102(4):501-507 https://doi.org/10.1111/tan.15145
+}

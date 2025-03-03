@@ -133,7 +133,7 @@ buildGazeteer <- function(version = getLatestVersion()) {
 ##getAlignmentNames
 #'Retrieve Alignment Filenames for HLA Genes
 #'
-#'Retrieves the filenames of the protein, nucleotide and genomic alignments available a specific branch of the IMGTHLA GitHub Repository
+#'Retrieves the filenames of the protein, nucleotide and genomic alignments available in a specific branch of the IMGTHLA GitHub Repository
 #'
 #'@param URL A chararacter string containing a Uniform Resource Locator (URL) identifying of the desired IPD-IMGT/HLA Database release version from which the alignment filenames should be retrieved.
 #'

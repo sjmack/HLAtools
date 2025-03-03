@@ -10,10 +10,10 @@ repoVersion(version)
 \item{version}{A character string of a validated IPD-IMGT/HLA Database release version.}
 }
 \value{
-A character string of the release version suitable for use in an IMGT/HLA GitHub repository URL.
+A character string of the release version appropriate for use in an IMGT/HLA GitHub repository URL.
 }
 \description{
-Removes periods from IMGT/HLA Database release versions, and converts release versions '3.00.0'-'3.09.0' to '300'-'390' to facilitate working with these GitHub repo branches.
+Removes periods from IMGT/HLA Database release versions and converts release versions '3.00.0'-'3.09.0' to '300'-'390' to facilitate working with these GitHub repo branches.
 }
 \note{
 For internal HLAtools use.

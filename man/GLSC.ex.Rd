@@ -14,7 +14,7 @@ pould::hla.hap.demo
 data(GLSC.ex)
 }
 \description{
-A two-column data frame (modified from pould::hla.hap.demo) including GL String data in Gl String Code format.
+A two-column data frame (modified from pould::hla.hap.demo) including GL String data in GL String Code format.
 Column one identifies each subject's status, while column two identifies each subject's HLA genotype in GL String Code format.
 This data is provided for use in examples and demonstrations.
 }

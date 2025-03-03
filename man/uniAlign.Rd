@@ -14,7 +14,7 @@ uniAlign(alignType, alleles, positions)
 \item{positions}{A vector of codon positions, against which all loci will be aligned.}
 }
 \value{
-A data frame of allele names and the corresponding codon sequence for specified position. a codon sequence is not returned for a specific allele if input allele is not available in the ANHIG/IMGTHLA Github Repository. position will be left empty if specific allele does not have a codon at the input position.
+A data frame of allele names and the corresponding codon sequence for specified position. A codon sequence is not returned for alleles that are not present in the loaded HLAalignments object. A sequence position will be populated with whitespace if a specific allele has no sequence at the specified position.
 }
 \description{
 Generates a peptide, codon, coding or genomic nucleotide alignment at a single set of positions for HLA alleles at one or more loci.

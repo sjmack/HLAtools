@@ -26,4 +26,8 @@ Translates a column from a data frame in GL String Code format to a desired refe
 \examples{
 multiGLs <- multiTranslateGLstring(GLstring.ex$Gl.String[1:50],"3.01.0","2.15.0")
 multiGLs <- multiTranslateGLstring(GLstring.ex$Gl.String[1:50],"3.30.0","3.58.0")
+
+}
+\references{
+Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
 }

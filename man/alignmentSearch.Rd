@@ -29,7 +29,12 @@ This function requires that the HLAalignments object has been populated with ali
 Indel positions must be text-formatted (e.g. "607.12").
 }
 \examples{
+\dontrun{
+alignmentSearch("gen","DRB1*15:07:01",11:22)
 alignmentSearch("nuc","DRB1*15:07:01",11:22)
+alignmentSearch("prot","DRB1*15:07:01",11:22)
+alignmentSearch("codon","DRB1*15:07:01",11:22)
 alignmentSearch("nuc","DRB1*11:250N",c(605,"607.1","607.12",608))
+}
 
 }

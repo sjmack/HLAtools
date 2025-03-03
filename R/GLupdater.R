@@ -6,7 +6,7 @@
 #'
 #'Updates a column from a data frame in GL String Code format to a desired reference database version.
 #'
-#'@param GLSCs A vector of GL String codes. 
+#'@param GLSCs A vector of GL String Codes. 
 #'@param to A character string identifying the IPD-IMGT/HLA Database release version to translate 'GLSCs' to. Values can range from version 1.05.0 to the loaded version of the alleleListHistory object.
 #'@param expand A logical that indicates if the lowest-numbered truncated allele names that match truncated allele names in 'GLSCs' should be returned (expand = FALSE), or if a slash-delimited string of all matching full-length allele names should be returned (expand = TRUE). The default value is FALSE.
 #'@param verbose A logical that indicates if messages regarding the update process should be sent to the console (TRUE) or not (FALSE). The default value is FALSE.
@@ -18,6 +18,10 @@
 #'@examples
 #'multiUpdateGLs <- multiUpdateGL(GLSC.ex$GL.String.Code[1:50],"2.25.0")
 #'multiUpdateGLs <- multiUpdateGL(GLSC.ex$GL.String.Code[1:50],"3.58.0")
+#'
+#'@references Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
+#'@references Mack et al. HLA 2023;102(4):501-507 https://doi.org/10.1111/tan.15145
+#'
 multiUpdateGL <- function(GLSCs,to,expand=FALSE,verbose=FALSE){
   
   if(!checkVersion(to)) {stop(paste("Release version",to,"is not loaded in the HLAtools package. Please provide a loaded release version for 'to', or update the alleleListHistory object."))}
@@ -54,6 +58,9 @@ multiUpdateGL <- function(GLSCs,to,expand=FALSE,verbose=FALSE){
 #'@examples
 #'multiGLs <- multiTranslateGLstring(GLstring.ex$Gl.String[1:50],"3.01.0","2.15.0")
 #'multiGLs <- multiTranslateGLstring(GLstring.ex$Gl.String[1:50],"3.30.0","3.58.0")
+#'
+#'@references Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
+#'
 multiTranslateGLstring <- function(GLstrings,from,to,expand=FALSE,verbose=FALSE){
   
   if(!checkVersion(to)) {stop(paste("Release version",to,"is not loaded in the HLAtools package. Please provide a loaded release version for 'to', or update the alleleListHistory object."))}
@@ -91,6 +98,9 @@ multiTranslateGLstring <- function(GLstrings,from,to,expand=FALSE,verbose=FALSE)
 #'updateGL(GLSC.ex$GL.String.Code[1],"2.15.0",FALSE,FALSE)
 #'updateGL(GLSC.ex$GL.String.Code[1],"2.15.0",TRUE,FALSE)
 #'
+#'@references Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
+#'@references Mack et al. HLA 2023;102(4):501-507 https://doi.org/10.1111/tan.15145
+#'
 updateGL <- function(GLSC,to,expand = FALSE,verbose = FALSE) {
   
   if(!checkVersion(to)) {stop(paste("Release version",to,"is not loaded in the HLAtools package. Please provide a loaded release version for 'to', or update the alleleListHistory object."))}
@@ -123,13 +133,16 @@ updateGL <- function(GLSC,to,expand = FALSE,verbose = FALSE) {
 #'
 #'@export
 #'
-#'@return A GL String Code updated the 'to' release version.
+#'@return A GL String Code updated to the 'to' release version.
 #'
 #'@note This function is maintained for compatibility with previous releases, and will be removed in a future release. HLAtools users are advised to use updateGL().
 #'
 #'@examples
 #'GLupdate(GLSC.ex$GL.String.Code[1],"2.15.0",FALSE,FALSE)
 #'GLupdate(GLSC.ex$GL.String.Code[1],"2.15.0",TRUE,FALSE)
+#'
+#'@references Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
+#'@references Mack et al. HLA 2023;102(4):501-507 https://doi.org/10.1111/tan.15145
 #'
 GLupdate <- function(GLSC,to,expand = FALSE,verbose = FALSE) {
   
@@ -157,6 +170,8 @@ GLupdate <- function(GLSC,to,expand = FALSE,verbose = FALSE) {
 #'translateGLstring(GLstring.ex$Gl.String[1],"3.01.0","2.15.0",TRUE)
 #'translateGLstring(GLstring.ex$Gl.String[1],"3.01.0","2.15.0",FALSE,TRUE)
 #'translateGLstring(GLstring.ex$Gl.String[1],"3.01.0","2.15.0",TRUE,TRUE)
+#'
+#'@references Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
 #'
 translateGLstring <- function(GLstring,from,to,expand=FALSE,verbose=FALSE) {      
   
@@ -198,7 +213,7 @@ translateGLstring <- function(GLstring,from,to,expand=FALSE,verbose=FALSE) {
 
 ################
 ##translateAllele
-#'Translate HLA Allele Names Across IPD-IMGT/HLA Database Release Versions
+#'Translate HLA Allele Names across IPD-IMGT/HLA Database Release Versions
 #'
 #'Translates a single HLA allele name across IPD-IMGT/HLA Database release versions.  Truncated allele names in one version can be expanded to a list of all allele names that match the provided allele name in a chosen version.
 #'
@@ -307,7 +322,6 @@ translateAllele <- function(allele,from,to,expand=FALSE,verbose = FALSE) {
   
   trans # return the translated allele
 }
-######################################################################################
 
 ################
 ##GLV
@@ -327,7 +341,7 @@ translateAllele <- function(allele,from,to,expand=FALSE,verbose = FALSE) {
 #'GLV("hla#3.25.0#HLA-B15:35")
 #'
 #'@references Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
-#'@references Mack et al. HLA 05 July 2023 https://doi.org/10.1111/tan.15145
+#'@references Mack et al. HLA 2023;102(4):501-507 https://doi.org/10.1111/tan.15145
 #'
 GLV <- function(GLString) {
   ve1 <-""
@@ -353,7 +367,6 @@ GLV <- function(GLString) {
   }
 }
 
-
 ################
 ##GLV2
 #'Format GL String Code Version Number
@@ -373,7 +386,7 @@ GLV <- function(GLString) {
 #'GLV2("3.0.0")
 #'
 #'@references Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
-#'@references Mack et al. HLA 05 July 2023 https://doi.org/10.1111/tan.15145
+#'@references Mack et al. HLA 2023;102(4):501-507 https://doi.org/10.1111/tan.15145
 #
 GLV2 <- function(Version) {
   ve1 <- ve2 <- ""
@@ -417,7 +430,7 @@ GLV2 <- function(Version) {
 #'
 #'
 #'@references Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
-#'@references Mack et al. HLA 05 July 2023 https://doi.org/10.1111/tan.15145
+#'@references Mack et al. HLA 2023;102(4):501-507 https://doi.org/10.1111/tan.15145
 #'
 GLVhelper <- function(Version) {
   ve5 <-ve4 <-ve3 <-ve2 <- ""
@@ -565,7 +578,7 @@ redec <- function(Cname) {
 #'@param GLString A character string describing a string formatted to GL String Code specifications.
 #'@param namespace A character vector of allowed namespace strings. The default value is 'c("hla","kir")'.
 #'
-#'@return A character string describing wither a well-formatted GL String Code or the value FALSE.
+#'@return A character string describing either a well-formatted GL String Code or the value FALSE.
 #'
 #'@note For internal use only.
 #'
@@ -575,7 +588,7 @@ redec <- function(Cname) {
 #'GLvalidate("ha#3.25.0#hla-B15:35") 
 #'
 #'@references Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
-#'@references Mack et al. HLA 05 July 2023 https://doi.org/10.1111/tan.15145
+#'@references Mack et al. HLA 2023;102(4):501-507 https://doi.org/10.1111/tan.15145
 #'
 GLvalidate <- function(GLString,namespace = c("hla","kir")) {
   GLcopy <- GLString

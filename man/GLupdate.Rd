@@ -16,7 +16,7 @@ GLupdate(GLSC, to, expand = FALSE, verbose = FALSE)
 \item{verbose}{A logical that indicates if messages regarding the update process should be sent to the console (TRUE) or not (FALSE). The default value is FALSE.}
 }
 \value{
-A GL String Code updated the 'to' release version.
+A GL String Code updated to the 'to' release version.
 }
 \description{
 Updates the elements of a GLString Code across IPD-IMGT/HLA Database release versions. Truncated allele names can be expanded to the list of all allele names that contain the truncated name.
@@ -28,4 +28,9 @@ This function is maintained for compatibility with previous releases, and will b
 GLupdate(GLSC.ex$GL.String.Code[1],"2.15.0",FALSE,FALSE)
 GLupdate(GLSC.ex$GL.String.Code[1],"2.15.0",TRUE,FALSE)
 
+}
+\references{
+Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
+
+Mack et al. HLA 2023;102(4):501-507 https://doi.org/10.1111/tan.15145
 }

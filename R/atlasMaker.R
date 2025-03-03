@@ -17,7 +17,7 @@
 #'
 #'@note For internal HLAtools use.
 #'@note Nucleotide atlases for pseudogenes will include a 'codon' row populated with NA values.
-#'@note Some HLA-DQB1*05 and *06 alleles include a 5th exon that is not present in the DQB1*05:01:01:01 reference allele. In this case, the Exon 4 to Exon 5 boundary is defined as 'Ins' (insertion). For all other alleles there is no E.4-5 boundary.
+#'@note Some HLA-DQB1\*05 and \*06 alleles include a 5th exon that is not present in the DQB1\*05:01:01:01 reference allele. In this case, the Exon 4 to Exon 5 boundary is defined as 'Ins' (insertion). For all other alleles there is no E.4-5 boundary.
 #'@note Boundaries for non-standard hybrid (H), join (J), novel (N) and segment (S) features may be included in gene fragment and pseudogene atlases.
 #'
 #'@importFrom DescTools StrLeft IsOdd

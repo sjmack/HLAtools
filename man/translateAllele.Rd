@@ -2,7 +2,7 @@
 % Please edit documentation in R/GLupdater.R
 \name{translateAllele}
 \alias{translateAllele}
-\title{Translate HLA Allele Names Across IPD-IMGT/HLA Database Release Versions}
+\title{Translate HLA Allele Names across IPD-IMGT/HLA Database Release Versions}
 \usage{
 translateAllele(allele, from, to, expand = FALSE, verbose = FALSE)
 }
