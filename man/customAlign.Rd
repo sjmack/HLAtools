@@ -14,7 +14,7 @@ customAlign(alignType, alleles, positions)
 \item{positions}{Either a vector of variant positions, against which all loci will be aligned, or a list of vectors of nucleotide positions, exactly one vector for each allele, against which each corresponding allele will be aligned.}
 }
 \value{
-A data frame of allele names and the corresponding nucleotide sequences for each desired nucleotide position. an error message is returned if input locus is not available in the ANHIG/IMGTHLA Github Repository.
+A data frame of allele names and the corresponding nucleotide sequences for each desired nucleotide position. FALSE is returned when 'positions' includes values that do not exist in the specified alignment, and when a specified locus is not available in the HLAalignments object.
 }
 \description{
 Generates a peptide, codon, coding or genomic nucleotide alignment table for user-specified HLA alleles at user-specified positions.

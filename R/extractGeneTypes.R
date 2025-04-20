@@ -1,59 +1,51 @@
-### Extract IPD-IMGT/HLA Database-Supported Gene Types v2.0.1 20 March 2024
+### Extract IPD-IMGT/HLA Database-Supported Gene Types v3.0.0 16 Apr 2024
 
 ####################
 ## BuildIMGTHLAGeneTypes
 #'Describe IPD-IMGT/HLA Database Genes, Identifying Pseudogenes and Gene Fragments
 #'
-#'buildIMGTHLAGeneTypes() scrapes 'hla.alleles.org/genes/index.html' and generates a data frame identifying each gene. It requires internet access to function. As such, this function always returns data for the current IPD-IMGT/HLA Database release.
+#'buildIMGTHLAGeneTypes() scrapes 'hla.alleles.org/pages/genes/genes_list' and generates a data frame identifying each gene. It requires internet access to function. As such, this function always returns data for the current IPD-IMGT/HLA Database release.
 #'
-#'@return A list object of two elements -- 'version' and 'GeneTypes'. The 'version' element identifies the date that the source table was generated. The 'GeneTypes' element is a data frame of three columns, identifying each gene supported by the IPD-IMGT/HLA Database, along with its molecular characteristics and its status as either a pseudogene or a gene fragment.
+#'@return A list object of two elements -- 'version' and 'GeneTypes'. The 'version' element identifies the date on which the source table was generated. The 'GeneTypes' element is a data frame of three columns, identifying each gene supported by the IPD-IMGT/HLA Database, along with its molecular characteristics and its status as either a pseudogene or a gene fragment.
+#'
+#'@importFrom rvest read_html html_table html_nodes
+#'@importFrom stats setNames
+#'@importFrom stringr %>%
 #'
 #'@export
 #'
 #'@note For internal HLAtools use.
 #'
 buildIMGTHLAGeneTypes <- function(){
-  rawPage <- readLines("https://hla.alleles.org/genes/index.html",-1,warn = FALSE)
-  start <- which(rawPage[] == "          <th>Molecular characteristics</th>") +3
-  end <- which(rawPage[] == "      </table>") -2
-  dateMade <- rawPage[grep("#BeginDate",rawPage,fixed=TRUE)][1]
-  dateMade <- strsplit(strsplit(dateMade,"-->",fixed = TRUE)[[1]][2],"<!--",fixed=TRUE)[[1]][1]
-  rawPage <- rawPage[start:end]
-  trs <- which(rawPage[] %in% "        <tr>")
-  rawPageTable <- data.frame(rawPage[!1:length(rawPage) %in% c(trs, trs-1)])
-  PageTable <- as.data.frame(matrix(NA,nrow(rawPageTable)/3,3))
-
-  j <- 1
-  for(i in 1:nrow(rawPageTable)) {
-    PageTable[ceiling(i/3),j] <- rawPageTable[i,1]
-    j <- j+1
-    if(j == 4){j <- 1}
-  }
-
-  PageTable <- cbind(PageTable[,1],PageTable[,3]) ## Dump the middle column of old names
-  PageTable[,1] <- str_replace(PageTable[,1],pattern = "          <td><em>",replacement = "")
-  PageTable[,1] <- str_replace(PageTable[,1],pattern = "</span></em></td>",replacement = "")
-  PageTable[,2] <- str_replace(PageTable[,2],pattern = "          <td>",replacement = "")
-  PageTable[,2] <- str_replace(PageTable[,2],pattern = "</td>",replacement = "")
-  PageTable[,2] <- str_replace(PageTable[,2],pattern = "&alpha;",replacement = "Alpha")
-  PageTable[,2] <- str_replace(PageTable[,2],pattern = "&beta;",replacement = "Beta")
-  colnames(PageTable) <- c("Names","Molecular Characteristics")
-
-  PageTable <- cbind(PageTable,(rep("",nrow(PageTable))))
-  pseudoCols <- grep("pseudogene",PageTable[,2],fixed = FALSE)
-  fragmentCols <- grep("gene fragment",PageTable[,2],fixed = FALSE)
-
-  PageTable[,3][pseudoCols] <- "Pseudogene"
-  PageTable[,3][fragmentCols] <- "Fragment"
-
-  colnames(PageTable)[3] <- "Pseudogene/Fragment"
-
-  PageTable <- as.data.frame(PageTable)
+  url <-  "https://hla.alleles.org/pages/genes/genes_list"
   
-  typeList <- list(firstList <- dateMade,  
-                  secondList <- PageTable)
+    # Setup and version extraction
+    rawPage <- readLines(url,-1,warn = FALSE)
+    updateLine <- which(rawPage[] == "        <p class=\"last-updated text-right content\">")+1 ## the line with the update information on it. 
+    version <- strsplit(rawPage[updateLine],": ")[[1]][2]
+
+          ## Extract the molecular characteristics table from the page HTML
+          df <- url |> 
+          read_html() |> 
+          html_nodes("table") |> 
+          html_table(fill = T) %>%
+          lapply(., function(x) setNames(x, c("Names", "Equivalent", "Alignments", 
+                                        "Molecular Characteristics","Function","Links")))
   
-  names(typeList) <- c("version","GeneTypes")
+          ## Capture columns 1 and 4, and ad a pseudogene/genefragment column
+          baseTab <- as.data.frame(df[[1]][,c(1,4)])
+          baseTab <- cbind(baseTab,rep("",nrow(baseTab)))
+          colnames(baseTab)[3] <- "Pseudogene/Fragment"  
   
-  typeList
+          ## Identify Pseudogenes and Gene Fragments
+          pseudoRows <- grep("pseudogene",baseTab[,2],fixed = FALSE)
+          fragmentRows <- grep("gene fragment",baseTab[,2],fixed = FALSE)
+
+          baseTab[,3][pseudoRows] <- "Pseudogene"
+          baseTab[,3][fragmentRows] <- "Fragment"
+  
+    geneTypes <- list(baseTab,version)
+    names(geneTypes) <- c("GeneTypes","version")
+    
+    return(geneTypes)
 }

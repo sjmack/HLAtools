@@ -1,4 +1,4 @@
-## UpdateAll v02.1.0 21 July 2024
+## UpdateAll v02.2.0 16 April 2025
 
 ################
 ##updateAll
@@ -27,7 +27,7 @@ updateAll <-function(updateType="all",version = getLatestVersion()){
   #IMGTHLAGeneTypes
     if("all" %in% updateType || "IMGTHLAGeneTypes" %in% updateType) {
       rawPage <- readLines("https://hla.alleles.org/genes/index.html",-1,warn = FALSE)
-      IHGTversion <- strsplit(strsplit(rawPage[grep("#BeginDate",rawPage,fixed=TRUE)][1],"-->",fixed = TRUE)[[1]][2],"<!--",fixed=TRUE)[[1]][1]
+       IHGTversion <- strsplit(rawPage[grep("Last updated",rawPage,fixed=TRUE)][1],": ",fixed = TRUE)[[1]][2]
       
       if(IHGTversion == IMGTHLAGeneTypes$version){
         message(paste("IMGTHLAGeneTypes for version",IHGTversion,"is already loaded.",sep=" "))

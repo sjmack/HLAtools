@@ -1,10 +1,10 @@
-##data v2.0.0 10JUL2024
+##data v2.1.0 19APR2025
 
 ##alleleListHistory
 #'Allele Names Across All Release Versions
 #'
-#'A large list object of two elements. The first element contains version information. The second element contains all releases of allele name lists in the IMGT/HLA database.
-#'This object is built by the UpdateAlleleListHistory() function.
+#'A large list object of two elements. The first element contains version information. The second element contains all releases of allele name lists in the IPD-IMGT/HLA Database.
+#'This object is built by the UpdateAlleleListHistory() function. 
 #'
 #' @docType data
 #' @name alleleListHistory
@@ -15,6 +15,9 @@
 #'    \item(AlleleListHistory: a dataframe version of the alleleListHistory.txt file)
 #' }
 #' @source https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/Allelelist_history.txt
+#' 
+#' @note The Allele List History file in IPD-IMGT/HLA Database release version 3.60.0 is too large to be included in the HLAtools package. The alleleListHistory object for release version 3.59.0 is included in the package. The alleleListHistory object in release versions 3.60.0 and later can be loaded via the updateAll() function.
+#' 
 "alleleListHistory"
 
 ##fragmentFeatureNames
@@ -114,7 +117,7 @@
 #'    \item(GeneTypes: a data frame of three columns)
 #'    \item(version: a character string identifying the date that the source file was written)
 #' }
-#' @source https://hla.alleles.org/genes/index.html
+#' @source @source https://hla.alleles.org/pages/genes/genes_list
 "IMGTHLAGeneTypes"
 
 ##UNIFORMAT.example

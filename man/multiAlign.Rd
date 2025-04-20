@@ -9,12 +9,12 @@ multiAlign(alignType, alleles, positions)
 \arguments{
 \item{alignType}{The type of alignment being searched. Allowed values are "prot", codon", "nuc" and "gen".  Only one 'alignType' value is allowed.}
 
-\item{alleles}{A vector of un-prefixed HLA locus names.}
+\item{alleles}{A vector of un-prefixed HLA allele names.}
 
 \item{positions}{A list of vectors of nucleotide positions, exactly one vector for each allele, against which each corresponding allele will be aligned.}
 }
 \value{
-A data frame of 'allele' and the corresponding nucleotide sequence for specified positions designated for an allele. a nucleotide sequence is not returned for a specific allele if input allele is not available in the ANHIG/IMGTHLA Github Repository. position will be left empty if specific allele does not have a nucleotide at the input position.
+A data frame of 'allele' and the corresponding nucleotide sequence for specified positions designated for an allele. A nucleotide sequence is not returned for a specific allele if input allele is not available in the ANHIG/IMGTHLA Github Repository. A position will be left empty if the specific allele does not have a variant at that position. If 'positions' includes values that do not exist in the specified alignment, FALSE is returned.
 }
 \description{
 Generates a peptide, codon, coding nucleotide or genomic alignment for HLA alleles, allowing each allele to be aligned to a different set of positions.

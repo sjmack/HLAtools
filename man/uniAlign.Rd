@@ -9,12 +9,12 @@ uniAlign(alignType, alleles, positions)
 \arguments{
 \item{alignType}{The type of alignment being searched. Allowed values are "prot", codon", "nuc" and "gen". Only one 'alignType' value is allowed.}
 
-\item{alleles}{A vector of un-prefixed HLA locus names.}
+\item{alleles}{A vector of un-prefixed HLA allele names.}
 
 \item{positions}{A vector of codon positions, against which all loci will be aligned.}
 }
 \value{
-A data frame of allele names and the corresponding codon sequence for specified position. A codon sequence is not returned for alleles that are not present in the loaded HLAalignments object. A sequence position will be populated with whitespace if a specific allele has no sequence at the specified position.
+A data frame of allele names and the corresponding codon sequence for specified position. A codon sequence is not returned for alleles that are not present in the loaded HLAalignments object. A sequence position will be populated with whitespace if a specific allele has no sequence at the specified position. If 'positions' includes values that do not exist in the specified alignment, FALSE is returned.
 }
 \description{
 Generates a peptide, codon, coding or genomic nucleotide alignment at a single set of positions for HLA alleles at one or more loci.

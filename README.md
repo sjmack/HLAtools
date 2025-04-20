@@ -1,17 +1,17 @@
 ## HLAtools: Functions and Datasets for HLA Informatics
 
-## Version 1.4.0
+## Version 1.5.0
 
-The HLA, or so-called "Human Leukocyte Antigen", region is the most polymorphic section of the human genome, with 42,022 allelic variants identified across 46 loci. The key roles played by the class I and class II HLA genes in stem-cell therapy and transplantation, disease association research, evolutionary biology, and population genetics result in constant discovery of new allele variants. These data are curated and maintained by the [ImmunoPolymorphism Database-IMmunoGeneTics/HLA (IPD-IMGT/HLA) Database](https://www.ebi.ac.uk/ipd/imgt/hla/) and made available on the [Anthony Nolan HLA Informatics Group (ANHIG)/IMGTHLA GitHub repository](https://github.com/ANHIG/IMGTHLA) as static text files, which are updated every three months. Standardized use of the data in this key resource can be challenging. To address this, we have developed HLAtools, an R package that automates the consumption of IPD-IMGT/HLA resources, renders them computable, and makes them available alongside tools for data analysis, visualization and investigation. The package is compatible with all IPD-IMGT/HLA Database release versions up to release 3.59.0. 
+The HLA region is the most polymorphic section of the human genome, with 42,584 allelic variants identified across 46 loci. The key roles played by the class I and class II HLA genes in stem-cell therapy and transplantation, disease association research, evolutionary biology, and population genetics result in constant discovery of new allele variants. These data are curated and maintained by the [ImmunoPolymorphism Database-IMmunoGeneTics/HLA (IPD-IMGT/HLA) Database](https://www.ebi.ac.uk/ipd/imgt/hla/) and made available on the [Anthony Nolan HLA Informatics Group (ANHIG)/IMGTHLA GitHub repository](https://github.com/ANHIG/IMGTHLA) as static text files, which are updated every three months. Standardized use of the data in this key resource can be challenging. To address this, we have developed HLAtools, an R package that automates the consumption of IPD-IMGT/HLA resources, renders them computable, and makes them available alongside tools for data analysis, visualization and investigation. The package is compatible with all IPD-IMGT/HLA Database release versions up to release 3.60.0. 
 
 HLAtools version 1.4.0 is available on the CRAN repository at [https://cran.r-project.org/package=HLAtools](https://cran.r-project.org/package=HLAtools). 
 
-Developmental versions of the package (in this repository) can be installed using the *[xfun](https://CRAN.R-project.org/package=xfun)::install_github(sjmack/HLAtools)* command.
+Developmental version 1.5.0 of the package (in this repository) can be installed using the *[xfun](https://CRAN.R-project.org/package=xfun)::install_github(sjmack/HLAtools)* command.
 
 ### Data Resources
 The package includes five data objects that foster computation on IPD-IMGT/HLA resources. 
 
-- 'IMGTHLAGeneTypes' describes the [named genes in the HLA region](https://hla.alleles.org/genes/index.html).
+- 'IMGTHLAGeneTypes' describes the [named genes in the HLA region](https://hla.alleles.org/pages/genes/genes_list/).
 - 'HLAgazetteer' defines specific categories of genes supported by the IPD-IMGT/HLA Database. For example:
    - gene fragments (HLAgazeteer$frag : "N" "P" "R" "S" "T" "U" "V" "W" "X" "Z") 
    - non-classical HLA genes (HLAgazeteer$nonclassical : "DMA"  "DMB"  "DOA"  "DOB"  "DPA2" "DPB2" "DQA2" "DQB2" "E"    "F"    "G")

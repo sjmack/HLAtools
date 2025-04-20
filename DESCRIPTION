@@ -1,7 +1,7 @@
 Package: HLAtools
 Type: Package
 Title: Toolkit for HLA Immunogenomics
-Version: 1.4.0
+Version: 1.5.0
 Authors@R: 
     c(person("Livia", "Tran", , "livia.tran@ucsf.edu", role = c("aut")),
     person("Ryan", "Nickens", , "rynickens@gmail.com", role = c("aut")),
@@ -17,7 +17,7 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports:
-  DescTools, dplyr, stringr, tibble, utils, xfun, fmsb
+  DescTools, dplyr, fmsb, rvest, stats, stringr, tibble, utils, xfun
 Depends: 
     R (>= 3.5.0)
 LazyData: true

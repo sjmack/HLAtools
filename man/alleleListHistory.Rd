@@ -18,7 +18,10 @@ https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/Allelelist_history.txt
 data(alleleListHistory)
 }
 \description{
-A large list object of two elements. The first element contains version information. The second element contains all releases of allele name lists in the IMGT/HLA database.
+A large list object of two elements. The first element contains version information. The second element contains all releases of allele name lists in the IPD-IMGT/HLA Database.
 This object is built by the UpdateAlleleListHistory() function.
+}
+\note{
+The Allele List History file in IPD-IMGT/HLA Database release version 3.60.0 is too large to be included in the HLAtools package. The alleleListHistory object for release version 3.59.0 is included in the package. The alleleListHistory object in release versions 3.60.0 and later can be loaded via the updateAll() function.
 }
 \keyword{datasets}

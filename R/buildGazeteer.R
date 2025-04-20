@@ -1,4 +1,4 @@
-#buildGazeteer v6.0.0 10JUL2024
+#buildGazeteer v6.1.0 18APR2025
 
 ##############
 ##buildGazeteer
@@ -73,7 +73,7 @@ buildGazeteer <- function(version = getLatestVersion()) {
         }
       }
   }
-  locList <- list(zerothList <- sort(unique(c(unlist(genList),unlist(nucList),unlist(protList),c("DRB2", "DRB6", "DRB7", "DRB9")))), #all aligned; these last four are in the DRB_nuc.txt file
+  locList <- list(zerothList <- sort(unique(c(unlist(genList),unlist(nucList),unlist(protList),c("DRB2", "DRB6", "DRB7", "DRB8", "DRB9")))), #all aligned; these last five are in the DRB_nuc.txt file. Currently, only one DRB2 and one DRB8 sequence is known.
                       firstList <- unlist(genList),  ## prot
                       secondList <- unlist(nucList), ## nuc
                       thirdlist <- unlist(protList)) ## gen

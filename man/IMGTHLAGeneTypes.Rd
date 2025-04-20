@@ -12,7 +12,7 @@ A list object of two elements:
 }
 }
 \source{
-https://hla.alleles.org/genes/index.html
+@source https://hla.alleles.org/pages/genes/genes_list
 }
 \usage{
 data(IMGTHLAGeneTypes)

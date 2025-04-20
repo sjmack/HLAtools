@@ -1,4 +1,4 @@
-#### unified alignment search and construction functions v4.3.0 20 March 2024 Ryan Nickens & Steven Mack 
+#### unified alignment search and construction functions v5.0.0 18 April 2025 Ryan Nickens & Steven Mack 
 
 ################
 #AlignmentSearch
@@ -221,7 +221,7 @@ uniSearch <- function(alignType, locus, allele, position, prefix=TRUE, trimmed=F
 #'@param alleles A vector of un-prefixed HLA allele names.
 #'@param positions Either a vector of variant positions, against which all loci will be aligned, or a list of vectors of nucleotide positions, exactly one vector for each allele, against which each corresponding allele will be aligned.
 #'
-#'@return A data frame of allele names and the corresponding nucleotide sequences for each desired nucleotide position. an error message is returned if input locus is not available in the ANHIG/IMGTHLA Github Repository.
+#'@return A data frame of allele names and the corresponding nucleotide sequences for each desired nucleotide position. FALSE is returned when 'positions' includes values that do not exist in the specified alignment, and when a specified locus is not available in the HLAalignments object.
 #'
 #'@note This function requires that the HLAalignments object has been populated with alignments via the alignmentFull() function.
 #'
@@ -244,12 +244,11 @@ customAlign <- function(alignType,alleles,positions){
       if(is.list(positions)) {
       #calls multicDNAalign if multiple sets of positions are given
       multiAlign(alignType,alleles,positions)
-      }
-      else {
-      #calls unicDNAalign if only one set of positions are given
-        uniAlign(alignType,alleles,positions)
-      }
-  }
+        } else {
+          #calls unicDNAalign if only one set of positions are given
+            uniAlign(alignType,alleles,positions)
+          }
+    }
 
 ################
 ##uniAlign
@@ -258,19 +257,21 @@ customAlign <- function(alignType,alleles,positions){
 #'Generates a peptide, codon, coding or genomic nucleotide alignment at a single set of positions for HLA alleles at one or more loci.
 #'
 #'@param alignType The type of alignment being searched. Allowed values are "prot", codon", "nuc" and "gen". Only one 'alignType' value is allowed.
-#'@param alleles A vector of un-prefixed HLA locus names.
+#'@param alleles A vector of un-prefixed HLA allele names.
 #'@param positions A vector of codon positions, against which all loci will be aligned.
 #'
-#'@return A data frame of allele names and the corresponding codon sequence for specified position. A codon sequence is not returned for alleles that are not present in the loaded HLAalignments object. A sequence position will be populated with whitespace if a specific allele has no sequence at the specified position.
+#'@return A data frame of allele names and the corresponding codon sequence for specified position. A codon sequence is not returned for alleles that are not present in the loaded HLAalignments object. A sequence position will be populated with whitespace if a specific allele has no sequence at the specified position. If 'positions' includes values that do not exist in the specified alignment, FALSE is returned.
 #'
 #'@note For internal HLAtools use.
 #'
 #'@export
 #'
-uniAlign <- function(alignType, alleles,positions){
+uniAlign <- function(alignType, alleles, positions){
 
   alignType <- checkAlignType(alignType)
   if(length(alignType)!=1) {stop(paste("Please specify only one 'alignType'."))} 
+  
+  if(!validatePositions(alignType,strsplit(alleles[1],"*",fixed=TRUE)[[1]][1],positions)) {return(FALSE)}
 
   #making an array with correct dimensions
   align <- data.frame(matrix(" ", nrow = length(alleles), ncol = length(positions)+1),stringsAsFactors = FALSE)
@@ -288,15 +289,13 @@ uniAlign <- function(alignType, alleles,positions){
     #these positions will be filled if seqStr is not empty.
     align[i,2:(length(positions)+1)] <- if(!is.null(seqStr)) {
       strsplit(seqStr,split="~",fixed = TRUE)[[1]]
-    }
-    #if value is null, space fills spots
-    else {
-      rep(" ",length(positions))
-    }
+        } else { #if value is null, space fills spots
+            rep(" ",length(positions))
+          }
     
-  }
-  align
-}
+      }
+      align
+    }
 
 
 ################
@@ -306,10 +305,10 @@ uniAlign <- function(alignType, alleles,positions){
 #'Generates a peptide, codon, coding nucleotide or genomic alignment for HLA alleles, allowing each allele to be aligned to a different set of positions.
 #'
 #'@param alignType The type of alignment being searched. Allowed values are "prot", codon", "nuc" and "gen".  Only one 'alignType' value is allowed.
-#'@param alleles A vector of un-prefixed HLA locus names.
+#'@param alleles A vector of un-prefixed HLA allele names.
 #'@param positions A list of vectors of nucleotide positions, exactly one vector for each allele, against which each corresponding allele will be aligned.
 #'
-#'@return A data frame of 'allele' and the corresponding nucleotide sequence for specified positions designated for an allele. a nucleotide sequence is not returned for a specific allele if input allele is not available in the ANHIG/IMGTHLA Github Repository. position will be left empty if specific allele does not have a nucleotide at the input position.
+#'@return A data frame of 'allele' and the corresponding nucleotide sequence for specified positions designated for an allele. A nucleotide sequence is not returned for a specific allele if input allele is not available in the ANHIG/IMGTHLA Github Repository. A position will be left empty if the specific allele does not have a variant at that position. If 'positions' includes values that do not exist in the specified alignment, FALSE is returned.
 #'
 #'@note For internal HLAtools use. 
 #'
@@ -320,6 +319,10 @@ multiAlign <- function(alignType,alleles,positions){
   alignType <- checkAlignType(alignType)
   if(length(alignType)!=1) {stop(paste("Please specify only one 'alignType'."))}
   
+  for(l in 1:length(positions)) {
+            if(!validatePositions(alignType,strsplit(alleles[l],"*",fixed=TRUE)[[1]][1],positions[[l]])) {return(FALSE)}
+                    }
+
     #initial parameter check
       if(length(alleles) != length(positions)) {return(warning("The number of sets of positions must exactly match the number of alleles, please adjust input accordingly."))}
       #creating an array of correct dimensions
@@ -364,3 +367,48 @@ multiAlign <- function(alignType,alleles,positions){
       align
 }
 
+################
+##validatePositions
+#'Validate the Presence of Variant Positions in an Alignment
+#'
+#'Returns TRUE when variant positions are present in a specified alignment in HLAalignments. Returns false when any variant position is not present in the specified alignment and generates a message identifying such positions.
+#'
+#'@param alignType The type of alignment being searched. Allowed values are "prot", codon", "nuc" and "gen".  Only one 'alignType' value is allowed.
+#'@param locus A locus supported by the IPD-IMGT/HLA Database.
+#'@param positions A vector of variant positions.
+#'
+#'@return A logical identifying if the position is present in the alignment (TRUE) or, if it is not in the alignment or is not valid (FALSE).
+#'
+#'@note For internal HLAtools use. 
+#'
+#'@export
+#'
+validatePositions <- function(alignType,locus,positions){
+  
+  multiple <- FALSE
+  
+  if(!length(alignType) == 1) { message("Please provide a single 'alignType' value.")
+            return(FALSE)}
+  
+  if(length(checkAlignType(alignType)) == 0) { return(FALSE)}
+  
+  if(!validateLocus(locus,typeToSource(alignType))) {return(FALSE)}
+  
+  if(!all(positions %in% colnames(HLAalignments[[alignType]][[locus]]))) {
+    
+    falsePos <- positions[positions %in% colnames(HLAalignments[[alignType]][[locus]]) == FALSE]
+    
+    if(length(falsePos) > 1) { 
+      multiple <- TRUE
+      if(length(falsePos) > 2) {
+            falsePos <- paste(paste(falsePos[length(falsePos)-1],sep=", "),falsePos[length(falsePos)], sep = " and ")
+          } else {falsePos <- paste(falsePos,collapse =" and ")}
+        } 
+    
+    message(paste(ifelse(multiple,"Positions","Position"), falsePos,ifelse(multiple,"are","is"), "not found in the",locus,alignType,"alignment.",sep=" "))
+    
+    return(FALSE)
+    
+  } else {TRUE}
+  
+}
