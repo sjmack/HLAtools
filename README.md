@@ -22,7 +22,7 @@ The package includes five data objects that foster computation on IPD-IMGT/HLA r
 
 HLAgazeteer, HLAatlas, and alleleListHistory can be updated with each IPD-IMGT/HLA Database release. 
 
-In addition, the _alignmentFull()_ function builds the 'HLAalignments' object, which includes computable versions of the protein, codon, coding nucleotide and genomic alignments available in the [IMGTHLA GitHub repository](https://github.com/anhig/IMGTHLA), as specified by the user. 'HLAalignments' is not included the package, but can be built for IPD-IMGT/HLA Database releases 3.00.0 to 3.59.0.
+In addition, the _alignmentFull()_ function builds the 'HLAalignments' object, which includes computable versions of the protein, codon, coding nucleotide and genomic alignments available in the [IMGTHLA GitHub repository](https://github.com/anhig/IMGTHLA), as specified by the user. 'HLAalignments' is not included the package, but can be built for IPD-IMGT/HLA Database releases 3.00.0 to 3.60.0.
 
 ### Trim, Search and Query Functions
 The package includes a suite of functions for dissecting and describing similarities and differences between alleles and across loci.
