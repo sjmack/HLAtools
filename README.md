@@ -1,12 +1,12 @@
 ## HLAtools: Functions and Datasets for HLA Informatics
 
-## Version 1.5.0
+## Version 1.6.0
 
 The HLA region is the most polymorphic section of the human genome, with 42,584 allelic variants identified across 46 loci. The key roles played by the class I and class II HLA genes in stem-cell therapy and transplantation, disease association research, evolutionary biology, and population genetics result in constant discovery of new allele variants. These data are curated and maintained by the [ImmunoPolymorphism Database-IMmunoGeneTics/HLA (IPD-IMGT/HLA) Database](https://www.ebi.ac.uk/ipd/imgt/hla/) and made available on the [Anthony Nolan HLA Informatics Group (ANHIG)/IMGTHLA GitHub repository](https://github.com/ANHIG/IMGTHLA) as static text files, which are updated every three months. Standardized use of the data in this key resource can be challenging. To address this, we have developed HLAtools, an R package that automates the consumption of IPD-IMGT/HLA resources, renders them computable, and makes them available alongside tools for data analysis, visualization and investigation. The package is compatible with all IPD-IMGT/HLA Database release versions up to release 3.60.0. 
 
 HLAtools version 1.4.0 is available on the CRAN repository at [https://cran.r-project.org/package=HLAtools](https://cran.r-project.org/package=HLAtools). 
 
-Developmental version 1.5.0 of the package (in this repository) can be installed using the *[xfun](https://CRAN.R-project.org/package=xfun)::install_github(sjmack/HLAtools)* command.
+Developmental version 1.6.0 of the package (in this repository) can be installed using the *[xfun](https://CRAN.R-project.org/package=xfun)::install_github(sjmack/HLAtools)* command.
 
 ### Data Resources
 The package includes five data objects that foster computation on IPD-IMGT/HLA resources. 
@@ -82,6 +82,45 @@ motifMatch("A*196G~301A~3046T","gen",FALSE)
 
 motifMatch("A*196G~301A~3046T","gen",TRUE)
 [1] "A*01:09:01:01" "A*01:09:01:02"
+```
+
+- queryPositions() searches the HLAalignment object to identify all of the variants at a specified position, and optionally returns a table of counts and frequencies for each variant.
+```
+queryPositions("codon","DRB1",c(56,86))
+$DRB1_56
+ [1] "ACT" "C.T" "CAT" "CCA" "CCC" "CCG" "CCT" "CGT" "CTT" "GCT" "TCT"
+
+$DRB1_86
+ [1] "AGT" "ATG" "GAT" "GCG" "GCT" "GGC" "GGG" "GGT" "GTG" "GTT" "TGT"
+ 
+ queryPositions("codon","DRB1",c(56,86),TRUE)
+$DRB1_56
+   Variant Count    Frequency
+1      ACT     1 0.0002614379
+2      C.T     1 0.0002614379
+3      CAT     3 0.0007843137
+4      CCA     1 0.0002614379
+5      CCC     2 0.0005228758
+6      CCG     1 0.0002614379
+7      CCT  3807 0.9952941176
+8      CGT     1 0.0002614379
+9      CTT     4 0.0010457516
+10     GCT     2 0.0005228758
+11     TCT     2 0.0005228758
+
+$DRB1_86
+   Variant Count    Frequency
+1      AGT     2 0.0005228758
+2      ATG     4 0.0010457516
+3      GAT     5 0.0013071895
+4      GCG     2 0.0005228758
+5      GCT     4 0.0010457516
+6      GGC     1 0.0002614379
+7      GGG     3 0.0007843137
+8      GGT  1931 0.5048366013
+9      GTG  1869 0.4886274510
+10     GTT     3 0.0007843137
+11     TGT     1 0.0002614379
 ```
 
 - queryRelease() searches the alleleListHistory object for user-defined allele name elements in a specific IPD-IMGT/HLA release, identifying the number of alleles that match the query term, or a vector of allele names that match the query term. multiQueryRelease() extends queryRelease() to search for multiple allele name elements in a specific IPD-IMGT/HLA release.

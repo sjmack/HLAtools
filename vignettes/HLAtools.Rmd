@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 library(HLAtools)
 ```
 
--   Package Version: 1.5.0
+-   Package Version: 1.6.0
 
 # Overview
 
@@ -495,6 +495,39 @@ alignmentSearch("nuc","DPA1*01:103",c(181:182),prefix=FALSE,sep="")
 alignmentSearch("nuc","DPA1*01:103",c("181","181.1","181.2","182"),prefix=FALSE,sep="")
 [1] "G..A"
 ```
+
+## Identifying Sequence Variants at Specific Positions and their Frequencies Across all Alleles
+
+The *queryPositions()* function identifies all of the variants at a single position in a specified locus for a specific type of alignment.
+
+**Parameters**
+
+-   *alignType*: The alignment type of either "codon", "gen", nuc" or "prot". Only a single alignType can be specified.
+-   *locus*: A locus in HLAalignments.
+-   *positions*: A vector of sequence positions (e.g., 86, c(1,2,3,4,5), c(1:5), c(1,2,3,15:20,30)). If positions do not exist in a specified alignment, a message is returned.
+-   *table*: A logical value indicating if a data frame describing the counts and frequencies for each variant should be returned (TRUE) or if a vector of all variants should be returned (FALSE). The default value is FALSE.
+
+``` 
+queryPositions("prot","DRB1",86)
+ [1] "." "A" "C" "D" "G" "L" "M" "Q" "R" "S" "V" "W" "X"
+ 
+queryPositions("prot","DRB1",86,TRUE)
+$DRB1_86
+   Variant Count    Frequency
+1        .    71 0.0185620915
+2        A     6 0.0015686275
+3        C    10 0.0026143791
+4        D     5 0.0013071895
+5        G  1887 0.4933333333
+6        L     4 0.0010457516
+7        M     4 0.0010457516
+8        Q     1 0.0002614379
+9        R     1 0.0002614379
+10       S     2 0.0005228758
+11       V  1825 0.4771241830
+12       W     5 0.0013071895
+13       X     4 0.0010457516
+``` 
 
 ## Searching Alignments for Sequence Motifs
 

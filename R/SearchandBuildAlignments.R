@@ -1,4 +1,4 @@
-#### unified alignment search and construction functions v5.0.0 18 April 2025 Ryan Nickens & Steven Mack 
+#### unified alignment search and construction functions v5.2.0 29 April 2025 Ryan Nickens & Steven Mack 
 
 ################
 #AlignmentSearch
@@ -412,3 +412,75 @@ validatePositions <- function(alignType,locus,positions){
   } else {TRUE}
   
 }
+
+################
+##queryPositions
+#'Extract Variant Information for Specific Positions in an Alignment
+#'
+#'Identifies the sequence variants at specific positions in specified alignments in HLAalignments. When 'table' is TRUE, data frames of counts and frequencies for each variant at each position are returned.
+#'
+#'@param alignType The type of alignment being searched. Allowed values are "prot", codon", "nuc" and "gen".  Only one 'alignType' value is allowed.
+#'@param locus A locus supported by the IPD-IMGT/HLA Database.
+#'@param positions A vector of numeric variant positions.
+#'@param table A logical value specifying if a table of counts and frequencies for each variant at each value of 'positions' should be returned (table = TRUE). The default value is FALSE.
+#'
+#'@return When 'positions' specifies a single position, a character vector of variants is returned. When multiple positions are specified, a list of such character vectors is returned. When 'table' is TRUE, a list of data frames identifying the number (Count) and frequency (Frequency) of each variant is returned.
+#'
+#'@note This function requires that the HLAalignments object has been populated with alignments via the alignmentFull() function.
+#'@note The '.' value in a vector of positions identifies absent sequence; e.g. following a nonsense mutation or in a region of sequence aligned to an insertion. The '*' value in a vector of positions identifies unknown sequence. 
+#'
+#'@examples
+#'\dontrun{
+#'queryPositions("prot","DRB1",c(5,10,86,129))
+#'queryPositions("prot","DRB1",c(5,10,86,129),TRUE)
+#'}
+#'
+#'@export
+#'
+queryPositions <- function(alignType,locus,positions,table = FALSE){
+  
+    if(!validatePositions(alignType,locus,positions)) {return(FALSE)}
+  
+        tables <- variants <- rep(list(NA),length(positions))
+  
+            for(i in 1:length(positions)) { 
+                tables[[i]] <- variantTable(alignType,locus,positions[i])
+                variants[[i]] <- tables[[i]]$Variant
+            }
+  
+            names(tables) <- names(variants) <- paste(locus,positions,sep="_")
+  
+    ifelse(table,return(tables), return(variants)) 
+}
+
+
+################
+##variantTable
+#'Builds a Data Frame of Variant Information for Specific Positions in an Alignment
+#'
+#'Builds a data frame sequence variants at specific positions in specified alignments in HLAalignments, along with the counts and frequencies for each variant.
+#'
+#'@param alignType The type of alignment being searched. Allowed values are "prot", codon", "nuc" and "gen".  Only one 'alignType' value is allowed.
+#'@param locus A locus supported by the IPD-IMGT/HLA Database.
+#'@param position A numeric variant position.
+#'
+#'@return a data frame of three columns identifying the variants, and the number and frequency of each in the alignment. 
+#'
+#'@note For internal HLAtools use.
+#'
+#'@export
+#'
+variantTable <- function(alignType,locus,position) {
+
+        primary <- HLAalignments[[alignType]][[locus]][,colnames(HLAalignments[[alignType]][[locus]]) == as.character(position)]
+        ifelse(class(primary) == "data.frame", max <- nrow(primary), max <- length(primary))
+        if(alignType == "codon")  { primary <- apply(primary[,colnames(primary)],1,paste,collapse="") }
+
+            primary <- as.data.frame(table(primary))
+            primary$value <- primary$Freq/max
+            primary$primary <- as.character(primary$primary)
+            colnames(primary) <- c("Variant","Count","Frequency")
+            
+            return(primary)
+            
+        }

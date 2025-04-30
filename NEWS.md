@@ -1,5 +1,10 @@
 ### HLAtools
 
+### version 1.6.0
+- April 29, 2025
+- Added the queryPositions() and variantTable() functions, identifying variants at specified positions in any alignment in HLAalignments.
+- Updated News and Vignette.
+
 ### version 1.5.0
 - April 20, 2025
 - Refactored the buildIMGTHLAGeneTypes() function to accommodate the transition of the "molecular characteristics data for HLA region genes" web-page from 'hla.alleles.org/genes/index.html' to 'hla.alleles.org/pages/genes/genes_list'.
