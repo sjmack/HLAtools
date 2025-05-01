@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 library(HLAtools)
 ```
 
--   Package Version: 1.6.0
+-   Package Version: 1.6.1
 
 # Overview
 
@@ -458,6 +458,28 @@ multiQueryRelease("1.05.0","304",TRUE)
 [1] "A*0304"    "A*3304"    "B*1304"    "Cw*03041"  "Cw*03042"  "DQB1*0304" "DRB1*0304" "DRB1*1304" "B*5304"    "A*2304"   
 multiQueryRelease("3.58.0",c("DPB","2N"),TRUE)
 [1] "DPB1*786:01:02N" "DPB1*401:01:02N"
+```
+
+The *verifyAllele()* function searches the AlleleListHistory object to determine if a specific allele name ever existed, and optionally returns the IPD-IMGT/HLA Database release versions in which that allele name existed and the allele's accession number.
+
+```  
+verifyAllele("A*02011",TRUE)
+[1] "TRUE"   "1.15.0"
+> verifyAllele("A*02011",TRUE,TRUE)
+[1] "TRUE"   "1.15.0" "1.14.0" "1.13.0" "1.12.0" "1.11.0" "1.10.0" "1.09.0" "1.08.0" "1.07.0" "1.06.0" "1.05.0"
+> verifyAllele("A*02011",TRUE,TRUE,TRUE,TRUE)
+[1] "TRUE"     "1.05.0"   "HLA00005"
+> verifyAllele("A*02011",TRUE,TRUE,FALSE,TRUE)
+[1] "TRUE"     "1.15.0"   "1.14.0"   "1.13.0"   "1.12.0"   "1.11.0"   "1.10.0"   "1.09.0"   "1.08.0"   "1.07.0"   "1.06.0"   "1.05.0"   "HLA00005"
+> verifyAllele("A*0201101",TRUE,TRUE,FALSE,TRUE)
+[1] FALSE
+verifyAllele("A*020101",TRUE,FALSE,TRUE)
+[1] "TRUE"   "1.16.0"
+verifyAllele("A*02:01:01:01",TRUE,FALSE,TRUE,TRUE)
+[1] "TRUE"     "3.00.0"   "HLA00005"
+verifyAllele("A*02:01:01:01",TRUE,FALSE,FALSE,TRUE)
+[1] "TRUE"     "3.60.0"   "HLA00005"
+
 ```
 
 ## Searching Alignments at Specific Positions

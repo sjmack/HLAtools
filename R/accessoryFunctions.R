@@ -1,4 +1,4 @@
-##Accessory Functions v5.1.0 25JAN2025
+##Accessory Functions v5.1.1 30APR2025
 
 ################
 ##posSort
@@ -94,14 +94,15 @@ validateAllele <- function(allele) {
 ##verifyAllele
 #'Determine if an Allele Name Ever Existed, and (if so) in Which IPD-IMGT/HLA Database Releases
 #'
-#'Returns TRUE if an allele name is present in AlleleListHistory or FALSE it is absent, or c(TRUE,version), where 'version' can be the most recent, original, or all IPD-IMGT/HLA Database releases in which that name appears.
+#'Returns TRUE if an allele name is present in AlleleListHistory or FALSE it is absent, c(TRUE,version), where 'version' can be the most recent, original, or all IPD-IMGT/HLA Database releases in which that name appears, and c(TRUE,version,acc), where 'acc' is the IPD-IMGT/HLA accession number for the allele.
 #'
 #'@param allele A character string of an HLA allele name. Colon-delimited and field-delimited names are both accepted.
 #'@param version A logical that indicates if the most recent nomenclature release version in which that name was valid should be returned. The default value is FALSE.
 #'@param all A logical that indicates if all of the nomenclature release versions in which that name was valid should be returned. The default value is FALSE.
 #'@param first A logical that indicates if only the original nomenclature release version in which that name was valid should be returned. The default value is FALSE.
+#'@param acc A logical that indicates if the IPD-IMGT/HLA accession number for an allele name should be returned. The default value is FALSE.  
 #'
-#'@return A logical identifying if the allele name is found in AlleleListHistory (TRUE) or not (FALSE), c(TRUE,version) if version = TRUE.
+#'@return A logical identifying if the allele name is found in AlleleListHistory (TRUE) or not (FALSE), c(TRUE,version) if version = TRUE, and c(TRUE,acc) or c(TRUE,version,acc) if acc = TRUE.
 #'
 #'@export
 #'
@@ -110,25 +111,29 @@ validateAllele <- function(allele) {
 #'verifyAllele("A*01:01:01:01",TRUE)
 #'verifyAllele("A*010101",TRUE,TRUE)
 #'verifyAllele("A*0101",TRUE)
+#'verifyAllele("A*02:01:01:01",FALSE,FALSE,FALSE,TRUE)
+#'verifyAllele("A*02:01:01:01",TRUE,TRUE,FALSE,TRUE)
 #'
-verifyAllele <- function(allele, version=FALSE,all=FALSE,first=FALSE){
+verifyAllele <- function(allele, version=FALSE,all=FALSE,first=FALSE,acc=FALSE){
   
   if(first && !all) {all = TRUE}
   
   resArray <- which(alleleListHistory$AlleleListHistory == allele,arr.ind = TRUE)
   if(length(resArray)==0) {return(FALSE)}
   
-  if(!version) {return(TRUE)
+  accession <- alleleListHistory$AlleleListHistory[as.data.frame(resArray)[1,1],1]
+  
+  if(!version) {ifelse(acc,return(c(TRUE,accession)),return(TRUE))
       } else {
         if(!all) {
           rawVersion <- colnames(alleleListHistory$AlleleListHistory)[resArray[1,2]]
-          return(c(TRUE,expandVersion(substr(rawVersion,start=2,stop = nchar(rawVersion)))))
+          {ifelse(acc,return(c(TRUE,expandVersion(substr(rawVersion,start=2,stop = nchar(rawVersion))),accession)),return(c(TRUE,expandVersion(substr(rawVersion,start=2,stop = nchar(rawVersion))))))}
         } else {
             allVersion <- unlist(lapply(unlist(lapply(colnames(alleleListHistory$AlleleListHistory)[resArray[,2]],FUN = substring,2,5)),FUN=expandVersion))
             if(!first) {
-              c(TRUE, allVersion)
+              {ifelse(acc,return(c(TRUE,allVersion,accession)),return(c(TRUE, allVersion)))}
             } else {
-              c(TRUE,allVersion[length(allVersion)])
+              {ifelse(acc,return(c(TRUE,allVersion[length(allVersion)],accession)),return(c(TRUE,allVersion[length(allVersion)])))}
             }
           }
         } 

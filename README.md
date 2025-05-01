@@ -1,12 +1,17 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
 ## HLAtools: Functions and Datasets for HLA Informatics
 
-## Version 1.6.0
+## Version 1.6.1
 
 The HLA region is the most polymorphic section of the human genome, with 42,584 allelic variants identified across 46 loci. The key roles played by the class I and class II HLA genes in stem-cell therapy and transplantation, disease association research, evolutionary biology, and population genetics result in constant discovery of new allele variants. These data are curated and maintained by the [ImmunoPolymorphism Database-IMmunoGeneTics/HLA (IPD-IMGT/HLA) Database](https://www.ebi.ac.uk/ipd/imgt/hla/) and made available on the [Anthony Nolan HLA Informatics Group (ANHIG)/IMGTHLA GitHub repository](https://github.com/ANHIG/IMGTHLA) as static text files, which are updated every three months. Standardized use of the data in this key resource can be challenging. To address this, we have developed HLAtools, an R package that automates the consumption of IPD-IMGT/HLA resources, renders them computable, and makes them available alongside tools for data analysis, visualization and investigation. The package is compatible with all IPD-IMGT/HLA Database release versions up to release 3.60.0. 
 
 HLAtools version 1.4.0 is available on the CRAN repository at [https://cran.r-project.org/package=HLAtools](https://cran.r-project.org/package=HLAtools). 
 
-Developmental version 1.6.0 of the package (in this repository) can be installed using the *[xfun](https://CRAN.R-project.org/package=xfun)::install_github(sjmack/HLAtools)* command.
+Developmental version 1.6.1 of the package (in this repository) can be installed using the *[xfun](https://CRAN.R-project.org/package=xfun)::install_github(sjmack/HLAtools)* command.
 
 ### Data Resources
 The package includes five data objects that foster computation on IPD-IMGT/HLA resources. 
@@ -145,7 +150,7 @@ multiQueryRelease("3.59.0",c("DRB","19","N"),TRUE)
 [1] "DRB1*04:119N" "DRB5*02:19N"  "DRB1*14:195N" "DRB1*14:197N" "DRB1*13:319N"
 ```
 
-- Additional functions include *validateAllele()*, which determines if the specified allele-name is present in the 'HLAalignments' object that has been loaded in the R environment, and *verifyAllele()*, which determines if the specified allele-name is present in the 'AlleleListHistory' object, and optionally identifies the IPD-IMGT/HLA Database releases including that allele.
+- Additional functions include *validateAllele()*, which determines if the specified allele-name is present in the 'HLAalignments' object that has been loaded in the R environment, and *verifyAllele()*, which determines if the specified allele-name is present in the 'AlleleListHistory' object, and optionally identifies the IPD-IMGT/HLA Database releases including that allele, and the allele's IPD-IMGT/HLA accession number.
 
 ```
 validateAllele("A*01:01:01:117")
@@ -167,6 +172,9 @@ verifyAllele("A*010101",TRUE)
 verifyAllele("A*010101",TRUE,TRUE)
  [1] "TRUE"   "2.09.0" "2.08.0" "2.07.0" "2.06.0" "2.05.0" "2.04.0" "2.03.0" "2.02.0" "2.01.0" "2.00.0" "1.16.0"
  
+verifyAllele("A*010101",TRUE,TRUE,FALSE,TRUE)
+ [1] "TRUE"    "2.09.0"   "2.08.0"   "2.07.0"   "2.06.0"   "2.05.0"   "2.04.0"   "2.03.0"   "2.02.0"   "2.01.0"   "2.00.0"   "1.16.0"   "HLA00001"
+
 verifyAllele2("A*010101",TRUE,TRUE,TRUE)
 [1] "TRUE"   "1.16.0"
 

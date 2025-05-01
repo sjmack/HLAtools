@@ -4,7 +4,7 @@
 \alias{verifyAllele}
 \title{Determine if an Allele Name Ever Existed, and (if so) in Which IPD-IMGT/HLA Database Releases}
 \usage{
-verifyAllele(allele, version = FALSE, all = FALSE, first = FALSE)
+verifyAllele(allele, version = FALSE, all = FALSE, first = FALSE, acc = FALSE)
 }
 \arguments{
 \item{allele}{A character string of an HLA allele name. Colon-delimited and field-delimited names are both accepted.}
@@ -14,17 +14,21 @@ verifyAllele(allele, version = FALSE, all = FALSE, first = FALSE)
 \item{all}{A logical that indicates if all of the nomenclature release versions in which that name was valid should be returned. The default value is FALSE.}
 
 \item{first}{A logical that indicates if only the original nomenclature release version in which that name was valid should be returned. The default value is FALSE.}
+
+\item{acc}{A logical that indicates if the IPD-IMGT/HLA accession number for an allele name should be returned. The default value is FALSE.}
 }
 \value{
-A logical identifying if the allele name is found in AlleleListHistory (TRUE) or not (FALSE), c(TRUE,version) if version = TRUE.
+A logical identifying if the allele name is found in AlleleListHistory (TRUE) or not (FALSE), c(TRUE,version) if version = TRUE, and c(TRUE,acc) or c(TRUE,version,acc) if acc = TRUE.
 }
 \description{
-Returns TRUE if an allele name is present in AlleleListHistory or FALSE it is absent, or c(TRUE,version), where 'version' can be the most recent, original, or all IPD-IMGT/HLA Database releases in which that name appears.
+Returns TRUE if an allele name is present in AlleleListHistory or FALSE it is absent, c(TRUE,version), where 'version' can be the most recent, original, or all IPD-IMGT/HLA Database releases in which that name appears, and c(TRUE,version,acc), where 'acc' is the IPD-IMGT/HLA accession number for the allele.
 }
 \examples{
 verifyAllele("A*01:01:01:01")
 verifyAllele("A*01:01:01:01",TRUE)
 verifyAllele("A*010101",TRUE,TRUE)
 verifyAllele("A*0101",TRUE)
+verifyAllele("A*02:01:01:01",FALSE,FALSE,FALSE,TRUE)
+verifyAllele("A*02:01:01:01",TRUE,TRUE,FALSE,TRUE)
 
 }

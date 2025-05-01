@@ -1,5 +1,11 @@
 ### HLAtools
 
+### version 1.6.1
+- April 30, 2025
+- Added the 'acc' parameter to verifyAllelle(), appending the IPD-IMGT/HLA accession number for a specified allele to the returned object.
+- Updated News and Vignette.
+- Submission to CRAN.
+
 ### version 1.6.0
 - April 29, 2025
 - Added the queryPositions() and variantTable() functions, identifying variants at specified positions in any alignment in HLAalignments.
