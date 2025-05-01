@@ -1,4 +1,4 @@
-### Extract IPD-IMGT/HLA Database-Supported Gene Types v3.0.0 16 Apr 2024
+### Extract IPD-IMGT/HLA Database-Supported Gene Types v3.0.1 1 May 2025
 
 ####################
 ## BuildIMGTHLAGeneTypes
@@ -25,9 +25,9 @@ buildIMGTHLAGeneTypes <- function(){
     version <- strsplit(rawPage[updateLine],": ")[[1]][2]
 
           ## Extract the molecular characteristics table from the page HTML
-          df <- url |> 
-          read_html() |> 
-          html_nodes("table") |> 
+          df <- url %>% 
+          read_html() %>% 
+          html_nodes("table") %>% 
           html_table(fill = T) %>%
           lapply(., function(x) setNames(x, c("Names", "Equivalent", "Alignments", 
                                         "Molecular Characteristics","Function","Links")))

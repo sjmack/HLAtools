@@ -1,5 +1,9 @@
 ### HLAtools
 
+### version 1.6.2
+- May 1, 2025
+- Changed |> to %>% operator in buildIMGTHLAGeneTypes() to maintain compatibility with R version 3. Package is now compatible with R version 3.6.0 and later.
+
 ### version 1.6.1
 - April 30, 2025
 - Added the 'acc' parameter to verifyAllelle(), appending the IPD-IMGT/HLA accession number for a specified allele to the returned object.
