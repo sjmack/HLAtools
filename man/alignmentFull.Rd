@@ -4,14 +4,14 @@
 \alias{alignmentFull}
 \title{Build Sets of Protein, Codon, Coding Nucleotide and Genomic Nucleotide Alignments for Specified  Loci}
 \usage{
-alignmentFull(loci = "all", alignType = "all", version = HLAgazeteer$version)
+alignmentFull(loci = "all", alignType = "all", version = HLAgazetteer$version)
 }
 \arguments{
 \item{loci}{A characer vector of the locus names for which alignments should be built. The default value ("all") generates alignments for all loci.}
 
-\item{alignType}{A character vector of alignment types. The allowed values are "all", "prot", "codon", "nuc", and "gen", which specify either all available alignments for a given locus or the respective protein, codon, nucleotide and genomic alignments, as determined by the HLAgazeteer.}
+\item{alignType}{A character vector of alignment types. The allowed values are "all", "prot", "codon", "nuc", and "gen", which specify either all available alignments for a given locus or the respective protein, codon, nucleotide and genomic alignments, as determined by the HLAgazetteer.}
 
-\item{version}{A character string describing the version of the ANHIG/IMGTHLA Github repository from which alignments are obtained. The default value, 'HLAgazeteer$version', generates alignments for the IPD-IMGT/HLA Database release under which the HLAgazeteer was built.}
+\item{version}{A character string describing the version of the ANHIG/IMGTHLA Github repository from which alignments are obtained. The default value, 'HLAgazetteer$version', generates alignments for the IPD-IMGT/HLA Database release under which the HLAgazetteer was built.}
 }
 \value{
 A list object containing data frames of protein (prot), codon (codon), coding nucleotide (nuc), or genomic nucleotide (gen) alignments, for specified genes in the specified IPD-IMGT/HLA Database release, along with the pertinent reference database release.

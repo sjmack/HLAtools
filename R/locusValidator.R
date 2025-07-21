@@ -1,10 +1,10 @@
-## Locus Validation Functions v1.0.0 01NOV2024
+## Locus Validation Functions v1.1.0 020JUL2025
 
 ################
 ##validateLocus
-#'Determine if a Locus Name is in the HLAgazeteer
+#'Determine if a Locus Name is in the HLAgazetteer
 #'
-#'Checks a vector of HLA locus names against the HLAgazeteer to determine if the locus name is valid for a specific type of alignment.
+#'Checks a vector of HLA locus names against the HLAgazetteer to determine if the locus name is valid for a specific type of alignment.
 #'
 #'@param loci A character vector of HLA gene names (ex. "DRB1", c("DRB1","DQB1")).
 #'@param source A character vector of alignment source types. "AA", "cDNA", and "gDNA" are allowed types.
@@ -13,7 +13,7 @@
 #'
 #'@export
 #'
-#'@note The results of this check should only be considered valid for the version of the HLAgazeteer included in the HLAtools package.
+#'@note The results of this check should only be considered valid for the version of the HLAgazetteer included in the HLAtools package.
 #'
 #'@examples
 #'validateLocus(loci = "DRB1", source = "AA")
@@ -28,19 +28,19 @@ validateLocus<-function(loci, source){
           if(loci[j]=="DRB1"|loci[j]=="DRB3"|loci[j]=="DRB4"|loci[j]=="DRB5") next
       for(x in 1:length(source)) {
           if(source[x] == "cDNA") {
-              if(loci[j]%in% HLAtools::HLAgazeteer$nuc == FALSE) {
+              if(loci[j]%in% HLAtools::HLAgazetteer$nuc == FALSE) {
                   message(paste("The", loci[j], "locus is not present in", source[x],"alignments.",sep=" "))
                   valid <- FALSE
               }
             }
        if(source[x] == "gDNA") {
-          if(loci[j]%in% HLAtools::HLAgazeteer$gen == FALSE) {
+          if(loci[j]%in% HLAtools::HLAgazetteer$gen == FALSE) {
             message(paste("The", loci[j], "locus is not present in", source[x],"alignments.",sep=" "))
             valid <- FALSE
             }
           }
         if(source[x] == "AA") {
-            if(loci[j]%in% HLAtools::HLAgazeteer$prot == FALSE) {
+            if(loci[j]%in% HLAtools::HLAgazetteer$prot == FALSE) {
               message(paste("The", loci[j], "locus is not present in", source[x],"alignments.",sep=" "))
               valid <- FALSE
             }
@@ -54,19 +54,19 @@ validateLocus<-function(loci, source){
 ##multiLocusValidation
 #'Apply validateLocus() to Multiple Loci
 #'
-#'Applies validateLocus() to a vector of locus names, validates them against HLAgazeteer$gen, and returns a vector of validated locus names. 
+#'Applies validateLocus() to a vector of locus names, validates them against HLAgazetteer$gen, and returns a vector of validated locus names. 
 #'
-#'@param loci A character vector of locus names found in the current HLAgazeteer. 
+#'@param loci A character vector of locus names found in the current HLAgazetteer. 
 #'
 #'@param source A character vector describing the type of alignment 'loci' should be validated against. Allowed options are 'AA' (protein), 'cDNA' (nucleotide) and 'gDNA' (genomic). Only a single value should be provided. The default value is 'gen'.
 #'
 #'@param verbose A logical value. If 'verbose' = TRUE, messages describing invalid 'loci' or 'source' values are generated. If 'verbose' = FALSE, no messages are generated.
 #'
-#'@return A character vector of locus names that are present in HLAgazeteer$gen.
+#'@return A character vector of locus names that are present in HLAgazetteer$gen.
 #'
 #'@export
 #'
-#'@note The results of this check should only be considered valid for the IPD-IMGT/HLA Database release version of the current HLAgazeteer.
+#'@note The results of this check should only be considered valid for the IPD-IMGT/HLA Database release version of the current HLAgazetteer.
 #'
 #'@examples
 #'multiLocusValidation(loci = c("DRB1","DPB1","DQB8"))
@@ -96,7 +96,7 @@ multiLocusValidation <- function(loci, source = "gDNA", verbose = TRUE) {
                 }
               }
         if(any(lociTest == FALSE)) {if(verbose) {
-            message(paste("The",loci[lociTest == FALSE],"locus is invalid in version", HLAtools::HLAgazeteer$version ,"and has been removed.\n",sep=" "))
+            message(paste("The",loci[lociTest == FALSE],"locus is invalid in version", HLAtools::HLAgazetteer$version ,"and has been removed.\n",sep=" "))
               }
          }
     

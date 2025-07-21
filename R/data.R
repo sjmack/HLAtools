@@ -1,10 +1,10 @@
-##data v2.1.0 19APR2025
+##data v2.1.1 20JULY2025
 
 ##alleleListHistory
 #'Allele Names Across All Release Versions
 #'
 #'A large list object of two elements. The first element contains version information. The second element contains all releases of allele name lists in the IPD-IMGT/HLA Database.
-#'This object is built by the UpdateAlleleListHistory() function. 
+#'This object is built by the updateAlleleListHistory() function. 
 #'
 #' @docType data
 #' @name alleleListHistory
@@ -64,15 +64,15 @@
 #' @references Mack et al. HLA 2023;102(2):206-212 https://doi.org/10.1111/tan.15126
 "GLstring.ex"
 
-##HLAgazeteer
+##HLAgazetteer
 #'Functional and Organizational Categories of Genes Supported by the IPD-IMGT/HLA Database
 #'
 #'A list object of nineteen vectors that identify genes in the HLA region that share specific commonalities. 
-#'This object is built by the buildGazeteer() function.
+#'This object is built by the buildGazetteer() function.
 #'
 #' @docType data
-#' @name HLAgazeteer
-#' @usage data(HLAgazeteer)
+#' @name HLAgazetteer
+#' @usage data(HLAgazetteer)
 #' @format A large list of 19 vectors that define specific categories of genes supported by the IPD-IMGT/HLA Database
 #' \itemize{
 #'.   \item(align: all genes with alignments in the IPD/IMGT-HLA GitHub Repository)
@@ -94,14 +94,14 @@
 #'    \item(classical: classical HLA genes)
 #'    \item(nonclassical: non-classical HLA genes)
 #'    \item(map: all genes organized by 5' to 3' map order on the genomic reference + strand)
-#'    \item(version: IPD-IMGT/HLA Database version used to build the HLAgazeteer)
+#'    \item(version: IPD-IMGT/HLA Database version used to build the HLAgazetteer)
 #' }
 #' @source https://hla.alleles.org/genes
 #' @source https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments
 #' @source Andersson Front. Biosci. 1998, 3(4), 739–745. https://doi.org/10.2741/a317
 #' @source Alexandrov et al. HLA 2023, Vol.102(5), p.599-606. https://doi.org/10.1111/tan.15180
 #' @source https://www.ncbi.nlm.nih.gov/nucleotide/NC_000009.12
-"HLAgazeteer"
+"HLAgazetteer"
 
 ##IMGTHLAGeneTypes
 #'Molecular characteristics of the Genes Curated by the IPD-IMGT/HLA Database

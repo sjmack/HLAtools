@@ -1,5 +1,12 @@
 ### HLAtools
 
+### version 1.6.3
+- July 20, 2025
+- Changed all instances of 'HLAgazeteer' in the package to 'HLAgazetteer'. The former 'HLAgazeteer' object is now the 'HLAgazetteer', and the former 'buildGazeteer()' function is now 'buildGazetteer()'.
+- Removed the 'HLAgazeteer' object from the package and added the 'HLAgazetteer' object, for version 3.61.0.
+- Updated the fragmentFeatureNames and HLAatlas objects to version 3.61.0.
+- Silenced warnings from atlasMaker() and buildAlignments() that occur when the the length of allele sequences in the 'appendix' of an alignment are unequal.
+
 ### version 1.6.2
 - May 1, 2025
 - Changed |> to %>% operator in buildIMGTHLAGeneTypes() to maintain compatibility with R version 3. Package is now compatible with R version 3.6.0 and later.

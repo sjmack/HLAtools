@@ -1,4 +1,4 @@
-##atlasFull v1.2.0 - 16 April 2024
+##atlasFull v1.3.0 - 20 July 2025
 
 ################
 ##atlasFull
@@ -24,9 +24,9 @@ atlasFull <- function(version = "Latest") {
   }else{ version <- getLatestVersion()}
 
    #list of loci names
-  NL1 <- as.list(HLAgazeteer$nuc) #cDNA
-  NL2 <- as.list(HLAgazeteer$gen) #gDNA
-  NL3 <- as.list(HLAgazeteer$prot) #AA
+  NL1 <- as.list(HLAgazetteer$nuc) #cDNA
+  NL2 <- as.list(HLAgazetteer$gen) #gDNA
+  NL3 <- as.list(HLAgazetteer$prot) #AA
   #creating nested lists for cDNA, gDNA and amino acid
   cList <- vector(mode='list', length=length(NL1))
   gList <- vector(mode='list', length=length(NL2))

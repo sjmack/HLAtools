@@ -1,4 +1,4 @@
-#atlasMaker v1.6.0 25 July 2024
+#atlasMaker v1.7.0 20 July 2025
 
 ################
 ##atlasMaker
@@ -36,7 +36,7 @@ atlasMaker<-function(loci, source, version = "Latest"){
   
   source <- (checkSource(source))
   
-  loci <- multiLocusValidation(loci, source) # Added as a check to make sure that HLAgazeteer#version is enforced; otherwise validateLocus could return FALSE
+  loci <- multiLocusValidation(loci, source) # Added as a check to make sure that HLAgazetteer#version is enforced; otherwise validateLocus could return FALSE
   
   if(validateLocus(loci=loci,source=source)) { ## primary 'check'.
 
@@ -60,7 +60,7 @@ atlasMaker<-function(loci, source, version = "Latest"){
 
   for(i in 1:length(loci)){ # main loop of i values
 
-    expressed[[i]] <- !loci[i] %in% HLAgazeteer$nuc[HLAgazeteer$nuc %in% c(HLAgazeteer$pseudo,HLAgazeteer$frag)] # Exclude pseudogenes and gene fragments
+    expressed[[i]] <- !loci[i] %in% HLAgazetteer$nuc[HLAgazetteer$nuc %in% c(HLAgazetteer$pseudo,HLAgazetteer$frag)] # Exclude pseudogenes and gene fragments
 
     for(j in 1:length(source)){ #### Source Loop of j values
 
@@ -506,7 +506,7 @@ atlasMaker<-function(loci, source, version = "Latest"){
         names(pepsplit[[loci[i]]]) <- NULL
 
         # bind pep_split together by element in its previous list form by row
-        pepsplit[[loci[i]]]<- do.call(rbind,pepsplit[[loci[i]]])
+        suppressWarnings(pepsplit[[loci[i]]]<- do.call(rbind,pepsplit[[loci[i]]])) ## this results in a warning when the appendix alignments are of different lengths
 
         # bind all columns together to form desired output, as described above
         HLAalignments[[loci[i]]] <- cbind.data.frame(HLAalignments[[loci[i]]][,1:4],pepsplit[[loci[i]]], stringsAsFactors=FALSE)

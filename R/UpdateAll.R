@@ -1,11 +1,11 @@
-## UpdateAll v02.2.0 16 April 2025
+## UpdateAll v02.3.0 20 July 2025
 
 ################
 ##updateAll
 #'Update All Package Data Objects Derived from IPD-IMGT/HLA Database Resources
 #'
 #'@description
-#'Applies updateAlleleListHistory(), atlasFull(), buildGazeteer(), extractGeneTypes(), and ffN() to update the alleleListHistory, HLAatlas, HLAgazeteer, IMGTHLAGeneTypes and fragmentFeatureNames data objects.
+#'Applies updateAlleleListHistory(), atlasFull(), buildGazetteer(), extractGeneTypes(), and ffN() to update the alleleListHistory, HLAatlas, HLAgazetteer, IMGTHLAGeneTypes and fragmentFeatureNames data objects.
 #'
 #'A new alleleListHistory data object should be generated with each IPD-IMGT/HLA Database release. The other data objects will likely only change when new genes are added to the IPD-IMGT/HLA Database.
 #'
@@ -47,21 +47,21 @@ updateAll <-function(updateType="all",version = getLatestVersion()){
        }
     }
       
-    if("all" %in% updateType || "HLAgazeteer" %in% updateType) {
+    if("all" %in% updateType || "HLAgazetteer" %in% updateType) {
       
-      if(version == HLAgazeteer$version){
-        message(paste("HLAgazeteer for version",version,"is already loaded.",sep=" "))
+      if(version == HLAgazetteer$version){
+        message(paste("HLAgazetteer for version",version,"is already loaded.",sep=" "))
       } else {
-        if(file.exists(paste(HLTDpath,paste(version,"HLAgazeteer.rda",sep="."),sep="/"))) {
-          load(paste(HLTDpath,paste(version,"HLAgazeteer.rda",sep="."),sep="/"),envir = parent.frame())
-          message(paste("HLAgazetter for version",version,"has been loaded.",sep=" "))
+        if(file.exists(paste(HLTDpath,paste(version,"HLAgazetteer.rda",sep="."),sep="/"))) {
+          load(paste(HLTDpath,paste(version,"HLAgazetteer.rda",sep="."),sep="/"),envir = parent.frame())
+          message(paste("HLAgazetteer for version",version,"has been loaded.",sep=" "))
         } else { 
         
-      HLAgazeteer <- buildGazeteer(version) ## has version, takes version
-        HGversion <- HLAgazeteer$version
-      save(HLAgazeteer,file=paste(HLTDpath,paste(HGversion,"HLAgazeteer.rda",sep="."),sep="/"))
-      load(paste(HLTDpath,paste(HGversion,"HLAgazeteer.rda",sep="."),sep="/"),envir = parent.frame())
-      message(paste("HLAgazeteer for version",version,"has been built and loaded.",sep=" "))
+      HLAgazetteer <- buildGazetteer(version) ## has version, takes version
+        HGversion <- HLAgazetteer$version
+      save(HLAgazetteer,file=paste(HLTDpath,paste(HGversion,"HLAgazetteer.rda",sep="."),sep="/"))
+      load(paste(HLTDpath,paste(HGversion,"HLAgazetteer.rda",sep="."),sep="/"),envir = parent.frame())
+      message(paste("HLAgazetteer for version",version,"has been built and loaded.",sep=" "))
         }
        }
     }

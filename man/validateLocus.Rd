@@ -2,7 +2,7 @@
 % Please edit documentation in R/locusValidator.R
 \name{validateLocus}
 \alias{validateLocus}
-\title{Determine if a Locus Name is in the HLAgazeteer}
+\title{Determine if a Locus Name is in the HLAgazetteer}
 \usage{
 validateLocus(loci, source)
 }
@@ -15,10 +15,10 @@ validateLocus(loci, source)
 A logical value. TRUE indicates that all of the names and source types are valid. FALSE indicates that at least one locus name or alignment source type is invalid.
 }
 \description{
-Checks a vector of HLA locus names against the HLAgazeteer to determine if the locus name is valid for a specific type of alignment.
+Checks a vector of HLA locus names against the HLAgazetteer to determine if the locus name is valid for a specific type of alignment.
 }
 \note{
-The results of this check should only be considered valid for the version of the HLAgazeteer included in the HLAtools package.
+The results of this check should only be considered valid for the version of the HLAgazetteer included in the HLAtools package.
 }
 \examples{
 validateLocus(loci = "DRB1", source = "AA")

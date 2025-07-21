@@ -1,4 +1,4 @@
-##Fragment Feature Names v4.0 July 12, 2024
+##Fragment Feature Names v4.2.0 July 20, 2025
 
 ################
 ##FragmentFeatureNames (ffN)
@@ -45,8 +45,8 @@ ffN <- function(version){ #Fragment Feature Names
 
   if(paste("X",gsub("\\.","",as.character(version)),sep="") %in% colnames(alleleListHistory$AlleleListHistory)) {
 
-  featureNames <- rep(list(list()), length(HLAgazeteer$align[HLAgazeteer$align %in% unique(c(HLAgazeteer$pseudo,HLAgazeteer$frag))][!HLAgazeteer$align[HLAgazeteer$align %in% unique(c(HLAgazeteer$pseudo,HLAgazeteer$frag))] %in% HLAgazeteer$nogen]))
-  names(featureNames) <-sort(HLAgazeteer$align[HLAgazeteer$align %in% unique(c(HLAgazeteer$pseudo,HLAgazeteer$frag))][!HLAgazeteer$align[HLAgazeteer$align %in% unique(c(HLAgazeteer$pseudo,HLAgazeteer$frag))] %in% HLAgazeteer$nogen])
+  featureNames <- rep(list(list()), length(HLAgazetteer$align[HLAgazetteer$align %in% unique(c(HLAgazetteer$pseudo,HLAgazetteer$frag))][!HLAgazetteer$align[HLAgazetteer$align %in% unique(c(HLAgazetteer$pseudo,HLAgazetteer$frag))] %in% HLAgazetteer$nogen]))
+  names(featureNames) <-sort(HLAgazetteer$align[HLAgazetteer$align %in% unique(c(HLAgazetteer$pseudo,HLAgazetteer$frag))][!HLAgazetteer$align[HLAgazetteer$align %in% unique(c(HLAgazetteer$pseudo,HLAgazetteer$frag))] %in% HLAgazetteer$nogen])
 
 
   featureNames$DPA2$features <- c("U.5","E.1","I.1","E.2","I.2","E.3","I.3","E.4","U.3") #  8 boundaries -- **Unconfirmed

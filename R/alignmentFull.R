@@ -1,4 +1,4 @@
-### Alignment Full v3.3.0 16 April 2024
+### Alignment Full v3.4.0 20 July 2025
 
 ################
 ##alignmentFull
@@ -7,8 +7,8 @@
 #'Applies buildAlignments() to build a set of alignments for loci supported in the ANHIG/IMGTHLA GitHub repository.
 #'
 #'@param loci A characer vector of the locus names for which alignments should be built. The default value ("all") generates alignments for all loci. 
-#'@param alignType A character vector of alignment types. The allowed values are "all", "prot", "codon", "nuc", and "gen", which specify either all available alignments for a given locus or the respective protein, codon, nucleotide and genomic alignments, as determined by the HLAgazeteer.
-#'@param version A character string describing the version of the ANHIG/IMGTHLA Github repository from which alignments are obtained. The default value, 'HLAgazeteer$version', generates alignments for the IPD-IMGT/HLA Database release under which the HLAgazeteer was built.
+#'@param alignType A character vector of alignment types. The allowed values are "all", "prot", "codon", "nuc", and "gen", which specify either all available alignments for a given locus or the respective protein, codon, nucleotide and genomic alignments, as determined by the HLAgazetteer.
+#'@param version A character string describing the version of the ANHIG/IMGTHLA Github repository from which alignments are obtained. The default value, 'HLAgazetteer$version', generates alignments for the IPD-IMGT/HLA Database release under which the HLAgazetteer was built.
 #'
 #'@return A list object containing data frames of protein (prot), codon (codon), coding nucleotide (nuc), or genomic nucleotide (gen) alignments, for specified genes in the specified IPD-IMGT/HLA Database release, along with the pertinent reference database release.
 #'
@@ -18,7 +18,7 @@
 #'
 #'@export
 #'
-alignmentFull <- function(loci = "all", alignType = "all", version = HLAgazeteer$version) {
+alignmentFull <- function(loci = "all", alignType = "all", version = HLAgazetteer$version) {
   
   if(!"all" %in% loci) {
       loci <- multiLocusValidation(loci) }
@@ -35,22 +35,22 @@ alignmentFull <- function(loci = "all", alignType = "all", version = HLAgazeteer
   if(length(loci) == 1 && loci == "all" && alignType == "all") {
   
   #list of loci names
-  NL4 <- NL1 <- as.list(HLAgazeteer$nuc) #cDNA and codon
-  NL2 <- as.list(HLAgazeteer$gen) #gDNA
-  NL3 <- as.list(HLAgazeteer$prot) #AA
+  NL4 <- NL1 <- as.list(HLAgazetteer$nuc) #cDNA and codon
+  NL2 <- as.list(HLAgazetteer$gen) #gDNA
+  NL3 <- as.list(HLAgazetteer$prot) #AA
   
   } else {
   
     if("all" %in% alignType)  { 
-      NL1 <- as.list(loci[loci %in% as.list(HLAgazeteer$nuc)]) #nuc 
-      NL2 <- as.list(loci[loci %in% as.list(HLAgazeteer$gen)]) #gen
-      NL3 <- as.list(loci[loci %in% as.list(HLAgazeteer$prot)]) #prot
-      NL4 <- as.list(loci[loci %in% as.list(HLAgazeteer$nuc)]) # codon
+      NL1 <- as.list(loci[loci %in% as.list(HLAgazetteer$nuc)]) #nuc 
+      NL2 <- as.list(loci[loci %in% as.list(HLAgazetteer$gen)]) #gen
+      NL3 <- as.list(loci[loci %in% as.list(HLAgazetteer$prot)]) #prot
+      NL4 <- as.list(loci[loci %in% as.list(HLAgazetteer$nuc)]) # codon
         } else {
-            if("nuc" %in% alignType)  { NL1 <- as.list(loci[loci %in% as.list(HLAgazeteer$nuc)]) } #nuc 
-            if("gen" %in% alignType)  { NL2 <- as.list(loci[loci %in% as.list(HLAgazeteer$gen)]) } #gen 
-            if("prot" %in% alignType)  { NL3 <- as.list(loci[loci %in% as.list(HLAgazeteer$prot)]) } # prot
-            if("codon" %in% alignType)  { NL4 <- as.list(loci[loci %in% as.list(HLAgazeteer$nuc)]) } # codon
+            if("nuc" %in% alignType)  { NL1 <- as.list(loci[loci %in% as.list(HLAgazetteer$nuc)]) } #nuc 
+            if("gen" %in% alignType)  { NL2 <- as.list(loci[loci %in% as.list(HLAgazetteer$gen)]) } #gen 
+            if("prot" %in% alignType)  { NL3 <- as.list(loci[loci %in% as.list(HLAgazetteer$prot)]) } # prot
+            if("codon" %in% alignType)  { NL4 <- as.list(loci[loci %in% as.list(HLAgazetteer$nuc)]) } # codon
           }
     
       }

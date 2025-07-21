@@ -1,4 +1,4 @@
-#BuildAlignments v1.5.2 5NOV2024 - LT/SM
+#BuildAlignments v1.6.0 20JUL2025 - LT/SM
 
 ################
 ##BuildAlignments
@@ -35,17 +35,17 @@ buildAlignments<-function(loci, source, version = "Latest"){
     if(loci[j]=="DRB1"|loci[j]=="DRB3"|loci[j]=="DRB4"|loci[j]=="DRB5") next
     for(x in 1:length(source)) {
       if(source[x] == "cDNA") {
-        if(loci[j]%in% HLAtools::HLAgazeteer$nuc == FALSE) {
+        if(loci[j]%in% HLAtools::HLAgazetteer$nuc == FALSE) {
           return(warning(paste(loci[j], "is not currently supported for", source[x])))
         }
       }
       if(source[x] == "gDNA") {
-        if(loci[j]%in% HLAtools::HLAgazeteer$gen == FALSE) {
+        if(loci[j]%in% HLAtools::HLAgazetteer$gen == FALSE) {
           return(warning(paste(loci[j], "is not currently supported for", source[x])))
         }
       }
       if(source[x] == "AA") {
-        if(loci[j] %in% HLAtools::HLAgazeteer$prot == FALSE) {
+        if(loci[j] %in% HLAtools::HLAgazetteer$prot == FALSE) {
           return(warning(paste(loci[j], "is not currently supported for", source[x])))
         }
       }
@@ -85,7 +85,7 @@ buildAlignments<-function(loci, source, version = "Latest"){
         type <- "cDNA"
 
         #change delete lines to first and second lines if locus does not have protein sequence ## LT
-        if(loci[i] %in% HLAtools::HLAgazeteer$nuc[!HLAtools::HLAgazeteer$nuc %in% HLAtools::HLAgazeteer$prot]){
+        if(loci[i] %in% HLAtools::HLAgazetteer$nuc[!HLAtools::HLAgazetteer$nuc %in% HLAtools::HLAgazetteer$prot]){
           delete_lines<-c(1,2)
                               #### Fix: DPA2, DPB2 and HLA-N cDNA alignments included an 'AA codon' row in several releases, through they are both pseudogenes
                               if(loci[i] == "DPA2" && version %in% c(3530,3520,3510,3500,3490,3480,3470,
@@ -227,7 +227,7 @@ buildAlignments<-function(loci, source, version = "Latest"){
         }
       }  else if(source[j]=="cDNA"){
         #these loci do not have protein sequences; set alignment start to 1
-        if(loci[i] %in% HLAtools::HLAgazeteer$nuc[!HLAtools::HLAgazeteer$nuc %in% HLAtools::HLAgazeteer$prot]){
+        if(loci[i] %in% HLAtools::HLAgazetteer$nuc[!HLAtools::HLAgazetteer$nuc %in% HLAtools::HLAgazetteer$prot]){
           alignment_start[[loci[i]]] <- 1
         } else{
         #determines the alignment start by finding the second vector in second list and removing "codon"
@@ -410,7 +410,7 @@ buildAlignments<-function(loci, source, version = "Latest"){
       names(pepsplit[[loci[i]]]) <- NULL
 
       #binds pep_split together by element in its previous list form by row ### need to skip this for DPA2 and DPB2??
-      pepsplit[[loci[i]]]<- do.call(rbind,pepsplit[[loci[i]]])
+      suppressWarnings(pepsplit[[loci[i]]]<- do.call(rbind,pepsplit[[loci[i]]]))
 
       #binds all columns together to form desired output, as described above
       HLAalignments[[loci[i]]] <- cbind.data.frame(HLAalignments[[loci[i]]][,1:4],pepsplit[[loci[i]]], stringsAsFactors=FALSE)

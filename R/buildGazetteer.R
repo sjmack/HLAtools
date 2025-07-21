@@ -1,11 +1,11 @@
-#buildGazeteer v6.1.0 18APR2025
+#buildGazetteer v6.2.0 20JUL2025
 
 ##############
-##buildGazeteer
+##buildGazetteer
 #'Define Categories of Genes Supported by the IPD-IMGT/HLA Database
 #'
 #'@description
-#'Consumes information in the ANHIG/IMGTHLA GitHub repository and at hla.alleles.org/genes to define specific categories of genes supported by the IPD-IMGT/HLA Database, which are represented as nineteen elements of the HLAgazeteer object.
+#'Consumes information in the ANHIG/IMGTHLA GitHub repository and at hla.alleles.org/genes to define specific categories of genes supported by the IPD-IMGT/HLA Database, which are represented as nineteen elements of the HLAgazetteer object.
 #'
 #'Elements: 
 #'*  All genes with alignments ($align)
@@ -16,9 +16,9 @@
 #'*  Classical HLA genes ($classical) and non-classical exprssed HLA genes ($nonclassical)
 #'*  All genes presented in map order ($map)
 #'
-#'The twentieth element ($version) identifies the IPD-IMGT/HLA Database version used to build the HLAgazeteer.
+#'The twentieth element ($version) identifies the IPD-IMGT/HLA Database version used to build the HLAgazetteer.
 #'
-#'@param version A string identifying of the desired IPD-IMGT/HLA Database release version to which the gazeteer should be updated. The default value is most recent IPD-IMGT/HLA Database release version.
+#'@param version A string identifying of the desired IPD-IMGT/HLA Database release version to which the gazetteer should be updated. The default value is most recent IPD-IMGT/HLA Database release version.
 #'
 #'@note The *$prot* and *$nuc* vectors include a 'DRB' "gene". While 'DRB' is not a gene name, the DRB_prot.txt file includes combined alignments for the DRB1, DRB3, DRB4, and DRB5 genes, and the DRB_nuc.txt file includes combined alignments for the DRB1, DRB2, DRB3, DRB4, DRB5, DRB6, DRB7, DRB8, and DRB9 genes. 'DRB' is included in these vectors for the purpose of validation when these combined alignments are desired.
 #'
@@ -38,7 +38,7 @@
 #'
 #'@export
 #'
-buildGazeteer <- function(version = getLatestVersion()) {
+buildGazetteer <- function(version = getLatestVersion()) {
   
   if(!validateVersion(version)) {stop(paste(version,"is not a valid IPD-IMGT/HLA Database release.",sep=" "))}
   
