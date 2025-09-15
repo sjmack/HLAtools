@@ -1,8 +1,4 @@
----
-output:
-  pdf_document: default
-  html_document: default
----
+
 ## HLAtools: Functions and Datasets for HLA Informatics
 
 ## Version 1.6.3
