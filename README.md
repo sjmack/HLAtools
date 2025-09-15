@@ -9,7 +9,7 @@ HLAtools version 1.6.3 is available on the CRAN repository at [https://cran.r-pr
 
 Developmental versions of the package (in this repository) can be installed using the *[xfun](https://CRAN.R-project.org/package=xfun)::install_github(sjmack/HLAtools)* command.
 
-A paper describing HLAtools was published in the [International Journal of Immunogenetics](https://onlinelibrary.wiley.com/doi/10.1111/iji.70013]) in September of 2025. 
+A paper describing HLAtools was published in the [International Journal of Immunogenetics](https://onlinelibrary.wiley.com/doi/10.1111/iji.70013) in September of 2025. 
 
 ### Data Resources
 The package includes five data objects that foster computation on IPD-IMGT/HLA resources. 
