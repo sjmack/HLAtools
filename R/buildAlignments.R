@@ -1,4 +1,4 @@
-#BuildAlignments v1.6.0 20JUL2025 - LT/SM
+#BuildAlignments v1.7.1 17DEC2025 - LT/SM
 
 ################
 ##BuildAlignments
@@ -9,8 +9,9 @@
 #'@param loci A character vector of HLA gene names (e.g., "DRB1", c("A","C")).
 #'@param source A character vector of alignment types. The allowed values are "AA", "cDNA", and "gDNA". If 'source' is "cDNA", both codon and cDNA nucleotide alignments are generated. If source is 'AA' or 'gDNA', a single peptide or genomic nucleotide alignment is generated. Up to four alignments will be returned for a locus, as determined by its ability to be transcribed or translated.
 #'@param version A character string describing the desired release version (branch) of the ANHIG/IMGTHLA Github repository (e.g. '3.53.0'). The default value ('Latest') returns alignments for the most recent release.
+#'@param return_corr_table A logical. When return_corr_table = TRUE, correspondence tables are returned instead of the alignments. The default value is FALSE.
 #'
-#'@return A list object with a data frame of all allele names (and trimmed, two-field allele names) and their corresponding sequences (Amino Acid, codon, cDNA, or gDNA) for a specific locus, as well as version details for the returned information. These alignments identify locations of feature boundaries in relation to amino acid, codon, cDNA, and gDNA sequences. When a three- or four-field allele name includes an expression variant suffix, that suffix is appended to the trimmed name. 
+#'@return A list object with a data frame of all allele names (and trimmed, two-field allele names) and their corresponding sequences (Amino Acid, codon, cDNA, or gDNA) for a specific locus, as well as version details for the returned information, when return_corr_table = FALSE. These alignments identify locations of feature boundaries in relation to amino acid, codon, cDNA, and gDNA sequences. When a three- or four-field allele name includes an expression variant suffix, that suffix is appended to the trimmed name. When return_corr_table = TRUE, correspondence tables, relating the named positions in an alignment to the ordinal numbers for each named position and the ordinal numbers of each insertion position, for the specified loci and source are returned, along with version details for the returned information. 
 #'
 #'@importFrom stringr str_squish
 #'@importFrom tibble add_column
@@ -21,7 +22,8 @@
 #'
 #'@export
 #'
-buildAlignments<-function(loci, source, version = "Latest"){
+
+buildAlignments<-function(loci, source, version = "Latest", return_corr_table = FALSE){
   
   if(version != "Latest"){ #
     if(!validateVersion(version)){stop(paste(version," is not a valid IPD-IMGT/HLA Database release version."))}
@@ -294,7 +296,7 @@ buildAlignments<-function(loci, source, version = "Latest"){
             } else{
               temp_filter<-data.frame(temp_vec, stringsAsFactors = F)
             }
-
+            
             #find the greatest number of peptides in extraneous alleles to determine
             #how many "." to add on
             max_nchar<-(temp_filter %>%
@@ -564,6 +566,7 @@ buildAlignments<-function(loci, source, version = "Latest"){
               }
             }
           }
+          
           #creates table (atlas) of cDNA boundaries and their locus
           if(source[j]=="cDNA"){
             cDNA_atlas[[loci[i]]]<-matrix(, nrow = 2, ncol = length(wsplit))
@@ -622,10 +625,22 @@ buildAlignments<-function(loci, source, version = "Latest"){
       }else if(source[j]=="gDNA"){
         final_alignment[[loci[i]]]<-c(final_alignment[[loci[i]]],gDNA = list(DNAalignments[[loci[i]]]))
       }
-
+      
       #Adds version number
       #     final_alignment[[loci[i]]]<-c(final_alignment[[loci[i]]],`ANHIG/IMGTHLA Alignments Version` = alignmentVersion[[loci[i]]])
-      final_alignment[[loci[i]]]<-c(final_alignment[[loci[i]]],'Version' = alignmentVersion[[loci[i]]])
+      
+      if(return_corr_table){
+        
+        object_to_return <- list(data.frame(corr_table[[loci[i]]]))
+        #rename column names from 'X1,X2,X3...' to the first row in corr_table,
+        #which contains amino acid position indices starting from 1
+        colnames(object_to_return[[1]]) <- object_to_return[[1]][1,]
+
+      } else {
+        object_to_return <- final_alignment[[loci[i]]]
+      }
+
+      final_alignment[[loci[i]]]<-c(object_to_return,'Version' = alignmentVersion[[loci[i]]])
 
     }
 

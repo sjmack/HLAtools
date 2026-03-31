@@ -1,4 +1,4 @@
-### Functions for Validating IPD-IMGT/HLA Release Version Values v2.3.0 4 April 2024
+### Functions for Validating IPD-IMGT/HLA Release Version Values v2.4.2 30 Mar 2026
 
 ################
 ##CheckVersion
@@ -20,6 +20,7 @@
 #'For internal HLAtools use.
 checkVersion <- function(version){
   if(version == "Latest") { version <- getLatestVersion()}
+  
   
   paste("X",gsub(".","",version,fixed=TRUE),sep="") %in% colnames(alleleListHistory$AlleleListHistory)
   
@@ -61,9 +62,11 @@ validateVersion <- function(version) {
 ##GetLatestVersion
 #'Identify the Latest IPD-IMGT/HLA Database Release
 #'
-#'Identifies the most recent version of the IPD-IMGT/HLA Database available in the ANHIG/IMGTHLA Github repository.
-#'
+#'Identifies the most recent version of the IPD-IMGT/HLA Database available in the ANHIG/IMGTHLA Github repository. 
 #'@return A dot-delimited character string identifying the latest release version (branch) of the ANHIG/IMGTHLA Github repository.
+#'If the most recent release version is not a 'primary' release version (i.e., following the X.YY.O naming format), the integer 
+#'in the third field of the release version is replaced with a '0'. 
+#'
 #'
 #'@export
 #'
@@ -73,8 +76,15 @@ validateVersion <- function(version) {
 #'@note
 #'For internal HLAtools use.
 getLatestVersion <- function() {
+  
   vers <- strsplit(readLines(url("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/release_version.txt"),n=3,ok=TRUE,skipNul = FALSE)[3]," ")[[1]][4]
-  on.exit(close(url("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/Allelelist_history.txt")))
+  
+  # if the incremental version value in the third field of a release is not 0, replace the incremental version with 0
+  if(!strsplit(vers, '.',fixed = TRUE)[[1]][[3]] == 0) {
+    vers <- paste(strsplit(vers,'.',fixed=TRUE)[[1]][1],strsplit(vers,'.',fixed=TRUE)[[1]][2],"0",sep=".")
+  }
+  
+  on.exit(close(url("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/release_version.txt")))
   vers
 }
 

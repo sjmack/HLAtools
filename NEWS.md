@@ -1,5 +1,13 @@
 ### HLAtools
 
+### version 1.6.4
+- December 17, 2025
+- Added the 'return_corr_table' parameter to the buildAlignments() function, enabling the return of 'correspondence tables', relating the named positions in an alignment to the ordinal numbers for those positions and the ordinal numbers of each insertion position, instead of alignments.
+- Updated DESCRIPTION to include a reference to Tran et al., (2025) doi:10.1111/iji.70013, describing the package.
+- March 30, 2026
+- Updated getLatestVersion() to change release values that do not end in '.0' to "#.##.0" using "release_version.txt" instead of "Allelelist_history.txt".
+- Updated bundled data objects to version 3.63.0.
+
 ### version 1.6.3
 - July 20, 2025
 - Changed all instances of 'HLAgazeteer' in the package to 'HLAgazetteer'. The former 'HLAgazeteer' object is now the 'HLAgazetteer', and the former 'buildGazeteer()' function is now 'buildGazetteer()'.

@@ -4,7 +4,7 @@
 \alias{buildAlignments}
 \title{Build Amino Acid, cDNA and gDNA Alignments}
 \usage{
-buildAlignments(loci, source, version = "Latest")
+buildAlignments(loci, source, version = "Latest", return_corr_table = FALSE)
 }
 \arguments{
 \item{loci}{A character vector of HLA gene names (e.g., "DRB1", c("A","C")).}
@@ -12,9 +12,11 @@ buildAlignments(loci, source, version = "Latest")
 \item{source}{A character vector of alignment types. The allowed values are "AA", "cDNA", and "gDNA". If 'source' is "cDNA", both codon and cDNA nucleotide alignments are generated. If source is 'AA' or 'gDNA', a single peptide or genomic nucleotide alignment is generated. Up to four alignments will be returned for a locus, as determined by its ability to be transcribed or translated.}
 
 \item{version}{A character string describing the desired release version (branch) of the ANHIG/IMGTHLA Github repository (e.g. '3.53.0'). The default value ('Latest') returns alignments for the most recent release.}
+
+\item{return_corr_table}{A logical. When return_corr_table = TRUE, correspondence tables are returned instead of the alignments. The default value is FALSE.}
 }
 \value{
-A list object with a data frame of all allele names (and trimmed, two-field allele names) and their corresponding sequences (Amino Acid, codon, cDNA, or gDNA) for a specific locus, as well as version details for the returned information. These alignments identify locations of feature boundaries in relation to amino acid, codon, cDNA, and gDNA sequences. When a three- or four-field allele name includes an expression variant suffix, that suffix is appended to the trimmed name.
+A list object with a data frame of all allele names (and trimmed, two-field allele names) and their corresponding sequences (Amino Acid, codon, cDNA, or gDNA) for a specific locus, as well as version details for the returned information, when return_corr_table = FALSE. These alignments identify locations of feature boundaries in relation to amino acid, codon, cDNA, and gDNA sequences. When a three- or four-field allele name includes an expression variant suffix, that suffix is appended to the trimmed name. When return_corr_table = TRUE, correspondence tables, relating the named positions in an alignment to the ordinal numbers for each named position and the ordinal numbers of each insertion position, for the specified loci and source are returned, along with version details for the returned information.
 }
 \description{
 Returns a list of data frames of amino acid, codon, nucleotide and genomic alignments, with version information.

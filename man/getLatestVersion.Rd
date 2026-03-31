@@ -8,6 +8,8 @@ getLatestVersion()
 }
 \value{
 A dot-delimited character string identifying the latest release version (branch) of the ANHIG/IMGTHLA Github repository.
+If the most recent release version is not a 'primary' release version (i.e., following the X.YY.O naming format), the integer
+in the third field of the release version is replaced with a '0'.
 }
 \description{
 Identifies the most recent version of the IPD-IMGT/HLA Database available in the ANHIG/IMGTHLA Github repository.
