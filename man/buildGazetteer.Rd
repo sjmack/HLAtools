@@ -16,7 +16,7 @@ Kulski et al. Human leukocyte antigen super-locus: nexus of genomic supergenes, 
 buildGazetteer(version = getLatestVersion())
 }
 \arguments{
-\item{version}{A string identifying of the desired IPD-IMGT/HLA Database release version to which the gazetteer should be updated. The default value is most recent IPD-IMGT/HLA Database release version.}
+\item{version}{A string identifying the desired IPD-IMGT/HLA Database release version to which the gazetteer should be updated. The default value is most recent IPD-IMGT/HLA Database release version.}
 }
 \value{
 A list object of vectors organizing the genes in the IPD-IMGT/HLA Database into specific categories.

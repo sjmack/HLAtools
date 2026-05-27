@@ -19,7 +19,7 @@
 #'
 #'The twentieth element ($version) identifies the IPD-IMGT/HLA Database version used to build the HLAgazetteer.
 #'
-#'@param version A string identifying of the desired IPD-IMGT/HLA Database release version to which the gazetteer should be updated. The default value is most recent IPD-IMGT/HLA Database release version.
+#'@param version A string identifying the desired IPD-IMGT/HLA Database release version to which the gazetteer should be updated. The default value is most recent IPD-IMGT/HLA Database release version.
 #'
 #'@note The *$prot* and *$nuc* vectors include a 'DRB' "gene". While 'DRB' is not a gene name, the DRB_prot.txt file includes combined alignments for the DRB1, DRB3, DRB4, and DRB5 genes, and the DRB_nuc.txt file includes combined alignments for the DRB1, DRB2, DRB3, DRB4, DRB5, DRB6, DRB7, DRB8, and DRB9 genes. 'DRB' is included in these vectors for the purpose of validation when these combined alignments are desired.
 #'
