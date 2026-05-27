@@ -1,5 +1,9 @@
 ### HLAtools
 
+### version 1.7.0
+- May 27, 2026
+- Added gene-content definitions for conserved ancestral HLA haplotype blocks (Dawkins et al. 1999; Kulski et al. 2022) to HLAgazetteer.
+
 ### version 1.6.4
 - December 17, 2025
 - Added the 'return_corr_table' parameter to the buildAlignments() function, enabling the return of 'correspondence tables', relating the named positions in an alignment to the ordinal numbers for those positions and the ordinal numbers of each insertion position, instead of alignments.

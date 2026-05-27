@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 library(HLAtools)
 ```
 
--   Package Version: 1.6.4
+-   Package Version: 1.7.0
 
 # Overview
 
@@ -118,11 +118,11 @@ The information in this object can be found online at <https://hla.alleles.org/p
 
 ### Gazetteer of HLA Region Genes
 
-The *HLAgazetteer* data object is a list object that organizes the HLA region genes supported by the IPD-IMGT/HLA Database in nineteen vectors describing the availability of alignments, gene functionality, group identity and map order. A new *HLAgazetteer* can be built after each IPD-IMGT/HLA Database release using the *updateAll()* function, although the *HLAgazetteer* is not expected to change unless new genes are added to the IPD-IMGT/HLA Database.
+The *HLAgazetteer* data object is a list object that organizes the HLA region genes supported by the IPD-IMGT/HLA Database in twenty-four vectors describing the availability of alignments, gene functionality, group identity and map order. A new *HLAgazetteer* can be built after each IPD-IMGT/HLA Database release using the *updateAll()* function, although the *HLAgazetteer* is not expected to change unless new genes are added to the IPD-IMGT/HLA Database.
 
 ```         
 names(HLAgazetteer)
- [1] "align" "gen" "nuc" "prot" "nogen" "nonuc" "noprot" "pseudo" "frag" "hla" "expressed" "notexpressed" "classireg" "classihla" "classiireg" "classiihla" "classical" "nonclassical" "map" "version"     
+ [1] "align" "gen" "nuc" "prot" "nogen" "nonuc" "noprot" "pseudo" "frag" "hla" "expressed" "notexpressed" "classireg" "classihla" "classiireg" "classiihla" "classical" "nonclassical" "alpha" "kappa" "beta" "delta" "epsilon" "map" "version"     
 ```
 
 For example, the *\$align* vector includes all of the genes for which **sequence alignments** are available:

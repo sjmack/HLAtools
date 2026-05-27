@@ -1,4 +1,4 @@
-#buildGazetteer v6.2.0 20JUL2025
+#buildGazetteer v7.0.0 27MAY2026
 
 ##############
 ##buildGazetteer
@@ -13,7 +13,8 @@
 #'*  HLA genes ($hla), pseudogenes ($pseudo), gene fragments ($frag)
 #'*  Genes that are expressed ($expressed) or not expressed ($notexpressed)
 #'*  Genes in the Class I region ($classireg), Class I HLA genes ($classIhla), Genes in the Class II region ($classiireg), and Class II HLA genes ($classiihla)
-#'*  Classical HLA genes ($classical) and non-classical exprssed HLA genes ($nonclassical)
+#'*  Classical HLA genes ($classical) and non-classical expressed HLA genes ($nonclassical)
+#'*  HLA region genes present in specific conserved ancestral HLA region haplotype blocks ($alpha, $kappa, $beta, $delta and $epsilon)
 #'*  All genes presented in map order ($map)
 #'
 #'The twentieth element ($version) identifies the IPD-IMGT/HLA Database version used to build the HLAgazetteer.
@@ -25,7 +26,7 @@
 #'@return A list object of vectors organizing the genes in the IPD-IMGT/HLA Database into specific categories.
 #'
 #'@note For interal HLAtools use.
-#'@note These elements are constructed using data compiled from hla.alleles.org/genes/, github.com/ANHIG/IMGTHLA/tree/Latest/alignments, DOI:10.2741/a317, DOI:10.1111/tan.15180, and Human Genome Assembly GRCh38.p14 reference assembly NC_000006.12.
+#'@note These elements are constructed using data compiled from hla.alleles.org/genes/, github.com/ANHIG/IMGTHLA/tree/Latest/alignments, DOI:10.2741/a317, DOI:10.1111/tan.15180, DOI: 10.1038/s41439-022-00226-5, and Human Genome Assembly GRCh38.p14 reference assembly NC_000006.12.
 #'@note Additional information about these genes can be found in HLAtools::IMGTHLAGeneTypes.
 #'@note The $map element does not distinguish the order of the DRB3, DRB4 and DRB5 genes (DRB3/4/5) or the DR6 and DR7 (DR6/7) genes, as the individual elements of these gene sets are found on different DRB haplotypes. 
 #'@note This function requires internet access to function.
@@ -34,7 +35,9 @@
 #'@importFrom utils read.table
 #'
 #'@source Andersson G. Evolution of the human HLA-DR region. Front. Biosci. 1998 Jul 27:3:d739-45.
-#'@source Alexandrov et al. HLA-OLI: A new MHC class I pseudogene and HLA-Y are located on a 60 kb indel in the human MHC between HLA-W and HLA-J. HLA 2023 Nov; 102(5):599-606.
+#'@source Alexandrov et al. HLA-OLI: A new MHC class I pseudogene and HLA-Y are located on a 60 kb indel in the human MHC between HLA-W and HLA-J. HLA 2023 102(5):599-606.
+#'@source Dawkins et al. Genomics of the major histocompatibility complex: haplotypes, duplication, retroviruses and disease. Immunological Reviews 1999 167:275-304.
+#'@source Kulski et al. Human leukocyte antigen super-locus: nexus of genomic supergenes, SNPs, indels, transcripts, and haplotypes. Human Genome Variation 2022 9:1–15.
 #'
 #'@export
 #'
@@ -121,6 +124,13 @@ buildGazetteer <- function(version = getLatestVersion()) {
   
   locList$classical <- sort(c("A","B","C","DRA","DRB1","DRB3","DRB4","DRB5","DQA1","DQB1","DPA1","DPB1"))
   locList$nonclassical <- sort(c("F","G","E","DQA2","DQB2","DOB","DMB","DMA","DOA","DPA2","DPB2"))
+  
+  locList$alpha <- sort(c("F","MICE","V","P","G","H","T","K","U","A","W","MICD","Y","R","J"))
+  locList$kappa <- sort(c("L","N","MICC","E"))
+  locList$beta <- sort(c("C","B","S","MICA","X","MICB"))
+ # locList$gamma <- c("") Class III region, not covered
+  locList$delta <- sort(c("DRA","DRB9","DRB3/4/5","DRB8","DRB6/7","DRB2","DRB1","DQA1","DQB1","DQB3","DQA2","DQB2","DOB"))
+  locList$epsilon <- sort(c("Z","DMB","DMA","DOA","DPA1","DPB1","DPA2","DPB2","DPA3"))
   
   locList$map <- c("HFE","F","MICE","V","P","G","H","T","K","U","A","W","MICD","Y","R","J","L","N","MICC","E","C","B","S","MICA","X","MICB","DRA","DRB9","DRB3/4/5","DRB8","DRB6/7","DRB2","DRB1","DQA1","DQB1","DQB3","DQA2","DQB2","DOB","TAP2","PSMB8","TAP1","PSMB9","Z","DMB","DMA","DOA","DPA1","DPB1","DPA2","DPB2","DPA3")
 

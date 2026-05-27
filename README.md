@@ -1,7 +1,7 @@
 
 ## HLAtools: Functions and Datasets for HLA Informatics
 
-## Version 1.6.4
+## Version 1.7.0
 
 The HLA region is the most polymorphic section of the human genome, with 43,758 allelic variants identified across 46 loci. The key roles played by the class I and class II HLA genes in stem-cell therapy and transplantation, disease association research, evolutionary biology, and population genetics result in constant discovery of new allele variants. These data are curated and maintained by the [ImmunoPolymorphism Database-IMmunoGeneTics/HLA (IPD-IMGT/HLA) Database](https://www.ebi.ac.uk/ipd/imgt/hla/) and made available on the [Anthony Nolan HLA Informatics Group (ANHIG)/IMGTHLA GitHub repository](https://github.com/ANHIG/IMGTHLA) as static text files, which are updated every three months. Standardized use of the data in this key resource can be challenging. To address this, we have developed HLAtools, an R package that automates the consumption of IPD-IMGT/HLA resources, renders them computable, and makes them available alongside tools for data analysis, visualization and investigation. The package is compatible with all IPD-IMGT/HLA Database release versions up to release 3.60.0. 
 
@@ -18,6 +18,7 @@ The package includes five data objects that foster computation on IPD-IMGT/HLA r
 - 'HLAgazetteer' defines specific categories of genes supported by the IPD-IMGT/HLA Database. For example:
    - gene fragments (HLAgazetteer$frag : "N" "P" "R" "S" "T" "U" "V" "W" "X" "Z") 
    - non-classical HLA genes (HLAgazetteer$nonclassical : "DMA"  "DMB"  "DOA"  "DOB"  "DPA2" "DPB2" "DQA2" "DQB2" "E"    "F"    "G")
+   - genes specific to a particular conserved ancestral HLA haplotype block (HLAgazetteer$beta : "B"    "C"    "MICA" "MICB" "S"    "X")
 - 'HLAatlas' identifies the boundaries between gene features (exons, introns and untranslated regions) at each gene, pseudogene and gene fragment.
 - 'fragmentFeatureNames' identifies and annotates the non-standard features found in some gene fragments, based on the positions of feature boundaries ("|") in the sequence.
    - For example, the HLA-U gene fragment includes three features (fragmentFeatureNames\$U\$features : "N.1" "J.1" "S.1") that do not align to other class I gene features. The "N.1" feature is 54 nucleotides of novel (N) sequence, the "J.1" feature is a join (J) of the 3' end of Exon 3, and the 5' end of Intron 3, and the "S.1" feature is a segment (S) of Intron 3.
