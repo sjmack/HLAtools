@@ -6,7 +6,11 @@
 \source{
 Andersson G. Evolution of the human HLA-DR region. Front. Biosci. 1998 Jul 27:3:d739-45.
 
-Alexandrov et al. HLA-OLI: A new MHC class I pseudogene and HLA-Y are located on a 60 kb indel in the human MHC between HLA-W and HLA-J. HLA 2023 Nov; 102(5):599-606.
+Alexandrov et al. HLA-OLI: A new MHC class I pseudogene and HLA-Y are located on a 60 kb indel in the human MHC between HLA-W and HLA-J. HLA 2023 102(5):599-606.
+
+Dawkins et al. Genomics of the major histocompatibility complex: haplotypes, duplication, retroviruses and disease. Immunological Reviews 1999 167:275-304.
+
+Kulski et al. Human leukocyte antigen super-locus: nexus of genomic supergenes, SNPs, indels, transcripts, and haplotypes. Human Genome Variation 2022 9:1–15.
 }
 \usage{
 buildGazetteer(version = getLatestVersion())
@@ -27,7 +31,8 @@ Elements:
 \item HLA genes ($hla), pseudogenes ($pseudo), gene fragments ($frag)
 \item Genes that are expressed ($expressed) or not expressed ($notexpressed)
 \item Genes in the Class I region ($classireg), Class I HLA genes ($classIhla), Genes in the Class II region ($classiireg), and Class II HLA genes ($classiihla)
-\item Classical HLA genes ($classical) and non-classical exprssed HLA genes ($nonclassical)
+\item Classical HLA genes ($classical) and non-classical expressed HLA genes ($nonclassical)
+\item HLA region genes present in specific conserved ancestral HLA region haplotype blocks ($alpha, $kappa, $beta, $delta and $epsilon)
 \item All genes presented in map order ($map)
 }
 
@@ -38,7 +43,7 @@ The \emph{$prot} and \emph{$nuc} vectors include a 'DRB' "gene". While 'DRB' is 
 
 For interal HLAtools use.
 
-These elements are constructed using data compiled from hla.alleles.org/genes/, github.com/ANHIG/IMGTHLA/tree/Latest/alignments, DOI:10.2741/a317, DOI:10.1111/tan.15180, and Human Genome Assembly GRCh38.p14 reference assembly NC_000006.12.
+These elements are constructed using data compiled from hla.alleles.org/genes/, github.com/ANHIG/IMGTHLA/tree/Latest/alignments, DOI:10.2741/a317, DOI:10.1111/tan.15180, DOI: 10.1038/s41439-022-00226-5, and Human Genome Assembly GRCh38.p14 reference assembly NC_000006.12.
 
 Additional information about these genes can be found in HLAtools::IMGTHLAGeneTypes.
 
