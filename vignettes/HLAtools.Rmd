@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 library(HLAtools)
 ```
 
--   Package Version: 1.7.0
+-   Package Version: 1.8.0
 
 # Overview
 
@@ -412,7 +412,7 @@ multiAlleleTrim(alleles,2,append = TRUE)
 
 ## Identifying Differences Between Alleles at a Locus
 
-The *compareSequences()* function identifies sequence differences between two alleles at a locus for a specific type of alignment.
+The *compareSequences()* function identifies sequence differences between two alleles for a specific type of alignment. These alleles can be at different loci.
 
 **Parameters**
 
@@ -435,6 +435,15 @@ compareSequences("gen",c("DPA1*01:03:38:01","DPA1*01:03:38:02"))
        allele_name 1544 1723 3318 4149
 1 DPA1*01:03:38:01    G    G    C    G
 2 DPA1*01:03:38:02    A    A    G    C
+
+compareSequences("prot",c("DRB1*01:01:01:01","DRB3*01:01:02:01"))
+       allele_name -19 -18 -17 -5 -2 9 10 11 13 26 28 30 31 32 37 38 57 60 71 73 74 77 96 98
+1 DRB1*01:01:01:01   C   M   T  P  L W  Q  L  F  L  E  C  I  Y  S  V  D  Y  R  A  A  T  E  K
+2 DRB3*01:01:02:01   S   L   A  R  F E  L  R  S  Y  D  Y  F  H  F  L  V  S  K  G  R  N  H  Q
+
+ 104 183
+1  S   P
+2  A   A
 ```
 
 ## Searching Allele Names Across IPD-IMGT/HLA Database Release Versions

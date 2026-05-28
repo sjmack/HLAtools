@@ -1,7 +1,7 @@
 
 ## HLAtools: Functions and Datasets for HLA Informatics
 
-## Version 1.7.0
+## Version 1.8.0
 
 The HLA region is the most polymorphic section of the human genome, with 43,758 allelic variants identified across 46 loci. The key roles played by the class I and class II HLA genes in stem-cell therapy and transplantation, disease association research, evolutionary biology, and population genetics result in constant discovery of new allele variants. These data are curated and maintained by the [ImmunoPolymorphism Database-IMmunoGeneTics/HLA (IPD-IMGT/HLA) Database](https://www.ebi.ac.uk/ipd/imgt/hla/) and made available on the [Anthony Nolan HLA Informatics Group (ANHIG)/IMGTHLA GitHub repository](https://github.com/ANHIG/IMGTHLA) as static text files, which are updated every three months. Standardized use of the data in this key resource can be challenging. To address this, we have developed HLAtools, an R package that automates the consumption of IPD-IMGT/HLA resources, renders them computable, and makes them available alongside tools for data analysis, visualization and investigation. The package is compatible with all IPD-IMGT/HLA Database release versions up to release 3.60.0. 
 
@@ -44,13 +44,21 @@ alleles <- c("A*01010102L","DRB1*1613N","HLA-Cw*0322Q")
 multiAlleleTrim(alleles,1,2,TRUE)
 [1] "A*01L"      "DRB1*16N"   "HLA-Cw*03Q"
 ```
-- compareSequences() identifies the positions that differ between a pair of alleles at a locus.
+- compareSequences() identifies the positions that differ between a pair of alleles.
 ```
 compareSequences(alignType = "gen", alleles = c("DPA1*01:03:01:04","DPA1*01:03:38:01"))
        allele_name 51 1544 1723 3318 4149
 1 DPA1*01:03:01:04  C    A    A    G    C
 2 DPA1*01:03:38:01  T    G    G    C    G
 ```
+
+```
+compareSequences("prot",c("DRB1*01:01:01:01","DRB3*01:01:02:01"))
+       allele_name -19 -18 -17 -5 -2 9 10 11 13 26 28 30 31 32 37 38 57 60 71 73 74 77 96 98 104 183
+1 DRB1*01:01:01:01   C   M   T  P  L W  Q  L  F  L  E  C  I  Y  S  V  D  Y  R  A  A  T  E  K   S   P
+2 DRB3*01:01:02:01   S   L   A  R  F E  L  R  S  Y  D  Y  F  H  F  L  V  S  K  G  R  N  H  Q   A   A
+```
+
 - customAlign() builds customized peptide, codon, nucleotide and genomic alignments for specific alleles at user-specified positions, for alleles at different loci, and for different positions at each locus. 
 ```
 customAlign("prot",c("DQA1*01:01:01:01","DQB1*05:01:01:01","DPB1*01:01:01:01"),list(1:4,5:8,5:8))

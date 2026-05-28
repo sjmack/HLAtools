@@ -1,5 +1,9 @@
 ### HLAtools
 
+### version 1.8.0
+- May 28, 2026
+- Updated compareSequences() apply to alleles at different loci. Thanks to Martin Maiers for the suggestion. 
+
 ### version 1.7.0
 - May 27, 2026
 - Added gene-content definitions for conserved ancestral HLA haplotype blocks (Dawkins et al. 1999; Kulski et al. 2022) to HLAgazetteer.

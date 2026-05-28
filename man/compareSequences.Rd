@@ -2,18 +2,19 @@
 % Please edit documentation in R/compareSequences.R
 \name{compareSequences}
 \alias{compareSequences}
-\title{Identify Sequence Differences Between Two Alleles at a Locus}
+\title{Identify Sequence Differences Between Two Alleles}
 \usage{
 compareSequences(alignType, alleles)
 }
 \arguments{
 \item{alignType}{A character string identifying the type of alignment being searched. Allowed values are "codon","gen", nuc" and "prot". Only one 'alignType' value is permitted.}
 
-\item{alleles}{A character vector containing two full-length names for alleles at the same locus.}
+\item{alleles}{A character vector containing two full-length names for alleles at the two different loci.}
 }
 \value{
-A two-row data frame identifying the positions and sequences at which the two alleles differ. E.g., compareSequences(alignType = "gen", alleles = c("DPA1\*01:03:38:01","DPA1\*01:03:38:02"). Positions for which the sequence of either allele is unknown are ignored.
+A two-row data frame identifying the positions and sequences at which the two alleles differ. E.g., compareLoci(alignType = "gen", alleles = c("B\*07:02:01:01","C\*02:02:02:01")). Positions are nor shared between the two loci, or for which the sequence of either allele is unknown are ignored.
 }
 \description{
-Compares the sequences of two alleles at a locus, and identifies the differences between them at specific positions
+Compares the sequences of two alleles, and identifies the differences between them at shared polymorphic sequence positions.
+Alleles at different loci can be compared.
 }
