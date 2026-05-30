@@ -1,5 +1,12 @@
 ### HLAtools
 
+### version 1.8.1
+- May 29, 2026
+- Added @examples to compareSequences() documentation.
+- Removed escapes from customAlign() examples.
+- Standardized the formatting of data object names in ReadMe.md.
+- Updated the ANHIG/IMGT-HLA GitHub Repository version for loaded data objects.
+
 ### version 1.8.0
 - May 28, 2026
 - Updated compareSequences() apply to alleles at different loci. Thanks to Martin Maiers for the suggestion. 

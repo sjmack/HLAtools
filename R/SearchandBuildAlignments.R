@@ -227,9 +227,9 @@ uniSearch <- function(alignType, locus, allele, position, prefix=TRUE, trimmed=F
 #'
 #'@examples
 #'\dontrun{
-#'customAlign("codon",c("DRB1\*01:01","DQB1\*02:01","DPB1\*01:01"),c(1,2,3,7,8,9,13,14,15))
-#'customAlign("codon",c("DPB1\*01:01:01:01","DQA1\*01:01:01:01","DQB1\*05:01:01:01"),list(19:35,1:4,6:9))
-#'customAlign("prot",c("DRB1\*08:07","DPB1\*14:01"),list(c(12,27,30,39,57,84),c(15,16,39,60,67,81)))
+#'customAlign("codon",c("DRB1*01:01","DQB1*02:01","DPB1*01:01"),c(1,2,3,7,8,9,13,14,15))
+#'customAlign("codon",c("DPB1*01:01:01:01","DQA1*01:01:01:01","DQB1*05:01:01:01"),list(19:35,1:4,6:9))
+#'customAlign("prot",c("DRB1*08:07","DPB1*14:01"),list(c(12,27,30,39,57,84),c(15,16,39,60,67,81)))
 #'}
 #'
 #'@export

@@ -18,3 +18,11 @@ A two-row data frame identifying the positions and sequences at which the two al
 Compares the sequences of two alleles, and identifies the differences between them at shared polymorphic sequence positions.
 Alleles at different loci can be compared.
 }
+\examples{
+\dontrun{
+compareSequences("gen",c("DPA1*01:03:38:01","DPA1*01:03:38:02"))
+compareSequences("prot",c("DRB1*01:01:01:01","DRB3*01:01:02:01"))
+compareSequences("prot", c("B*57:01:01:01", "A*24:02:01:01"))
+}
+
+}
