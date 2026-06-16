@@ -1,4 +1,4 @@
-#BuildAlignments v1.7.1 17DEC2025 - LT/SM
+#BuildAlignments v1.8.0 15JUN2026 - LT/SM
 
 ################
 ##BuildAlignments
@@ -11,7 +11,7 @@
 #'@param version A character string describing the desired release version (branch) of the ANHIG/IMGTHLA Github repository (e.g. '3.53.0'). The default value ('Latest') returns alignments for the most recent release.
 #'@param return_corr_table A logical. When return_corr_table = TRUE, correspondence tables are returned instead of the alignments. The default value is FALSE.
 #'
-#'@return A list object with a data frame of all allele names (and trimmed, two-field allele names) and their corresponding sequences (Amino Acid, codon, cDNA, or gDNA) for a specific locus, as well as version details for the returned information, when return_corr_table = FALSE. These alignments identify locations of feature boundaries in relation to amino acid, codon, cDNA, and gDNA sequences. When a three- or four-field allele name includes an expression variant suffix, that suffix is appended to the trimmed name. When return_corr_table = TRUE, correspondence tables, relating the named positions in an alignment to the ordinal numbers for each named position and the ordinal numbers of each insertion position, for the specified loci and source are returned, along with version details for the returned information. 
+#'@return A list object with a data frame of all allele names (and trimmed, two-field allele names) and their corresponding sequences (Amino Acid, codon, cDNA, or gDNA) for a specific locus, as well as version details for the returned information, when return_corr_table = FALSE. These alignments identify locations of feature boundaries in relation to amino acid, codon, cDNA, and gDNA sequences. When a three- or four-field allele name includes an expression variant suffix, that suffix is appended to the trimmed name. When return_corr_table = TRUE, correspondence tables, relating the named positions in an alignment to the ordinal numbers for each named position and the ordinal numbers of each insertion position, for the specified loci and source are returned, along with version details for the returned information.
 #'
 #'@importFrom stringr str_squish
 #'@importFrom tibble add_column
@@ -24,13 +24,13 @@
 #'
 
 buildAlignments<-function(loci, source, version = "Latest", return_corr_table = FALSE){
-  
+
   if(version != "Latest"){ #
     if(!validateVersion(version)){stop(paste(version," is not a valid IPD-IMGT/HLA Database release version."))}
   }else{ version <- getLatestVersion()}
-  
+
   source <- checkSource(source)
-  
+
   #checks if input locus is present in version 3.38.0 HLA loci
   #skip name checks for DRB1/3/4/5, as they are a part of the DRB alignment
   for(j in 1:length(loci)){
@@ -62,14 +62,14 @@ buildAlignments<-function(loci, source, version = "Latest", return_corr_table = 
   alignmentVersion<-pepsplit<-refexon<-aligned<-final_alignment<-AA_codon_alignments<-DNAalignments<-HLAalignments<-exonB<-inDels<-AA_atlas<-gDNA_atlas<-cDNA_atlas<-atlas<-corr_table<-cols<-downloaded_segments<-w<-alignment_positionsx3<-alignment_positions<-alignment_length<-DNA_start<-alignment_start<-space_diff<-prot_extractions<-refblock_number<-sapply(loci, function(x) NULL)
 
   #sub out periods in version, if there are any
-  # version <- gsub(".", "", version, fixed=T) ## change to 
+  # version <- gsub(".", "", version, fixed=T) ## change to
   version <- repoVersion(version)
 
   #if version is not latest, turn into numeric object
   if(version != "Latest"){
     version <- as.numeric(version)
   }
-  
+
   for(i in 1:length(loci)){
 
 
@@ -81,7 +81,7 @@ buildAlignments<-function(loci, source, version = "Latest", return_corr_table = 
         type <- "Prot"
         delete_lines <- c(1,2)
         divide <- 1
-        sequence_name <- "AAsequence" 
+        sequence_name <- "AAsequence"
         } else if(source[j]=="cDNA"){
         suffix <- "_nuc.txt"
         type <- "cDNA"
@@ -95,25 +95,25 @@ buildAlignments<-function(loci, source, version = "Latest", return_corr_table = 
                                                  3390,3380,3370,3360,3350,3340,3330,
                                                  3320,3310,3300,3290,3280,3270)) {
                                 delete_lines <- c(1,2,3)} # 3.53.0 - 3.27.0
-          
+
                               if(loci[i] == "DPB2" && version %in% c(3530,3520,3510,3500,3490,3480,3470,
                                                  3460,3450,3440,3430,3420,3410,3400,
                                                  3390,3380,3370,3360,3350,3340,3330,
                                                  3320,3310,3300,3290,3280,3270,3260,
                                                  3250,3240)) {
                                 delete_lines <- c(1,2,3)} # 3.53.0 - 3.24.0
-          
+
                               if(loci[i] %in% c("N","S","U","Y") && version %in% c(3350,3340,3330)) {
                                 delete_lines <- c(1,2,3)} # 3.35.0 - 3.33.0
-          
+
                               if(loci[i] =="Y" && version %in% c(3320,3310,3300,3320,3310,
                                                                  3300,3290,3280,3270,3260,
                                                                  3250,3240,3230,3220,3210,3200)) {
                                delete_lines <- c(1,2,3)} # 3.32.0 - 3.20.0
-          
+
                               if(loci[i] %in% c("W","T") && version == 3270) {
                                 delete_lines <- c(1,2,3)} # 3.35.0 - 3.33.0
-  
+
                         } else{
                   delete_lines <- c(1,2,3)}
         divide <- 3
@@ -125,9 +125,9 @@ buildAlignments<-function(loci, source, version = "Latest", return_corr_table = 
         divide <- 1
         sequence_name <- "gDNAsequence"
       }
-      
+
       if(version == 3131) {version <- 3130} ## Fix for downloading the alignments, as the repo URL includes "3130", but the files use "3131".
-      
+
       #downloads relevant locus alignment file -- readLines allows for space preservation, which is important in
       #finding where the alignment sequence starts
       if(source[j] == "AA"|source[j] == "cDNA"){
@@ -150,33 +150,33 @@ buildAlignments<-function(loci, source, version = "Latest", return_corr_table = 
           ### Fix for extraneous block of allele name rows in HLA-B cDNA alignment in 3.44.0 and 3.43.0.
       if(loci[i] == "B" && version == 3440 && source == "cDNA"){ alignment[[loci[i]]] <- alignment[[loci[i]]][-c(127540:135510)] } # 3.44.0
       if(loci[i] == "B" && version == 3430 && source == "cDNA"){ alignment[[loci[i]]] <- alignment[[loci[i]]][-c(124129:131886)] } # 3.43.0
-         ### Fix for extraneous HLA-C allele name rows in version 3.2.0 
+         ### Fix for extraneous HLA-C allele name rows in version 3.2.0
       if(loci[i] == "C" && version == 320 && source == "cDNA"){ alignment[[loci[i]]] <- alignment[[loci[i]]][-c(14467:15430)] } # 3.43.0
-      
+
          ### Fix for missing "AA codon" lines in HFE versions 3.27.0 to 3.22.0.
       if(loci[i] == "HFE" && version %in% c(3270,3260,3250,3240,3230,3220) && source == "cDNA") {
-        
+
               firstPos <- -25
               alignment[[loci[i]]] <- addCodonLine(alignment[[loci[i]]],firstPos)
-        
+
             }
-      
+
          ### Fix for missing "AA codon" lines in DPA, DPB, TAP1 and TAP2 in version 0.00.0
       if(version == 300 && source == "cDNA" && loci[i] %in% c("DPA","DPB","TAP1","TAP2")) {
 
                   if(loci[i] == "DPA") { firstPos <- -31 }
                   if(loci[i] == "DPB") { firstPos <- -29 }
                   if(loci[i] %in% c("TAP1","TAP2")) { firstPos <- 1 }
-        
+
                   alignment[[loci[i]]] <- addCodonLine(alignment[[loci[i]]],firstPos)
                 }
-        
-      ### Fix for missing carriage-return between lines 2 and 3 in HLA-V versions 3.14.0, and converting "3.15.0" to "3.14.0"    
-       if(loci[i] == "V" && version == 3140) { 
+
+      ### Fix for missing carriage-return between lines 2 and 3 in HLA-V versions 3.14.0, and converting "3.15.0" to "3.14.0"
+       if(loci[i] == "V" && version == 3140) {
                   alignment[[loci[i]]] <- append(alignment[[loci[i]]],"Sequences Aligned: 2014 January 17",after=2)
                   alignment[[loci[i]]][2] <- "IMGT/HLA Release: 3.14.0"
                   }
-      
+
       #if version is numeric and <= 3310, obtain version number from line 2, and
       #skip first 6 rows and last 2 rows
       if((is.numeric(version) & version <= 3310)){ ## this format is 'IPD-IMGT/HLA Release: 3.31.0'. I'd like it to be 'IPD-IMGT/HLA 3.31.0' to match the post 3.31.0 version structure ****
@@ -201,13 +201,13 @@ buildAlignments<-function(loci, source, version = "Latest", return_corr_table = 
 
       #determines positions of "cDNA" or "Prot" and the end of that reference block segment
       start[[loci[i]]] <-as.numeric(grep(type, alignment[[loci[i]]]))
-      
+
       ## Fix for DOA in 3.01.0 - Only one sequence block
       if(length(start[[loci[i]]]) == 1) {
         end[[loci[i]]] <- length(alignment[[loci[i]]]) ## the only end is the end of the sequence block
           } else {
       end[[loci[i]]] <- as.numeric(c(start[[loci[i]]][2:length(start[[loci[i]]])]-1,length(alignment[[loci[i]]]))) }
-      
+
       if(version == 3480 && source[j] == "gDNA" && loci[i] == "DRB1"){ ## Fix for DRB1*15:200:01:01N and DRB1*15:200:01:02N in 3.48.0 gDNA alignment
           alignment[[loci[i]]] <- gsub("DRB1*15:200:01:01N","DRB1*15:200:01:01N ",alignment[[loci[i]]], fixed=TRUE)
           alignment[[loci[i]]] <- gsub("DRB1*15:200:01:02N","DRB1*15:200:01:02N ",alignment[[loci[i]]], fixed=TRUE)
@@ -259,56 +259,42 @@ buildAlignments<-function(loci, source, version = "Latest", return_corr_table = 
       colnames(alignment[[loci[i]]])<-c(paste(loci[i], "alleles", sep="_"), "seq")
 
       #due to ANHIG formatting, cases where an allele contains newly reference peptide sequences will not
-      #contain the same number of rows as previous reference peptide blocks
+      #contain the same number of rows as previous reference peptide blocks.
+      #as of version 3.64.0, this is limited to the last block.
       #this for loop is invoked to add "."for all other alleles for each character in the newly reference peptide
       #to preserve structural integrity
       #changes 10/9/19 to accommodate if there is more than one extraneous allele with an extended amino acid sequence
 
-      if(source[j]=="cDNA"|source[j]=="AA"&loci[i]=="TAP2"){
-        for(l in 1:length(start[[loci[i]]])){
-          if(nrow(alignment[[loci[i]]][start[[loci[i]]][l]:end[[loci[i]]][l],])!=nrow(alignment[[loci[i]]][start[[loci[i]]][1]:end[[loci[i]]][1],])){
-            x<-as.data.frame(alignment[[loci[i]]][,1][start[[loci[i]]][1]:end[[loci[i]]][1]][-c(1,2)], stringsAsFactors = F)
-            colnames(x)<-paste(loci[i], "alleles", sep="_")
-            x<-cbind.data.frame(x, seq=as.character(paste(rep(".", nchar(tail(alignment[[loci[i]]][,2], 1))), collapse = "")), stringsAsFactors=FALSE)
-            y<-data.frame(tail(alignment[[loci[i]]], (nrow(alignment[[loci[i]]][start[[loci[i]]][l]:end[[loci[i]]][l],][nrow(alignment[[loci[i]]][start[[loci[i]]][l]:end[[loci[i]]][l],])!=nrow(alignment[[loci[i]]][start[[loci[i]]][1]:end[[loci[i]]][1],]),])-2)), stringsAsFactors = F)
-            x$seq[match(y[,1], x[,1])]<-y$seq
-            alignment[[loci[i]]]<-as.matrix(rbind(head(alignment[[loci[i]]], -(nrow(alignment[[loci[i]]][start[[loci[i]]][l]:end[[loci[i]]][l],][nrow(alignment[[loci[i]]][start[[loci[i]]][l]:end[[loci[i]]][l],])!=nrow(alignment[[loci[i]]][start[[loci[i]]][1]:end[[loci[i]]][1],]),])-2)), x))
-            start[[loci[i]]]<-as.numeric(grep(type, alignment[[loci[i]]]))
-            
-            end[[loci[i]]] <- as.numeric(c(start[[loci[i]]][2:length(start[[loci[i]]])]-1,nrow(alignment[[loci[i]]])))
-            }
-        }
-      }
+      # get last start and end positions to evaluate if extraneous alleles are present
+      last_start <- start[[loci[[i]]]][length(start[[loci[[i]]]])]
+      last_end <- end[[loci[[i]]]][length(end[[loci[[i]]]])]
 
-      if(source[j]=="AA"|source[j]=="gDNA"|source[j]!="AA"&loci[i]!="TAP2"){
-        for(l in 1:length(start[[loci[i]]])){
-          if(nrow(alignment[[loci[i]]][start[[loci[i]]][l]:end[[loci[i]]][l],])!=nrow(alignment[[loci[i]]][start[[loci[i]]][1]:end[[loci[i]]][1],])){
-            x<-as.data.frame(alignment[[loci[i]]][,1][start[[loci[i]]][1]:end[[loci[i]]][1]][-c(1,2)], stringsAsFactors = F)
-            colnames(x)<-paste(loci[i], "alleles", sep="_")
-            temp_vec<-alignment[[loci[i]]][start[[loci[i]]][l]:end[[loci[i]]][l],][-c(1,2),]
+      if(nrow(alignment[[loci[i]]][last_start:last_end,])!=nrow(alignment[[loci[i]]][start[[loci[i]]][1]:end[[loci[i]]][1],])){
+        x<-as.data.frame(alignment[[loci[i]]][,1][start[[loci[i]]][1]:end[[loci[i]]][1]][-c(1,2)], stringsAsFactors = F)
+        colnames(x)<-paste(loci[i], "alleles", sep="_")
+        temp_vec<-alignment[[loci[i]]][last_start:last_end,][-c(1,2),]
 
-            #if there is only one allele with an extended amino acid sequence, the conversion from a named
-            #vector to a data frame is not properly
-            #if the character vector is = 2, there is only one allele with an extended amino acid sequence, so use
-            #as.list and then data.frame so data frame is created correctly
-            if(length(temp_vec) == 2){
-              temp_filter<-data.frame(as.list(temp_vec), stringsAsFactors = F)
-            } else{
-              temp_filter<-data.frame(temp_vec, stringsAsFactors = F)
-            }
-            
-            #find the greatest number of peptides in extraneous alleles to determine
-            #how many "." to add on
-            max_nchar<-(temp_filter %>%
-                          add_column(nchar = nchar(.$seq)) %>%
-                          filter(nchar == max(nchar)))$nchar
-            x<-cbind.data.frame(x, seq=as.character(paste(rep(".", max_nchar[1]), collapse = "")), stringsAsFactors=FALSE)
-            y<-data.frame(tail(alignment[[loci[i]]], (nrow(alignment[[loci[i]]][start[[loci[i]]][l]:end[[loci[i]]][l],][nrow(alignment[[loci[i]]][start[[loci[i]]][l]:end[[loci[i]]][l],])!=nrow(alignment[[loci[i]]][start[[loci[i]]][1]:end[[loci[i]]][1],]),])-2)), stringsAsFactors = F)
-            x$seq[match(y[,1], x[,1])]<-y$seq
-            alignment[[loci[i]]]<-as.matrix(rbind(head(alignment[[loci[i]]], -(nrow(alignment[[loci[i]]][start[[loci[i]]][l]:end[[loci[i]]][l],][nrow(alignment[[loci[i]]][start[[loci[i]]][l]:end[[loci[i]]][l],])!=nrow(alignment[[loci[i]]][start[[loci[i]]][1]:end[[loci[i]]][1],]),])-2)), x))
-            start[[loci[i]]]<-as.numeric(grep("Prot", alignment[[loci[i]]]))
-            end[[loci[i]]] <- as.numeric(c(start[[loci[i]]][2:length(start[[loci[i]]])]-1,nrow(alignment[[loci[i]]])))}
+        #if there is only one allele with an extended amino acid sequence, the conversion from a named
+        #vector to a data frame is not properly
+        #if the character vector is = 2, there is only one allele with an extended amino acid sequence, so use
+        #as.list and then data.frame so data frame is created correctly
+        if(length(temp_vec) == 2){
+          temp_filter<-data.frame(as.list(temp_vec), stringsAsFactors = F)
+        } else{
+          temp_filter<-data.frame(temp_vec, stringsAsFactors = F)
         }
+
+        #find the greatest number of peptides in extraneous alleles to determine
+        #how many "." to add on
+        max_nchar<-(temp_filter %>%
+                      add_column(nchar = nchar(.$seq)) %>%
+                      filter(nchar == max(nchar)))$nchar
+        x<-cbind.data.frame(x, seq=as.character(paste(rep(".", max_nchar[1]), collapse = "")), stringsAsFactors=FALSE)
+        y<-data.frame(tail(alignment[[loci[i]]], (nrow(alignment[[loci[i]]][last_start:last_end,][nrow(alignment[[loci[i]]][last_start:last_end,])!=nrow(alignment[[loci[i]]][start[[loci[i]]][1]:end[[loci[i]]][1],]),])-2)), stringsAsFactors = F)
+        x$seq[match(y[,1], x[,1])]<-y$seq
+        alignment[[loci[i]]]<-as.matrix(rbind(head(alignment[[loci[i]]], -(nrow(alignment[[loci[i]]][last_start:last_end,][nrow(alignment[[loci[i]]][last_start:last_end,])!=nrow(alignment[[loci[i]]][start[[loci[i]]][1]:end[[loci[i]]][1],]),])-2)), x))
+        start[[loci[i]]]<-as.numeric(grep(type, alignment[[loci[i]]]))
+        end[[loci[i]]] <- as.numeric(c(start[[loci[i]]][2:length(start[[loci[i]]])]-1,nrow(alignment[[loci[i]]])))
       }
 
       #if a locus has extra formatting, resulting in unequal rows, start and end will be updated to reflect subsetting
@@ -323,13 +309,13 @@ buildAlignments<-function(loci, source, version = "Latest", return_corr_table = 
       HLAalignments[[loci[i]]] <- HLAalignments[[loci[i]]][-delete_lines,]
 
       #designates columns to be combined as every other so allele names are not included
-      #in pasting all the amino acid sequences together 
-      
-      ### Fix #2b for DOA in 3.01.0 -- only need to bind together multiple sequence blocks 
+      #in pasting all the amino acid sequences together
+
+      ### Fix #2b for DOA in 3.01.0 -- only need to bind together multiple sequence blocks
      if(length(start[[loci[i]]]) > 1) {
             cols<-seq(0, ncol(HLAalignments[[loci[i]]]), by=2)
-            HLAalignments[[loci[i]]]<-cbind(HLAalignments[[loci[i]]][,1], apply(HLAalignments[[loci[i]]][,cols], 1 ,paste, collapse = "")) 
-            }                     
+            HLAalignments[[loci[i]]]<-cbind(HLAalignments[[loci[i]]][,1], apply(HLAalignments[[loci[i]]][,cols], 1 ,paste, collapse = ""))
+            }
 
       #creates a new matrix with the number of columns equal to the number of characters in the reference sequence
       corr_table[[loci[i]]]<-matrix(, nrow = 3, ncol = as.numeric(nchar(HLAalignments[[loci[i]]][,2][1])))
@@ -369,10 +355,10 @@ buildAlignments<-function(loci, source, version = "Latest", return_corr_table = 
 
       #adds a new column of pasted locus and trimmed two field alleles to aligned
       aligned[[loci[i]]]<- cbind(aligned[[loci[i]]], paste(aligned[[loci[i]]][,1], unlist(apply(aligned[[loci[i]]],MARGIN=c(1,2),FUN=alleleTrim,resolution=2,append=TRUE)[,2]), sep="*"))
-      
+
       #binds aligned and HLAalignments -- renames columns
       HLAalignments[[loci[i]]] <- cbind(aligned[[loci[i]]], HLAalignments[[loci[i]]])
- 
+
       colnames(HLAalignments[[loci[i]]]) <- c("locus", "full_allele", "trimmed_allele", "allele_name", sequence_name)
 
       if(source[j]=="AA"){
@@ -380,18 +366,18 @@ buildAlignments<-function(loci, source, version = "Latest", return_corr_table = 
         if(loci[i]=="DRB3"|loci[i]=="DRB4"|loci[i]=="DRB5"){
           #sets refexon to a reference peptide for each HLA locus based on the reference sequences in HLAalignments
           refexon[[loci[i]]] <- rbind(HLAalignments[[loci[i]]][1,])[which(rbind(HLAalignments[[loci[i]]][1,])[,"locus"]=="DRB1"),sequence_name]
-        } else{       
+        } else{
                 ## Fix error in version 3.23.0 with DPA1 cDNA alignments, where the filename is "DPA_prot.txt, and DPB1 with filenane "DPB_prot.txt".
                 if(loci[i] %in% c("DPA","DPB","DQA","DQB") && source == "AA" && version %in% c(3230,3220,3210,3200,3190,3180,
                                                                                                3170,3160,3150,3140,3130,3120,
                                                                                                3110,3100,390,380,370,360,
                                                                                                350,340,330,320,310,300)) {
-                  
+
                  if(loci[i] == "DPA") {refexon[[loci[i]]] <- rbind(HLAalignments[[loci[i]]][1,])[which(rbind(HLAalignments[[loci[i]]][1,])[,"locus"]=="DPA1"),sequence_name]}
                  if(loci[i] == "DPB") {refexon[[loci[i]]] <- rbind(HLAalignments[[loci[i]]][1,])[which(rbind(HLAalignments[[loci[i]]][1,])[,"locus"]=="DPB1"),sequence_name]}
                  if(loci[i] == "DQA") {refexon[[loci[i]]] <- rbind(HLAalignments[[loci[i]]][1,])[which(rbind(HLAalignments[[loci[i]]][1,])[,"locus"]=="DQA1"),sequence_name]}
                  if(loci[i] == "DQB") {refexon[[loci[i]]] <- rbind(HLAalignments[[loci[i]]][1,])[which(rbind(HLAalignments[[loci[i]]][1,])[,"locus"]=="DQB1"),sequence_name]}
-                  
+
                   } else {
                       refexon[[loci[i]]] <- rbind(HLAalignments[[loci[i]]][1,])[which(rbind(HLAalignments[[loci[i]]][1,])[,"locus"]==loci[i]),sequence_name]
                           }
@@ -566,7 +552,7 @@ buildAlignments<-function(loci, source, version = "Latest", return_corr_table = 
               }
             }
           }
-          
+
           #creates table (atlas) of cDNA boundaries and their locus
           if(source[j]=="cDNA"){
             cDNA_atlas[[loci[i]]]<-matrix(, nrow = 2, ncol = length(wsplit))
@@ -625,12 +611,12 @@ buildAlignments<-function(loci, source, version = "Latest", return_corr_table = 
       }else if(source[j]=="gDNA"){
         final_alignment[[loci[i]]]<-c(final_alignment[[loci[i]]],gDNA = list(DNAalignments[[loci[i]]]))
       }
-      
+
       #Adds version number
       #     final_alignment[[loci[i]]]<-c(final_alignment[[loci[i]]],`ANHIG/IMGTHLA Alignments Version` = alignmentVersion[[loci[i]]])
-      
+
       if(return_corr_table){
-        
+
         object_to_return <- list(data.frame(corr_table[[loci[i]]]))
         #rename column names from 'X1,X2,X3...' to the first row in corr_table,
         #which contains amino acid position indices starting from 1
