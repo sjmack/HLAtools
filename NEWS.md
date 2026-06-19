@@ -1,5 +1,14 @@
 ### HLAtools
 
+### version 1.9.1
+- June 18, 2026
+- Updated atlasMaker() to address the terminal sequence block issue addressed for buildAlignments().
+- Updated bundled fragmentFeatureNames, HLAatlas, HLAgazetteer and IMGTHLAGeneTypes data objects to version 3.64.0.
+
+### version 1.9.0
+- June 16, 2026
+- Updated buildAlignments() to extend terminal sequence block based on the longest 'appendix' sequence rather than the final 'appendix' sequence for all cDNA and TAP2 alignments.
+
 ### version 1.8.1
 - May 29, 2026
 - Added @examples to compareSequences() documentation.
