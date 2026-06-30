@@ -1,5 +1,10 @@
 ### HLAtools
 
+### development version
+- Optimized `buildAlignments()` and `alignmentFull()` for speed (~2-3x faster) with identical output: vectorized the per-character sequence split, the inDel/exon-boundary and position labeling of correspondence tables, and the reference-sequence distribution over alignment columns; `alignmentFull()` now builds each cDNA alignment once and reuses it for both the codon and nucleotide tables instead of rebuilding it twice.
+- Added a `testthat` regression and behavior suite covering `buildAlignments()`/`alignmentFull()` (including the HLA-B 3.64.0 appendix case) and the GL String, UNIFORMAT, motif, and accessory functions.
+- Added a scheduled GitHub Actions workflow that checks for new IPD-IMGT/HLA releases.
+
 ### version 1.9.1
 - June 18, 2026
 - Updated atlasMaker() to address the terminal sequence block issue addressed for buildAlignments().

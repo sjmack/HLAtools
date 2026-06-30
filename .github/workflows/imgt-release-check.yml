@@ -1,0 +1,55 @@
+name: IMGT release check
+
+# Smoke-tests HLAtools against the live IPD-IMGT/HLA release data. IMGT updates
+# the ANHIG/IMGTHLA repository roughly quarterly, and the package downloads
+# alignment data from it at runtime, so a new release can introduce data that
+# breaks the alignment build (as HLA-B cDNA did). This job rebuilds the
+# alignments on a schedule and turns red if a new release breaks them.
+#
+# Scheduled runs only fire from the repository's DEFAULT branch. While this work
+# lives on the perf-optimization branch, trigger it manually from the Actions
+# tab ("Run workflow"); once merged to the default branch the weekly schedule
+# takes over. The manual trigger also accepts a specific version to test.
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'          # Mondays at 06:00 UTC
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'IPD-IMGT/HLA version to test (e.g. 3.64.0) or "Latest"'
+        required: false
+        default: 'Latest'
+
+permissions:
+  contents: read
+
+jobs:
+  release-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - name: Install dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          # Package Imports/Suggests come from DESCRIPTION; add the tooling the
+          # dev/ scripts use to load the package from source and run the tests.
+          extra-packages: |
+            any::pkgload
+            any::testthat
+
+      - name: Build all alignments against the IMGT release
+        run: Rscript dev/imgt_release_check.R "${{ github.event.inputs.version || 'Latest' }}"
+
+      - name: Run the unit + regression test suite
+        if: always()                 # run even if the build check above failed
+        env:
+          NOT_CRAN: "true"           # exercise the network-guarded HLA-B regression test
+        run: Rscript dev/run_tests.R

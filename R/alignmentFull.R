@@ -62,11 +62,30 @@ alignmentFull <- function(loci = "all", alignType = "all", version = HLAgazettee
   codonList <- vector(mode='list', length=length(NL4))
 
   #filling nested lists with alignments
+
+  # PERFORMANCE: cList (nuc) and codonList (codon) are both derived from the
+  # SAME cDNA build. buildAlignments(locus,"cDNA") returns list(codon, cDNA) in
+  # one call, but the original code called it twice per locus -- once for the
+  # nuc list (taking [[1]][2], the cDNA table) and once for the codon list
+  # (taking [[1]][1], the codon table) -- re-downloading and re-parsing the
+  # identical _nuc.txt file and discarding half of each result. We build each
+  # required cDNA alignment exactly once into cdnaCache, then read both tables
+  # from it below. cdnaLoci is the union of the nuc (NL1) and codon (NL4) locus
+  # lists, which are identical except when only one of "nuc"/"codon" is
+  # requested via alignType.
+  cdnaLoci <- unique(c(as.character(NL1), as.character(NL4)))
+  cdnaLoci <- cdnaLoci[!is.na(cdnaLoci) & nzchar(cdnaLoci)]
+  cdnaCache <- vector(mode = 'list', length = length(cdnaLoci))
+  names(cdnaCache) <- cdnaLoci
+  for(lc in cdnaLoci){
+    cdnaCache[[lc]] <- suppressWarnings(buildAlignments(lc, "cDNA", version = version)[[1]])
+  }
+
 #  if(NL1 != "") {
-    if(length(NL1) > 0) { 
+    if(length(NL1) > 0) {
       for(i in 1:length(NL1)){
-        cList[i] <- suppressWarnings(buildAlignments(as.character(NL1[i]), "cDNA", version = version)[[1]][2]) } 
-    
+        cList[i] <- cdnaCache[[as.character(NL1[i])]][2] }
+
         names(cList) <- NL1
       }
 #    }
@@ -87,9 +106,9 @@ alignmentFull <- function(loci = "all", alignType = "all", version = HLAgazettee
       }
 #    }
 #  if(NL4 != "") {
-    if(length(NL4) > 0) { 
+    if(length(NL4) > 0) {
       for(i in 1:length(NL4)){
-        codonList[i] <- suppressWarnings(buildAlignments(as.character(NL4[i]), "cDNA", version = version)[[1]][1]) }
+        codonList[i] <- cdnaCache[[as.character(NL4[i])]][1] }
     
         names(codonList) <- NL4
       }

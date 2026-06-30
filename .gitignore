@@ -50,3 +50,18 @@ rsconnect/
 inst/doc
 /doc/
 /Meta/
+
+# Logs and build artifacts from the dev/ performance-optimization harness
+*.log
+dev/*.out
+dev/*.rds
+
+# Dev-only iteration artifact: the per-call fast regression baseline used by
+# dev/verify_fast.R. It is large (~5 MB) and regenerable on demand with
+#   Rscript dev/verify_fast.R record
+# The committed tests/testthat/fixtures/alignmentFull_baseline.rds is the
+# fixture the test suite actually needs.
+tests/testthat/fixtures/buildAlignments_fast_baseline.rds
+
+# Fork-specific RStudio project file (kept locally, not tracked)
+*.Rproj
