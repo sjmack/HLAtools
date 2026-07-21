@@ -7,7 +7,7 @@
 updateAll(updateType = "all", version = getLatestVersion())
 }
 \arguments{
-\item{updateType}{A character vector of the names of data objects to be updated. By default, updateAll() builds all five data objects (updateType="all"). Alternatively specific data objects can be updated; e.g., updateType="alleleListHistory" or updateType=c("alleleListHistory","fragmentFeatureNames").}
+\item{updateType}{A character vector of the names of data objects to be updated. By default, updateAll() builds all six data objects (updateType="all"). Alternatively specific data objects can be updated; e.g., updateType="alleleListHistory" or updateType=c("alleleListHistory","fragmentFeatureNames").}
 
 \item{version}{A numeric value or character string identifying the version of the ANHIG/IMGTHLA Github repository to build these objects from. By default, updateAll() calls the getLatestVersion() function to identify the most recent IPD-IMGT/HLA Database release.}
 }
@@ -15,7 +15,7 @@ updateAll(updateType = "all", version = getLatestVersion())
 No value is returned. The desired versions of the specified data objects are built into the environment that called updateAll().
 }
 \description{
-Applies updateAlleleListHistory(), atlasFull(), buildGazetteer(), extractGeneTypes(), and ffN() to update the alleleListHistory, HLAatlas, HLAgazetteer, IMGTHLAGeneTypes and fragmentFeatureNames data objects.
+Applies updateAlleleListHistory(), atlasFull(), buildGazetteer(), extractGeneTypes(), ffN() and buildGenomicReferences() to update the alleleListHistory, HLAatlas, HLAgazetteer, IMGTHLAGeneTypes, fragmentFeatureNames and IMGTGenomicReferences data objects.
 
 A new alleleListHistory data object should be generated with each IPD-IMGT/HLA Database release. The other data objects will likely only change when new genes are added to the IPD-IMGT/HLA Database.
 }

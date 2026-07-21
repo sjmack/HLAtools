@@ -1,15 +1,15 @@
-## UpdateAll v02.3.0 20 July 2025
+## UpdateAll v02.4.0 19 July 2026
 
 ################
 ##updateAll
 #'Update All Package Data Objects Derived from IPD-IMGT/HLA Database Resources
 #'
 #'@description
-#'Applies updateAlleleListHistory(), atlasFull(), buildGazetteer(), extractGeneTypes(), and ffN() to update the alleleListHistory, HLAatlas, HLAgazetteer, IMGTHLAGeneTypes and fragmentFeatureNames data objects.
+#'Applies updateAlleleListHistory(), atlasFull(), buildGazetteer(), extractGeneTypes(), ffN() and buildGenomicReferences() to update the alleleListHistory, HLAatlas, HLAgazetteer, IMGTHLAGeneTypes, fragmentFeatureNames and IMGTGenomicReferences data objects.
 #'
 #'A new alleleListHistory data object should be generated with each IPD-IMGT/HLA Database release. The other data objects will likely only change when new genes are added to the IPD-IMGT/HLA Database.
 #'
-#'@param updateType A character vector of the names of data objects to be updated. By default, updateAll() builds all five data objects (updateType="all"). Alternatively specific data objects can be updated; e.g., updateType="alleleListHistory" or updateType=c("alleleListHistory","fragmentFeatureNames").
+#'@param updateType A character vector of the names of data objects to be updated. By default, updateAll() builds all six data objects (updateType="all"). Alternatively specific data objects can be updated; e.g., updateType="alleleListHistory" or updateType=c("alleleListHistory","fragmentFeatureNames").
 #'@param version A numeric value or character string identifying the version of the ANHIG/IMGTHLA Github repository to build these objects from. By default, updateAll() calls the getLatestVersion() function to identify the most recent IPD-IMGT/HLA Database release.
 #'
 #'@return No value is returned. The desired versions of the specified data objects are built into the environment that called updateAll().
@@ -120,4 +120,26 @@ updateAll <-function(updateType="all",version = getLatestVersion()){
       }
     }
   ##
+    
+    if("all" %in% updateType || "IMGTGenomicReferences" %in% updateType) {
+      if(version == IMGTGenomicReferences$version){
+        message(paste("IMGTGenomicReferences for version",version,"is already loaded.",sep=" "))
+      } else {      
+        if(file.exists(paste(HLTDpath,paste(version,"IMGTGenomicReferences.rda",sep="."),sep="/"))) {
+          load(paste(HLTDpath,paste(version,"IMGTGenomicReferences.rda",sep="."),sep="/"),envir = parent.frame())
+          message(paste("IMGTGenomicReferences for version",version,"has been loaded.",sep=" "))
+        } else {  
+          
+          IMGTGenomicReferences <- buildGenomicReferences() ## has version, version is built in
+            IGRversion <- IMGTGenomicReferences$version
+          save(IMGTGenomicReferences,file=paste(HLTDpath,paste(IGRversion,"IMGTGenomicReferences.rda",sep="."),sep="/"))
+          load(paste(HLTDpath,paste(IGRversion,"IMGTGenomicReferences.rda",sep="."),sep="/"),envir = parent.frame())
+          message(paste("IMGTGenomicReferences for version",version,"has been built and loaded.",sep=" "))
+        }
+      }
+    }
+    
+    
+    
+    
 }

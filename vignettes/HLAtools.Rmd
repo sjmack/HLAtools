@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 library(HLAtools)
 ```
 
--   Package Version: 1.9.1
+-   Package Version: 1.11.0
 
 # Overview
 
@@ -139,7 +139,19 @@ HLAgazetteer$prot
  [1] "A" "B" "C" "DMA" "DMB" "DOA" "DOB" "DPA1" "DPB1" "DQA1" "DQA2" "DQB1" "DQB2" "DRA" "DRB1" "DRB3" "DRB4" "DRB5" "DRB" "E" "F" "G" "HFE" "MICA" "MICB" "TAP1" "TAP2"
 ```
 
-Note that the *\$prot* and *\$nuc* vectors include a 'DRB' "gene". While 'DRB' is not a gene name, the DRB_prot.txt file includes combined alignments for the DRB1, DRB3, DRB4, and DRB5 genes, and the DRB_nuc.txt file includes combined alignments for the DRB1, DRB2, DRB3, DRB4, DRB5, DRB6, DRB7, DRB8, and DRB9 genes. 'DRB' is included in these vectors for the purpose of validation when these combined alignments are desired.
+Note that the *\$prot* and *\$nuc* vectors include a 'DRB' "gene". While 'DRB' is not a gene name, the DRB_prot.txt file includes combined alignments for the DRB1, DRB3, DRB4, and DRB5 genes, and the DRB_nuc.txt file includes combined alignments for the DRB1, DRB2, DRB3, DRB4, DRB5, DRB6, DRB7, DRB8, and DRB9 genes. 'DRB' is included in these vectors for the purpose of validation when these combined alignments are desired. 
+
+### Genomic Reference Alleles
+
+The *IMGTGenomicReferences* data object identifies an IPD-IMGT/HLA reference allele and a GRCh38 reference allele (when available) for each of the 44 genes in the IPD-IMGT/HLA Database, along with each gene's Ensembl version, GRCh38 location and initiator methionine start position. GRCh38 reference alleles remain undefined for DRB6, DRB7, HLA-P and HLA-Y. A new *IMGTGenomicReferences* data object can be generated using the *buildGenomicReferences()* function, although *IMGTGenomicReferences* is not expected to change unless GRCh38 alleles are assigned for DRB6, DRB7, HLA-P or HLA-Y, or new genes are added to the IPD-IMGT/HLA Database. The source data for this object can be found online at <https://www.ebi.ac.uk/ipd/imgt/hla/about/help/genomics/>. 
+
+```
+IMGTGenomicReferences$GenomicReferences[1:3,]
+   Gene     Ensemblversion      GRCh38 Location Start of ATG (Initiator Met) GRCh38 reference allele IPD-IMGT/HLA reference allele
+1   HFE ENSG00000010704.18 CM000668.2 (forward)                 6:26,087,441           HFE*001:01:01                 HFE*001:01:01
+2 HLA-F ENSG00000204642.14 CM000668.2 (forward)                 6:29,723,464           F*01:03:01:01                 F*01:01:01:01
+3 HLA-V ENSG00000181126.13 CM000668.2 (forward)                 6:29,792,234           V*01:01:01:01                 V*01:01:01:01
+```
 
 ## Annotation of Pseudogene and Gene Fragment Features
 

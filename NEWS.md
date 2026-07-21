@@ -1,5 +1,20 @@
 ### HLAtools
 
+### version 1.11.0
+- July 19, 2026
+- Added the buildGenomicReferences() function and the IMGTGenomicReferences data object.
+- Added IMGTGenomicReferences to global variables.
+- Added capacity to build new IMGTGenomicReferences data objects to updateAll().
+- Updated ReadMe and Vignette.
+
+### version 1.10.0
+- July 15, 2026
+- Updated the documentation for HLAgazetteer to include the conserved ancestral HLA haplotype blocks.
+- Changed reference from 'HLAtools::HLAgazetteer\$version' to 'HLAgazetteer\$version' in multiLocusValidation().
+- Changed four references from 'HLAtools::HLAgazetteer\$' to 'HLAgazetteer\$' in validateLocus().
+- Changed nine references from 'HLAtools::HLAgazetteer\$' to 'HLAgazetteer\$' in buildAlignments()
+- Updated multiLocusValidation() to halt further execution if all provided locus names are invalid. 
+
 ### version 1.9.1
 - June 18, 2026
 - Updated atlasMaker() to address the terminal sequence block issue addressed for buildAlignments().

@@ -14,10 +14,10 @@ multiLocusValidation(loci, source = "gDNA", verbose = TRUE)
 \item{verbose}{A logical value. If 'verbose' = TRUE, messages describing invalid 'loci' or 'source' values are generated. If 'verbose' = FALSE, no messages are generated.}
 }
 \value{
-A character vector of locus names that are present in HLAgazetteer$gen.
+A character vector of locus names that are present in HLAgazetteer$gen. If none of the locus names are present in HLAgazetteer$gen, an Error is generated.
 }
 \description{
-Applies validateLocus() to a vector of locus names, validates them against HLAgazetteer$gen, and returns a vector of validated locus names.
+Applies validateLocus() to a vector of locus names, validates them against HLAgazetteer$gen (by default), and returns a vector of validated locus names.
 }
 \note{
 The results of this check should only be considered valid for the IPD-IMGT/HLA Database release version of the current HLAgazetteer.

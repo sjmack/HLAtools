@@ -1,4 +1,4 @@
-##data v2.1.1 20JULY2025
+##data v3.0.0 16JULY2026
 
 ##alleleListHistory
 #'Allele Names Across All Release Versions
@@ -73,7 +73,7 @@
 #' @docType data
 #' @name HLAgazetteer
 #' @usage data(HLAgazetteer)
-#' @format A large list of 19 vectors that define specific categories of genes supported by the IPD-IMGT/HLA Database
+#' @format A large list of 24 vectors that define specific categories of genes supported by the IPD-IMGT/HLA Database
 #' \itemize{
 #'.   \item(align: all genes with alignments in the IPD/IMGT-HLA GitHub Repository)
 #'    \item(gen: genes with genomic alignments in the IPD/IMGT-HLA GitHub Repository)
@@ -93,6 +93,11 @@
 #'    \item(classiihla: class II HLA genes)
 #'    \item(classical: classical HLA genes)
 #'    \item(nonclassical: non-classical HLA genes)
+#'    \item(alpha: genes found in the alpha ancestral haplotype block)
+#'    \item(kappa: genes found in the kappa ancestral haplotype block)
+#'    \item(beta: genes found in the beta ancestral haplotype block)
+#'    \item(delta: genes found in the delta ancestral haplotype block)
+#'    \item(epsilon: genes found in the epsilon ancestral haplotype block)
 #'    \item(map: all genes organized by 5' to 3' map order on the genomic reference + strand)
 #'    \item(version: IPD-IMGT/HLA Database version used to build the HLAgazetteer)
 #' }
@@ -100,6 +105,8 @@
 #' @source https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments
 #' @source Andersson Front. Biosci. 1998, 3(4), 739–745. https://doi.org/10.2741/a317
 #' @source Alexandrov et al. HLA 2023, Vol.102(5), p.599-606. https://doi.org/10.1111/tan.15180
+#' @source Dawkins et al. Immunol Rev. 1999, Vol. 167, p.275-304. https://doi.org/10.1111/j.1600-065x.1999.tb01399.x 
+#' @source Kulski et al. Hum Genome Var. 2022 Dec 21;9(1):49. https://doi.org/10.1038/s41439-022-00226-5 
 #' @source https://www.ncbi.nlm.nih.gov/nucleotide/NC_000009.12
 "HLAgazetteer"
 
@@ -138,7 +145,7 @@
 ##HLAatlas
 #'Boundary Positions of Exons, Introns and UTRs in Amino Acid, cDNA and gDNA Alignments 
 #'
-#'A list object of sub-lists of R dataframes (atlases) for each locus with a protein (prot), cDNA (nuc), and gDNA (gen) alignment. Each atlas identifies the position of the exon (E), intron (I) or UTR (U) gene-feature boundaries in an alignment. Boundaries for non-standard hybrid (H), join (J), novel (N) and segment (S) features may be included in gene fragment and pseudogene atlases.
+#'A list object of two wlements. Sub-lists of R dataframes (atlases) for each locus with a protein (prot), cDNA (nuc), and gDNA (gen) alignment. Each atlas identifies the position of the exon (E), intron (I) or UTR (U) gene-feature boundaries in an alignment. Boundaries for non-standard hybrid (H), join (J), novel (N) and segment (S) features may be included in gene fragment and pseudogene atlases.
 #'This object is built by the atlasFull() function.
 #'
 #' @docType data
@@ -165,3 +172,20 @@
 #' @format A data frame of 18 columns and 47 rows.
 #' @source These synthetic data were generated as part of the 13th International HLA Workshop to demonstrate PyPop functions. See <http://pypop.org/docs/guide-chapter-usage.html#data-minimal-noheader> for additional details.
 "sHLAdata"
+
+##IMGTGenomicReferences
+#'Genomic Reference Alleles for each Gene in the IPD-IMGT/HLA Database
+#'
+#'A data.frame characterizing a genomic reference allele for each IPD-IMGT/HLA Database gene, and a vector identifying the date that the table was generated.
+#'This object is built by the buildGenomicReferences() function.
+#'
+#' @docType data
+#' @name IMGTGenomicReferences
+#' @usage data(IMGTGenomicReferences)
+#' @format A list of two elements.
+#' \itemize{
+#'    \item(GenomicReferenceGenes: A table of 44 rows, one for each gene, and 6 columns, identifying each gene, its Ensembl version, GRChg38 location, genomic coordinate of that gene's start codon, GRChg38 reference allele, and IPD-IMGT/HLA reference allele)
+#'    \item(Version: The date on which this object was generated)
+#'    }
+#' @source https://www.ebi.ac.uk/ipd/imgt/hla/about/help/genomics/  
+"IMGTGenomicReferences"

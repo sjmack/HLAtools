@@ -5,7 +5,7 @@
 \alias{HLAgazetteer}
 \title{Functional and Organizational Categories of Genes Supported by the IPD-IMGT/HLA Database}
 \format{
-A large list of 19 vectors that define specific categories of genes supported by the IPD-IMGT/HLA Database
+A large list of 24 vectors that define specific categories of genes supported by the IPD-IMGT/HLA Database
 \itemize{
 .   \item(align: all genes with alignments in the IPD/IMGT-HLA GitHub Repository)
 \item(gen: genes with genomic alignments in the IPD/IMGT-HLA GitHub Repository)
@@ -25,6 +25,11 @@ A large list of 19 vectors that define specific categories of genes supported by
 \item(classiihla: class II HLA genes)
 \item(classical: classical HLA genes)
 \item(nonclassical: non-classical HLA genes)
+\item(alpha: genes found in the alpha ancestral haplotype block)
+\item(kappa: genes found in the kappa ancestral haplotype block)
+\item(beta: genes found in the beta ancestral haplotype block)
+\item(delta: genes found in the delta ancestral haplotype block)
+\item(epsilon: genes found in the epsilon ancestral haplotype block)
 \item(map: all genes organized by 5' to 3' map order on the genomic reference + strand)
 \item(version: IPD-IMGT/HLA Database version used to build the HLAgazetteer)
 }
@@ -37,6 +42,10 @@ https://github.com/ANHIG/IMGTHLA/tree/Latest/alignments
 Andersson Front. Biosci. 1998, 3(4), 739–745. https://doi.org/10.2741/a317
 
 Alexandrov et al. HLA 2023, Vol.102(5), p.599-606. https://doi.org/10.1111/tan.15180
+
+Dawkins et al. Immunol Rev. 1999, Vol. 167, p.275-304. https://doi.org/10.1111/j.1600-065x.1999.tb01399.x
+
+Kulski et al. Hum Genome Var. 2022 Dec 21;9(1):49. https://doi.org/10.1038/s41439-022-00226-5
 
 https://www.ncbi.nlm.nih.gov/nucleotide/NC_000009.12
 }

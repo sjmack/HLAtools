@@ -1,4 +1,4 @@
-## Locus Validation Functions v1.1.0 020JUL2025
+## Locus Validation Functions v1.2.0 15JUL2026
 
 ################
 ##validateLocus
@@ -28,19 +28,19 @@ validateLocus<-function(loci, source){
           if(loci[j]=="DRB1"|loci[j]=="DRB3"|loci[j]=="DRB4"|loci[j]=="DRB5") next
       for(x in 1:length(source)) {
           if(source[x] == "cDNA") {
-              if(loci[j]%in% HLAtools::HLAgazetteer$nuc == FALSE) {
+              if(loci[j]%in% HLAgazetteer$nuc == FALSE) {
                   message(paste("The", loci[j], "locus is not present in", source[x],"alignments.",sep=" "))
                   valid <- FALSE
               }
             }
        if(source[x] == "gDNA") {
-          if(loci[j]%in% HLAtools::HLAgazetteer$gen == FALSE) {
+          if(loci[j]%in% HLAgazetteer$gen == FALSE) {
             message(paste("The", loci[j], "locus is not present in", source[x],"alignments.",sep=" "))
             valid <- FALSE
             }
           }
         if(source[x] == "AA") {
-            if(loci[j]%in% HLAtools::HLAgazetteer$prot == FALSE) {
+            if(loci[j]%in% HLAgazetteer$prot == FALSE) {
               message(paste("The", loci[j], "locus is not present in", source[x],"alignments.",sep=" "))
               valid <- FALSE
             }
@@ -54,7 +54,7 @@ validateLocus<-function(loci, source){
 ##multiLocusValidation
 #'Apply validateLocus() to Multiple Loci
 #'
-#'Applies validateLocus() to a vector of locus names, validates them against HLAgazetteer$gen, and returns a vector of validated locus names. 
+#'Applies validateLocus() to a vector of locus names, validates them against HLAgazetteer$gen (by default), and returns a vector of validated locus names. 
 #'
 #'@param loci A character vector of locus names found in the current HLAgazetteer. 
 #'
@@ -62,7 +62,7 @@ validateLocus<-function(loci, source){
 #'
 #'@param verbose A logical value. If 'verbose' = TRUE, messages describing invalid 'loci' or 'source' values are generated. If 'verbose' = FALSE, no messages are generated.
 #'
-#'@return A character vector of locus names that are present in HLAgazetteer$gen.
+#'@return A character vector of locus names that are present in HLAgazetteer$gen. If none of the locus names are present in HLAgazetteer$gen, an Error is generated.
 #'
 #'@export
 #'
@@ -73,6 +73,8 @@ validateLocus<-function(loci, source){
 #'multiLocusValidation(loci = c("A","B","C","D","Q"))
 #'
 multiLocusValidation <- function(loci, source = "gDNA", verbose = TRUE) {
+    loci <- unique(loci)
+  
     lociTest <- rep(FALSE,length(loci))
     
     funCaller <- as.character(sys.call(sys.parent())) ## checking to see if alignmentFull() called mLV(), because its source is always "gDNA", but user may specify "DRB" as a locus.
@@ -96,12 +98,12 @@ multiLocusValidation <- function(loci, source = "gDNA", verbose = TRUE) {
                 }
               }
         if(any(lociTest == FALSE)) {if(verbose) {
-            message(paste("The",loci[lociTest == FALSE],"locus is invalid in version", HLAtools::HLAgazetteer$version ,"and has been removed.\n",sep=" "))
+            message(paste("The",loci[lociTest == FALSE],"locus is invalid in version", HLAgazetteer$version ,"and has been removed.\n",sep=" "))
               }
          }
     
       loci <- loci[lociTest == TRUE]
-
+          if(length(loci) == 0) { stop(if(verbose) {paste("None of the provided 'loci' values are valid.")} ) }
     loci
 }
 

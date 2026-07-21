@@ -37,17 +37,17 @@ buildAlignments<-function(loci, source, version = "Latest", return_corr_table = 
     if(loci[j]=="DRB1"|loci[j]=="DRB3"|loci[j]=="DRB4"|loci[j]=="DRB5") next
     for(x in 1:length(source)) {
       if(source[x] == "cDNA") {
-        if(loci[j]%in% HLAtools::HLAgazetteer$nuc == FALSE) {
+        if(loci[j]%in% HLAgazetteer$nuc == FALSE) {
           return(warning(paste(loci[j], "is not currently supported for", source[x])))
         }
       }
       if(source[x] == "gDNA") {
-        if(loci[j]%in% HLAtools::HLAgazetteer$gen == FALSE) {
+        if(loci[j]%in% HLAgazetteer$gen == FALSE) {
           return(warning(paste(loci[j], "is not currently supported for", source[x])))
         }
       }
       if(source[x] == "AA") {
-        if(loci[j] %in% HLAtools::HLAgazetteer$prot == FALSE) {
+        if(loci[j] %in% HLAgazetteer$prot == FALSE) {
           return(warning(paste(loci[j], "is not currently supported for", source[x])))
         }
       }
@@ -87,7 +87,7 @@ buildAlignments<-function(loci, source, version = "Latest", return_corr_table = 
         type <- "cDNA"
 
         #change delete lines to first and second lines if locus does not have protein sequence ## LT
-        if(loci[i] %in% HLAtools::HLAgazetteer$nuc[!HLAtools::HLAgazetteer$nuc %in% HLAtools::HLAgazetteer$prot]){
+        if(loci[i] %in% HLAgazetteer$nuc[!HLAgazetteer$nuc %in% HLAgazetteer$prot]){
           delete_lines<-c(1,2)
                               #### Fix: DPA2, DPB2 and HLA-N cDNA alignments included an 'AA codon' row in several releases, through they are both pseudogenes
                               if(loci[i] == "DPA2" && version %in% c(3530,3520,3510,3500,3490,3480,3470,
@@ -229,7 +229,7 @@ buildAlignments<-function(loci, source, version = "Latest", return_corr_table = 
         }
       }  else if(source[j]=="cDNA"){
         #these loci do not have protein sequences; set alignment start to 1
-        if(loci[i] %in% HLAtools::HLAgazetteer$nuc[!HLAtools::HLAgazetteer$nuc %in% HLAtools::HLAgazetteer$prot]){
+        if(loci[i] %in% HLAgazetteer$nuc[!HLAgazetteer$nuc %in% HLAgazetteer$prot]){
           alignment_start[[loci[i]]] <- 1
         } else{
         #determines the alignment start by finding the second vector in second list and removing "codon"
