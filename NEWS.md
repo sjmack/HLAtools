@@ -1,11 +1,19 @@
 ### HLAtools
 
+### version 1.12.0
+- July 25-26, 2026
+- Added the alleleSummary data object, identifying key data for each allele in the IPD-IMGT/HLA Database.
+- Added the buildAlleleSummary() function, which generates the alleleSummary object.
+- Added the 'variant' parameter to customAlign(), enabling exclusion of invariant positions from the returned alignment.
+
 ### version 1.11.0
 - July 19, 2026
 - Added the buildGenomicReferences() function and the IMGTGenomicReferences data object.
 - Added IMGTGenomicReferences to global variables.
 - Added capacity to build new IMGTGenomicReferences data objects to updateAll().
 - Updated ReadMe and Vignette.
+- July 21, 2026
+- Submission to CRAN.
 
 ### version 1.10.0
 - July 15, 2026

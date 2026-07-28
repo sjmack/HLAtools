@@ -1,4 +1,4 @@
-#### unified alignment search and construction functions v6.0.0 28 May 2026 Ryan Nickens & Steven Mack 
+#### unified alignment search and construction functions v7.0.0 26 July 2026 Ryan Nickens & Steven Mack 
 
 ################
 #AlignmentSearch
@@ -220,6 +220,7 @@ uniSearch <- function(alignType, locus, allele, position, prefix=TRUE, trimmed=F
 #'@param alignType The type of alignment being searched. Allowed values are "prot", codon", "nuc" and "gen". Only one 'alignType' value is allowed.
 #'@param alleles A vector of un-prefixed HLA allele names.
 #'@param positions Either a vector of variant positions, against which all loci will be aligned, or a list of vectors of nucleotide positions, exactly one vector for each allele, against which each corresponding allele will be aligned.
+#'@param variant A logical that specifies returning only positions that vary across 'alleles' (TRUE) or all 'positions' (FALSE). The default value is FALSE.
 #'
 #'@return A data frame of allele names and the corresponding nucleotide sequences for each desired nucleotide position. FALSE is returned when 'positions' includes values that do not exist in the specified alignment, and when a specified locus is not available in the HLAalignments object.
 #'
@@ -234,20 +235,29 @@ uniSearch <- function(alignType, locus, allele, position, prefix=TRUE, trimmed=F
 #'
 #'@export
 #'
-customAlign <- function(alignType,alleles,positions){
+customAlign <- function(alignType,alleles,positions,variant=FALSE){
 
-  alignType <- checkAlignType(alignType)
-  if(length(alignType)!=1) {stop(paste("Please specify only one 'alignType'."))}
+      alignType <- checkAlignType(alignType)
+          if(length(alignType)!=1) {stop(paste("Please specify only one 'alignType'."))}
   
-  #makes sure no duplicate alleles will be present in table
-    alleles <- unique(alleles)
-      if(is.list(positions)) {
-      #calls multicDNAalign if multiple sets of positions are given
-      multiAlign(alignType,alleles,positions)
-        } else {
-          #calls unicDNAalign if only one set of positions are given
-            uniAlign(alignType,alleles,positions)
-          }
+        #makes sure no duplicate alleles will be present in table
+            alleles <- unique(alleles)
+                if(is.list(positions)) {
+                  #calls multicDNAalign if multiple sets of positions are given
+             align.out <- multiAlign(alignType,alleles,positions)
+                    } else {
+                    
+                      #calls unicDNAalign if only one set of positions are given
+                      align.out <- uniAlign(alignType,alleles,positions)
+                 }
+    
+         if(variant) { ## return only the columns with more than one value
+                    
+             cols.TF <- sapply(align.out, function(x) length(unique(x)) != 1) # identify columns with variants
+                    align.out[,cols.TF == T]
+                     } else { 
+                            align.out
+                        } 
     }
 
 ################

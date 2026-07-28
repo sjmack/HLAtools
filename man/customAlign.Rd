@@ -4,7 +4,7 @@
 \alias{customAlign}
 \title{Generate a Customized Peptide, Codon or Nucleotide Sequence Alignment.}
 \usage{
-customAlign(alignType, alleles, positions)
+customAlign(alignType, alleles, positions, variant = FALSE)
 }
 \arguments{
 \item{alignType}{The type of alignment being searched. Allowed values are "prot", codon", "nuc" and "gen". Only one 'alignType' value is allowed.}
@@ -12,6 +12,8 @@ customAlign(alignType, alleles, positions)
 \item{alleles}{A vector of un-prefixed HLA allele names.}
 
 \item{positions}{Either a vector of variant positions, against which all loci will be aligned, or a list of vectors of nucleotide positions, exactly one vector for each allele, against which each corresponding allele will be aligned.}
+
+\item{variant}{A logical that specifies returning only positions that vary across 'alleles' (TRUE) or all 'positions' (FALSE). The default value is FALSE.}
 }
 \value{
 A data frame of allele names and the corresponding nucleotide sequences for each desired nucleotide position. FALSE is returned when 'positions' includes values that do not exist in the specified alignment, and when a specified locus is not available in the HLAalignments object.

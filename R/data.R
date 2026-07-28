@@ -1,4 +1,4 @@
-##data v3.0.0 16JULY2026
+##data v4.0.0 25JULY2026
 
 ##alleleListHistory
 #'Allele Names Across All Release Versions
@@ -145,7 +145,7 @@
 ##HLAatlas
 #'Boundary Positions of Exons, Introns and UTRs in Amino Acid, cDNA and gDNA Alignments 
 #'
-#'A list object of two wlements. Sub-lists of R dataframes (atlases) for each locus with a protein (prot), cDNA (nuc), and gDNA (gen) alignment. Each atlas identifies the position of the exon (E), intron (I) or UTR (U) gene-feature boundaries in an alignment. Boundaries for non-standard hybrid (H), join (J), novel (N) and segment (S) features may be included in gene fragment and pseudogene atlases.
+#'A list object of two elements. Sub-lists of R dataframes (atlases) for each locus with a protein (prot), cDNA (nuc), and gDNA (gen) alignment. Each atlas identifies the position of the exon (E), intron (I) or UTR (U) gene-feature boundaries in an alignment. Boundaries for non-standard hybrid (H), join (J), novel (N) and segment (S) features may be included in gene fragment and pseudogene atlases.
 #'This object is built by the atlasFull() function.
 #'
 #' @docType data
@@ -189,3 +189,20 @@
 #'    }
 #' @source https://www.ebi.ac.uk/ipd/imgt/hla/about/help/genomics/  
 "IMGTGenomicReferences"
+
+##alleleStatus
+#'Key data for each allele in the IPD-IMGT/HLA Database.
+#
+#'A list object consisting of two elements -- $AlleleStatus and $version. 
+#'This object is built by the updateAlleleStatus() function.
+#'
+#' @docType data
+#' @name alleleStatus
+#' @usage data(alleleStatus)
+#' @format A list of two elements.
+#' \itemize{
+#'  \item(AlleleStatus: A data.table describing: 'Cells': the the number of cells the sequence has been identified in; 'Groups': the number of laboratories that have confirmed the allele; 'Confirmed': the allele's status as 'Confirmed' or 'Unconfirmed'; 'Start': the start position for that allele's sequence; 'End': the end position for that allele's sequence; 'Partial': the status of the nucleotide sequence as being either Full or Partial; and 'Type': identifying if the allele's reference sequences is cDNA or gDNA.)
+#'  \item(version: The IPD-IMGT/HLA Database release version under which these data were generated.)
+#' }
+#'@source https://github.com/ANHIG/IMGTHLA/blob/Latest/Allele_status.txt
+"alleleStatus"

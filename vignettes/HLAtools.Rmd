@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 library(HLAtools)
 ```
 
--   Package Version: 1.11.0
+-   Package Version: 1.12.0
 
 # Overview
 
@@ -109,6 +109,10 @@ alleleListHistory$AlleleListHistory[c(65,100:105,2094),c(1,23,58:59,81,96,101,10
 The *alleleListHistory* data object is expected to change with each IPD-IMGT/HLA Database release. Third-party functions that reference the *alleleListHistory* data object should rely on an internal version of this data object built using the *HLAtools::updateAlleleListHistory()* function.
 
 ## Functional and Organizational Categories of Genes in the HLA Region
+
+### Key Characteristics of Each HLA Region Gene
+
+For each allele in the IPD/IMGT-HLA Database, the *alleleStatus* data object identifies the the number of cells it has been identified in, the number of laboratories that have confirmed it, its status as 'Confirmed' or 'Unconfirmed', the start and end positions of its nucleotide sequence, its nucleotide sequence as 'full' or 'partial' relative to its locus reference, and if its reference sequences is cDNA or gDNA.
 
 ### Molecular Characteristics of HLA Region Genes
 

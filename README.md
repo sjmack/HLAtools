@@ -1,7 +1,7 @@
 
 ## HLAtools: Functions and Datasets for HLA Informatics
 
-## Version 1.11.0
+## Version 1.12.0
 
 The HLA region is the most polymorphic section of the human genome, with 45,421 allelic variants identified across 46 loci. The key roles played by the class I and class II HLA genes in stem-cell therapy and transplantation, disease association research, evolutionary biology, and population genetics result in constant discovery of new allele variants. These data are curated and maintained by the [ImmunoPolymorphism Database-IMmunoGeneTics/HLA (IPD-IMGT/HLA) Database](https://www.ebi.ac.uk/ipd/imgt/hla/) and made available on the [Anthony Nolan HLA Informatics Group (ANHIG)/IMGTHLA GitHub repository](https://github.com/ANHIG/IMGTHLA) as static text files, which are updated every three months. Standardized use of the data in this key resource can be challenging. To address this, we have developed HLAtools, an R package that automates the consumption of IPD-IMGT/HLA resources, renders them computable, and makes them available alongside tools for data analysis, visualization and investigation. The package is compatible with all IPD-IMGT/HLA Database release versions up to release 3.65.0. 
 
@@ -24,8 +24,9 @@ The package includes six data objects that foster computation on IPD-IMGT/HLA re
 - 'fragmentFeatureNames' identifies and annotates the non-standard features found in some gene fragments, based on the positions of feature boundaries ("|") in the sequence.
    - For example, the HLA-U gene fragment includes three features (fragmentFeatureNames\$U\$features : "N.1" "J.1" "S.1") that do not align to other class I gene features. The "N.1" feature is 54 nucleotides of novel (N) sequence, the "J.1" feature is a join (J) of the 3' end of Exon 3, and the 5' end of Intron 3, and the "S.1" feature is a segment (S) of Intron 3.
 - 'alleleListHistory' is a computable index of the [names of all HLA alleles](https://github.com/ANHIG/IMGTHLA/tree/Latest/allelelist) for all IPD-IMGT/HLA Database release versions. 
+- 'alleleStatus' describes key data for each allele in the database.
 
-'HLAgazetteer', 'HLAatlas', and 'alleleListHistory' can be updated with each IPD-IMGT/HLA Database release. 
+'HLAgazetteer', 'HLAatlas', 'alleleListHistory' and 'alleleStatus' can be updated with each IPD-IMGT/HLA Database release. 
 
 In addition, the _alignmentFull()_ function builds the 'HLAalignments' object, which includes computable versions of the protein, codon, coding nucleotide and genomic alignments available in the [IMGTHLA GitHub repository](https://github.com/anhig/IMGTHLA), as specified by the user. 'HLAalignments' is not included the package, but can be built for IPD-IMGT/HLA Database releases 3.00.0 to 3.64.0.
 
@@ -60,7 +61,7 @@ compareSequences("prot",c("DRB1*01:01:01:01","DRB3*01:01:02:01"))
 2 DRB3*01:01:02:01   S   L   A  R  F E  L  R  S  Y  D  Y  F  H  F  L  V  S  K  G  R  N  H  Q   A   A
 ```
 
-- customAlign() builds customized peptide, codon, nucleotide and genomic alignments for specific alleles at user-specified positions, for alleles at different loci, and for different positions at each locus. 
+- customAlign() builds customized peptide, codon, nucleotide and genomic alignments for specific alleles at user-specified positions, for alleles at different loci, and for different positions at each locus. Positions that are invariant across all specified alleles can be excluded using the 'variant' parameter.
 ```
 customAlign("prot",c("DQA1*01:01:01:01","DQB1*05:01:01:01","DPB1*01:01:01:01"),list(1:4,5:8,5:8))
               DQA1 1 2 3 4
@@ -82,7 +83,19 @@ customAlign("prot",c("DPB1*01:01:01:01","DQA1*01:01:01:01","DQB1*05:01:01:01"),l
 2             DQA1  1  2  3  4                                       
 3 DQA1*01:01:01:01  E  D  I  V                                       
 4             DQB1  5  6  7  8                                       
-5 DQB1*05:01:01:01  E  D  F  V                                       
+5 DQB1*05:01:01:01  E  D  F  V  
+
+customAlign("codon",c("DRB1*01:01:01:01","DRB3*01:16","DQB1*02:01:01:01"),c(20:30,51,61,71),variant=FALSE)
+            Allele  20  21  22  23  24  25  26  27  28  29  30  51  61  71
+1 DRB1*01:01:01:01 GGG ACG GAG CGG GTG CGG TTG CTG GAA AGA TGC ACG TGG AGG
+2       DRB3*01:16 GGG ACG GAG CGG GTG CGG TAC CTG GAC AGA TAC ACG TGG AAG
+3 DQB1*02:01:01:01 GGG ACA GAG CGC GTG CGT CTT GTG AGC AGA AGC ACG TGG AAA
+
+customAlign("codon",c("DRB1*01:01:01:01","DRB3*01:16","DQB1*02:01:01:01"),c(20:30,51,61,71),variant=TRUE)
+            Allele  21  23  25  26  27  28  30  71
+1 DRB1*01:01:01:01 ACG CGG CGG TTG CTG GAA TGC AGG
+2       DRB3*01:16 ACG CGG CGG TAC CTG GAC TAC AAG
+3 DQB1*02:01:01:01 ACA CGC CGT CTT GTG AGC AGC AAA
 ```
 
 - motifMatch() searches the 'HLAalignments' object to identify full-length or two-field alleles that share user-specified nucleotide or peptide motifs.
