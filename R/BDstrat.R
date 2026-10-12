@@ -19,7 +19,7 @@
 #'
 #'@export
 #'
-#'@references \href{https://CRAN.R-project.org/package=BIGDAWG/vignettes/BIGDAWG.html#input-data}{BIGDAWG Data Format}
+#'@references \href{https://github.com/IgDAWG/BIGDAWG/blob/main/vignettes/BIGDAWG.Rmd}{BIGDAWG Data Format}
 #' 
 BDstrat <- function(dataset,alleles,warnBelow = 21){  
   

@@ -1,11 +1,11 @@
-## UpdateAll v02.4.0 19 July 2026
+## UpdateAll v02.6.0 20 September 2026
 
 ################
 ##updateAll
 #'Update All Package Data Objects Derived from IPD-IMGT/HLA Database Resources
 #'
 #'@description
-#'Applies updateAlleleListHistory(), atlasFull(), buildGazetteer(), extractGeneTypes(), ffN() and buildGenomicReferences() to update the alleleListHistory, HLAatlas, HLAgazetteer, IMGTHLAGeneTypes, fragmentFeatureNames and IMGTGenomicReferences data objects.
+#'Applies updateAlleleListHistory(), atlasFull(), buildGazetteer(), extractGeneTypes(), ffN(), buildGenomicReferences(), buildWMDASerRel() and updateAlleleStatus() to update the alleleListHistory, HLAatlas, HLAgazetteer, IMGTHLAGeneTypes, fragmentFeatureNames, IMGTGenomicReferences, WMDASerologicalRelationships and alleleStatus data objects.
 #'
 #'A new alleleListHistory data object should be generated with each IPD-IMGT/HLA Database release. The other data objects will likely only change when new genes are added to the IPD-IMGT/HLA Database.
 #'
@@ -19,7 +19,7 @@
 #'@export
 updateAll <-function(updateType="all",version = getLatestVersion()){
 
-    HLTpath <- path.package("HLAtools")
+    HLTpath <- path.package("HLAtools") ## this is the path to the installed package
     HLTDpath <- paste(HLTpath,"/data",sep="")
     
   #check and see if a version of an object exists, build new local objects, then load them in turn into the environment
@@ -139,7 +139,42 @@ updateAll <-function(updateType="all",version = getLatestVersion()){
       }
     }
     
+    if("all" %in% updateType || "WMDASerologicalRelationships" %in% updateType) {
+      if(version == WMDASerologicalRelationships$version){
+        message(paste("WMDASerologicalRelationships for version",version,"is already loaded.",sep=" "))
+      } else {      
+        if(file.exists(paste(HLTDpath,paste(version,"WMDASerologicalRelationships.rda",sep="."),sep="/"))) {
+          load(paste(HLTDpath,paste(version,"WMDASerologicalRelationships.rda",sep="."),sep="/"),envir = parent.frame())
+          message(paste("WMDASerologicalRelationships for version",version,"has been loaded.",sep=" "))
+        } else {  
+          
+          WMDASerologicalRelationships <- buildWMDASerRel() ## has version, version is built in
+          WMDAversion <- WMDASerologicalRelationships$version
+          save(WMDASerologicalRelationships,file=paste(HLTDpath,paste(WMDAversion,"WMDASerologicalRelationships.rda",sep="."),sep="/"))
+          load(paste(HLTDpath,paste(WMDAversion,"WMDASerologicalRelationships.rda",sep="."),sep="/"),envir = parent.frame())
+          message(paste("WMDASerologicalRelationships for version",version,"has been built and loaded.",sep=" "))
+        }
+      }
+    }
     
+    
+    if("all" %in% updateType || "alleleStatus" %in% updateType) {
+      if(version == alleleStatus$version){
+        message(paste("alleleStatus for version",version,"is already loaded.",sep=" "))
+      } else {      
+        if(file.exists(paste(HLTDpath,paste(version,"alleleStatus.rda",sep="."),sep="/"))) {
+          load(paste(HLTDpath,paste(version,"alleleStatus.rda",sep="."),sep="/"),envir = parent.frame())
+          message(paste("alleleStatus for version",version,"has been loaded.",sep=" "))
+        } else {  
+          
+          alleleStatus <- updateAlleleStatus() ## has version, version is built in
+          alleleStatusversion <- alleleStatus$version
+          save(alleleStatus,file=paste(HLTDpath,paste(alleleStatusversion,"alleleStatus.rda",sep="."),sep="/"))
+          load(paste(HLTDpath,paste(alleleStatusversion,"alleleStatus.rda",sep="."),sep="/"),envir = parent.frame())
+          message(paste("alleleStatus for version",version,"has been built and loaded.",sep=" "))
+        }
+      }
+    }
     
     
 }

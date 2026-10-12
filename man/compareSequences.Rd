@@ -12,17 +12,21 @@ compareSequences(alignType, alleles)
 \item{alleles}{A character vector containing two full-length names for alleles at the two different loci.}
 }
 \value{
-A two-row data frame identifying the positions and sequences at which the two alleles differ. E.g., compareLoci(alignType = "gen", alleles = c("B\*07:02:01:01","C\*02:02:02:01")). Positions are nor shared between the two loci, or for which the sequence of either allele is unknown are ignored.
+A two-row data frame identifying the positions and sequences at which the two alleles differ. E.g., compareSequences(alignType = "gen", alleles = c("B\*07:02:01:01","C\*02:02:02:01")). Positions are nor shared between the two loci, or for which the sequence of either allele is unknown are ignored.
 }
 \description{
 Compares the sequences of two alleles, and identifies the differences between them at shared polymorphic sequence positions.
 Alleles at different loci can be compared.
+}
+\note{
+Missing data (denoted with '*') in a sequence are not treated as variants.
 }
 \examples{
 \dontrun{
 compareSequences("gen",c("DPA1*01:03:38:01","DPA1*01:03:38:02"))
 compareSequences("prot",c("DRB1*01:01:01:01","DRB3*01:01:02:01"))
 compareSequences("prot", c("B*57:01:01:01", "A*24:02:01:01"))
+compareSequences("gen",c("C*14:02:01:35","C*14:02:01:19"))
 }
 
 }

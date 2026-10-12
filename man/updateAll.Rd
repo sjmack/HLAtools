@@ -15,7 +15,7 @@ updateAll(updateType = "all", version = getLatestVersion())
 No value is returned. The desired versions of the specified data objects are built into the environment that called updateAll().
 }
 \description{
-Applies updateAlleleListHistory(), atlasFull(), buildGazetteer(), extractGeneTypes(), ffN() and buildGenomicReferences() to update the alleleListHistory, HLAatlas, HLAgazetteer, IMGTHLAGeneTypes, fragmentFeatureNames and IMGTGenomicReferences data objects.
+Applies updateAlleleListHistory(), atlasFull(), buildGazetteer(), extractGeneTypes(), ffN(), buildGenomicReferences(), buildWMDASerRel() and updateAlleleStatus() to update the alleleListHistory, HLAatlas, HLAgazetteer, IMGTHLAGeneTypes, fragmentFeatureNames, IMGTGenomicReferences, WMDASerologicalRelationships and alleleStatus data objects.
 
 A new alleleListHistory data object should be generated with each IPD-IMGT/HLA Database release. The other data objects will likely only change when new genes are added to the IPD-IMGT/HLA Database.
 }

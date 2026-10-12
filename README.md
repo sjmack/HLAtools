@@ -1,18 +1,18 @@
 
 ## HLAtools: Functions and Datasets for HLA Informatics
 
-## Version 1.12.0
+## Version 1.18.0
 
 The HLA region is the most polymorphic section of the human genome, with 45,421 allelic variants identified across 46 loci. The key roles played by the class I and class II HLA genes in stem-cell therapy and transplantation, disease association research, evolutionary biology, and population genetics result in constant discovery of new allele variants. These data are curated and maintained by the [ImmunoPolymorphism Database-IMmunoGeneTics/HLA (IPD-IMGT/HLA) Database](https://www.ebi.ac.uk/ipd/imgt/hla/) and made available on the [Anthony Nolan HLA Informatics Group (ANHIG)/IMGTHLA GitHub repository](https://github.com/ANHIG/IMGTHLA) as static text files, which are updated every three months. Standardized use of the data in this key resource can be challenging. To address this, we have developed HLAtools, an R package that automates the consumption of IPD-IMGT/HLA resources, renders them computable, and makes them available alongside tools for data analysis, visualization and investigation. The package is compatible with all IPD-IMGT/HLA Database release versions up to release 3.65.0. 
 
-HLAtools version 1.6.3 is available on the CRAN repository at [https://cran.r-project.org/package=HLAtools](https://cran.r-project.org/package=HLAtools).
+HLAtools version 1.11.0 is available on the CRAN repository at [https://cran.r-project.org/package=HLAtools](https://cran.r-project.org/package=HLAtools).
 
 Developmental versions of the package (in this repository) can be installed using the *[xfun](https://CRAN.R-project.org/package=xfun)::install_github(sjmack/HLAtools)* command.
 
 A paper describing HLAtools was published in the [International Journal of Immunogenetics](https://onlinelibrary.wiley.com/doi/10.1111/iji.70013) in September of 2025. 
 
 ### Data Resources
-The package includes six data objects that foster computation on IPD-IMGT/HLA resources. 
+The package includes eight data objects that foster computation on IPD-IMGT/HLA resources. 
 
 - 'IMGTHLAGeneTypes' describes the [named genes in the HLA region](https://hla.alleles.org/pages/genes/genes_list/).
 - 'IMGTGenomicReferences' describes the [genomic reference allele](https://www.ebi.ac.uk/ipd/imgt/hla/help/genomics.html) for each gene supported in the IMGT/HLA Database and its GRCh38 reference position (when known).
@@ -24,9 +24,10 @@ The package includes six data objects that foster computation on IPD-IMGT/HLA re
 - 'fragmentFeatureNames' identifies and annotates the non-standard features found in some gene fragments, based on the positions of feature boundaries ("|") in the sequence.
    - For example, the HLA-U gene fragment includes three features (fragmentFeatureNames\$U\$features : "N.1" "J.1" "S.1") that do not align to other class I gene features. The "N.1" feature is 54 nucleotides of novel (N) sequence, the "J.1" feature is a join (J) of the 3' end of Exon 3, and the 5' end of Intron 3, and the "S.1" feature is a segment (S) of Intron 3.
 - 'alleleListHistory' is a computable index of the [names of all HLA alleles](https://github.com/ANHIG/IMGTHLA/tree/Latest/allelelist) for all IPD-IMGT/HLA Database release versions. 
-- 'alleleStatus' describes key data for each allele in the database.
+- 'alleleStatus' describes key data for each allele in the IPD-IMGT/HLA database.
+- 'WMDASerologicalRelationships' describes the relationships between all serologically defined HLA antigens, and identifies the unambiguous, possible or assumed serologically equivalent antigens for each HLA allele. 
 
-'HLAgazetteer', 'HLAatlas', 'alleleListHistory' and 'alleleStatus' can be updated with each IPD-IMGT/HLA Database release. 
+'HLAgazetteer', 'HLAatlas', 'alleleListHistory', 'alleleStatus' and 'WMDASerologicalRelationships' can be updated with each IPD-IMGT/HLA Database release. 
 
 In addition, the _alignmentFull()_ function builds the 'HLAalignments' object, which includes computable versions of the protein, codon, coding nucleotide and genomic alignments available in the [IMGTHLA GitHub repository](https://github.com/anhig/IMGTHLA), as specified by the user. 'HLAalignments' is not included the package, but can be built for IPD-IMGT/HLA Database releases 3.00.0 to 3.64.0.
 
@@ -169,6 +170,99 @@ multiQueryRelease("3.58.0",c("DPB","2N"),TRUE)
 
 multiQueryRelease("3.59.0",c("DRB","19","N"),TRUE)
 [1] "DRB1*04:119N" "DRB5*02:19N"  "DRB1*14:195N" "DRB1*14:197N" "DRB1*13:319N"
+```
+
+- relDNASerLookup() returns a vector of the alleles that share a specific term in a given column of the WMDASerologicalRelationships$rel_dna_ser table.
+
+```
+relDNASerLookup("ASA","?","MICA")
+[1] "MICA*002:01:13Q" "MICA*011:01:04Q" "MICA*011:01:15Q" "MICA*105Q"       "MICA*171Q" 
+
+relDNASerLookup("HATS","1105","DRB1",T)
+[1] "DRB1*08:31/DRB1*08:41/DRB1*08:75/DRB1*11:05/DRB1*11:67/DRB1*11:193:01/DRB1*11:193:02/DRB1*11:209/DRB1*12:49"
+```
+
+- queryRelDNAser() searches the rel_dna_ser table, returning a data.frame of the terms for a specific allele in the rel_dna_ser antigen, exception and specificity columns. 
+
+```
+queryRelDNASer("B*07:155")
+    Allele USA PSA ASA Expert HATS
+1 B*07:155           7        0702
+
+queryRelDNASer("DRB1*11:16",collapse = T)
+            Allele USA   PSA ASA Expert HATS
+1 DRB1*11:16:01:01     11/13            1102
+```
+
+- relSerSerLookup() searches the rel_ser_ser's Antigen, Split or Associated columns for a specific term, and returns the corresponding values in the other columns.
+
+```
+relSerSerLookup("A","Antigen",24,T)
+  Locus Antigen Split                              Associated
+1     A      24       2402/2403/2404/2405/2408/2410/2414/2423
+```
+
+- queryAlleleStatus() searches the alleleStatus$AlleleStatus table and returns allele status information for a specific allele.
+
+```
+queryAlleleStatus("DRB1*08:07","all")
+           Cells Groups Confirmed Start End Partial Type
+DRB1*08:07    11      6 Confirmed     1 801    Full gDNA
+
+queryAlleleStatus("DQB1*05:07",c("Cells","Type"))
+           Cells Type
+DQB1*05:07     1 cDNA
+```
+
+- multiQueryAlleleStatus() extends queryAlleleStatus() to multiple alleles.
+
+```
+ multiQueryAlleleStatus(c("DQB1*05:07","B*57:01"),c("Cells","Type"))
+         Allele Cells Type
+1    DQB1*05:07     1 cDNA
+2 B*57:01:01:01    10 gDNA
+```
+
+- alleleStatusLookup() identifies alleles that share the same value in a given alleleStatus table column.
+
+```
+ alleleStatusLookup("F","Confirmed","Confirmed")
+ [1] "F*01:01:01:01"  "F*01:01:01:03"  "F*01:01:01:04"  "F*01:01:01:05"  "F*01:01:01:07" 
+ [6] "F*01:01:01:08"  "F*01:01:01:09"  "F*01:01:01:10"  "F*01:01:01:11"  "F*01:01:01:12" 
+[11] "F*01:01:01:13"  "F*01:01:01:14"  "F*01:01:01:17"  "F*01:01:01:18"  "F*01:01:01:19" 
+[16] "F*01:01:01:21"  "F*01:01:01:22"  "F*01:01:01:23"  "F*01:01:01:24"  "F*01:01:01:28" 
+[21] "F*01:01:01:29"  "F*01:01:01:34"  "F*01:01:01:36"  "F*01:01:01:38"  "F*01:01:01:44" 
+[26] "F*01:01:01:46"  "F*01:01:02:01"  "F*01:01:02:03"  "F*01:01:02:05"  "F*01:01:02:06" 
+[31] "F*01:01:02:07"  "F*01:01:02:08"  "F*01:01:02:09"  "F*01:01:02:10"  "F*01:01:02:11" 
+[36] "F*01:01:02:13"  "F*01:01:02:18"  "F*01:01:04"     "F*01:01:05"     "F*01:01:06"    
+[41] "F*01:01:07"     "F*01:02:01:01"  "F*01:02:01:02"  "F*01:03:01:01"  "F*01:03:01:02" 
+[46] "F*01:03:01:03"  "F*01:03:01:05"  "F*01:04:01:01"  "F*01:04:01:02"  "F*01:05:01:01" 
+[51] "F*01:09"        "F*01:11"        "F*01:13N"       "F*01:14:01:01N"
+```
+
+- alleleStatusSummary() identifies the unique values in each column of the alleleStatus table.
+
+```
+ alleleStatusSummary("Type")
+[1] "cDNA" "gDNA"
+
+ alleleStatusSummary("Start")
+ [1]   1   3   4   5   7  10  13  15  16  18  19  21  23  25  26  30  34  42  45  46  47  48
+[23]  49  56  60  65  68  70  71  73  74  75  77  83  88  89  94  97  98 100 101 103 105 106
+[45] 107 109 110 112 124 125 133 139 155 191 371
+```
+
+- genomicReferencesLookup() identifies the genomic reference data for IPD-IMGT/HLA genes. 
+
+```
+ genomicReferencesLookup(c("HLA-A","DRB1","DRB9","DQA1","DPA2","HLA-Y"),c("GRCh38.loc","ATG","IMGT.ref"))
+       Gene      GRCh38 Location Start of ATG (Initiator Met) IPD-IMGT/HLA reference allele
+1    HLA-A CM000668.2 (forward)                 6:29,942,554                 A*01:01:01:01
+2 HLA-DRB9 CM000668.2 (reverse)                 6:32,473,232              DRB9*01:01:01:01
+3 HLA-DRB1 CM000668.2 (reverse)                 6:32,578,875              DRB1*01:01:01:01
+4 HLA-DQA1 CM000668.2 (forward)                 6:32,637,459              DQA1*01:01:01:01
+5 HLA-DPA2 CM000668.2 (reverse)                 6:33,091,753              DPA2*01:01:01:01
+6    HLA-Y        Not available                Not available                       Y*01:01
 ```
 
 - Additional functions include *validateAllele()*, which determines if the specified allele-name is present in the 'HLAalignments' object that has been loaded in the R environment, and *verifyAllele()*, which determines if the specified allele-name is present in the 'AlleleListHistory' object, and optionally identifies the IPD-IMGT/HLA Database releases including that allele, and the allele's IPD-IMGT/HLA accession number.

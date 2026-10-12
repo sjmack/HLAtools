@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 library(HLAtools)
 ```
 
--   Package Version: 1.12.0
+-   Package Version: 1.18.0
 
 # Overview
 
@@ -36,7 +36,7 @@ HLAtools includes:
 
 -   Reference datasets that describe the genes supported by the IPD-IMGT/HLA Database, organize them into useful categories, and identify their gene feature boundaries.
 -   The ability to build local amino acid, codon, coding nucleotide, and genomic nucleotide sequence alignments for HLA genes of interest.
--   Advanced tools of the comparison and dissection of allele names and allele sequences, and the construction of customized multi-gene sequence alignments.
+-   Advanced tools of the comparison and dissection of allele names, allele sequences and corresponding antigens, and the construction of customized multi-gene sequence alignments.
 -   Functions that translate allele names, vectors and data frames of allele names, and Genotype List (GL) String Code messages across IPD-IMGT/HLA database release versions, and inter-convert between GL String and UNIFORMAT formats.
 -   Data-analysis tools that extend the utility of Bridging Immunogenomic Data-Analysis Workflow Gaps (BIGDAWG) formatted datasets by performing multiallele and multilocus stratification, calculating Relative Risk measures, and converting BIGDAWG datasets to PyPop datasets.
 
@@ -155,6 +155,42 @@ IMGTGenomicReferences$GenomicReferences[1:3,]
 1   HFE ENSG00000010704.18 CM000668.2 (forward)                 6:26,087,441           HFE*001:01:01                 HFE*001:01:01
 2 HLA-F ENSG00000204642.14 CM000668.2 (forward)                 6:29,723,464           F*01:03:01:01                 F*01:01:01:01
 3 HLA-V ENSG00000181126.13 CM000668.2 (forward)                 6:29,792,234           V*01:01:01:01                 V*01:01:01:01
+```
+
+### Relationships between HLA Alleles and Antigens
+
+The *WMDASerologicalRelationships* data object includes two tables requested by the World Marrow Donor Association (WMDA). The *\$rel_ser_ser* table identifies the relationships between serologically defined HLA antigens -- broad antigens (Broad), split antigens (Split) and associated antigens (Associated) at each HLA locus. The current *\$rel_ser_ser* table is 79 lines long. 
+
+```
+WMDASerologicalRelationships$rel_ser_ser[c(2,31:32,51:52,77,79),]
+   Locus Antigen Split               Associated
+2      A       3                 0301/0305/0323
+31     B      37            3701/3702/3704/3705
+32     B      38                 3801/3803/3806
+51    Cw       3  9/10                         
+52    Cw       4       0401/0403/0408/0410/0427
+77    DR      52                 5201/5202/5203
+79    Dw       7 11/17                         
+```
+
+For each HLA allele in a given IPD-IMGT/HLA Database release, the *\$rel_dna_ser* table identifies its corresponding unambiguous serologic antigen (USA), possible serologic antigens (PSA), assumed serologic antigen (ASA), expert assigned exceptions (Expert), and specificities assigned by HATS (<https://github.com/kosoegawa/HATS>). The current *\$rel_dna_ser* table is 46,652 lines long. HATS data are only present in IPD-IMGT/HLA Database releases 3.64.0 and later.
+
+```
+WMDASerologicalRelationships$rel_dna_ser[c(1,317,854,986,4501,17345,20740,38673,38038,39404,39993,44351,46652),]
+      Locus        Allele USA    PSA    ASA Expert HATS
+1        A*   01:01:01:01   1                         1
+317      A*   01:09:01:01                 1           1
+854      A*  02:01:01:02L     0/0201               0201
+986      A* 02:01:01:134Q            0/0201            
+4501     A*        11:419                11          11
+17345    B*        44:358                44        4402
+20740    C*      01:12:01                 1        1601
+38673 DQB1*        06:361                 6           6
+38038 DQB1*   06:02:01:23   6                         6
+39404 DRB1*         03:08                 3        1107
+39993 DRB1*        04:160                 4            
+44351 DRB5*     01:105:02                51        5101
+46652    Y*         03:01   0                          
 ```
 
 ## Annotation of Pseudogene and Gene Fragment Features
@@ -596,6 +632,162 @@ motifMatch("A*196G~301A~3046T","gen",FALSE)
 motifMatch("A*196G~301A~3046T","gen",TRUE)
 [1] "A*01:09:01:01" "A*01:09:01:02"
 ```
+## Searching the WMDA's rel_dna_ser and rel_ser_ser Tables
+
+The *relDNASerLookup()* function returns a vector of the alleles that share a specific term in a given column of the rel_dna_ser table.
+
+**Parameters**
+
+-   *column*: A character string identifying the column ("USA", "PSA", "ASA", "Expert" or "HATS") in the rel_dna_ser table to lookup alleles that share 'term'. The HATS column is only present in IPD-IMGT/HLA Database releases 3.64.0 and later.
+-   *term*: A character string identifying the antigen, exception or specificity to be looked up in 'column'.
+-   *locus*: A character string identifying a specific locus to return 'term' values in 'column'.
+-   *string*: A boolean identifying the format of the returned object -- an allele vector (FALSE) or a slash-delimited allele string (TRUE). The default is FALSE.
+
+```
+relDNASerLookup("ASA","?","MICA")
+[1] "MICA*002:01:13Q" "MICA*011:01:04Q" "MICA*011:01:15Q" "MICA*105Q"       "MICA*171Q" 
+
+relDNASerLookup("HATS","1105","DRB1",T)
+[1] "DRB1*08:31/DRB1*08:41/DRB1*08:75/DRB1*11:05/DRB1*11:67/DRB1*11:193:01/DRB1*11:193:02/DRB1*11:209/DRB1*12:49"
+```
+
+The *queryRelDNAser()* function enables structured searches of the rel_dna_ser table, returning a data.frame of the terms for a specific allele in the rel_dna_ser antigen, exception and specificity columns. 
+
+**Parameters**
+
+-   *allele*: A colon-delimited HLA allele name. Truncated allele names are translated to the lowest numbered full-length version of that allele in the *alleleListHistory* object. 
+-   *columns*: A character vector identifying the column(s) ("USA", "PSA", "ASA", "Expert" and "HATS") of the rel_dna_ser table to be queried for 'allele'.
+-   *collapse*: A boolean determining if multiple values in a column should be slash-delimited (TRUE), returning a single line, or if lines for each individual value should be returned (FALSE). The default value is FALSE.
+
+```
+queryRelDNASer("B*07:155")
+         USA PSA ASA Expert HATS
+B*07:155           7        0702
+
+queryRelDNASer("B*07:155","HATS")
+         HATS
+B*07:155 0702
+
+queryRelDNASer("DRB1*11:16",collapse = T)
+            Allele USA   PSA ASA Expert HATS
+1 DRB1*11:16:01:01     11/13            1102
+```
+
+The *relSerSerLookup()* function searches the rel_ser_ser table's Antigen, Split or Associated column for a specific term, and returns the corresponding values in the other two columns.
+
+**Parameters**
+
+-   *locus*: A character string identifying a specific locus to return values for. Only one locus can be specified.
+-   *column*: A character string specifying the rel_ser_ser column ("Antigen", "Split", or "Associated") in which to lookup 'term'.
+-   *term*: A number or character string identifying the antigen, exception or specificity to be looked up in 'column'.
+-   *collapse*: A boolean determining if multiple values in a column should be slash-delimited (TRUE), returning a single line, or if lines for each individual value should be returned (FALSE). The default value is FALSE.
+
+```
+relSerSerLookup("Cw","Antigen",8)
+  Locus Antigen Split Associated
+1    Cw       8             0801
+2    Cw       8             0802
+3    Cw       8             0803
+4    Cw       8             0806
+
+relSerSerLookup("Cw","Antigen",8,T)
+  Locus Antigen Split          Associated
+1    Cw       8       0801/0802/0803/0806
+```
+
+## Search, Query and Look-up data in the AlleleStatus data object
+
+The *queryAlleleStatus()* function searches the AlleleStatus table and returns allele status information for a specific allele.
+
+**Parameters**
+
+-   *allele* A 2- to 4-field HLA allele name. If a truncated allele name is provided, values for the lowest-numbered full-length version of that allele will be returned.
+-   *column* A vector identifying the alleleStatus columns ("Cells", "Groups", "Confirmed", "Start", "End", "Partial" and "Type") for which data should be returned. If "all" or "" is specified, data for all columns will be returned. 
+-   *vector* A logical value specifying if a vector should be returned (TRUE), or if a one-line data.frame should be returned (FALSE).
+
+```
+queryAlleleStatus("DRB1*08:07","all")
+           Cells Groups Confirmed Start End Partial Type
+DRB1*08:07    11      6 Confirmed     1 801    Full gDNA
+
+queryAlleleStatus("DQB1*05:07",c("Cells","Type"))
+           Cells Type
+DQB1*05:07     1 cDNA
+```
+
+The *multiQueryAlleleStatus()* function extends *queryAlleleStatus()* to query multiple alleles for the same AlleleStatus columns.
+
+**Parameters**
+
+-   *alleles* A vector of 2- to 4-field HLA allele names, sans "HLA-" prefixes. If truncated allele names are expanded to the lowest-numbered full-length version of that allele.
+-   *column* A vector identifying the 'alleleStatus' columns for which data should be returned ("Cells", "Groups", "Confirmed", "Start", "End", "Partial" and "Type"). If "all" or "" is specified, data for all columns will be returned. The default value is 'all'.
+
+```
+ multiQueryAlleleStatus(c("DQB1*05:07","B*57:01"),c("Cells","Type"))
+         Allele Cells Type
+1    DQB1*05:07     1 cDNA
+2 B*57:01:01:01    10 gDNA
+```
+
+The *alleleStatusLookup()* function identifies alleles that share the same value in a given AlleleStatus table column.
+
+**Parameters**
+
+-    *loci* A character string identifying a specific loci to look up values of term in. If loci is "" or "all", values 'term' for all loci will be looked up. 
+-    *term* A character string identifying the antigen, exception or specificity to be looked up in 'column'.
+-    *column* A character string identifying the desired column ("Cells", "Groups", "Confirmed", "Start", "End", "Partial" or "Type") in the AlleleStatus table in which to look up alleles that share 'term'.
+-    *vector* A boolean identifying the desired returned object -- a vector of alleles (vector = TRUE) or a slash-delimited string of alleles (vector = FALSE). 
+
+```
+ alleleStatusLookup("F","Confirmed","Confirmed")
+ [1] "F*01:01:01:01"  "F*01:01:01:03"  "F*01:01:01:04"  "F*01:01:01:05"  "F*01:01:01:07" 
+ [6] "F*01:01:01:08"  "F*01:01:01:09"  "F*01:01:01:10"  "F*01:01:01:11"  "F*01:01:01:12" 
+[11] "F*01:01:01:13"  "F*01:01:01:14"  "F*01:01:01:17"  "F*01:01:01:18"  "F*01:01:01:19" 
+[16] "F*01:01:01:21"  "F*01:01:01:22"  "F*01:01:01:23"  "F*01:01:01:24"  "F*01:01:01:28" 
+[21] "F*01:01:01:29"  "F*01:01:01:34"  "F*01:01:01:36"  "F*01:01:01:38"  "F*01:01:01:44" 
+[26] "F*01:01:01:46"  "F*01:01:02:01"  "F*01:01:02:03"  "F*01:01:02:05"  "F*01:01:02:06" 
+[31] "F*01:01:02:07"  "F*01:01:02:08"  "F*01:01:02:09"  "F*01:01:02:10"  "F*01:01:02:11" 
+[36] "F*01:01:02:13"  "F*01:01:02:18"  "F*01:01:04"     "F*01:01:05"     "F*01:01:06"    
+[41] "F*01:01:07"     "F*01:02:01:01"  "F*01:02:01:02"  "F*01:03:01:01"  "F*01:03:01:02" 
+[46] "F*01:03:01:03"  "F*01:03:01:05"  "F*01:04:01:01"  "F*01:04:01:02"  "F*01:05:01:01" 
+[51] "F*01:09"        "F*01:11"        "F*01:13N"       "F*01:14:01:01N"
+```
+
+The *alleleStatusSummary()* identifies the unique values in each column of the AlleleStatus table.
+
+**Parameters**
+
+-      *column* A character string identifying the column ("Cells", "Groups", "Confirmed", "Start", "End", "Partial" or "Type") to query.
+
+```
+ alleleStatusSummary("Type")
+[1] "cDNA" "gDNA"
+
+ alleleStatusSummary("Start")
+ [1]   1   3   4   5   7  10  13  15  16  18  19  21  23  25  26  30  34  42  45  46  47  48
+[23]  49  56  60  65  68  70  71  73  74  75  77  83  88  89  94  97  98 100 101 103 105 106
+[45] 107 109 110 112 124 125 133 139 155 191 371
+```
+
+## Look-up genomic reference data data in the genomicReferences data object
+
+The *genomicReferencesLookup()* function identifies genomic data for IMGT Genomic Reference alleles. 
+
+**Parameters**
+
+-      *locus* The gene or genes for which genomic reference data is desired. 
+-      *column* The column or columns to look-up for 'locus'.
+
+```
+genomicReferencesLookup(c("HLA-A","DRB1","DRB9","DQA1","DPA2","HLA-Y"),c("GRCh38.loc","ATG","IMGT.ref"))
+      Gene      GRCh38 Location Start of ATG (Initiator Met) IPD-IMGT/HLA reference allele
+1    HLA-A CM000668.2 (forward)                 6:29,942,554                 A*01:01:01:01
+2 HLA-DRB9 CM000668.2 (reverse)                 6:32,473,232              DRB9*01:01:01:01
+3 HLA-DRB1 CM000668.2 (reverse)                 6:32,578,875              DRB1*01:01:01:01
+4 HLA-DQA1 CM000668.2 (forward)                 6:32,637,459              DQA1*01:01:01:01
+5 HLA-DPA2 CM000668.2 (reverse)                 6:33,091,753              DPA2*01:01:01:01
+6    HLA-Y        Not available                Not available                       Y*01:01
+```
 
 ## Building Custom Alignments
 
@@ -767,7 +959,7 @@ validateGLstring(GLstring,"1.1")
 
 ### GLStoUNI
 
-The *GLStoUNI()* function converts genotype data from GL String format to UNIFORMAT format. Because the [GL String '?' delimiter](https://glstring.org/syntax-1.1.html) has no UNIFORMAT cognate, this function does not support the '?' delimiter or the [GL String v1.1](https://pubmed.ncbi.nlm.nih.gov/37286192) format.
+The *GLStoUNI()* function converts genotype data from GL String format to UNIFORMAT format. Because the [GL String '?' delimiter](https://glstring.org/syntax-1.1.html) has no UNIFORMAT cognate, this function does not support the '?' delimiter or the [GL String v1.1](https://doi.org/10.1111/tan.15126) format.
 
 **Parameters**
 
@@ -963,7 +1155,7 @@ To facilitate testing and experimentation with these functions, the 'sHLAdata' d
 
 ### relRisk
 
-The relRisk() function calculates relative risk (RR) for individual alleles and genotypes in [BIGDAWG-formatted datasets](https://CRAN.R-project.org/package=BIGDAWG/vignettes/BIGDAWG.html#input-data). RR analysis is intended for *non-case-control* datasets. While two subject categories (0 and 1) are required in the **Subject** column of the BIGDAWG-formatted datafile, the categories should *not* be patients and controls. Instead, the categories may be, e.g., two groups of patients with the same disease, where one group has more severe symptoms (coded as 1), and other has mild symptoms (coded as 0). In this case, relRisk() identifies the risk of sefverity associated with a given allele or genotype.
+The relRisk() function calculates relative risk (RR) for individual alleles and genotypes in [BIGDAWG-formatted datasets]( https://github.com/IgDAWG/BIGDAWG/blob/main/vignettes/BIGDAWG.Rmd). RR analysis is intended for *non-case-control* datasets. While two subject categories (0 and 1) are required in the **Subject** column of the BIGDAWG-formatted datafile, the categories should *not* be patients and controls. Instead, the categories may be, e.g., two groups of patients with the same disease, where one group has more severe symptoms (coded as 1), and other has mild symptoms (coded as 0). In this case, relRisk() identifies the risk of sefverity associated with a given allele or genotype.
 
 relRisk() returns a list object of two lists ("alleles" and "genotypes"), each of which contains relative risk, confidence interval and p-value data for the individual alleles and individual genotypes at each locus in a BIGDAWG-formatted non-case-control genotype data frame or tab-delimited text file.
 
@@ -983,7 +1175,7 @@ Column headers in each returned data frame are, Locus, Variant, Status_1, Status
 
 ### BDstrat: Multilocus Allele Stratification for BIGDAWG Datasets
 
-The BDstrat() function divides a [BIGDAWG-formatted](https://CRAN.R-project.org/package=BIGDAWG/vignettes/BIGDAWG.html#input-data)] dataset into two strata, one of which contains all subjects with any of a set of specified alleles, while the other contains all subjects without any of the specified alleles. If the positive-stratum and negative-stratum datasets have sufficient numbers of case and control (or exposed and unexposed) subjects, each stratum can be analyzed via the BIGDAWG package or relRisk(). Sample size is an important consideration when determining how many alleles on which to stratify.
+The BDstrat() function divides a [BIGDAWG-formatted](https://github.com/IgDAWG/BIGDAWG/blob/main/vignettes/BIGDAWG.Rmd)] dataset into two strata, one of which contains all subjects with any of a set of specified alleles, while the other contains all subjects without any of the specified alleles. If the positive-stratum and negative-stratum datasets have sufficient numbers of case and control (or exposed and unexposed) subjects, each stratum can be analyzed via the BIGDAWG package or relRisk(). Sample size is an important consideration when determining how many alleles on which to stratify.
 
 **Parameters**
 
@@ -1008,7 +1200,7 @@ for(i in 1:2) {BIGDAWG(HLA_data.multi.strat[[i]],HLA = TRUE,Run.Tests = "L")}
 
 #### BDtoPyPop : Enabling Population Genetic Analyses of Case and Control Datasets
 
--   BDtoPyPop() converts a [BIGDAWG-formatted](https://CRAN.R-project.org/package=BIGDAWG/vignettes/BIGDAWG.html#input-data) case-control dataset into two [PyPop version 1.\*.\*](http://pypop.org/docs/guide-chapter-usage.html) datasets -- one for all 'case' subjects and one for all 'control' subjects. PyPop datasets can be exported as a pair of ".pop" files for analysis, or can be generated as a list object containing two data frames for additional manipulation before analysis.
+-   BDtoPyPop() converts a [BIGDAWG-formatted](https://github.com/IgDAWG/BIGDAWG/blob/main/vignettes/BIGDAWG.Rmd) case-control dataset into two [PyPop version 1.\*.\*](http://pypop.org/docs/guide-chapter-usage.html) datasets -- one for all 'case' subjects and one for all 'control' subjects. PyPop datasets can be exported as a pair of ".pop" files for analysis, or can be generated as a list object containing two data frames for additional manipulation before analysis.
 
 **Parameters**
 

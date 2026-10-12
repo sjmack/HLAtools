@@ -1,4 +1,4 @@
-#### Compare Allele Sequences v1.0.1 May 29, 2026 
+#### Compare Allele Sequences v1.0.2 AUG 1, 2026 
 
 ################
 ##compareSequences
@@ -10,14 +10,17 @@
 #'@param alignType A character string identifying the type of alignment being searched. Allowed values are "codon","gen", nuc" and "prot". Only one 'alignType' value is permitted.
 #'@param alleles A character vector containing two full-length names for alleles at the two different loci.
 #'
-#'@return A two-row data frame identifying the positions and sequences at which the two alleles differ. E.g., compareLoci(alignType = "gen", alleles = c("B\*07:02:01:01","C\*02:02:02:01")). Positions are nor shared between the two loci, or for which the sequence of either allele is unknown are ignored. 
+#'@return A two-row data frame identifying the positions and sequences at which the two alleles differ. E.g., compareSequences(alignType = "gen", alleles = c("B\*07:02:01:01","C\*02:02:02:01")). Positions are nor shared between the two loci, or for which the sequence of either allele is unknown are ignored. 
 #'
 #'@examples
 #'\dontrun{
 #'compareSequences("gen",c("DPA1*01:03:38:01","DPA1*01:03:38:02"))
 #'compareSequences("prot",c("DRB1*01:01:01:01","DRB3*01:01:02:01"))
 #'compareSequences("prot", c("B*57:01:01:01", "A*24:02:01:01"))
+#'compareSequences("gen",c("C*14:02:01:35","C*14:02:01:19"))
 #'}
+#'
+#'@note Missing data (denoted with '*') in a sequence are not treated as variants.
 #'
 #'@export
 #'
@@ -74,8 +77,8 @@ compareSequences <- function(alignType,alleles) {
   
   combiPair <- combiPair[,noSeq == F]
   combiPair <- combiPair[,combiPair[1,] != combiPair[2,]]
-  
-  if(length(combiPair[,combiPair[1,] != combiPair[2,]]) == 2) {return(paste("There are no differences between", alleles[1], "and", alleles[2], "in the", switch(alignType, "codon" = "codon","nuc" = "nucleotide","prot"="protein","gen"="genomic"), "alignment.",sep=" "))}
+
+  if(length(combiPair) == 2 && is.vector(combiPair)) {return(paste("There are no differences between", alleles[1], "and", alleles[2], "in the", switch(alignType, "codon" = "codon","nuc" = "nucleotide","prot"="protein","gen"="genomic"), "alignment.",sep=" "))}
   
   return(combiPair[,combiPair[1,] != combiPair[2,]])
   

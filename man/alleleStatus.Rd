@@ -9,7 +9,7 @@ This object is built by the updateAlleleStatus() function.}
 \format{
 A list of two elements.
 \itemize{
-\item(AlleleStatus: A data.table describing: 'Cells': the the number of cells the sequence has been identified in; 'Groups': the number of laboratories that have confirmed the allele; 'Confirmed': the allele's status as 'Confirmed' or 'Unconfirmed'; 'Start': the start position for that allele's sequence; 'End': the end position for that allele's sequence; 'Partial': the status of the nucleotide sequence as being either Full or Partial; and 'Type': identifying if the allele's reference sequences is cDNA or gDNA.)
+\item(AlleleStatus: A data.table describing: 'Cells': the number of cells the sequence has been identified in; 'Groups': the number of laboratories that have confirmed the allele; 'Confirmed': the allele's status as 'Confirmed' or 'Unconfirmed'; 'Start': the start position for that allele's sequence; 'End': the end position for that allele's sequence; 'Partial': the status of the nucleotide sequence as being either Full or Partial; and 'Type': identifying if the allele's reference sequences is cDNA or gDNA.)
 \item(version: The IPD-IMGT/HLA Database release version under which these data were generated.)
 }
 }

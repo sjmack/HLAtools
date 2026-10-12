@@ -1,9 +1,35 @@
 ### HLAtools
 
+### version 1.18.0
+- October 12, 2026
+- Removed deprecated 'fill = TRUE' from html_table() calls in extractGenomicReferenceGenes() and extractGeneTypes(). Thanks to Hadley Wickham for the PR.
+
+### version 1.17.0
+- October 4, 2026
+- Added the genomicReferencesLookup() function, for looking up Genomic Reference data for each locus in the IMGTGenomicReferences$GenomicReferences data object. 
+
+### version 1.16.0
+- September 29, 2026
+- Added the queryAlleleStatus(), multiQueryAlleleStatus(), alleleStatusLookup(), alleleStatusSummary() and validationByTranslation() functions, for working with the alleleStatus$AlleleStatus table, with associated updates to package documentation.
+- Updated the URL pointing to information about the BIGDAWG data format to "https://github.com/IgDAWG/BIGDAWG/blob/main/vignettes/BIGDAWG.Rmd" in the documentation for relRisk() and BDstrat(), and in the package vignette.
+
+### version 1.15.0
+- September 19, 2026
+- Added the queryRelDNASer(), relDNASerLookup(), relSerSerLookup(), appendWMDA(), expandAntigenTerms() and flattenTable() functions for working with the WMDASerologicalRelationships$rel_dna_ser and $rel_ser_ser tables.
+
+### version 1.14.0
+- August 11, 2026
+- Added the buildWMDASerRel() function, which generates the WMDASerologicalRelationships object.
+- Added the WMDASerologicalRelationships object to global variables.
+
+### version 1.13.0
+- August 1, 2026
+- Updated compareSequences() to correctly identify cases when there are no differences or one difference between the specified alleles for a given 'alignType'.
+
 ### version 1.12.0
 - July 25-26, 2026
-- Added the alleleSummary data object, identifying key data for each allele in the IPD-IMGT/HLA Database.
-- Added the buildAlleleSummary() function, which generates the alleleSummary object.
+- Added the alleleStatus data object, identifying key data for each allele in the IPD-IMGT/HLA Database, to global variables.
+- Added the buildAlleleStatus() function, which generates the alleleSummary object.
 - Added the 'variant' parameter to customAlign(), enabling exclusion of invariant positions from the returned alignment.
 
 ### version 1.11.0

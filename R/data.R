@@ -201,8 +201,26 @@
 #' @usage data(alleleStatus)
 #' @format A list of two elements.
 #' \itemize{
-#'  \item(AlleleStatus: A data.table describing: 'Cells': the the number of cells the sequence has been identified in; 'Groups': the number of laboratories that have confirmed the allele; 'Confirmed': the allele's status as 'Confirmed' or 'Unconfirmed'; 'Start': the start position for that allele's sequence; 'End': the end position for that allele's sequence; 'Partial': the status of the nucleotide sequence as being either Full or Partial; and 'Type': identifying if the allele's reference sequences is cDNA or gDNA.)
+#'  \item(AlleleStatus: A data.table describing: 'Cells': the number of cells the sequence has been identified in; 'Groups': the number of laboratories that have confirmed the allele; 'Confirmed': the allele's status as 'Confirmed' or 'Unconfirmed'; 'Start': the start position for that allele's sequence; 'End': the end position for that allele's sequence; 'Partial': the status of the nucleotide sequence as being either Full or Partial; and 'Type': identifying if the allele's reference sequences is cDNA or gDNA.)
 #'  \item(version: The IPD-IMGT/HLA Database release version under which these data were generated.)
 #' }
 #'@source https://github.com/ANHIG/IMGTHLA/blob/Latest/Allele_status.txt
 "alleleStatus"
+
+##WMDASerologicalRelationships
+#'Descriptions of relationships between serologically defined HLA antigens and HLA alleles. rel_ser_ser describes relationships between all defined antigens, broad antigens, split antigens and associated antigens. rel_dna_ser describes the known unambiguous, possible or seorlogically equivalent antigen for each HLA allele.
+#'
+#'A list object of three elements -- $rel_ser_ser, $rel_dna_ser and $version
+#'This object is built by the buildWMDASerRel() function.
+#'
+#'@docType data
+#'@name WMDASerologicalRelationships
+#'@usage data(WMDASerologicalRelationships)
+#'@format A list of three elements.
+#' \itemize{
+#'  \item(rel_ser_ser: A data.frame describing: 'Locus': the HLA locus name; 'Antigen': the HLA antigen name; 'Split': the HLA antigen split name; and 'Associated': the associated HLA antigen names.)
+#'  \item(rel_dna_ser: A data.frame describing: 'Locus': the HLA locus name; 'Allele': the HLA allele name; 'USA': the Unambiguous Serological Antigen associated with the allele; 'PSA': the Possible Serological Antigen(s) associated with the allele, with potential for multiple serologies to be reported; 'ASA': the Assumed Serological Antigen associated with the allele; 'Expert': Expert assigned exceptions in search determinants for some registries; and 'HATS': Assigned specificity as calculated by the HATS algorithm for those alleles with a Full or Serotype sequence classification.)
+#'  \item(version: The IPD-IMGT/HLA Database release version under which these data were generated.)
+#' }
+#'@source https://github.com/ANHIG/IMGTHLA/tree/Latest/wmda
+"WMDASerologicalRelationships"

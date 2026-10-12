@@ -25,5 +25,5 @@ HLA_data.single.strat <- BDstrat(sHLAdata,"DRB1*16:02:01:01")
 
 }
 \references{
-\href{https://CRAN.R-project.org/package=BIGDAWG/vignettes/BIGDAWG.html#input-data}{BIGDAWG Data Format}
+\href{https://github.com/IgDAWG/BIGDAWG/blob/main/vignettes/BIGDAWG.Rmd}{BIGDAWG Data Format}
 }

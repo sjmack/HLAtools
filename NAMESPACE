@@ -15,13 +15,17 @@ export(UNtoGL)
 export(addCodonLine)
 export(alignmentFull)
 export(alignmentSearch)
+export(alleleStatusLookup)
+export(alleleStatusSummary)
 export(alleleTrim)
+export(appendWMDA)
 export(atlasFull)
 export(atlasMaker)
 export(buildAlignments)
 export(buildGazetteer)
 export(buildGenomicReferences)
 export(buildIMGTHLAGeneTypes)
+export(buildWMDASerRel)
 export(checkAlignType)
 export(checkSource)
 export(checkVersion)
@@ -30,9 +34,12 @@ export(compareSequences)
 export(convertAny)
 export(countSpaces)
 export(customAlign)
+export(expandAntigenTerms)
 export(expandVersion)
 export(ffN)
+export(flattenTable)
 export(formatHead)
+export(genomicReferencesLookup)
 export(getAlignmentNames)
 export(getField)
 export(getLatestVersion)
@@ -41,6 +48,7 @@ export(multiAlign)
 export(multiAlleleTrim)
 export(multiGLStoUNI)
 export(multiLocusValidation)
+export(multiQueryAlleleStatus)
 export(multiQueryRelease)
 export(multiSearch)
 export(multiTranslateGLstring)
@@ -50,10 +58,14 @@ export(numFields)
 export(parseAlignmentHead)
 export(posSort)
 export(pypopHeaders)
+export(queryAlleleStatus)
 export(queryPositions)
+export(queryRelDNASer)
 export(queryRelease)
 export(redec)
+export(relDNASerLookup)
 export(relRisk)
+export(relSerSerLookup)
 export(repoVersion)
 export(squashVersion)
 export(translateAllele)
@@ -72,29 +84,42 @@ export(validateMotif)
 export(validatePositions)
 export(validateUniformat)
 export(validateVersion)
+export(validationByTranslation)
 export(variantTable)
 export(verifyAllele)
 import(dplyr)
-importFrom(DescTools,IsOdd)
-importFrom(DescTools,StrLeft)
-importFrom(dplyr,"%>%")
-importFrom(dplyr,filter)
+importFrom(DescTools,
+  IsOdd,
+  StrLeft
+)
+importFrom(dplyr,
+  "%>%",
+  case_when,
+  filter
+)
 importFrom(fmsb,riskratio)
-importFrom(rvest,html_elements)
-importFrom(rvest,html_nodes)
-importFrom(rvest,html_table)
-importFrom(rvest,read_html)
+importFrom(rvest,
+  html_elements,
+  html_nodes,
+  html_table,
+  read_html
+)
 importFrom(stats,setNames)
-importFrom(stringr,"%>%")
-importFrom(stringr,fixed)
-importFrom(stringr,str_detect)
-importFrom(stringr,str_replace)
-importFrom(stringr,str_replace_all)
-importFrom(stringr,str_squish)
+importFrom(stringr,
+  "%>%",
+  fixed,
+  str_detect,
+  str_replace,
+  str_replace_all,
+  str_squish
+)
 importFrom(tibble,add_column)
-importFrom(utils,capture.output)
-importFrom(utils,head)
-importFrom(utils,read.table)
-importFrom(utils,tail)
-importFrom(utils,write.table)
+importFrom(utils,
+  capture.output,
+  head,
+  read.csv,
+  read.table,
+  tail,
+  write.table
+)
 importFrom(xfun,numbers_to_words)
