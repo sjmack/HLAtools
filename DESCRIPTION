@@ -16,7 +16,7 @@ Description: A toolkit for the analysis and management of data for genes in the 
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 Imports:
-  DescTools, dplyr, fmsb, rvest, stats, stringr, tibble, utils, xfun
+  DescTools, dplyr, fmsb, rvest (>= 1.0.0), stats, stringr, tibble, utils, xfun
 Depends: 
     R (>= 3.6.0)
 LazyData: true

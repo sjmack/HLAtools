@@ -28,7 +28,7 @@ buildIMGTHLAGeneTypes <- function(){
           df <- url %>% 
           read_html() %>% 
           html_nodes("table") %>% 
-          html_table(fill = T) %>%
+          html_table() %>%
           lapply(., function(x) setNames(x, c("Names", "Equivalent", "Alignments", 
                                         "Molecular Characteristics","Function","Links")))
   

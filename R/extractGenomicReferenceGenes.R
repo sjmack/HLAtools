@@ -26,7 +26,7 @@ buildGenomicReferences <- function() {
           # Extract all HTML tables (currently #2 is the genome reference table)
             tables <- page %>%
              html_elements("table") %>%
-                 html_table(fill = TRUE)
+                 html_table()
     
     genomicRefTab <- as.data.frame(tables[[2]])
     
